@@ -40,6 +40,7 @@ public:
 	bool openDetailedWindow;
 	ThicknessViewerData &viewerData;
 	ThicknessViewer();
+	unsigned operator()(TCreate &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	void operator()(TMouseMove &);

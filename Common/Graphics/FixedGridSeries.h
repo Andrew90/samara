@@ -9,7 +9,7 @@ class FixedGridSeries
 	Tptr SetColorBar;
 //	double &dx;
 //	double &dy;
-	bool GetColorCellDefault(unsigned sensor, unsigned zone, double &data, unsigned &color);
+	bool GetColorCellDefault(unsigned sensor, int zone, double &data, unsigned &color);
 public:
 	int countZones;
 	unsigned sensorCount;

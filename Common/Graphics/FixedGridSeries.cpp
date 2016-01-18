@@ -92,7 +92,7 @@ void FixedGridSeries::OffsetToPixel(WORD &offsX, WORD &offsY, int delta, bool ho
 	}
 }
 //----------------------------------------------------------------
-bool FixedGridSeries::GetColorCellDefault(unsigned sensor, unsigned zone, double &data, unsigned &color)
+bool FixedGridSeries::GetColorCellDefault(unsigned sensor, int zone, double &data, unsigned &color)
 {
 	data = 10.0 / 10 * sensor;
 	color = 0xffff0000;

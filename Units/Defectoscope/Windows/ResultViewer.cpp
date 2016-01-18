@@ -90,6 +90,8 @@ ResultViewer::ResultViewer()
 	, cursorLabel(*this)
 	, viewerData(Singleton<ResultViewerData>::Instance())
 {
+	storedMouseMove.x = 0;
+	storedMouseMove.y = 0;
 	chart.rect.top = 17;
 	
 	chart.minAxesX = 0;
@@ -100,7 +102,7 @@ ResultViewer::ResultViewer()
 	chart.items.get<BarSeries>().SetColorBarHandler(&cursorLabel, &ResultViewer::CursorLabel::GetColorBar);
 
 	chart.items.get<BottomAxesMeters>().minBorder = 0;
-	chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * (App::zonesCount) * App::zone_length;
+	chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * App::zonesCount * App::zone_length;
 }
 //----------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996)
@@ -135,6 +137,7 @@ void ResultViewer::operator()(TSize &l)
 	chart.rect.bottom = l.Height;
 //	label.Draw(g);
 	chart.Draw(g);
+	//storedMouseMove.hwnd = l.hwnd;
 }
 //----------------------------------------------------------------------------------------------------
 void ResultViewer::operator()(TPaint &l)
@@ -184,6 +187,7 @@ void ResultViewer::operator()(TMouseWell &l)
 
 		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+		zprint("~~~~~~~~x %d y %d %d\n", storedMouseMove.x, storedMouseMove.y, l.delta / 120);
 	}
 }
 void ResultViewer::operator()(TKeyDown &l)
@@ -202,3 +206,10 @@ void ResultViewer::Repaint()
 	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------------------------------------------
+unsigned ResultViewer::operator()(TCreate &l)
+{
+	storedMouseMove.hwnd = l.hwnd;
+	storedMouseMove.x = 0;	
+	storedMouseMove.y = WORD(chart.rect.top + 1);
+	return 0;
+}

@@ -136,7 +136,7 @@ void LongViewer::operator()(TMouseWell &l)
 			, 0 == l.flags.lButton 
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-		zprint("~~~~~~~~x %d y %d %d", l.x, l.y, l.delta / 120);
+		zprint("~~~~~~~~x %d y %d %d\n", l.x, l.y, l.delta / 120);
 	}
 }
 //--------------------------------------------------------------------------------------
@@ -150,3 +150,10 @@ void LongViewer::Update()
 	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------------------------------------
+unsigned LongViewer::operator()(TCreate &l)
+{
+	storedMouseMove.hwnd = l.hwnd;
+	storedMouseMove.x = 0;	
+	storedMouseMove.y = WORD(chart.rect.top + 1);
+	return 0;
+}

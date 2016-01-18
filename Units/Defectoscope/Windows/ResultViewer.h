@@ -40,6 +40,7 @@ public:
 	bool openDetailedWindow;
 	ResultViewerData &viewerData;
 	ResultViewer();
+	unsigned operator()(TCreate &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	void operator()(TMouseMove &);

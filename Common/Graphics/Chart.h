@@ -35,7 +35,9 @@ struct PaintGraphics:VGraphics
 
 inline bool InRect(int x, int y, RECT &r)
 {
-	return r.left < x && r.right > x && r.top < y && r.bottom > y;
+	//return r.left < x && r.right > x && r.top < y && r.bottom > y;
+	//return 	r.top < y && (r.right - r.left) > y;
+	return r.top < y && r.bottom > y && (r.right - r.left) > y;
 }
 
 class Chart

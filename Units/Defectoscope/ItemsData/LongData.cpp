@@ -16,7 +16,7 @@ LongViewerData::LongViewerData()
 	currentOffset = 33;
 	for(int sens = 0; sens < App::maxSensorCrossCount; ++sens)
 	{
-		for(unsigned zone = 1; zone < currentOffset - 1; ++zone)
+		for(int zone = 1; zone < currentOffset - 1; ++zone)
 		{
 			t += 0.11;
 			if(t > 3) t = 0;

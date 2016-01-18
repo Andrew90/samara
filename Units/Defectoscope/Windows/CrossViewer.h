@@ -26,7 +26,7 @@ public:
 		TChart &chart;
 		CursorLabel(CrossViewer &);
 		bool Draw(TMouseMove &l, VGraphics &g);
-		bool GetColorBar(unsigned sensor, unsigned zone, double &data, unsigned &color);
+		bool GetColorBar(unsigned sensor, int zone, double &data, unsigned &color);
 	};
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
@@ -38,6 +38,7 @@ public:
 public:
 	CrossViewerData &viewerData;
 	CrossViewer();
+	unsigned operator()(TCreate &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	void operator()(TMouseMove &);

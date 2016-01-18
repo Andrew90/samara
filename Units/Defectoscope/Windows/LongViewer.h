@@ -41,6 +41,7 @@ private:
 	CursorLabel cursorLabel;
 public:
 	LongViewer();
+	unsigned operator()(TCreate &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	void operator()(TMouseMove &);

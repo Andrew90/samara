@@ -66,7 +66,7 @@ namespace {
 			RECT r;
 			GetWindowRect(o->hWnd, &r);
 			p->l.hwnd = o->hWnd;
-			p->l.y = WORD(r.top + 10);
+			p->l.y = WORD(r.top + (r.bottom - r.top) / 2);
 			o->storedMouseMove.x = p->l.x;
 			SendMessage(MESSAGE(p->l));
 		}

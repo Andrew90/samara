@@ -24,10 +24,10 @@ bool CrossViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
-	return (unsigned)x < owner.viewerData.currentOffset;
+	return x < owner.viewerData.currentOffset;
 }
 
-bool CrossViewer::CursorLabel::GetColorBar(unsigned sensor, unsigned zone, double &data, unsigned &color)
+bool CrossViewer::CursorLabel::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
 	data = owner.viewerData.buffer[sensor][zone];
 	color = ConstData::ZoneColor(owner.viewerData.status[sensor][zone]);
@@ -121,6 +121,7 @@ void CrossViewer::operator()(TLButtonDbClk &l)
 //--------------------------------------------------------------------------------
 void CrossViewer::operator()(TMouseWell &l)
 {
+	/*
 	mouseMove = false;
 	if(0 == l.flags.lButton )
 	{
@@ -137,6 +138,22 @@ void CrossViewer::operator()(TMouseWell &l)
 			);
 	}
 	cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+	*/
+	RECT r;
+	GetWindowRect(l.hwnd, &r);
+	if(InRect(l.x, l.y, r))
+	{
+		mouseMove = false;
+	
+		chart.items.get<FixedGridSeries>().OffsetToPixel(
+			storedMouseMove.x
+			, storedMouseMove.y
+			, l.delta / 120
+			, 0 == l.flags.lButton 
+			);
+		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));		
+	}
+	zprint("~~~~~~~~x %d y %d %d %d %d\n", l.x, l.y, l.delta / 120, r.left, r.top);
 }
 //--------------------------------------------------------------------------------------
 void CrossViewer::operator()(TLButtonDown &)
@@ -147,4 +164,12 @@ void CrossViewer::operator()(TLButtonDown &)
 void CrossViewer::Repaint()
 {
 	RepaintWindow(hWnd);
+}
+//------------------------------------------------------------------
+unsigned CrossViewer::operator()(TCreate &l)
+{
+	storedMouseMove.hwnd = l.hwnd;
+	storedMouseMove.x = 0;	
+	storedMouseMove.y = WORD(chart.rect.top + 1);
+	return 0;
 }

@@ -196,6 +196,7 @@ void ThicknessViewer::operator()(TMouseWell &l)
 
 		chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+		zprint("~~~~~~~~x %d y %d %d\n", l.x, l.y, l.delta / 120);
 	}
 }
 void ThicknessViewer::operator()(TKeyDown &l)
@@ -214,3 +215,10 @@ void ThicknessViewer::Repaint()
 	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------------------------------------------
+unsigned ThicknessViewer::operator()(TCreate &l)
+{
+	storedMouseMove.hwnd = l.hwnd;
+	storedMouseMove.x = 0;	
+	storedMouseMove.y = WORD(chart.rect.top + 1);
+	return 0;
+}

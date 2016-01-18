@@ -679,7 +679,7 @@ int Chart::BetweenLeftRight(int x)
 	double dy = deltaDigitY > 1 ? deltaDigitY : 1;
 	x = int((mX - left) / deltaTickX * dx);
 	y = int((bottom - mY) / deltaTickY * dy);
-	xprint("x %d y %d", x, y);
+	xprint("x %d y %d\n", x, y);
  }
  //---------------------------------------------------------------------------------------------
  void FrameDraw(Gdiplus::Graphics &g, RECT &r)
