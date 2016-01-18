@@ -28,9 +28,6 @@
     <Filter Include="Common\Ini">
       <UniqueIdentifier>{44b84c29-e170-431d-a90a-d07157ca7f7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\debug_tools">
-      <UniqueIdentifier>{e7832cfc-06fb-49a4-9741-0886a339220c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common\Base">
       <UniqueIdentifier>{61986a4a-e596-4eb9-a2d6-328fc96bb2b4}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="ItemsData">
       <UniqueIdentifier>{4f93860d-fad8-42a3-a4b6-129cb5b9e97f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\debug_tools">
+      <UniqueIdentifier>{81021721-086c-4727-a1e2-86eb2c8fabd0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +64,6 @@
     </ClCompile>
     <ClCompile Include="App\AppBase.cpp">
       <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
-      <Filter>Common\debug_tools</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp">
       <Filter>Common\window_tool</Filter>
@@ -161,6 +158,9 @@
     <ClCompile Include="..\..\Common\Graphics\EmptyLeftAxes.cpp">
       <Filter>Common\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
+      <Filter>Common\debug_tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -189,9 +189,6 @@
     </ClInclude>
     <ClInclude Include="App\Config.h">
       <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
-      <Filter>Common\debug_tools</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\templates\typelist.hpp">
       <Filter>Common\templates</Filter>
@@ -321,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\EmptyLeftAxes.h">
       <Filter>Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
+      <Filter>Common\debug_tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

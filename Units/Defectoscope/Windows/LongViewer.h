@@ -27,12 +27,14 @@ private:
 		TChart &chart;
 		CursorLabel(LongViewer &);
 		bool Draw(TMouseMove &l, VGraphics &g);
-		bool GetColorBar(unsigned sensor, unsigned zone, double &data, unsigned &color);
+		bool GetColorBar(unsigned sensor, int zone, double &data, unsigned &color);
 	};
 	Gdiplus::Bitmap *backScreen;
 	TChart chart;
 	bool mouseMove;
+public:
 	TMouseMove storedMouseMove;
+private:
 	ColorLabel label;
 	Cursor cursor;
 	LongViewerData &viewerData;

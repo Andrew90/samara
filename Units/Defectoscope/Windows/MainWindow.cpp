@@ -48,15 +48,57 @@ namespace {
 		{
 			RECT r;
 			GetWindowRect(o->hWnd, &r);
-			if(InRect(p->x, p->y, r))
+			if(InRect(p->l.x, p->l.y, r))
 			{
-				p->hwnd = o->hWnd;
-				SendMessage(MESSAGE(*p));
+				p->l.hwnd = o->hWnd;
+				SendMessage(MESSAGE(p->l));
 				return false;
 			}
 			return true;
 		}
 	};
+
+	template<class O, class P>struct __sub_in_rect__
+	{
+		//O == TMouseWell
+		void operator()(O *o, P *p)
+		{
+			RECT r;
+			GetWindowRect(o->hWnd, &r);
+			p->l.hwnd = o->hWnd;
+			p->l.y = WORD(r.top + 10);
+			o->storedMouseMove.x = p->l.x;
+			SendMessage(MESSAGE(p->l));
+		}
+	};
+
+	template<class P>struct __sub_in_rect__<ResultViewer, P>
+	{
+		typedef ResultViewer O;
+		void operator()(O *, P *){}
+	};
+
+	template<class P>struct __in_rect__<ResultViewer, P>
+	{
+		typedef ResultViewer O;
+		bool operator()(O *o, P *p)
+		{
+			RECT r;
+			GetWindowRect(o->hWnd, &r);
+			if(InRect(p->l.x, p->l.y, r))
+			{
+				p->l.hwnd = o->hWnd;
+				SendMessage(MESSAGE(p->l));
+
+				p->l.x = o->storedMouseMove.x;
+				p->l.delta = 0;
+				TL::foreach<MainWindow::viewers_list, __sub_in_rect__>()(&p->owner.viewers, p);
+				return false;
+			}
+			return true;
+		}
+	};
+
 }
 //------------------------------------------------------------------------
 MainWindow::MainWindow()
@@ -157,13 +199,25 @@ void MainWindow::operator()(TDestroy &)
 typedef void(*TptrMess)(void *);
 void MainWindow::operator()(TMessage &m)
 {
-	//if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
+	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
 	dprint(__FUNCTION__);
 }
 //-----------------------------------------------------------------------------
+namespace 
+{
+	struct MainWindowData
+	{
+	  MainWindow &owner;
+	  TMouseWell &l;
+	  MainWindowData(MainWindow &owner, TMouseWell &l)
+	  :	owner(owner)
+	  , l(l)
+	  {}
+	};
+}
 void MainWindow::operator()(TMouseWell &l)
 {
-	TL::find<viewers_list, __in_rect__>()(&viewers, &l);
+	TL::find<viewers_list, __in_rect__>()(&viewers, &MainWindowData(*this, l));
 }
 //--------------------------------------------------------------------------------
 

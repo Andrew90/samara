@@ -25,10 +25,10 @@ bool LongViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
-	return (unsigned)x < owner.viewerData.currentOffset;
+	return x < owner.viewerData.currentOffset;
 }
 
-bool LongViewer::CursorLabel::GetColorBar(unsigned sensor, unsigned zone, double &data, unsigned &color)
+bool LongViewer::CursorLabel::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
 	data = owner.viewerData.buffer[sensor][zone];
 	color = ConstData::ZoneColor(owner.viewerData.status[sensor][zone]);

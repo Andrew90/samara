@@ -31,3 +31,5 @@ _ReSharper*/
 *.opensdf
 *.sdf
 ipch/
+!debug_tools/
+!debug_panel_new/

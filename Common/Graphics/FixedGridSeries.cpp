@@ -225,11 +225,10 @@ void NoOffsetLeftAxes::Draw()
 	double height;
 
 	int maxLen = 0;
-	chart.offsetAxesLeft = leftOffset;//7 + chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
+	chart.offsetAxesLeft = leftOffset;
 
 	chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
 	maxLen += 2;
-	//int x = chart.rect.left + chart.offsetAxesLeft;
 	int x = leftOffset;
 	int bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	chart.g->DrawLine(&pen, x, chart.rect.top + chart.offsetAxesTop, x, bottom);

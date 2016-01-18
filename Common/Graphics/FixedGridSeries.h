@@ -18,7 +18,7 @@ public:
 	void Draw();
 	//void CoordCell(int mX, int mY, int &x, int &y);
 	void OffsetToPixel(WORD &, WORD &, int , bool );
-	template<class T>void SetColorCellHandler(T *t, bool(T::*ptr)(unsigned, unsigned, double &, unsigned &))
+	template<class T>void SetColorCellHandler(T *t, bool(T::*ptr)(unsigned, int, double &, unsigned &))
 	{
 		obj = (TObj *)t;
 		SetColorBar = (Tptr)ptr;
