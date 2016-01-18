@@ -39,7 +39,6 @@ public:
 	Chart &chart;
 	GridSeries(Chart &chart);
 	void Draw();
-	void CoordCell(int mX, int mY, int &x, int &y);
 	template<class T>void SetColorCellHandler(T *t, bool(T::*ptr)(unsigned, unsigned, double &, unsigned &))
 	{
 		obj = (TObj *)t;

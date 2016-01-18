@@ -63,6 +63,7 @@ public:
   int BetweenLeftRight(int); //-1 0 1
   void OffsetToPixelHorizontal(WORD &offsX, int delta);
   void OffsetToPixelVertical(WORD &offsY, int delta);
+  void CoordCell(int mX, int mY, int &x, int &y);
 };
 class LeftAxes
 {

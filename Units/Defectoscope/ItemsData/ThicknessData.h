@@ -4,7 +4,7 @@ class ThicknessViewerData
 {
 public:
 	ThicknessViewerData();	
-	unsigned currentOffset;
+	int currentOffset;
 	double zonesMin[App::zonesCount];
 	double zonesMax[App::zonesCount];
 	char   status[App::zonesCount];

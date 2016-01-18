@@ -28,11 +28,11 @@ void FixedGridSeries::Draw()
 		CombineModeReplace
 		);	
 	double length = chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight;
-	dx = length / countZones;
+//	dx = length / countZones;
 	double left = chart.rect.left + chart.offsetAxesLeft;
 	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	double x;
-	double y = bottom - dy;
+	double y = bottom - chart.deltaDigitY;
 	unsigned color;
 	double data;
 	for(unsigned i = 0; i < sensorCount; ++i)
@@ -40,14 +40,15 @@ void FixedGridSeries::Draw()
 		x = left;
 		for(unsigned j  = 0; j < 60 && (obj->*SetColorBar)(i, j, data, color); ++j)
 		{
-			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)dx, (REAL)dy);
-			x += dx;
+			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)chart.deltaDigitX, (REAL)chart.deltaDigitY);
+			x += chart.deltaDigitY;
 		}
-		y -= dy;
+		y -= chart.deltaDigitY;
 	}
 	chart.g->SetClip(&Region());
 }
 //----------------------------------------------------------------------------
+/*
 void FixedGridSeries::CoordCell(int mX, int mY, int &x, int &y)
 {
 	double left = chart.rect.left + chart.offsetAxesLeft;
@@ -57,6 +58,7 @@ void FixedGridSeries::CoordCell(int mX, int mY, int &x, int &y)
 	y = int((bottom - mY) / dy);
 	xprint("x %d y %d", x, y);
 }
+*/
 //----------------------------------------------------------
 void FixedGridSeries::OffsetToPixel(WORD &offsX, WORD &offsY, int delta, bool horisontalMove)
 {

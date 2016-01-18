@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ThicknessViewer.h"
+#include "ResultViewer.h"
 #include <stdio.h>
 #include "EmptyWindow.h"
 #include "LabelMessage.h"
@@ -8,7 +8,7 @@
 using namespace Gdiplus;
 
 
-ThicknessViewer::CursorLabel::CursorLabel(ThicknessViewer &o)
+ResultViewer::CursorLabel::CursorLabel(ResultViewer &o)
 	: owner(o)
 	, label(o.label)
 	, cursor(o.cursor)
@@ -18,7 +18,7 @@ ThicknessViewer::CursorLabel::CursorLabel(ThicknessViewer &o)
 	label.top = 0;	
 }
 
-bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
+bool ResultViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 {
 	/*
 	char buf[512];
@@ -72,27 +72,15 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	//////////////////////////////////////////test
 }
 
-bool ThicknessViewer::CursorLabel::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)
+bool ResultViewer::CursorLabel::GetColorBar(int zone, double &data, unsigned &color)
 {
-	if(zone)
-	{
-		int i = zone - 1;
-		data_1 = Singleton<ThicknessViewerData>::Instance().zonesMin[i];
-		data_ =  Singleton<ThicknessViewerData>::Instance().zonesMax[i];
-		ColorBar(data_, color1, Singleton<ThicknessViewerData>::Instance().status[i]);
+	int i = zone - 1;
+	ColorBar(data, color, owner.viewerData.status[i]);
 
-		color = color1;
-		unsigned char *x = (unsigned char *) &color;
-		x[0] = unsigned char(3.0 * x[0] / 4);
-		x[1] = unsigned char(3.0 * x[1] / 4);
-		x[2] = unsigned char(3.0 * x[2] / 4);
-		return 0 != Singleton<ThicknessViewerData>::Instance().status[i];
-	}
-	data_ = 0;
-	return true;
+	return zone < owner.viewerData.currentOffset;
 }
 //-----------------------------------------------------------------------------
-ThicknessViewer::ThicknessViewer()
+ResultViewer::ResultViewer()
 	: backScreen(NULL)
 	, chart(backScreen)
 	, cursor(chart)
@@ -100,7 +88,7 @@ ThicknessViewer::ThicknessViewer()
 	, painting(true)
 	, mouseMove(true)
 	, cursorLabel(*this)
-	, viewerData(Singleton<ThicknessViewerData>::Instance())
+	, viewerData(Singleton<ResultViewerData>::Instance())
 {
 	chart.rect.top = 17;
 	
@@ -109,14 +97,14 @@ ThicknessViewer::ThicknessViewer()
 	chart.minAxesY = 0;
 
 	cursor.SetMouseMoveHandler(&cursorLabel, &CursorLabel::Draw);
-	chart.items.get<BarSeriesDouble>().SetColorBarHandler(&cursorLabel, &ThicknessViewer::CursorLabel::GetColorBar);
+	chart.items.get<BarSeries>().SetColorBarHandler(&cursorLabel, &ResultViewer::CursorLabel::GetColorBar);
 
-	//chart.items.get<BottomAxesMeters>().minBorder = 0;
-	//chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * (App::zonesCount) * App::zone_length;
+	chart.items.get<BottomAxesMeters>().minBorder = 0;
+	chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * (App::zonesCount) * App::zone_length;
 }
 //----------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996)
-void ThicknessViewer::operator()(TSize &l)
+void ResultViewer::operator()(TSize &l)
 {
 	if(l.resizing == SIZE_MINIMIZED || 0 == l.Width || 0 == l.Height) return;	
 	
@@ -149,7 +137,7 @@ void ThicknessViewer::operator()(TSize &l)
 	chart.Draw(g);
 }
 //----------------------------------------------------------------------------------------------------
-void ThicknessViewer::operator()(TPaint &l)
+void ResultViewer::operator()(TPaint &l)
 {
 	if(NULL == backScreen) return;
 	PAINTSTRUCT p;
@@ -162,7 +150,7 @@ void ThicknessViewer::operator()(TPaint &l)
 	EndPaint(l.hwnd, &p);
 }
 //-----------------------------------------------------------------------------------------------------
-void ThicknessViewer::operator()(TMouseMove &l)
+void ResultViewer::operator()(TMouseMove &l)
 {
 	if(mouseMove)
 	{
@@ -173,12 +161,12 @@ void ThicknessViewer::operator()(TMouseMove &l)
 	}
 }
 //----------------------------------------------------------------------------------------------------
-void ThicknessViewer::operator()(TLButtonDown &l)
+void ResultViewer::operator()(TLButtonDown &l)
 {
 	mouseMove = false;
 }
 //--------------------------------------------------------------------------
-void ThicknessViewer::operator()(TLButtonDbClk &l)
+void ResultViewer::operator()(TLButtonDbClk &l)
 {
 	mouseMove = true;
 	if(cursor.VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
@@ -186,7 +174,7 @@ void ThicknessViewer::operator()(TLButtonDbClk &l)
 		storedMouseMove.x = l.x;
 	}
 }
-void ThicknessViewer::operator()(TMouseWell &l)
+void ResultViewer::operator()(TMouseWell &l)
 {
 	RECT r;
 	GetWindowRect(l.hwnd, &r);
@@ -194,22 +182,22 @@ void ThicknessViewer::operator()(TMouseWell &l)
 	{
 		mouseMove = false;
 
-		chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
+		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 	}
 }
-void ThicknessViewer::operator()(TKeyDown &l)
+void ResultViewer::operator()(TKeyDown &l)
 {	
 	int offs = VK_RIGHT == l.VirtKey ? -1 : VK_LEFT == l.VirtKey ? 1 : 0;
 	if(offs)
 	{
 		mouseMove = false;
-		chart.OffsetToPixelHorizontal(storedMouseMove.x, offs);
+		chart.items.get<BottomAxesMeters>().OffsetToPixel(storedMouseMove.x, offs);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 	}
 }
 //-----------------------------------------------------------------------------------------------------
-void ThicknessViewer::Repaint()
+void ResultViewer::Repaint()
 {
 	RepaintWindow(hWnd);
 }

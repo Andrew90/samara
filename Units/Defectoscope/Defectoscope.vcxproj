@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\Common\Graphics\Borders.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Chart.cpp" />
     <ClCompile Include="..\..\Common\Graphics\ColorLabel.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\EmptyLeftAxes.cpp" />
     <ClCompile Include="..\..\Common\Graphics\FixedGridSeries.cpp" />
     <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="ItemsData\ConstData.cpp" />
     <ClCompile Include="ItemsData\CrossData.cpp" />
     <ClCompile Include="ItemsData\LongData.cpp" />
+    <ClCompile Include="ItemsData\ResultData.cpp" />
     <ClCompile Include="ItemsData\ThicknessData.cpp" />
     <ClCompile Include="ItemsData\ZonesData.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -109,6 +111,7 @@
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
+    <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
   </ItemGroup>
@@ -123,6 +126,7 @@
     <ClInclude Include="..\..\Common\Graphics\Chart.h" />
     <ClInclude Include="..\..\Common\Graphics\Chart.hpp" />
     <ClInclude Include="..\..\Common\Graphics\ColorLabel.h" />
+    <ClInclude Include="..\..\Common\Graphics\EmptyLeftAxes.h" />
     <ClInclude Include="..\..\Common\Graphics\FixedGridSeries.h" />
     <ClInclude Include="..\..\Common\Graphics\GridChart.h" />
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
@@ -150,6 +154,7 @@
     <ClInclude Include="ItemsData\ConstData.h" />
     <ClInclude Include="ItemsData\CrossData.h" />
     <ClInclude Include="ItemsData\LongData.h" />
+    <ClInclude Include="ItemsData\ResultData.h" />
     <ClInclude Include="ItemsData\ThicknessData.h" />
     <ClInclude Include="ItemsData\ZonesData.h" />
     <ClInclude Include="Resource.h" />
@@ -161,6 +166,7 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
+    <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
   </ItemGroup>

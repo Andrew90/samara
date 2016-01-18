@@ -9,6 +9,7 @@
 #include "ThicknessViewer.h"
 #include "CrossViewer.h"
 #include "LongViewer.h"
+#include "ResultViewer.h"
 
 template<int N>struct TestCheckBoxX
 {
@@ -55,6 +56,7 @@ public:
 		CrossViewer
 		, LongViewer
 		, ThicknessViewer
+		, ResultViewer
 	>::Result viewers_list;
 	TL::Factory<viewers_list> viewers;
 	MainWindow();

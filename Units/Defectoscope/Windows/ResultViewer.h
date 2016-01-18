@@ -2,30 +2,30 @@
 #include "message.h"
 #include "ColorLabel.h"
 #include "Chart.h"
-#include "ThicknessData.h"
+#include "ResultData.h"
 #include "Chart.hpp"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
-#include "GridChart.h"
+#include "EmptyLeftAxes.h"
 
-class ThicknessViewer
+class ResultViewer
 {
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
-		NoOffsetLeftAxes
-		, BottomAxesGrid
-		, BarSeriesDouble
+		EmptyLeftAxes
+		, BottomAxesMeters
+		, BarSeries
 		, FixedGrid		
 	>::Result> TChart;
 	struct CursorLabel
 	{
-		ThicknessViewer &owner;
+		ResultViewer &owner;
 		ColorLabel &label;
 		Cursor &cursor;
 		TChart &chart;
-		CursorLabel(ThicknessViewer &);
+		CursorLabel(ResultViewer &);
 		bool Draw(TMouseMove &, VGraphics &);
-		bool GetColorBar(int , double &, unsigned &, double &, unsigned &);
+		bool GetColorBar(int , double &, unsigned &);
 	};
 	TChart chart;
 	bool mouseMove;
@@ -38,8 +38,8 @@ public:
 	HWND hWnd;
 	TMouseMove storedMouseMove;
 	bool openDetailedWindow;
-	ThicknessViewerData &viewerData;
-	ThicknessViewer();
+	ResultViewerData &viewerData;
+	ResultViewer();
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	void operator()(TMouseMove &);

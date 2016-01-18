@@ -21,7 +21,7 @@ LongViewer::CursorLabel::CursorLabel(LongViewer &o)
 bool LongViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.items.get<FixedGridSeries>().CoordCell(l.x, l.y, x, y);	
+	chart.CoordCell(l.x, l.y, x, y);	
 	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
@@ -83,7 +83,7 @@ void LongViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-	label.Draw(g);
+//	label.Draw(g);
 	chart.Draw(g);
 
 }

@@ -12,7 +12,7 @@ public:
 class LongViewerData
 {
 public:
-    unsigned currentOffset;
+    int currentOffset;
 	double buffer[App::maxSensorCrossCount][App::zonesCount];
 	int status[App::maxSensorCrossCount][App::zonesCount];
 	int offsets[App::zonesCount + 1];

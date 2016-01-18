@@ -152,6 +152,15 @@
     <ClCompile Include="..\..\Common\Graphics\GridChart.cpp">
       <Filter>Common\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\ResultViewer.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsData\ResultData.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\EmptyLeftAxes.cpp">
+      <Filter>Common\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -302,6 +311,15 @@
       <Filter>Common\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\GridChart.h">
+      <Filter>Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ResultViewer.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsData\ResultData.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\EmptyLeftAxes.h">
       <Filter>Common\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

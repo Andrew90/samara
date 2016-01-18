@@ -4,7 +4,7 @@
 class CrossData
 {
 public:
-	unsigned currentOffset;
+	int currentOffset;
 	double buffer[App::maxSensorCrossCount][App::adcBufferLength];
 	void Start();
 };
@@ -12,7 +12,7 @@ public:
 class CrossViewerData
 {
 public:
-    unsigned currentOffset;
+    int currentOffset;
 	double buffer[App::maxSensorCrossCount][App::zonesCount];
 	int status[App::maxSensorCrossCount][App::zonesCount];
 	int offsets[App::zonesCount + 1];

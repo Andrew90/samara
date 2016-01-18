@@ -16,7 +16,7 @@ public:
 	Chart &chart;
 	FixedGridSeries(Chart &chart);
 	void Draw();
-	void CoordCell(int mX, int mY, int &x, int &y);
+	//void CoordCell(int mX, int mY, int &x, int &y);
 	void OffsetToPixel(WORD &, WORD &, int , bool );
 	template<class T>void SetColorCellHandler(T *t, bool(T::*ptr)(unsigned, unsigned, double &, unsigned &))
 	{

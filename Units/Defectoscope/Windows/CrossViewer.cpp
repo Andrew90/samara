@@ -13,14 +13,14 @@ CrossViewer::CursorLabel::CursorLabel(CrossViewer &o)
 	, cursor(o.cursor)
 	, chart(o.chart)
 {
-	label.fontHeight = 10;
-	label.top = 2;	
+	label.fontHeight = 12;
+	label.top = 0;
 }
 
 bool CrossViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.items.get<FixedGridSeries>().CoordCell(l.x, l.y, x, y);	
+	chart.CoordCell(l.x, l.y, x, y);	
 	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
@@ -47,9 +47,7 @@ CrossViewer::CrossViewer()
 	chart.maxAxesY = 1 + App::maxSensorCrossCount;
 	chart.minAxesX = 0;
 	chart.maxAxesX = App::zonesCount;
-	cursor.SetMouseMoveHandler(&cursorLabel, &CrossViewer::CursorLabel::Draw);
-	label.fontHeight = 12;
-	label.top = 0;
+	cursor.SetMouseMoveHandler(&cursorLabel, &CrossViewer::CursorLabel::Draw);	
 	chart.rect.top = 17;
 	mouseMove = true;
 	chart.items.get<FixedGridSeries>().SetColorCellHandler(&cursorLabel, &CrossViewer::CursorLabel::GetColorBar);
@@ -83,7 +81,7 @@ void CrossViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-	label.Draw(g);
+//	label.Draw(g);
 	chart.Draw(g);
 
 }

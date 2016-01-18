@@ -3,16 +3,7 @@
 #include <limits>
 #include "Chart.h"
 #include "AppConst.h"
-
-
-//#include "Debug1730.h"
 #include "DebugMess.h"
-#ifdef XDEBUG
-#define dprint debug.print
-#else
-#define dprint
-#endif
-
 using namespace Gdiplus;
 const int COLOR_AXES = 0xff777777;
 const int COLOR_AXES_FONT = 0xff000033;
@@ -679,6 +670,17 @@ int Chart::BetweenLeftRight(int x)
 	int offsMax = rect.bottom - offsetAxesBottom;
 	if(offsMax <= offsY)offsY = WORD(offsMax - dY / 2);
 }
+ //--------------------------------------------------------------------
+ void Chart::CoordCell(int mX, int mY, int &x, int &y)
+ {
+	double left = rect.left + offsetAxesLeft;
+	double bottom = rect.bottom - offsetAxesBottom;
+	double dx = deltaDigitX > 1 ? deltaDigitX : 1;
+	double dy = deltaDigitY > 1 ? deltaDigitY : 1;
+	x = int((mX - left) / deltaTickX * dx);
+	y = int((bottom - mY) / deltaTickY * dy);
+	xprint("x %d y %d", x, y);
+ }
  //---------------------------------------------------------------------------------------------
  void FrameDraw(Gdiplus::Graphics &g, RECT &r)
  {

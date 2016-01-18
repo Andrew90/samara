@@ -7,6 +7,7 @@
 
 #include "DebugMess.h"
 namespace {
+	static const int resultViewerHeight = 100;
 	struct __move_window_data__
 	{
 		int y, width, height;
@@ -17,6 +18,16 @@ namespace {
 		{
 			MoveWindow(o->hWnd , 0, p->y, p->width, p->height, true);
 			p->y += p->height;
+		}
+	};
+
+	template<class P>struct __move_window__<ResultViewer, P>
+	{
+		typedef ResultViewer O;
+		void operator()(O *o, P *p)
+		{
+			MoveWindow(o->hWnd , 0, p->y, p->width, resultViewerHeight, true);
+			//p->y += resultViewerHeight;
 		}
 	};
 	
@@ -74,7 +85,7 @@ void MainWindow::operator()(TSize &m)
 
 	static const int topLabelHeight = 28;
 	int y = rt.bottom - rt.top - 1;
-	int t = (r.bottom - rs.bottom - rt.bottom + rt.top + 2 - topLabelHeight);
+	int t = r.bottom - rs.bottom - rt.bottom + rt.top + 2 - topLabelHeight - resultViewerHeight;
 	MoveWindow(topLabelViewer.hWnd , 0, y, r.right, topLabelHeight, true);
 	y += topLabelHeight;
 	t /= 3;
@@ -152,7 +163,7 @@ void MainWindow::operator()(TMessage &m)
 //-----------------------------------------------------------------------------
 void MainWindow::operator()(TMouseWell &l)
 {
-//	TL::find<viewers_list, __in_rect__>()(&viewers, &l);
+	TL::find<viewers_list, __in_rect__>()(&viewers, &l);
 }
 //--------------------------------------------------------------------------------
 
