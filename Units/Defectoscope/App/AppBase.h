@@ -218,7 +218,7 @@ struct ACFBorderTable
 	 typedef TL::MkTlst<		
 		 PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
 	 >::Result items_list;
-	 typedef NullType unique_list;
+	// typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
 	 const wchar_t *name(){return L"SignalParametersTable";}
@@ -291,6 +291,49 @@ DEFINE_PARAM_ID(BorderCredibilityTable	   , int, 1)
 	const wchar_t *name(){return L"ParametersTable";}
  };
 //--------------------------------------------------------------------------------------------------------
+DEFINE_PARAM(SQ0            , unsigned, 1 << 0)
+DEFINE_PARAM(SQ1            , unsigned, 1 << 1)
+DEFINE_PARAM(SQ2            , unsigned, 1 << 2)
+DEFINE_PARAM(SQ3            , unsigned, 1 << 3)
+DEFINE_PARAM(SQ4            , unsigned, 1 << 4)
+
+struct InputBitTable
+ {
+	typedef TL::MkTlst<
+		SQ0, SQ1, SQ2, SQ3, SQ4
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"InputBitTable";}
+ };
+
+DEFINE_PARAM(Y0            , unsigned, 1 << 0)
+DEFINE_PARAM(Y1            , unsigned, 1 << 1)
+DEFINE_PARAM(Y2            , unsigned, 1 << 2)
+DEFINE_PARAM(Y3            , unsigned, 1 << 3)
+DEFINE_PARAM(Y4            , unsigned, 1 << 4)
+
+struct OutputBitTable
+ {
+	typedef TL::MkTlst<
+		Y0, Y1, Y2, Y3, Y4
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"OutputBitTable";}
+ };
+
+ DEFINE_PARAM(Handle1730, unsigned, 1)
+struct Handle1730Table
+ {
+	typedef TL::MkTlst<
+		Handle1730
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"Handle1730Table";}
+ };
+ //--------------------------------------------------------------------------------------------------------
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
@@ -303,6 +346,9 @@ DEFINE_PARAM_ID(BorderCredibilityTable	   , int, 1)
 		 , ColorTable
 		 , MedianFilterTable
 		 , ACFBorderTable
+		 , InputBitTable
+		 , OutputBitTable
+		 , Handle1730Table
 	 >::Result one_row_table_list;
 
 	 typedef TL::MkTlst<
@@ -358,11 +404,6 @@ template<class T>void UpdateId(CBase &base, int num)
    Select<CurrentParametersTable>(base).ID(1).Execute(current);
    Update<ParametersTable>(base).set<T>(num).Where().ID(current.items.get<CurrentID>().value).Execute();
 }
-
-//template<class T>struct Singleton
-//{
-//	static T& Instance(){static T x; return x;}
-//};
 
 
 

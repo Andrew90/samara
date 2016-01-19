@@ -46,6 +46,18 @@
     <Filter Include="Common\debug_tools">
       <UniqueIdentifier>{81021721-086c-4727-a1e2-86eb2c8fabd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Device">
+      <UniqueIdentifier>{f2597dff-a03e-4df4-85ae-9c92382b3c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Device\1730">
+      <UniqueIdentifier>{b8abe1ef-9717-42f3-89ad-c94d2772edfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Device\1730\Inc">
+      <UniqueIdentifier>{61d511fa-c1a7-4eaf-8ff9-67391428d189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Automat">
+      <UniqueIdentifier>{d6c7c9ca-b6e7-487b-9aff-30e4195deb4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -160,6 +172,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
       <Filter>Common\debug_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\1730\Device1730.cpp">
+      <Filter>Common\Device\1730</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\Automat.cpp">
+      <Filter>Automat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +339,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
       <Filter>Common\debug_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\Device1730.h">
+      <Filter>Common\Device\1730</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h">
+      <Filter>Common\Device\1730\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\Automat.h">
+      <Filter>Automat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,8 @@ public:
 	static const int adcBufferLength = 10000 * 60;
 	static const int zone_length = 200;
 	static HANDLE ProgrammExitEvent;
+	static HANDLE ProgrammContinueEvent;
+	static HANDLE ProgrammStopEvent;
 public:
 	MainWindow &mainWindow;
 public:
