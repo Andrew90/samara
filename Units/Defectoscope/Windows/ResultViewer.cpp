@@ -187,7 +187,7 @@ void ResultViewer::operator()(TMouseWell &l)
 
 		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-		zprint("~~~~~~~~x %d y %d %d\n", storedMouseMove.x, storedMouseMove.y, l.delta / 120);
+		//zprint("~~~~~~~~x %d y %d %d\n", storedMouseMove.x, storedMouseMove.y, l.delta / 120);
 	}
 }
 void ResultViewer::operator()(TKeyDown &l)

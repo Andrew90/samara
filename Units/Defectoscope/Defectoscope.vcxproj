@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -80,6 +80,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\ParamDlg.cpp" />
     <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Borders.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Chart.cpp" />
@@ -101,6 +104,7 @@
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\Automat.cpp" />
     <ClCompile Include="Defectoscope.cpp" />
+    <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
     <ClCompile Include="ItemsData\CrossData.cpp" />
     <ClCompile Include="ItemsData\LongData.cpp" />
@@ -125,6 +129,13 @@
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
     <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgTemplate.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg_templates.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\EditDlg.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp" />
     <ClInclude Include="..\..\Common\Graphics\BarSeries.h" />
     <ClInclude Include="..\..\Common\Graphics\Borders.h" />
     <ClInclude Include="..\..\Common\Graphics\Chart.h" />
@@ -156,6 +167,7 @@
     <ClInclude Include="App\AppConst.h" />
     <ClInclude Include="App\Config.h" />
     <ClInclude Include="Automat\Automat.h" />
+    <ClInclude Include="Dialogs\Dialogs.h" />
     <ClInclude Include="ItemsData\ConstData.h" />
     <ClInclude Include="ItemsData\CrossData.h" />
     <ClInclude Include="ItemsData\LongData.h" />

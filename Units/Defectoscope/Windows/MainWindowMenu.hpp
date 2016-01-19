@@ -1,6 +1,7 @@
 #pragma once
 #include "config.h"
 #include "WindowsPosition.h"
+#include "Dialogs.h"
 namespace MainWindowMenu
 {
 	struct MainFile{};
@@ -38,7 +39,6 @@ namespace MainWindowMenu
 							 						
 	struct MainCreateTypesize{static void Do(HWND h){zprint("");}};
 	struct MainDeleteTypeSize{static void Do(HWND h){zprint("");}};
-	struct WindowPosition    {static void Do(HWND h){zprint("");}};
 	
     MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
@@ -46,7 +46,6 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Скорость вращения", RotationalSpeed)
 	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
 	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
-	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
 
 	template<>struct TopMenu<MainOptionTypeSize>
 	{
@@ -58,20 +57,32 @@ namespace MainWindowMenu
 			, Separator<0>
 			, MenuItem<MainCreateTypesize>
 			, MenuItem<MainDeleteTypeSize>
-			, Separator<1>
-			, MenuItem<WindowPosition>
 		>::Result list;
 	 };
-	//-------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------
 	struct Options{};
-	MENU_TEXT(L"Установка", TopMenu<Options>)
+	MENU_TEXT(L"Настройки", TopMenu<Options>)
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+
+	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
+
+	template<>struct TopMenu<Options>
+	{
+		typedef TL::MkTlst<
+			MenuItem<WindowPosition>			
+		>::Result list;		
+	};
+	//-------------------------------------------------------------------------------------------------------
+	struct Setting{};
+	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	struct AnalogPlate            {static void Do(HWND h){zprint("");}};
 	struct DiscretePlate	      {static void Do(HWND h){zprint("");}};
-	struct DiscretePlateInputs    {static void Do(HWND h){zprint("");}};
-	struct DiscretePlateOutputs   {static void Do(HWND h){zprint("");}};
+	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
+	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct ColorItems             {static void Do(HWND h){zprint("");}};
-	struct DiscretePlateDescriptor{static void Do(HWND h){zprint("");}};
+	struct DiscretePlateDescriptor: Descriptor1730Dlg{};//{static void Do(HWND h){zprint("");}};
 	struct Coefficient            {static void Do(HWND h){zprint("");}};
 	struct MedianFiltre           {static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
@@ -96,7 +107,7 @@ namespace MainWindowMenu
 		>::Result list;
 	};
 
-	template<>struct TopMenu<Options>
+	template<>struct TopMenu<Setting>
 	{
 		typedef TL::MkTlst<
 			MenuItem<AnalogPlate>
@@ -152,6 +163,7 @@ namespace MainWindowMenu
 		TopMenu<MainFile>
 		, TopMenu<MainOptionTypeSize>
 		, TopMenu<Options>
+		, TopMenu<Setting>
 		, TopMenu<MainAbout>
 	>::Result MainMenu;	
 	}

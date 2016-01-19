@@ -21,6 +21,7 @@ App::App()
 
 void App::Init()
 {
+	AppBase().Init();
 	App::ProgrammExitEvent		= CreateEvent(NULL, FALSE, TRUE, NULL);
 	App::ProgrammContinueEvent	= CreateEvent(NULL, FALSE, TRUE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -28,7 +29,7 @@ void App::Init()
 	WindowPosition::Get<MainWindow>(r);
 	HWND h = WindowTemplate(&mainWindow, L"Дефектоскоп \"Буран 9000\"", r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
-	if(!device1730.Init(Singleton<Handle1730Table>::Instance().items.get<Handle1730>().value))
+	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
 	{
 		MessageBox(h, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);
 		return;

@@ -323,15 +323,15 @@ struct OutputBitTable
 	const wchar_t *name(){return L"OutputBitTable";}
  };
 
- DEFINE_PARAM(Handle1730, unsigned, 1)
-struct Handle1730Table
+ DEFINE_PARAM(Descriptor1730, unsigned, 1)
+struct Descriptor1730Table
  {
 	typedef TL::MkTlst<
-		Handle1730
+		Descriptor1730
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
-	const wchar_t *name(){return L"Handle1730Table";}
+	const wchar_t *name(){return L"Descriptor1730Table";}
  };
  //--------------------------------------------------------------------------------------------------------
  struct ParametersBase
@@ -348,19 +348,19 @@ struct Handle1730Table
 		 , ACFBorderTable
 		 , InputBitTable
 		 , OutputBitTable
-		 , Handle1730Table
+		 , Descriptor1730Table
 	 >::Result one_row_table_list;
 
 	 typedef TL::MkTlst<
-		 CurrentParametersTable		 
+		  CurrentParametersTable		 
 		 , ParametersTable			   
 		 , ThresholdsTable			  
 		 , DeadAreaTable				  
 		 , BorderCredibilityTable	 
-	 >::Result password_typesize_multy_row_table_list;
+	 >::Result multy_row_table_list;
 
 	 typedef TL::MkTlst<
-		  password_typesize_multy_row_table_list
+		  multy_row_table_list
 		 , one_row_table_list
 	 >::Result multy_type_list; 
 

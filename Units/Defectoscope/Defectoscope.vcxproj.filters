@@ -58,6 +58,12 @@
     <Filter Include="Automat">
       <UniqueIdentifier>{d6c7c9ca-b6e7-487b-9aff-30e4195deb4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\Dialogs">
+      <UniqueIdentifier>{2c66c7cc-3b0f-41a6-bc2c-cb4f89a27536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Dialogs\DlgTemplates">
+      <UniqueIdentifier>{1a7121cf-4b41-43ab-bdb4-fe653aa2cfb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -178,6 +184,18 @@
     </ClCompile>
     <ClCompile Include="Automat\Automat.cpp">
       <Filter>Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\DlgTemplates\ParamDlg.cpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\InputOutputDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +366,30 @@
     </ClInclude>
     <ClInclude Include="Automat\Automat.h">
       <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg_templates.h">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgTemplate.hpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\EditDlg.h">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp">
+      <Filter>Windows\Dialogs\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\Dialogs.h">
+      <Filter>Windows\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
