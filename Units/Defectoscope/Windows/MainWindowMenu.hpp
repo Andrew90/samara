@@ -37,8 +37,8 @@ namespace MainWindowMenu
 	struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
-	struct MainCreateTypesize{static void Do(HWND h){zprint("");}};
-	struct MainDeleteTypeSize{static void Do(HWND h){zprint("");}};
+	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
+	struct MainDeleteTypeSize: DelTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
 	
     MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)

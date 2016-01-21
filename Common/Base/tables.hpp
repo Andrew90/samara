@@ -27,6 +27,7 @@ template<int COUNT = 128>struct Holder
 		return *this;
 	}
 	operator wchar_t *(){return buffer;}
+	//wchar_t &operator[](int i){return buffer[i];}
 };
 
 template<int COUNT = 128>struct CharHolder
@@ -47,6 +48,7 @@ template<int COUNT = 128>struct CharHolder
 		return *this;
 	}
 	operator char *(){return buffer;}
+	//char &operator[](int i){return buffer[i];}
 };
 
 template<class T>struct len
@@ -724,7 +726,7 @@ template<typename Table>struct Select
 			while (!rec->EndOfFile) 
 			{
 				TL::foreach<Table::items_list, set_to_>()(&table.items, rec.GetInterfacePtr());
-				Proc<Table, Data>()(table, d);
+				if(Proc<Table, Data>()(table, d)) return true;
 				rec->MoveNext(); 
 			}
 			return true;

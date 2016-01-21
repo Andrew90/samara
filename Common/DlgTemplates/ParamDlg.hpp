@@ -483,6 +483,14 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 		return hWnd;
 	}
 };
+
+template<class T>struct EmptySubItem
+{
+	HWND Init(HWND h, int &width, int &dy, T &t)
+	{		
+		return 0;
+	}
+};
 //---------------------------------------------------------------------------
 //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -505,3 +513,5 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 {\
 	template<class P>bool operator()(Wapper<n> *, P *){return true;}\
 };
+
+#define NO_USED_MENU_ITEM(name)template<>struct DlgSubItems<name, typename name::type_value>: EmptySubItem<name>{};

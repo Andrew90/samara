@@ -12,7 +12,6 @@ struct CurrentParametersTable
 	typedef TL::MkTlst<
 		CurrentID
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"CurrentParametersTable";}
@@ -29,7 +28,6 @@ struct ThresholdsTable
 		Border2Class
 		, BorderDefect
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"ThresholdsTable";}
@@ -45,7 +43,6 @@ struct DifferentOptionsTable
 		CommunicationRemoveUnit
 		, CounterTubesStored
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"DifferentOptionsTable";}
@@ -62,7 +59,6 @@ struct GraphicSignalOptionsTable
 		, MaxAxesY
 		, MinAxesY
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"GraphicSignalOptionsTable";}
@@ -73,7 +69,6 @@ struct PointsOptionsTable
 		MaxAxesY
 		, MinAxesY
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"PointsOptionsTable";}
@@ -103,7 +98,6 @@ struct ColorTable
 		, Undefined
 		, DeathZone
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"ColorTable";}
@@ -122,7 +116,6 @@ struct BorderCredibilityTable
 		MinimumThicknessPipeWall
 		, MaximumThicknessPipeWall
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"BorderCredibilityTable";}
@@ -148,7 +141,6 @@ struct AdditionalSettingsTable
 		, RemoveSensorDelay
 		, FrequencyFrames
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"AdditionalSettingsTable";}
@@ -162,21 +154,19 @@ struct ACFBorderTable
 		ACFBorderLeft
 		, ACFBorderRight
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"ACFBorderTable";}
 };
 //-----------------------------------------------------------------------------------------------------
- DEFINE_PARAM(DeadAreaMM0, int, 50)
- DEFINE_PARAM(DeadAreaMM1, int, 50)
+ DEFINE_PARAM(DeadAreaMM0, int, 200)
+ DEFINE_PARAM(DeadAreaMM1, int, 200)
  struct DeadAreaTable
  {
 	typedef TL::MkTlst<
 		DeadAreaMM0
 		, DeadAreaMM1
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"DeadAreaTable";}
@@ -188,7 +178,6 @@ struct ACFBorderTable
 	 typedef TL::MkTlst<
 		 MedianFilter
 	 >::Result items_list;
-	 typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
 	 const wchar_t *name(){return L"MedianFilterTable";}
@@ -218,7 +207,6 @@ struct ACFBorderTable
 	 typedef TL::MkTlst<		
 		 PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
 	 >::Result items_list;
-	// typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
 	 const wchar_t *name(){return L"SignalParametersTable";}
@@ -256,7 +244,6 @@ struct ACFBorderTable
 	//	 , CoefficientA<6>
 	//	 , CoefficientB<6>
 	 >::Result items_list;
-	 typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
 	 const wchar_t *name(){return L"CoefficientParametersTable";}
@@ -268,7 +255,6 @@ struct ACFBorderTable
 	 typedef TL::MkTlst<
 		 NamePlate1730
 	 >::Result items_list;
-	 typedef NullType unique_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
 	 const wchar_t *name(){return L"NamePlate1730ParametersTable";}
@@ -285,7 +271,6 @@ DEFINE_PARAM_ID(BorderCredibilityTable	   , int, 1)
 		, ID<BorderCredibilityTable	   	>
 		, NameParam
 	>::Result items_list;
-	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"ParametersTable";}
@@ -374,6 +359,7 @@ struct Descriptor1730Table
 struct AppBase
 {
 	void Init();
+	static void InitTypeSizeTables(CBase &);
 };
 
 template<class T>int CurrentId(CBase &base)
@@ -404,6 +390,8 @@ template<class T>void UpdateId(CBase &base, int num)
    Select<CurrentParametersTable>(base).ID(1).Execute(current);
    Update<ParametersTable>(base).set<T>(num).Where().ID(current.items.get<CurrentID>().value).Execute();
 }
+
+
 
 
 

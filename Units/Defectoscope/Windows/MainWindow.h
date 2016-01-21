@@ -1,5 +1,5 @@
 #pragma once
-//#include "SelectTypeSize.h"
+#include "SelectTypeSizeList.h"
 #include <windows.h>
 #include "message.h"
 #include "TopLabelViewer.h"
@@ -52,6 +52,7 @@ public:
 	CheckBoxWidget<TestCheckBoxX<1> > testCheckBox1;
 	CheckBoxWidget<TestCheckBoxX<2> > testCheckBox2;
 	TopLabelViewer topLabelViewer;
+	SelectTypeSizeList select;
 	typedef TL::MkTlst<
 		CrossViewer
 		, LongViewer

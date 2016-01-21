@@ -117,7 +117,7 @@ void InputsDlg::Do(HWND h)
 {
 	InputBitTable t;
 	TL::foreach<InputBitTable::items_list, __compress_bits__>()(&t.items, &Singleton<InputBitTable>::Instance().items);
-	if(TemplDialog<InputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn/*, DefaultBtn*/>::Result>(t).Do(h, L"Смещения бит входного порта"))
+	if(TemplDialog<InputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Смещения бит входного порта"))
 	{
 	}
 }

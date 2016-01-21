@@ -117,9 +117,9 @@ void MainWindow::operator()(TSize &m)
 	RECT r;
 	GetClientRect(m.hwnd, &r);	
 
-	static const int width = 400;
-//	static const int width = toolBar.Width();
-//	select.Size(width, 5, 400);
+//	static const int width = 400;
+	static const int width = toolBar.Width();
+	select.Size(width, 5, 400);
 
 	testCheckBox0.Size(width + 525, 52, 200, 20);
 	testCheckBox1.Size(width, 52, 525, 20);
@@ -158,7 +158,7 @@ unsigned MainWindow::operator()(TCreate &m)
 	Menu<MainWindowMenu::MainMenu>().Init(m.hwnd);
 //
 	toolBar.Init(m.hwnd);
-//	select.Create(toolBar.hWnd);
+	select.Create(toolBar.hWnd);
 //
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {550,900, 3000};

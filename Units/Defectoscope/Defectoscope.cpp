@@ -4,14 +4,6 @@
 #include <commctrl.h>
 #include "Base.hpp"
 #include "App.h"
-//#include "Window\MainWindow.h"
-//#include "EmptyWindow.h"
-//
-//#include "DebugMess.h"
-//#include "GlobalItems.h"
-//#include "CommonTcp.h"
-//#include "WindowsPosition.h"
-
 
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
@@ -24,7 +16,7 @@
 #endif
 
 HINSTANCE hInstance;	
-wchar_t *typeWindow = L"solid_group_150605";
+wchar_t *typeWindow = L"Buran9000_Defectoscope_160120";
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
@@ -49,8 +41,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	Gdiplus::GdiplusStartupInput gdiplusStartupInput;    
 	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 //--------------------------------------------------------------------
-//D:\work\Buran9000\Common\Base\Base.hpp
-//D:\work\Buran9000\Units\Defectoscope\Defectoscope.cpp
 	Initialize initialize;
 	
 	App app;

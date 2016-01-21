@@ -14,7 +14,61 @@ template<class O, class P>struct row_table
 		Select<O>(*p).ID(1).Execute(o);
 	}
 };
+
+void DPrint(double d){dprint("%f", d);}
+void DPrint(int d){dprint("%d", d);}
+template<int N>void DPrint(Holder<N> &d){dprint("%S", (wchar_t *)d);}
+	template<class O, class P>struct __default_param__
+	{
+		void operator()(O *o, P *)
+		{
+		   dprint(__FUNCTION__" ");
+		   Singleton<O>::Instance().value = o->value;
+		   DPrint(o->value);
+		}
+	};	
+	template<class X, class P>struct __default_param__<ID<X>, P>
+	{
+		typedef ID<X> O;
+		void operator()(O *o, P *base)
+		{
+			X &x = Singleton<X>::Instance();
+		    Select<X>(*base).ID(o->value).Execute(x);
+			TL::foreach<typename X::items_list, __default_param__XXX>()(&x.items, base);
+		}
+	};
+	template<class O, class P>struct __default_param__XXX
+	{
+		void operator()(O *o, P *)
+		{
+		   dprint(__FUNCTION__" ");
+		   Singleton<O>::Instance().value = o->value;
+		   DPrint(o->value);
+		}
+	};	
+	template<class X, class P>struct __default_param__XXX<ID<X>, P>
+	{
+		typedef ID<X> O;
+		void operator()(O *o, P *base)
+		{
+			X &x = Singleton<X>::Instance();
+		    Select<X>(*base).ID(o->value).Execute(x);
+			TL::foreach<typename X::items_list, __default_param__>()(&x.items, base);
+		}
+	};
 }
+
+void AppBase::InitTypeSizeTables(CBase &base)
+{
+	CurrentParametersTable x;
+	Select<CurrentParametersTable>(base).ID(1).Execute(x);
+	ParametersTable	p;
+	Select<ParametersTable>(base).ID(x.items.get<CurrentID>().value).Execute(p);
+	TL::foreach<typename ParametersTable::items_list, __default_param__>()(&p.items, &base);
+
+	Singleton<CurrentID>::Instance().value = x.items.get<CurrentID>().value;
+}
+
 void AppBase::Init()
 {
 	ParametersBase parameters;
@@ -26,6 +80,8 @@ void AppBase::Init()
 	if(base.IsOpen())
 	{
 		TL::foreach<ParametersBase::one_row_table_list, row_table>()((TL::Factory<ParametersBase::one_row_table_list> *)0, &base);
+
+		InitTypeSizeTables(base);
 	}
 }
 //------------------------------------------------------------------------

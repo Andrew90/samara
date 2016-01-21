@@ -19,6 +19,7 @@ public:
 };
 //-------------------------------------------------------------------
 #define DLG(n)struct n{static void Do(HWND);};
+/*
 struct AboutWindow
 {
 	static void Do(HWND);
@@ -99,11 +100,16 @@ struct ManagementIOportsDlg
 	static void Do(HWND h);
 	static void SendTitle();
 };
+*/
 
 DLG(Descriptor1730Dlg)
 DLG(OutputsDlg)
 DLG(InputsDlg)
+DLG(AddTypeSizeDlg)
+DLG(DelTypeSizeDlg)
+DLG(DeadZonesDlg)
 
+/*
 struct ACFBorderDlg
 {
 	static void Do(HWND h);
@@ -196,6 +202,7 @@ class SolidGroupCommunicationIDDlg
 public:
 	static bool Do(HWND, wchar_t(&)[128], unsigned &);
 };
+*/
 
 #undef DLG
 
