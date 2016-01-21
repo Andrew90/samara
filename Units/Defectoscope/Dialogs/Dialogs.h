@@ -108,6 +108,8 @@ DLG(InputsDlg)
 DLG(AddTypeSizeDlg)
 DLG(DelTypeSizeDlg)
 DLG(DeadZonesDlg)
+DLG(AboutWindowDlg)
+DLG(IOportsDlg)
 
 /*
 struct ACFBorderDlg

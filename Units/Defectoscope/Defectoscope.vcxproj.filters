@@ -64,6 +64,9 @@
     <Filter Include="Common\DlgTemplates">
       <UniqueIdentifier>{1a7121cf-4b41-43ab-bdb4-fe653aa2cfb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\IOports">
+      <UniqueIdentifier>{85048863-380a-4f4d-82fd-6fdcdb076b58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -202,6 +205,21 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp">
       <Filter>Common\window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\DeadZonesDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AboutWindow.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsViewer.cpp">
+      <Filter>Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsWindow.cpp">
+      <Filter>Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="IOports\IOportsDlg.cpp">
+      <Filter>Windows\IOports</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,8 +418,14 @@
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h">
       <Filter>Common\window_tool</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogs\DeadZonesDlg.h">
-      <Filter>Windows\Dialogs</Filter>
+    <ClInclude Include="IOports\IOportsViewer.h">
+      <Filter>Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="IOports\IOportsWindow.h">
+      <Filter>Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="IOports\IOportsWindowMenu.hpp">
+      <Filter>Windows\IOports</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

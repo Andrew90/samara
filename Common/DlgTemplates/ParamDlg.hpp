@@ -230,12 +230,12 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 		CBase base(ParametersBase().name());
 		if(base.IsOpen())
 		{
-			int id = CurrentId<ID<Table> >(base);	
+			int id = CurrentId<ID<Table> >();	
 			__update_data__<Table> _data(base);			
 			TL::foreach<typename T::list, __ok_btn__>()(&t.items, &_data);
 			if(1 == CountId<ID<Table> >(base, id))
 			{
-				_data.update.Where().ID(CurrentId<ID<Table> >(base)).Execute();
+				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
 			}
 			else
 			{
@@ -247,24 +247,6 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 		return true;
 	}
 };
-
-/*
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::password_multy_row_table_list>
-{
-	template<class T>bool operator()(HWND h, T &t)
-	{
-		if(!TL::find<T::list, __test__>()(&t.items, &h))return false;
-		CBase base(ParametersBase().name());
-		if(base.IsOpen())
-		{
-			__update_data__<Table> _data(base);
-			TL::foreach<T::list, __ok_btn__>()(&t.items, &_data);
-			_data.update.Where().ID(1).Execute();
-		}
-		return true;
-	}
-};
-*/
 
 template<class Table>struct __ok_table_btn__<Table, ParametersBase::one_row_table_list>
 {

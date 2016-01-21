@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -66,6 +66,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,8 +106,15 @@
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\Automat.cpp" />
     <ClCompile Include="Defectoscope.cpp" />
+    <ClCompile Include="Dialogs\AboutWindow.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
+    <ClCompile Include="IOports\IOportsDlg.cpp" />
+    <ClCompile Include="IOports\IOportsViewer.cpp" />
+    <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
     <ClCompile Include="ItemsData\CrossData.cpp" />
     <ClCompile Include="ItemsData\LongData.cpp" />
@@ -170,8 +178,10 @@
     <ClInclude Include="App\AppConst.h" />
     <ClInclude Include="App\Config.h" />
     <ClInclude Include="Automat\Automat.h" />
-    <ClInclude Include="Dialogs\DeadZonesDlg.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
+    <ClInclude Include="IOports\IOportsViewer.h" />
+    <ClInclude Include="IOports\IOportsWindow.h" />
+    <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="ItemsData\ConstData.h" />
     <ClInclude Include="ItemsData\CrossData.h" />
     <ClInclude Include="ItemsData\LongData.h" />

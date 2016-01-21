@@ -361,6 +361,33 @@ struct AppBase
 	void Init();
 	static void InitTypeSizeTables(CBase &);
 };
+
+template<class T>int CurrentId()
+{
+	 // CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
+	 // Select<CurrentParametersTable>(base).ID(1).Execute(current);
+	 // ParametersTable param;
+	 // Select<ParametersTable>(base).ID(current.items.get<CurrentID>().value).Execute(param);
+	  return Singleton<ParametersTable>::Instance().items.get<T>().value;
+}
+
+/*
+template<class T>int CountId(CBase &base, int num)
+{
+	wchar_t buf[128];
+	wsprintf(buf, L"SELECT COUNT(*) FROM ParametersTable WHERE %s=%d", T().name(), num);
+	int t = base.ConnectionSQL(buf);
+	return t;
+}
+*/
+template<class T>void UpdateId(CBase &base, int num)
+{
+   CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
+   Select<CurrentParametersTable>(base).ID(1).Execute(current);
+   ParametersTable &t = Singleton<ParametersTable>::Instance();
+   t.items.get<T>().value = num;
+   UpdateWhere<ParametersTable>(t, base).ID(current.items.get<CurrentID>().value).Execute();
+}
 /*
 template<class T>int CurrentId(CBase &base)
 {
@@ -370,7 +397,7 @@ template<class T>int CurrentId(CBase &base)
 	  Select<ParametersTable>(base).ID(current.items.get<CurrentID>().value).Execute(param);
 	  return param.items.get<T>().value;
 }
-
+*/
 template<class T>int CountId(CBase &base, int num)
 {
 	ADODB::_RecordsetPtr rec;
@@ -383,7 +410,7 @@ template<class T>int CountId(CBase &base, int num)
 	}
 	return i;
 }
-
+/*
 template<class T>void UpdateId(CBase &base, int num)
 {
    CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();

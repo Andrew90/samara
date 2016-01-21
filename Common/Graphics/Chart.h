@@ -19,7 +19,8 @@ struct HDCGraphics:VGraphics
 		, hdc(GetDC(h))
 		, graphics(hdc)
 	{
-		graphics.DrawCachedBitmap(&Gdiplus::CachedBitmap(bitmap, &graphics), 0, 0);
+		if(NULL != bitmap)
+		    graphics.DrawCachedBitmap(&Gdiplus::CachedBitmap(bitmap, &graphics), 0, 0);
 	} 
 	~HDCGraphics(){ReleaseDC(h, hdc);}
 	Gdiplus::Graphics &operator()(){return graphics;}

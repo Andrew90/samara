@@ -33,7 +33,7 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 	struct ThicknessTreshold {static void Do(HWND h){zprint("");}};
-	struct DeadZones         {static void Do(HWND h){zprint("");}};
+	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
 	struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
@@ -64,13 +64,17 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct IOportsView       : IOportsDlg{};
 
 	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
+    MENU_ITEM(L"Просмотр дискретных портов", IOportsView)
 
 	template<>struct TopMenu<Options>
 	{
 		typedef TL::MkTlst<
-			MenuItem<WindowPosition>			
+			MenuItem<WindowPosition>
+			, Separator<0>
+			, MenuItem<IOportsView>
 		>::Result list;		
 	};
 	//-------------------------------------------------------------------------------------------------------
@@ -120,7 +124,7 @@ namespace MainWindowMenu
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------
-	struct MainAbout{static void Do(HWND h){zprint("");}};
+	struct MainAbout : AboutWindowDlg{};//{static void Do(HWND h){zprint("");}};
 	MENU_TEXT(L"О программе", TopMenu<MainAbout>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	MENU_ITEM(L"О программе", MainAbout)
