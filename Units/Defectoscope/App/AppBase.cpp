@@ -23,7 +23,7 @@ template<int N>void DPrint(Holder<N> &d){dprint("%S", (wchar_t *)d);}
 		void operator()(O *o, P *)
 		{
 		   dprint(__FUNCTION__" ");
-		   Singleton<O>::Instance().value = o->value;
+		 //  Singleton<O>::Instance().value = o->value;
 		   DPrint(o->value);
 		}
 	};	
@@ -42,7 +42,7 @@ template<int N>void DPrint(Holder<N> &d){dprint("%S", (wchar_t *)d);}
 		void operator()(O *o, P *)
 		{
 		   dprint(__FUNCTION__" ");
-		   Singleton<O>::Instance().value = o->value;
+		  // Singleton<O>::Instance().value = o->value;
 		   DPrint(o->value);
 		}
 	};	
@@ -62,11 +62,11 @@ void AppBase::InitTypeSizeTables(CBase &base)
 {
 	CurrentParametersTable x;
 	Select<CurrentParametersTable>(base).ID(1).Execute(x);
-	ParametersTable	p;
+	ParametersTable	&p = Singleton<ParametersTable>::Instance();
 	Select<ParametersTable>(base).ID(x.items.get<CurrentID>().value).Execute(p);
 	TL::foreach<typename ParametersTable::items_list, __default_param__>()(&p.items, &base);
 
-	Singleton<CurrentID>::Instance().value = x.items.get<CurrentID>().value;
+	//Singleton<CurrentID>::Instance().value = x.items.get<CurrentID>().value;
 }
 
 void AppBase::Init()

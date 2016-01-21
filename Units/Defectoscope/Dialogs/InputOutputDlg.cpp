@@ -153,11 +153,12 @@ DO_NOT_CHECK(Descriptor1730)
 PARAM_TITLE(Descriptor1730, L"Дескриптор платы 1730")
 void Descriptor1730Dlg::Do(HWND h)
 {
-	if(TemplDialog<Descriptor1730Table>(Singleton<Descriptor1730Table>::Instance()).Do(h, L"Дескриптор платы 1730"))
+	Descriptor1730Table &t = Singleton<Descriptor1730Table>::Instance();
+	if(TemplDialog<Descriptor1730Table>(t).Do(h, L"Дескриптор платы 1730"))
 	{
 		device1730.Destroy();
 		Sleep(500);
-		if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
+		if(!device1730.Init(t.items.get<Descriptor1730>().value))
 		{
 			MessageBox(0, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);
 		}

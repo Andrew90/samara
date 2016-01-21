@@ -361,7 +361,7 @@ struct AppBase
 	void Init();
 	static void InitTypeSizeTables(CBase &);
 };
-
+/*
 template<class T>int CurrentId(CBase &base)
 {
 	  CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
@@ -390,6 +390,7 @@ template<class T>void UpdateId(CBase &base, int num)
    Select<CurrentParametersTable>(base).ID(1).Execute(current);
    Update<ParametersTable>(base).set<T>(num).Where().ID(current.items.get<CurrentID>().value).Execute();
 }
+*/
 
 
 

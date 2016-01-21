@@ -18,35 +18,16 @@ namespace
 		}
 	};
 
-void FillSelect(HWND hWnd)
-{
-	CBase base(ParametersBase().name());
-	if(base.IsOpen())
+	void FillSelect(HWND hWnd)
 	{
-		/*
-		ADODB::_RecordsetPtr rec;
-		if(base.OpenTable(ParametersTable().name(), rec))
+		CBase base(ParametersBase().name());
+		if(base.IsOpen())
 		{
-			while (!rec->EndOfFile) 
-			{
-				wchar_t *c = _bstr_t(rec->Fields->GetItem(NameParam().name())->GetValue());
-				ComboBox_AddString(hWnd, c);
-				rec->MoveNext(); 
-			}
-			CurrentParametersTable &param = Singleton<CurrentParametersTable>::Instance();
-			Select<CurrentParametersTable>(base).ID(1).Execute(param);
-			int id = param.items.get<CurrentID>().value;
-			ParametersTable typeSizeParam;
-			Select<ParametersTable>(base).ID(id).Execute(typeSizeParam);
-			int num = ComboBox_FindStringExact(hWnd, 0, typeSizeParam.items.get<NameParam>().value);
+			Select<ParametersTable>(base).ExecuteLoop<__sel__>(hWnd);
+			int num = ComboBox_FindStringExact(hWnd, 0, Singleton<ParametersTable>::Instance().items.get<NameParam>().value);
 			if(CB_ERR != num) ComboBox_SetCurSel(hWnd, num);
 		}
-		*/
-		Select<ParametersTable>(base).ExecuteLoop<__sel__>(hWnd);
-		int num = ComboBox_FindStringExact(hWnd, 0, Singleton<NameParam>::Instance().value);
-		if(CB_ERR != num) ComboBox_SetCurSel(hWnd, num);
 	}
-}
 }
 
 extern HINSTANCE hInstance;

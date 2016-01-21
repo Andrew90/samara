@@ -43,8 +43,8 @@ namespace
 					curr.items.get<CurrentID>().value = id;
 					UpdateWhere<CurrentParametersTable>(curr, base).ID(1).Execute();
 
-					Singleton<CurrentID>::Instance().value = id;
-					Singleton<NameParam>::Instance().value = buf;
+					//Singleton<CurrentID>::Instance().value = id;
+					//Singleton<NameParam>::Instance().value = buf;
 
 					HWND hMain = GetParent(h);
 
@@ -144,7 +144,7 @@ void AddTypeSizeDlg::Do(HWND h)
 void DelTypeSizeDlg::Do(HWND h)
 {
 	ParametersTable t;
-	t.items.get<NameParam>().value = Singleton<NameParam>::Instance().value;
+	t.items.get<NameParam>().value = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
 	if(TemplDialog<
 		ParametersTable
 		, TL::MkTlst<DelOkBtn, CancelBtn>::Result
