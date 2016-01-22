@@ -230,6 +230,9 @@
     <ClCompile Include="Log\LogMessages.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="Log\LogMessageToTopLabel.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -437,6 +440,9 @@
       <Filter>Log</Filter>
     </ClInclude>
     <ClInclude Include="Log\LogMessages.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Log\LogMessageToTopLabel.h">
       <Filter>Log</Filter>
     </ClInclude>
   </ItemGroup>

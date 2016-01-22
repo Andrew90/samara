@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Automat.h"
 #include "App.h"
-//#include "typelist.hpp"
 #include "AppBase.h"
 #include "Device1730.h"
+#include "LogMessages.h"
+#include "LogBuffer.h"
+#include "LogMessageToTopLabel.h"
 
 struct Automat::Impl
 {
@@ -218,6 +220,7 @@ Automat::Automat()
  void Automat::Impl::Do()
  {
 	 run = true;
+	 LogMessageToTopLabel logMessageToTopLabel;
 	 try
 	 {
 		 while(true)
@@ -240,7 +243,8 @@ Automat::Automat()
 			 {
 				 ResetEvent(App::ProgrammContinueEvent);
 				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
-				 app.MainWindowTopLabel(L"<ff0000>Цикл измерения прерван. Превышено время ожидания");
+				 //app.MainWindowTopLabel(L"<ff0000>Цикл измерения прерван. Превышено время ожидания");
+				 Log::Mess<LogMess::TimeoutPipe>(0);
 			 }
 		 }
 	 }

@@ -44,10 +44,12 @@ void App::Destroy()
 
 void App::MainWindowTopLabel(wchar_t *txt)
 {
+	mainWindow.topLabelViewer.SetMessage(txt);
 }
 
 void App::MainWindowBottomLabel(int n, wchar_t *text)
 {
+	SendMessage(mainWindow.hStatusWindow, SB_SETTEXT, n, (LONG)text);
 }
 
 Device1730 device1730;

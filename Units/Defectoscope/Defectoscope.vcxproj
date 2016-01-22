@@ -123,6 +123,7 @@
     <ClCompile Include="ItemsData\ZonesData.cpp" />
     <ClCompile Include="Log\LogBuffer.cpp" />
     <ClCompile Include="Log\LogMessages.cpp" />
+    <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="ItemsData\ZonesData.h" />
     <ClInclude Include="Log\LogBuffer.h" />
     <ClInclude Include="Log\LogMessages.h" />
+    <ClInclude Include="Log\LogMessageToTopLabel.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
