@@ -10,6 +10,7 @@ struct Automat::Impl
 	struct ExceptionExitProc{};
 	struct ExceptionStopProc{};
 	struct ExceptionContinueProc{};
+	struct ExceptionTimeOutProc{};
 	HANDLE hThread;
 	bool run;
 	Impl(): run(false){}
@@ -143,7 +144,7 @@ struct Automat::Impl
 
 	template<class List>struct OR_Bits
 	{
-		unsigned operator()()
+		unsigned operator()(unsigned delay)
 		{
 			unsigned bitOn, bitOff, bitInv;
 			SelectBits<typename Filt<List, On>::Result>()(bitOn);
@@ -151,6 +152,8 @@ struct Automat::Impl
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
 			
 			ArrEvents<typename Filt<List, Ex>::Result> arrEvents;
+
+			if((unsigned)-1 != delay) delay += GetTickCount();
 			while(true)
 			{
 				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 10);
@@ -163,6 +166,7 @@ struct Automat::Impl
 						if((t & bitOn) || (bitOff & (t ^ bitOff))) return res;
 					}
 					DefaultDo<typename Filt<List, Proc>::Result>()();
+					if(GetTickCount() > delay) throw ExceptionTimeOutProc();
 				}
 				else
 				{
@@ -174,7 +178,7 @@ struct Automat::Impl
 
 	template<class List>struct AND_Bits
 	{
-		unsigned operator()()
+		unsigned operator()(unsigned delay)
 		{
 			unsigned bitOn, bitOff, bitInv;
 			SelectBits<typename Filt<List, On>::Result>()(bitOn);
@@ -182,6 +186,8 @@ struct Automat::Impl
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
 			
 			ArrEvents<typename Filt<List, Ex>::Result> arrEvents;
+
+			if((unsigned)-1 != delay) delay += GetTickCount();
 			while(true)
 			{
 				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 10);
@@ -194,6 +200,7 @@ struct Automat::Impl
 						if(bitOn == (t & (BitOn | bitOff))) return res;
 					}
 					DefaultDo<typename Filt<List, Proc>::Result>()();
+					if(GetTickCount() > delay) throw ExceptionTimeOutProc();
 				}
 				else
 				{
@@ -220,11 +227,20 @@ Automat::Automat()
 				 OR_Bits<TL::MkTlst<
 					 On<SQ0>, On<SQ3>
 					 , Ex<ExceptionStopProc>
-				 >::Result>()();
+				 >::Result>()(3000);
+
+				  App::measurementOfRunning = true;//программа в цикле измерения
 			 }
 			 catch(ExceptionStopProc)
 			 {
 				 ResetEvent(App::ProgrammContinueEvent);
+				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
+			 }
+			 catch(ExceptionTimeOutProc)
+			 {
+				 ResetEvent(App::ProgrammContinueEvent);
+				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
+				 app.MainWindowTopLabel(L"<ff0000>Цикл измерения прерван. Превышено время ожидания");
 			 }
 		 }
 	 }

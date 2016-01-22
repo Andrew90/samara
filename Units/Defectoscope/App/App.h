@@ -12,6 +12,7 @@ public:
 	static HANDLE ProgrammExitEvent;
 	static HANDLE ProgrammContinueEvent;
 	static HANDLE ProgrammStopEvent;
+	static bool measurementOfRunning;
 public:
 	MainWindow &mainWindow;
 public:
@@ -19,8 +20,10 @@ public:
 	void Init();
 	void Destroy();
 	void MainWindowTopLabel(wchar_t *);
-	void MainWindowBottomLabel(int, wchar_t *);
+	void MainWindowBottomLabel(int, wchar_t *);															  
 };
+
+extern App app;
 
 template<class T>struct Singleton
 {

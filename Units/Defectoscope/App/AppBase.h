@@ -1,10 +1,7 @@
 #pragma once
 #include "tables.hpp"
 #include "TablesDefine.h"
-#include "AppConst.h"
 //-------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------
 DEFINE_PARAM(CurrentID, int, 1)
 
 struct CurrentParametersTable

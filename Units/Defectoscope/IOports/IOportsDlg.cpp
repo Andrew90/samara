@@ -24,13 +24,12 @@ void IOportsDlg::Do(HWND h)
 		WindowPosition::Get<IOportsWindow>(r);
 		h = WindowTemplate(
 			&IOportsWindow::Instance()
-			, L""
+			,  L"Просмотр дискретных входов-выходов"
 			, r.left, r.top
 			, IOportsWindow::width, IOportsWindow::height
 			);
 		ShowWindow(h, SW_SHOWNORMAL);
 	}
-	//SendTitle();
 }
 /*
 void IOportsDlg::SendTitle()

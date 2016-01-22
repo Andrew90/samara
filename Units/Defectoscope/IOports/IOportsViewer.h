@@ -3,10 +3,11 @@
 #include "message.h"
 class IOportsViewer
 {
-	HANDLE hTimer;
+	HANDLE hTimer;	
 public:
 	HWND &hWnd;
 	Gdiplus::Bitmap *&backScreen;
+	bool lastTitle;
 public:
 	IOportsViewer(HWND &, Gdiplus::Bitmap *&);
 	void Size(Gdiplus::Graphics &, int, int);

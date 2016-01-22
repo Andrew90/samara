@@ -16,10 +16,8 @@ public:
 	void operator()(TSize &);
 	void operator()(TCommand &);
 	void operator()(TGetMinMaxInfo &);
-	unsigned operator()(TNotify &);
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
-	unsigned operator()(TMessage &);
 	void operator()(TPaint &);
 	void operator()(TLButtonDown &);
 	static IOportsWindow &Instance();

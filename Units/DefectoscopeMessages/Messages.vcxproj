@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1F4D6512-4BE3-40DE-A5FE-74CC71D51F3E}</ProjectGuid>
+    <ProjectGuid>{1905CD7B-4775-4D79-ADC9-A24266EB457F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Defectoscope</RootNamespace>
+    <RootNamespace>Messages</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,12 +45,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\Base;Windows;App;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -62,11 +61,13 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Ini;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools</AdditionalIncludeDirectories>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,21 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ResourceCompile Include="Defectoscope.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
-    <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
-    <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
-    <ClCompile Include="..\..\Common\DlgTemplates\ParamDlg.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\Borders.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\Chart.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\ColorLabel.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\EmptyLeftAxes.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\FixedGridSeries.cpp" />
-    <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
@@ -101,61 +88,27 @@
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
     <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
-    <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
-    <ClCompile Include="App\App.cpp" />
-    <ClCompile Include="App\AppBase.cpp" />
-    <ClCompile Include="Automat\Automat.cpp" />
-    <ClCompile Include="Defectoscope.cpp" />
-    <ClCompile Include="Dialogs\AboutWindow.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+    <ClCompile Include="..\Defectoscope\Log\LogBuffer.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogMessages.cpp" />
+    <ClCompile Include="App\App.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
-    <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
-    <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
-    <ClCompile Include="IOports\IOportsDlg.cpp" />
-    <ClCompile Include="IOports\IOportsViewer.cpp" />
-    <ClCompile Include="IOports\IOportsWindow.cpp" />
-    <ClCompile Include="ItemsData\ConstData.cpp" />
-    <ClCompile Include="ItemsData\CrossData.cpp" />
-    <ClCompile Include="ItemsData\LongData.cpp" />
-    <ClCompile Include="ItemsData\ResultData.cpp" />
-    <ClCompile Include="ItemsData\ThicknessData.cpp" />
-    <ClCompile Include="ItemsData\ZonesData.cpp" />
-    <ClCompile Include="Log\LogBuffer.cpp" />
-    <ClCompile Include="Log\LogMessages.cpp" />
+    <ClCompile Include="Dlg\DlgProc.cpp" />
+    <ClCompile Include="Messages.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Messages;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Windows\CrossViewer.cpp" />
-    <ClCompile Include="Windows\LabelMessage.cpp" />
-    <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
-    <ClCompile Include="Windows\MainWindowToolBar.cpp" />
-    <ClCompile Include="Windows\ResultViewer.cpp" />
-    <ClCompile Include="Windows\ThicknessViewer.cpp" />
-    <ClCompile Include="Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="Windows\MainWindowGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Common\1730\Device1730.h" />
-    <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h" />
     <ClInclude Include="..\..\Common\Base\Base.hpp" />
     <ClInclude Include="..\..\Common\Base\ExpressBase.hpp" />
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
     <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
-    <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp" />
-    <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h" />
-    <ClInclude Include="..\..\Common\DlgTemplates\DlgTemplate.hpp" />
-    <ClInclude Include="..\..\Common\DlgTemplates\dlg_templates.h" />
-    <ClInclude Include="..\..\Common\DlgTemplates\EditDlg.h" />
-    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h" />
-    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp" />
-    <ClInclude Include="..\..\Common\Graphics\BarSeries.h" />
-    <ClInclude Include="..\..\Common\Graphics\Borders.h" />
-    <ClInclude Include="..\..\Common\Graphics\Chart.h" />
-    <ClInclude Include="..\..\Common\Graphics\Chart.hpp" />
-    <ClInclude Include="..\..\Common\Graphics\ColorLabel.h" />
-    <ClInclude Include="..\..\Common\Graphics\EmptyLeftAxes.h" />
-    <ClInclude Include="..\..\Common\Graphics\FixedGridSeries.h" />
-    <ClInclude Include="..\..\Common\Graphics\GridChart.h" />
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
@@ -172,37 +125,22 @@
     <ClInclude Include="..\..\Common\window_tool\message.h" />
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
-    <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\..\Common\window_tool\TabWidgets.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
+    <ClInclude Include="..\Defectoscope\Log\LogBuffer.h" />
+    <ClInclude Include="..\Defectoscope\Log\LogMessages.h" />
     <ClInclude Include="App\App.h" />
-    <ClInclude Include="App\AppBase.h" />
-    <ClInclude Include="App\Config.h" />
-    <ClInclude Include="Automat\Automat.h" />
-    <ClInclude Include="Dialogs\Dialogs.h" />
-    <ClInclude Include="IOports\IOportsViewer.h" />
-    <ClInclude Include="IOports\IOportsWindow.h" />
-    <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
-    <ClInclude Include="ItemsData\ConstData.h" />
-    <ClInclude Include="ItemsData\CrossData.h" />
-    <ClInclude Include="ItemsData\LongData.h" />
-    <ClInclude Include="ItemsData\ResultData.h" />
-    <ClInclude Include="ItemsData\ThicknessData.h" />
-    <ClInclude Include="ItemsData\ZonesData.h" />
-    <ClInclude Include="Log\LogBuffer.h" />
-    <ClInclude Include="Log\LogMessages.h" />
+    <ClInclude Include="App\config.h" />
+    <ClInclude Include="Dlg\Dialogs.h" />
+    <ClInclude Include="Messages.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="Windows\CrossViewer.h" />
-    <ClInclude Include="Windows\LabelMessage.h" />
-    <ClInclude Include="Windows\LongViewer.h" />
     <ClInclude Include="Windows\MainWindow.h" />
+    <ClInclude Include="Windows\MainWindowGrid.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
-    <ClInclude Include="Windows\MainWindowToolBar.h" />
-    <ClInclude Include="Windows\ResultViewer.h" />
-    <ClInclude Include="Windows\ThicknessViewer.h" />
-    <ClInclude Include="Windows\TopLabelViewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Messages.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

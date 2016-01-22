@@ -43,7 +43,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //--------------------------------------------------------------------
 	Initialize initialize;
 	
-	App app;
+	//App app;
 	app.Init();
 
 #ifdef THREAD_PRIORITY

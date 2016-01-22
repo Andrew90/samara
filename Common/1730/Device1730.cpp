@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Device1730.h"
+#include "Config.h"
 #include "DebugMess.h"
 
 using namespace Automation::BDaq;
@@ -45,6 +46,7 @@ bool Device1730::IsOpen()
 	return isOpen;
 }
 //--------------------------------------------------------------------------
+#ifndef DEBUG_ITEMS
 unsigned Device1730::Read()
 {
 	unsigned input;
@@ -73,4 +75,24 @@ void Device1730::WriteOutput(unsigned output, unsigned maska)
 	 Write(t);
 	 LeaveCriticalSection(&cs);
 }
+#else
+#pragma message("Порт 1730 отключён")
+unsigned Device1730::Read()
+{
+	return 0xaa;
+}
+//--------------------------------------------------------------------------
+void Device1730::Write(unsigned output)
+{
+}
+//--------------------------------------------------------------------------
+unsigned Device1730::ReadOutput()
+{	
+	return 0x55;
+}
+//----------------------------------------------------------------------------
+void Device1730::WriteOutput(unsigned output, unsigned maska)
+{	
+}
+#endif
 

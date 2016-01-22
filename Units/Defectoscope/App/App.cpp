@@ -12,6 +12,7 @@ extern HINSTANCE hInstance;
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
 HANDLE App::ProgrammStopEvent;
+bool App::measurementOfRunning = false;
 
 //---------------------------------------------------------------
 App::App()	
@@ -50,6 +51,8 @@ void App::MainWindowBottomLabel(int n, wchar_t *text)
 }
 
 Device1730 device1730;
+
+App app;
 
 
 

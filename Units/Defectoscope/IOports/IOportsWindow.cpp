@@ -1,15 +1,8 @@
 #include "stdafx.h"
 #include "IOportsWindow.h"
-#include <commctrl.h>
 #include "MenuApi.h"
-#include "Pass.h"
 #include "IOportsWindowMenu.hpp"
-#include "InitToolBar.hpp"
 #include "EmptyWindow.h"
-#include "ToolBArWidth.hpp"
-#include "AppBase.h"
-#include "IOportsViewer.h"
-
 #include "DebugMess.h"
 
 using namespace Gdiplus;
@@ -60,11 +53,6 @@ void IOportsWindow::operator()(TGetMinMaxInfo &m)
 	}		
 }
 //------------------------------------------------------------------------
-unsigned IOportsWindow::operator()(TNotify &m)
-{
-	return 0;
-}
-//------------------------------------------------------------------------
 unsigned IOportsWindow::operator()(TCreate &m)
 {
 	Menu<IOportsWindowMenu::MainMenu>().Init(m.hwnd);
@@ -79,15 +67,8 @@ void IOportsWindow::operator()(TDestroy &m)
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
 }
 //------------------------------------------------------------------------
-unsigned IOportsWindow::operator()(TMessage &)
-{
-	dprint("TMessage");
-	return 0;
-}
-//------------------------------------------------------------------------
 void IOportsWindow::operator()(TLButtonDown &l)
 {
-	//if(mainWindow.options)
 		viewer.MouseLDown(l);
 }
 //------------------------------------------------------------------------
