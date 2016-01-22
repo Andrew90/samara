@@ -7,8 +7,6 @@
 #include <locale>
 #include "LogBuffer.h"
 
-
-
 void SaveDateFile::Do(HWND h)
 {
 	KillTimer(h, MainWindow::IDT_TIMER1);

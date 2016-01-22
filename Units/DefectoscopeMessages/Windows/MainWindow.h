@@ -15,9 +15,6 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
-	void operator()(TMessage &);
-	void operator()(TKeyDown &);
-	void operator()(TRButtonDown &);
 	void operator()(TTimer &);
 	unsigned operator()(TNotify &);
 };

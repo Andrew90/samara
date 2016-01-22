@@ -73,12 +73,9 @@ namespace LogMess
 		static Inner &Instance(){static Inner x; return x;}
 	};
 	FactoryMessages::FactoryMessages()
-		: ptrMessage(ProgramStub)
-		, inner(Inner::Instance())
+		: inner(Inner::Instance())
 	{
 	}
-	void FactoryMessages::ProgramStub(wchar_t *){};
-	
 	void FactoryMessages::StartTime()
 	{
 		inner.start = GetTickCount();

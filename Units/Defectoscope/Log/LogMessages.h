@@ -34,7 +34,6 @@ namespace LogMess
 {
 	enum ID
 	{
-		/*
 		StartSycle
 		, StopSycle
 		, OverheadTemperature
@@ -72,6 +71,7 @@ namespace LogMess
 		, InfoOffSQ3BitIn 
 		, InfoUserStop
 		, InfoDataCollectionComplete
+		//, Info
 
 		, SQ1BitIn           
 		, SQ3BitIn           
@@ -91,24 +91,11 @@ namespace LogMess
 		, ReadyBitOut        
 		, ControlBitOut      
 		, ResultBitOut   
-		  */
-		InfoUserStop
-		, ErrStop
-		, AutomatMode
-		, ProgramClosed
-		, TimeoutPipe
-		, InfoUnitStopMess              
-		, InfoUnitPowerOffMess          
-		, InfoTemperatureOverheadingMess
-		, InfoWaitTubeOnSensorSQ1Mess   
-		, InfoWaitTubeOnSensorSQ2Mess   
-		, InfoComputeMess               
-		, InfoCollectionDataMess        
-		, InfoLeavingTubeBack           
-		, InfoStartTestMess             
-		, InfoStopTestMess              
+
 		, max_row
 	};
+
+	//typedef const char * const_char_ptr;
 
 	static const int green = 0xff00;
 	static const int blue  = 0xff0000;
@@ -124,7 +111,6 @@ namespace LogMess
 	///\param сообщение
 	///\param цвет фона
 	///\param цвет шрифта
-	/*
 	MESS(StartSycle			 , void  , "Цикл старт"                     , green, black)
     MESS(StopSycle			 , void  , "Цикл стоп"				        , blue , white)
 	MESS1(OverheadTemperature, double, "Температура превышена"	        , red  , yellow)
@@ -151,7 +137,7 @@ namespace LogMess
 
 	MESS(InfoOnWorkBitIn                 , void, "Ожидание сигнала \"Работа\""					  , blue , white)
 	MESS(InfoOffWorkBitIn				 , void, "Ожидание снятия сигнала \"Работа\""			  , green, blue)
-	MESS(InfoDataReceive				 , void, "Данные сдефектоскопа приняты"                   , blue, yellow)
+	MESS(InfoDataReceive				 , void, "Данные с дефектоскопа приняты"                   , blue, yellow)
 	MESS(InfoReadyBitOut	             , void, "Выставлен сигнал \"Готовность\""				  , blue , white)
 	MESS(InfoOnResultBitOut              , void, "Выставлен сигнал \"Результат\""                 , blue , white)
 	MESS(InfoOnSycleBitIn                , void, "Ожидание сигнала \"Цикл\""					  , blue , white)
@@ -186,36 +172,17 @@ namespace LogMess
 	MESS(ReadyBitOut          , bool, "ReadyBitOut         ", white, black)
 	MESS(ControlBitOut        , bool, "ControlBitOut       ", white, black)
 	MESS(ResultBitOut   	  , bool, "ResultBitOut   	 "  , white, black)
-	*/
-	MESS(InfoUserStop		 , void, "Оператор вышел из цикла сбора данных"			  , red  , yellow)
-	MESS(ErrStop             , void, "Прерывание цикла измерения", red, yellow)
-	MESS(AutomatMode		 , void, "Режим \"Автоматический\""		, blue , white)
-	MESS(ProgramClosed		 , void, "Программа закрыта"	, red  , yellow)
-	MESS(TimeoutPipe		 , void, "Превышенно время ожидания", red  , yellow)
-
-	MESS(InfoUnitStopMess              , void, "Установка остановлена", blue , white)
-	MESS(InfoUnitPowerOffMess          , void, "Нет готовности установки", red  , yellow)
-	MESS(InfoTemperatureOverheadingMess, void, "ПЕРЕГРЕВ установки", red  , yellow)
-	MESS(InfoWaitTubeOnSensorSQ1Mess   , void, "Ожидание трубы на датчике SQ1", green, white)
-	MESS(InfoWaitTubeOnSensorSQ2Mess   , void, "Ожидание трубы на датчике SQ2", blue , white)
-	MESS(InfoComputeMess               , void, "Расчёт данных", blue , white)
-	MESS(InfoCollectionDataMess        , void, "Сбор данных", red  , yellow)
-	MESS(InfoLeavingTubeBack           , void, "Выгон трубы", red  , yellow)
-	MESS(InfoStartTestMess             , void, "Тестовый сбор данных", blue , white)
-	MESS(InfoStopTestMess              , void, "Сбор данных завершён", blue , white)
 
 	class FactoryMessages
 	{
 		struct Inner;
 		Inner &inner;
 		FactoryMessages();
-		static void ProgramStub(wchar_t *);
 	public:
-		void (*ptrMessage)(wchar_t *);
 		void StartTime();
 		bool Color(int i, unsigned &backColor, unsigned &textColor);
 		bool Text(int i, char *buf, double val);
-		static FactoryMessages &Instance();		
+		static FactoryMessages &Instance();
 	};
 }
 #undef MESS

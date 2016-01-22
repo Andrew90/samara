@@ -28,12 +28,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	iccx.dwICC=0;
 	InitCommonControlsEx(&iccx);
 	
-
-//	ULONG_PTR gdiplusToken; 
-//	Gdiplus::GdiplusStartupInput gdiplusStartupInput;    
-//	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-
-
 	App app;
 
 	MSG msg;

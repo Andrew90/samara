@@ -53,40 +53,13 @@ unsigned MainWindow::operator()(TCreate &m)
 		(TIMERPROC) NULL);     // процедуры таймера нет
 	return 0;
 }
-//-------------------------------------------------------------------------
-void MainWindow::operator()(TKeyDown &l)
-{
-	dprint(__FUNCTION__);
-}
-//-------------------------------------------------------------------------
-void MainWindow::operator()(TRButtonDown &l)
-{
-  dprint(__FUNCTION__);
-}
 //------------------------------------------------------------------------
 void MainWindow::operator()(TDestroy &m)
 {
-#if 0
-	dprint("TDestroy");
-	DestroyGlobalData();
-	Sleep(1000);
-#endif
 	KillTimer(m.hwnd, IDT_TIMER1);
 	PostQuitMessage(0);
 }
-//--------------------------------------------------------------------------
-//void MainWindow::BottomLabel(int n, wchar_t *text)
-//{
-//	SendMessage(mainWindow.hStatusWindow, SB_SETTEXT, n, (LONG)text);
-//}
-//---------------------------------------------------------------------------
-typedef void(*TptrMess)(void *);
-void MainWindow::operator()(TMessage &m)
-{
-	//if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
-	dprint(__FUNCTION__);
-}
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 void MainWindow::operator()(TTimer &m)
 {
 	switch(m.ID)
