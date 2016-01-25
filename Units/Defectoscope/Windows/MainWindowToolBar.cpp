@@ -40,7 +40,7 @@ typedef TL::MkTlst<
 void SycleMeashurement(HWND h)
 {
   zprint("");
- // automat.AutomatMode();
+  SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)
@@ -63,7 +63,7 @@ void TestBtn(HWND)
 void StopMeashurement(HWND h)
 {
 	 zprint("");
-	// automat.StopMode();
+	 SetEvent(App::ProgrammStopEvent);
 }
 //--------------------------------------------------------------------------------------------
 HWND MainWindowToolBar::Init(HWND h)

@@ -111,19 +111,19 @@ namespace LogMess
 	///\param сообщение
 	///\param цвет фона
 	///\param цвет шрифта
-	MESS(StartSycle			 , void  , "Цикл старт"                     , green, black)
-    MESS(StopSycle			 , void  , "Цикл стоп"				        , blue , white)
-	MESS1(OverheadTemperature, double, "Температура превышена"	        , red  , yellow)
-	MESS(ProgramOpen		 , void  , "Программа открыта"              , black, white)
-
-	MESS(TimeoutPipe		 , void  , "Превышенно время ожидания", red  , yellow)
-
-	MESS(AutomatMode		 , void  , "Режим \"Автоматический\""		, blue , white)
-	MESS(SingleMode			 , void  , "Режим \"Одиночное измерение\""	, blue , white)
-
-	MESS(ProgramClosed		 , void  , "Программа закрыта"	, red  , yellow)
-
-	MESS(ErrStop             , void  , "Прерывание цикла измерения", red, yellow)
+	MESS(StartSycle			          , void  , "Цикл старт"                     , green, black)
+    MESS(StopSycle			          , void  , "Цикл стоп"				        , blue , white)
+	MESS1(OverheadTemperature         , double, "Температура превышена"	        , red  , yellow)
+	MESS(ProgramOpen		          , void  , "Программа открыта"              , black, white)
+							          
+	MESS(TimeoutPipe		          , void  , "Превышенно время ожидания", red  , yellow)
+							          
+	MESS(AutomatMode		          , void  , "Режим \"Автоматический\""		, blue , white)
+	MESS(SingleMode			          , void  , "Режим \"Одиночное измерение\""	, blue , white)
+							          
+	MESS(ProgramClosed		          , void  , "Программа закрыта"	, red  , yellow)
+							          
+	MESS(ErrStop                      , void  , "Прерывание цикла измерения", red, yellow)
 
 	MESS(AlarmExitTubeInUnit          , void, "Труба в модуле, выполните выгон", red  , yellow)
 	MESS(AlarmExitDirectionChainOn    , void, "Включите цепи управления", red  , yellow)
@@ -135,24 +135,24 @@ namespace LogMess
 	MESS(AlarmExitSycleBitIn		  , void, "Нет сигнала \"Цикл\""			   , red  , yellow)
 
 
-	MESS(InfoOnWorkBitIn                 , void, "Ожидание сигнала \"Работа\""					  , blue , white)
-	MESS(InfoOffWorkBitIn				 , void, "Ожидание снятия сигнала \"Работа\""			  , green, blue)
-	MESS(InfoDataReceive				 , void, "Данные с дефектоскопа приняты"                   , blue, yellow)
-	MESS(InfoReadyBitOut	             , void, "Выставлен сигнал \"Готовность\""				  , blue , white)
-	MESS(InfoOnResultBitOut              , void, "Выставлен сигнал \"Результат\""                 , blue , white)
-	MESS(InfoOnSycleBitIn                , void, "Ожидание сигнала \"Цикл\""					  , blue , white)
-	MESS(InfoRotationalSpeedSensorsStart , void, "Включение вращения модуля датчиков сканирования", blue , white)
-	MESS(InfoOnRunBitIn                  , void, "Ожидание раскрутки модуля датчиков сканирования", blue , white)
-	MESS(InfoControlBitOut               , void, "Выставлен сигнал \"Контроль\""				  , blue , white)
-	MESS(InfoOnSQ1BitIn	                 , void, "Ожидание трубы на датчике SQ1"				  , blue , white)
-	MESS(InfoPowerScannerBitOut          , void, "Включение сканирующего устройства"			  , blue , white)
-	MESS(InfoOnSQ3BitIn	                 , void, "Ожидание трубы на датчике SQ3"				  , blue , white)
-	MESS(InfoOffSQ1BitIn                 , void, "Ожидание съезда трубы с датчика SQ1"			  , blue , white)
-	MESS(InfoOffPowerScannerBitOut       , void, "Отключение сканирующего устройства"		      , blue , white)
-	MESS(InfoOffSQ3BitIn                 , void, "Ожидание съезда трубы с датчика SQ3"			  , blue , white)
-	MESS(InfoUserStop					 , void, "Оператор вышел из цикла сбора данных"			  , red  , yellow)
+	MESS(InfoOnWorkBitIn                , void, "Ожидание сигнала \"Работа\""					  , blue , white)
+	MESS(InfoOffWorkBitIn				, void, "Ожидание снятия сигнала \"Работа\""			  , green, blue)
+	MESS(InfoDataReceive				, void, "Данные с дефектоскопа приняты"                   , blue, yellow)
+	MESS(InfoReadyBitOut	            , void, "Выставлен сигнал \"Готовность\""				  , blue , white)
+	MESS(InfoOnResultBitOut             , void, "Выставлен сигнал \"Результат\""                 , blue , white)
+	MESS(InfoOnSycleBitIn               , void, "Ожидание сигнала \"Цикл\""					  , blue , white)
+	MESS(InfoRotationalSpeedSensorsStart, void, "Включение вращения модуля датчиков сканирования", blue , white)
+	MESS(InfoOnRunBitIn                 , void, "Ожидание раскрутки модуля датчиков сканирования", blue , white)
+	MESS(InfoControlBitOut              , void, "Выставлен сигнал \"Контроль\""				  , blue , white)
+	MESS(InfoOnSQ1BitIn	                , void, "Ожидание трубы на датчике SQ1"				  , blue , white)
+	MESS(InfoPowerScannerBitOut         , void, "Включение сканирующего устройства"			  , blue , white)
+	MESS(InfoOnSQ3BitIn	                , void, "Ожидание трубы на датчике SQ3"				  , blue , white)
+	MESS(InfoOffSQ1BitIn                , void, "Ожидание съезда трубы с датчика SQ1"			  , blue , white)
+	MESS(InfoOffPowerScannerBitOut      , void, "Отключение сканирующего устройства"		      , blue , white)
+	MESS(InfoOffSQ3BitIn                , void, "Ожидание съезда трубы с датчика SQ3"			  , blue , white)
+	MESS(InfoUserStop					, void, "Оператор вышел из цикла сбора данных"			  , red  , yellow)
 
-	MESS(InfoDataCollectionComplete		 , void, "Сбор данных закончен"                           , green, white);
+	MESS(InfoDataCollectionComplete		, void, "Сбор данных закончен"                           , green, white);
 
 	MESS(SQ1BitIn             , bool, "SQ1BitIn            ", white, black)
 	MESS(SQ3BitIn             , bool, "SQ3BitIn            ", white, black)

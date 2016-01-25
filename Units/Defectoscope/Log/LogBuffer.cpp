@@ -69,6 +69,7 @@ struct Log_Inner
 		{
 			if(map->head - map->tail > LogSpace::SizeBuffer) map->tail = map->head - LogSpace::SizeBuffer;
 		}
+		inner.map->data[map->head].time = GetTickCount();
 	}
 } inner;
 

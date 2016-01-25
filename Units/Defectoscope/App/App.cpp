@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "App.h"
+#include "Config.h"
 #include "DebugMess.h"
 #include "MainWindow.h"
 #include "WindowsPosition.h"
 #include "EmptyWindow.h"
 #include "Device1730.h"
 #include "AppBase.h"
+#include "Automat.h"
 
 extern HINSTANCE hInstance;
 
@@ -17,14 +19,13 @@ bool App::measurementOfRunning = false;
 //---------------------------------------------------------------
 App::App()	
 	: mainWindow(Singleton<MainWindow>::Instance())
-{
-}
+{}
 
 void App::Init()
 {
 	AppBase().Init();
-	App::ProgrammExitEvent		= CreateEvent(NULL, FALSE, TRUE, NULL);
-	App::ProgrammContinueEvent	= CreateEvent(NULL, FALSE, TRUE, NULL);
+	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
+	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
@@ -33,13 +34,17 @@ void App::Init()
 	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
 	{
 		MessageBox(h, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);
+#ifndef DEBUG_ITEMS
 		return;
-	}	
+#endif
+	}
+	automat.Init();
 }
 
 void App::Destroy()
 {
-	
+	SetEvent(ProgrammExitEvent);
+	Sleep(1000);
 }
 
 void App::MainWindowTopLabel(wchar_t *txt)
@@ -55,6 +60,8 @@ void App::MainWindowBottomLabel(int n, wchar_t *text)
 Device1730 device1730;
 
 App app;
+
+Automat automat;
 
 
 

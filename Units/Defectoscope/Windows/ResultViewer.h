@@ -10,10 +10,15 @@
 
 class ResultViewer
 {
+	class BottomAxesMeters__: public BottomAxesMeters
+	{
+	public:
+		BottomAxesMeters__(Chart &c): BottomAxesMeters(c, App::zone_length){}
+	};
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		EmptyLeftAxes
-		, BottomAxesMeters
+		, BottomAxesMeters__
 		, BarSeries
 		, FixedGrid		
 	>::Result> TChart;

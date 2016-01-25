@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Automat.h"
+#include <MMSystem.h>
 #include "App.h"
 #include "AppBase.h"
 #include "Device1730.h"
@@ -11,11 +12,10 @@ struct Automat::Impl
 {
 	struct ExceptionExitProc{};
 	struct ExceptionStopProc{};
-	struct ExceptionContinueProc{};
 	struct ExceptionTimeOutProc{};
+	struct ExceptionContinueProc{};
 	HANDLE hThread;
-	bool run;
-	Impl(): run(false){}
+	Impl() {}
 	static Automat::Impl &Instance(){static Automat::Impl x; return x;};
 	void Do();
 	static DWORD WINAPI ProcDo(LPVOID)
@@ -70,6 +70,10 @@ struct Automat::Impl
 				if(TL::IndexOf<list, O>::value == *p) throw O();
 			 }
 		 };
+		 template<class P>struct ev<ExceptionContinueProc, P>
+		 {
+			 void operator()(ExceptionContinueProc *, P *){}
+		 };
 		 HANDLE h[TL::Length<list>::value];
 		 ArrEvents()
 		 {
@@ -79,6 +83,7 @@ struct Automat::Impl
 		 void Throw(unsigned t)
 		 {
 			 TL::foreach<list, ev>()((TL::Factory<list> *)0, &t);
+			 return;
 		 }
 
 	 };
@@ -146,19 +151,20 @@ struct Automat::Impl
 
 	template<class List>struct OR_Bits
 	{
-		unsigned operator()(unsigned delay)
+		unsigned operator()(unsigned delay = (unsigned)-1)
 		{
+			if((unsigned)-1 != delay) delay += GetTickCount();
 			unsigned bitOn, bitOff, bitInv;
 			SelectBits<typename Filt<List, On>::Result>()(bitOn);
 			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
-			
-			ArrEvents<typename Filt<List, Ex>::Result> arrEvents;
 
-			if((unsigned)-1 != delay) delay += GetTickCount();
+			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
+			ArrEvents<exeption_list> arrEvents;
+			
 			while(true)
 			{
-				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 10);
+				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
 				if(WAIT_TIMEOUT == ev)
 				{
 					if(bitOn || bitOff)
@@ -168,7 +174,7 @@ struct Automat::Impl
 						if((t & bitOn) || (bitOff & (t ^ bitOff))) return res;
 					}
 					DefaultDo<typename Filt<List, Proc>::Result>()();
-					if(GetTickCount() > delay) throw ExceptionTimeOutProc();
+					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
 				}
 				else
 				{
@@ -180,46 +186,44 @@ struct Automat::Impl
 
 	template<class List>struct AND_Bits
 	{
-		unsigned operator()(unsigned delay)
+		unsigned operator()(unsigned delay = (unsigned)-1)
 		{
+			if((unsigned)-1 != delay) delay += GetTickCount();
 			unsigned bitOn, bitOff, bitInv;
 			SelectBits<typename Filt<List, On>::Result>()(bitOn);
 			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
 			
-			ArrEvents<typename Filt<List, Ex>::Result> arrEvents;
+			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
+			ArrEvents<exeption_list> arrEvents;
 
-			if((unsigned)-1 != delay) delay += GetTickCount();
 			while(true)
 			{
-				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 10);
+				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
+				unsigned res = device1730.Read();
 				if(WAIT_TIMEOUT == ev)
 				{
 					if(bitOn)
-					{
-						unsigned res = device1730.Read();
+					{						
 						unsigned t = res ^ bitInv;
-						if(bitOn == (t & (BitOn | bitOff))) return res;
+						if(bitOn == (t & (bitOn | bitOff))) return res;
 					}
 					DefaultDo<typename Filt<List, Proc>::Result>()();
-					if(GetTickCount() > delay) throw ExceptionTimeOutProc();
+					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
 				}
 				else
 				{
 					arrEvents.Throw(ev - WAIT_OBJECT_0);
+					return res;
 				}
 			}
 		}
 	};
 };
 
-Automat::Automat()
-	: impl(Automat::Impl::Instance())
-{}
-
  void Automat::Impl::Do()
  {
-	 run = true;
+	 Log::Mess<LogMess::ProgramOpen>(0);
 	 LogMessageToTopLabel logMessageToTopLabel;
 	 try
 	 {
@@ -227,23 +231,38 @@ Automat::Automat()
 		 {
 			 try
 			 {
-				 OR_Bits<TL::MkTlst<
+				 AND_Bits<TL::MkTlst<
+					 Ex<ExceptionContinueProc>
+				 >::Result>()();
+
+				  Log::Mess<LogMess::StartSycle>(0);
+
+				 AND_Bits<TL::MkTlst<
 					 On<SQ0>, On<SQ3>
-					 , Ex<ExceptionStopProc>
 				 >::Result>()(3000);
 
+				  Log::Mess<LogMess::InfoOnWorkBitIn>(0);
+				// Sleep(5000);
+
 				  App::measurementOfRunning = true;//программа в цикле измерения
+				  Log::Mess<LogMess::InfoDataCollectionComplete>(0);
+				//  Sleep(1000);
+				  AND_Bits<TL::MkTlst<
+					 On<SQ0>, On<SQ3>
+				 >::Result>()(5000);
+
+				Log::Mess<LogMess::StopSycle>(0);
 			 }
 			 catch(ExceptionStopProc)
 			 {
 				 ResetEvent(App::ProgrammContinueEvent);
 				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
+				 Log::Mess<LogMess::InfoUserStop>(0);
 			 }
 			 catch(ExceptionTimeOutProc)
 			 {
 				 ResetEvent(App::ProgrammContinueEvent);
 				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
-				 //app.MainWindowTopLabel(L"<ff0000>Цикл измерения прерван. Превышено время ожидания");
 				 Log::Mess<LogMess::TimeoutPipe>(0);
 			 }
 		 }
@@ -251,5 +270,15 @@ Automat::Automat()
 	 catch(ExceptionExitProc)
 	 {
 		 CloseHandle(hThread);
+		 Log::Mess<LogMess::ProgramClosed>(0);
 	 }
  }
+
+ Automat::Automat()
+	: impl(Automat::Impl::Instance())
+{}
+
+void Automat::Init()
+{
+	impl.Init();
+}

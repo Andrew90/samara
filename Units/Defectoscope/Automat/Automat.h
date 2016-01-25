@@ -10,3 +10,5 @@ public:
 	Automat();
 	void Init();
 };
+
+extern Automat automat;

@@ -188,9 +188,6 @@
     <ClCompile Include="..\..\Common\1730\Device1730.cpp">
       <Filter>Common\Device\1730</Filter>
     </ClCompile>
-    <ClCompile Include="Automat\Automat.cpp">
-      <Filter>Automat</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp">
       <Filter>Common\DlgTemplates</Filter>
     </ClCompile>
@@ -232,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Log\LogMessageToTopLabel.cpp">
       <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\Automat.cpp">
+      <Filter>Automat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

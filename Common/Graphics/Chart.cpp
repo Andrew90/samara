@@ -2,7 +2,6 @@
 #include <math.h>
 #include <limits>
 #include "Chart.h"
-#include "App.h"
 #include "DebugMess.h"
 using namespace Gdiplus;
 const int COLOR_AXES = 0xff777777;
@@ -256,8 +255,9 @@ void BottomAxes::OffsetToPixel(WORD &offs, int delta)
 	if(offsX == offs) ++offs;
 }
 //-----------------------------------------------------------------------------------------------------------------
-BottomAxesMeters::BottomAxesMeters(Chart &chart)
-: chart(chart) 
+BottomAxesMeters::BottomAxesMeters(Chart &chart, int zoneInMM)
+: chart(chart)
+, zoneInMM(zoneInMM)
 , minA(100)
 , maxA(100)
 {
@@ -324,7 +324,7 @@ void BottomAxesMeters::Draw()
 //-----------------------------------------------------------------------------------------------------------------
 void BottomAxesMeters::OffsetToPixel(WORD &offs, int delta)
 {
-	double deltaTickDigit_ = deltaTickDigit / App::zone_length;
+	double deltaTickDigit_ = deltaTickDigit / zoneInMM;
 	int offsX = offs;
 	double t = offs - offsMin - deltaTickDigit_ * delta;
 	t /= deltaTickDigit_;

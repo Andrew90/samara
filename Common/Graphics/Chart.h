@@ -97,7 +97,8 @@ class BottomAxesMeters
 public:
   Chart &chart;
   double minBorder, maxBorder;
-  BottomAxesMeters(Chart &chart);
+  int zoneInMM;
+  BottomAxesMeters(Chart &chart, int zoneInMM);
   void Draw();
   void OffsetToPixel(WORD &, int);
 };

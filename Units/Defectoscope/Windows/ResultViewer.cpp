@@ -101,8 +101,8 @@ ResultViewer::ResultViewer()
 	cursor.SetMouseMoveHandler(&cursorLabel, &CursorLabel::Draw);
 	chart.items.get<BarSeries>().SetColorBarHandler(&cursorLabel, &ResultViewer::CursorLabel::GetColorBar);
 
-	chart.items.get<BottomAxesMeters>().minBorder = 0;
-	chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * App::zonesCount * App::zone_length;
+	chart.items.get<BottomAxesMeters__>().minBorder = 0;
+	chart.items.get<BottomAxesMeters__>().maxBorder = 0.001 * App::zonesCount * App::zone_length;
 }
 //----------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996)
