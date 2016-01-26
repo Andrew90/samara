@@ -91,6 +91,7 @@ namespace MainWindowMenu
 	struct MedianFiltre           {static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
 	struct ACFBorder              {static void Do(HWND h){zprint("");}};
+	struct TestTab                : TestTabsDlg{};//{static void Do(HWND h){zprint("");}};
 	
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
@@ -102,6 +103,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Параметры сигнала", Signal)
 	MENU_ITEM(L"Границы АЧХ", ACFBorder)
 	MENU_ITEM(L"Цвета", ColorItems)
+	MENU_ITEM(L"Тестирование окна с закладками", TestTab)
 	
 	template<>struct SubMenu<DiscretePlate>
 	{
@@ -121,6 +123,7 @@ namespace MainWindowMenu
 			, MenuItem<Signal>
 			, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>
+			, MenuItem<TestTab>
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------

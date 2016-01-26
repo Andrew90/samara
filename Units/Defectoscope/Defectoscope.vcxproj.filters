@@ -233,6 +233,9 @@
     <ClCompile Include="Automat\Automat.cpp">
       <Filter>Automat</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\TestTabsDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -444,6 +447,9 @@
     </ClInclude>
     <ClInclude Include="Log\LogMessageToTopLabel.h">
       <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h">
+      <Filter>Common\DlgTemplates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

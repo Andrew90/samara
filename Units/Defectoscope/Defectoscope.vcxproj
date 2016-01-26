@@ -111,6 +111,7 @@
     </ClCompile>
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
+    <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />
     <ClCompile Include="IOports\IOportsViewer.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\..\Common\DlgTemplates\EditDlg.h" />
     <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h" />
     <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h" />
     <ClInclude Include="..\..\Common\Graphics\BarSeries.h" />
     <ClInclude Include="..\..\Common\Graphics\Borders.h" />
     <ClInclude Include="..\..\Common\Graphics\Chart.h" />

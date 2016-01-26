@@ -110,6 +110,7 @@ DLG(DelTypeSizeDlg)
 DLG(DeadZonesDlg)
 DLG(AboutWindowDlg)
 DLG(IOportsDlg)
+DLG(TestTabsDlg)
 
 /*
 struct ACFBorderDlg
