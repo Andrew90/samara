@@ -481,6 +481,10 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 };
 //------------------------------------------------------------------------------------
 template<class T>struct EmptySubItem;
+template<class T>struct EmptySubItem
+{\
+	template<class P>bool operator()(Wapper<n> *, P *){return true;}\
+};
 struct ShowItem
 {
 	void operator()(HWND h, bool b)
