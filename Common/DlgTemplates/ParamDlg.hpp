@@ -3,12 +3,8 @@
 #include <windowsx.h>
 #include<clocale>
 #include <CommCtrl.h>
+#include "tables.hpp"
 #include "DebugMess.h"
-#ifdef XDEBUG
-#define dprint debug.print
-#else	
-#define  dprint
-#endif
 extern HINSTANCE hInstance;
 //-----------------------------------------------------------------------
 template<class T>struct ParamTitle
@@ -167,6 +163,18 @@ template<class T>struct ErrMess
 };
 
 template<class _0, class _1>struct __compare_param__;
+template<class _0>struct __compare_param__<_0, NullType>
+{
+	typedef typename _0::__template_must_be_overridded__ noused;
+};
+template<class _1>struct __compare_param__<NullType, _1>
+{
+	typedef typename _1::__template_must_be_overridded__ noused;
+};
+//template<>struct __compare_param__<NullType, NullType>
+//{
+//	typedef __template_must_be_overridded__ noused;
+//};
 template<class T>struct __compare_param__<Less<T>, Largen<T> >
 {
 	bool operator()(typename T::type_value &t)
@@ -204,6 +212,16 @@ template<class T>struct allowable_limit_on_the_parameter
 			typename TL::TypeExist<typename TL::MkTlst<Less<T>, LessEqual<T> >::Result>::Result
 			, typename TL::TypeExist<typename TL::MkTlst<Largen<T>, LargenEqual<T> >::Result>::Result
 		>()(t)) return true;
+		/**********************************************************************************************//*
+		 * \brief	Если попал сюда то определи
+		 * 	MIN_VALUE(какойто_тип_из_AppBase_h, минимальная_величина)
+		 *  MAX_VALUE(какойто_тип_из_AppBase_h, максимальная_величина)
+		 *  MIN_EQUAL_VALUE(...
+		 *  MIN_EQUAL_VALUE(...
+		 *  DO_NOT_CHECK(...
+		 *  смотри определение макровов ниже в файле
+		 **************************************************************************************************/
+
 		ErrMess<T>()(t, h);
 		return false;
 	}	
@@ -217,38 +235,29 @@ template<class O, class P>struct __test__
 	}
 };
 
+/*
 template<class Table, class T>struct __ok_table_btn__
 {
 	typedef typename T::__template_must_be_overridded__ noused; 
 };
-
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_table_list>
+  
+template<class Table>struct __ok_table_btn__<Table, ParametersBase::password_typesize_multy_row_table_list>
 {
 	template<class T>bool operator()(HWND h, T &t)
 	{
-		if(!TL::find<typename T::list, __test__>()(&t.items, &h))return false;
+		if(!TL::find<T::list, __test__>()(&t.items, &h))return false;
 		CBase base(ParametersBase().name());
 		if(base.IsOpen())
 		{
-			int id = CurrentId<ID<Table> >();	
-			__update_data__<Table> _data(base);			
-			TL::foreach<typename T::list, __ok_btn__>()(&t.items, &_data);
-			if(1 == CountId<ID<Table> >(base, id))
-			{
-				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
-			}
-			else
-			{
-				Insert_Into<Table>(t.table, base).Execute();
-				int id = Select<Table>(base).eq_all<Table::items_list>(&t.table.items).Execute();
-				UpdateId<ID<Table> >(base, id);
-			}
+			__update_data__<Table> _data(base);
+			TL::foreach<T::list, __ok_btn__>()(&t.items, &_data);
+			_data.update.Where().ID(1).Execute();
 		}
 		return true;
 	}
 };
-
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::one_row_table_list>
+  */
+template<class Table>struct __ok_table_btn__
 {
 	template<class T>bool operator()(HWND h, T &t)
 	{
@@ -312,10 +321,11 @@ template<class T, int edit_width = 140>struct EditItems
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
 			, 10, dy, edit_width, 25, h, 0, hInstance, NULL
 			);
-		CreateWindow(L"static", ParamTitle<T>()()
+		HWND q = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
 			);
+		SetWindowLong(hWnd, GWL_USERDATA, (LONG)q);
 		dy += 25;
 		return hWnd;
 	}
@@ -329,10 +339,11 @@ template<class T, int edit_width = 140>struct EditReadOnlyItems
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_READONLY
 			, 10, dy, edit_width, 25, h, 0, hInstance, NULL
 			);
-		CreateWindow(L"static", ParamTitle<T>()()
+		HWND h = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
 			);
+		SetWindowLong(hWnd, GWL_USERDATA, h);
 		dy += 25;
 		return hWnd;
 	}
@@ -409,10 +420,11 @@ template<class T>struct ComboBoxSubItem
 			, WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST | CBS_AUTOHSCROLL |WS_VSCROLL 
 			, 10, dy, 140, 125, h, 0, hInstance, 0
 			);
-		CreateWindow(L"static", ParamTitle<T>()()
+		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, 140 + 20, dy + 3, dlg_width, 20, h, 0,  hInstance, NULL
 			);
+		SetWindowLong(hWnd, GWL_USERDATA, (LONG)hh);
 		dy += 25;		
 		if(width < dlg_width) width = dlg_width;
 		FillComboboxList<T>()(hWnd, t);
@@ -429,10 +441,11 @@ template<class T>struct ComboEditSubItem
 			, WS_CHILD | WS_VISIBLE | CBS_SIMPLE |CBS_AUTOHSCROLL |WS_VSCROLL 
 			, 10, dy, width_item, 125, h, 0, hInstance, 0
 			);
-		CreateWindow(L"static", ParamTitle<T>()()
+		HWND h = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, width_item + 20, dy + 3, dlg_width, 20, h, 0,  hInstance, NULL
 			);
+		SetWindowLong(hWnd, GWL_USERDATA, h);
 		dy += 125;		
 		if(width < dlg_width) width = dlg_width;
 		FillComboboxList<T>()(hWnd, t);
@@ -454,23 +467,29 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 			UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_WRAP | WS_CHILD | WS_VISIBLE, 
 			0, 0, 0, 0,
 			h, 0, hInstance, NULL);
-
-		CreateWindow(L"static", ParamTitle<T>()()
+	    SetWindowLong(hWnd, GWL_USERDATA, (LONG)hUpdown);
+		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
 			);
+		SetWindowLong(hUpdown, GWL_USERDATA, (LONG)hh);
 		SendMessage(hUpdown, UDM_SETBUDDY, (WPARAM)hWnd, 0);
 		SendMessage(hUpdown, UDM_SETRANGE, 0, (LPARAM) MAKELONG((short)max, (short)min));
 		dy += 25;
 		return hWnd;
 	}
 };
-
-template<class T>struct EmptySubItem
+//------------------------------------------------------------------------------------
+template<class T>struct EmptySubItem;
+struct ShowItem
 {
-	HWND Init(HWND h, int &width, int &dy, T &t)
-	{		
-		return 0;
+	void operator()(HWND h, bool b)
+	{
+		ShowWindow(h, b ? SW_SHOW : SW_HIDE);
+		while(0 != (h = (HWND)GetWindowLong(h, GWL_USERDATA)))
+		{
+			ShowWindow(h, b ? SW_SHOW : SW_HIDE);
+		}
 	}
 };
 //---------------------------------------------------------------------------
@@ -495,5 +514,5 @@ template<class T>struct EmptySubItem
 {\
 	template<class P>bool operator()(Wapper<n> *, P *){return true;}\
 };
-
 #define NO_USED_MENU_ITEM(name)template<>struct DlgSubItems<name, typename name::type_value>: EmptySubItem<name>{};
+

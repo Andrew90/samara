@@ -27,6 +27,11 @@ PARAM_TITLE(OutputBitTable, L"Выходные порты")
 PARAM_TITLE(Descriptor1730Table, L"Дескриптор платы")
 PARAM_TITLE(DeadAreaTable, L"Мёртвые зоны")
 
+PARAM_TITLE(SQ0, L"SQ0")
+PARAM_TITLE(SQ1, L"SQ1")
+PARAM_TITLE(SQ2, L"SQ2")
+PARAM_TITLE(SQ3, L"SQ3")
+
 void TestTabsDlg::Do(HWND h)
 {
 	Tabs t;
