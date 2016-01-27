@@ -27,7 +27,6 @@ namespace {
 		void operator()(O *o, P *p)
 		{
 			MoveWindow(o->hWnd , 0, p->y, p->width, resultViewerHeight, true);
-			//p->y += resultViewerHeight;
 		}
 	};
 	

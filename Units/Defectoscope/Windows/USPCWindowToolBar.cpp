@@ -1,16 +1,14 @@
 #include "stdafx.h"
-#include "MainWindowToolBar.h"
+#include "USPCWindowToolBar.h"
 #include "Config.h"
 #include "DebugMess.h"
 #include "../Resource.h"
 #include "InitToolBar.hpp"
 #include "message.h"
-//#include "DetailedWindow.h"
-//#include "ThicknessViewer.h"
 #include "Emptywindow.h"
-//#include "Automat.h"
-#include "MainWindow.h"
-namespace 
+#include "USPCWindow.h"
+
+namespace
 {
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
 
@@ -41,7 +39,6 @@ typedef TL::MkTlst<
 void SycleMeashurement(HWND h)
 {
   zprint("");
-  SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)
@@ -64,21 +61,20 @@ void TestBtn(HWND)
 void StopMeashurement(HWND h)
 {
 	 zprint("");
-	 SetEvent(App::ProgrammStopEvent);
 }
 }
 //--------------------------------------------------------------------------------------------
-HWND MainWindowToolBar::Init(HWND h)
+HWND USPCWindowToolBar::Init(HWND h)
 {
 	 return hWnd = InitToolbar<tool_button_list>()(h);
 }
 //-------------------------------------------------------------------
-void MainWindowToolBar::Size()
+void USPCWindowToolBar::Size()
 {
 	MoveWindow(hWnd, 0, 0, 0, 0, false);
 }
 //----------------------------------------------------------------------------
-const int MainWindowToolBar::Width()
+const int USPCWindowToolBar::Width()
 {
 	return __tool_bar_width__<tool_button_list>::value;
 }

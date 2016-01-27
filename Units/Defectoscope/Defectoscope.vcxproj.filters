@@ -73,6 +73,9 @@
     <Filter Include="Common\Device\USPC">
       <UniqueIdentifier>{b2215e62-e234-436a-b06a-0b9679101153}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\USPCWindow">
+      <UniqueIdentifier>{d1e6fb2c-cbc1-4803-84b8-6a5c5493c224}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -238,6 +241,12 @@
     </ClCompile>
     <ClCompile Include="Dialogs\TestTabsDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\USPCWindow.cpp">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\USPCWindowToolBar.cpp">
+      <Filter>Windows\USPCWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -459,6 +468,15 @@
     </ClInclude>
     <ClInclude Include="App\TablesDefine.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCWindow.h">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCWindowMenu.hpp">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCWindowToolBar.h">
+      <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

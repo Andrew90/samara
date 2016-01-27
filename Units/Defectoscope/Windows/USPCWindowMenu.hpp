@@ -2,8 +2,8 @@
 #include "config.h"
 #include "WindowsPosition.h"
 #include "Dialogs.h"
-#include "USPCWindow.h"
-namespace MainWindowMenu
+
+namespace USPCWindowMenu
 {
 	struct MainFile{};
 	MENU_TEXT(L"Файл", TopMenu<MainFile>)
@@ -64,7 +64,7 @@ namespace MainWindowMenu
 	struct Options{};
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct WindowPosition    : WindowPositionDlg<USPCWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct IOportsView       : IOportsDlg{};
 
 	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
@@ -82,7 +82,7 @@ namespace MainWindowMenu
 	struct Setting{};
 	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct AnalogPlate            : USPCWindow{};//{static void Do(HWND h){zprint("");}};
+	struct AnalogPlate            {static void Do(HWND h){zprint("");}};
 	struct DiscretePlate	      {static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};

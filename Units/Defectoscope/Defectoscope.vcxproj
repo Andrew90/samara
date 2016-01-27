@@ -134,6 +134,8 @@
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="Windows\USPCWindow.cpp" />
+    <ClCompile Include="Windows\USPCWindowToolBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\1730\Device1730.h" />
@@ -209,6 +211,9 @@
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
+    <ClInclude Include="Windows\USPCWindow.h" />
+    <ClInclude Include="Windows\USPCWindowMenu.hpp" />
+    <ClInclude Include="Windows\USPCWindowToolBar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
