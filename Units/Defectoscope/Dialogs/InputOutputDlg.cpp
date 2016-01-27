@@ -95,11 +95,16 @@ struct DefaultBtn
 	}
 };
 //----------------------------------------------------------------------------
-DO_NOT_CHECK(SQ0    )
-DO_NOT_CHECK(SQ1    )
-DO_NOT_CHECK(SQ2    )
-DO_NOT_CHECK(SQ3    )
-DO_NOT_CHECK(SQ4    )
+MIN_EQUAL_VALUE(SQ0, 0 )
+MAX_EQUAL_VALUE(SQ0, 31)
+MIN_EQUAL_VALUE(SQ1, 0 )
+MAX_EQUAL_VALUE(SQ1, 31)
+MIN_EQUAL_VALUE(SQ2, 0 )
+MAX_EQUAL_VALUE(SQ2, 31)
+MIN_EQUAL_VALUE(SQ3, 0 )
+MAX_EQUAL_VALUE(SQ3, 31)
+MIN_EQUAL_VALUE(SQ4, 0 )
+MAX_EQUAL_VALUE(SQ4, 31)
 
 PARAM_TITLE(SQ0, L"Труба на датчике SQ1(вход)")
 PARAM_TITLE(SQ1, L"Труба на датчике SQ2(выход)")
@@ -122,11 +127,16 @@ void InputsDlg::Do(HWND h)
 	}
 }
 //-----------------------------------------------------------------------------
-DO_NOT_CHECK(Y0    )
-DO_NOT_CHECK(Y1    )
-DO_NOT_CHECK(Y2    )
-DO_NOT_CHECK(Y3    )
-DO_NOT_CHECK(Y4    )
+MIN_EQUAL_VALUE(Y0, 0 )
+MAX_EQUAL_VALUE(Y0, 31)
+MIN_EQUAL_VALUE(Y1, 0 )
+MAX_EQUAL_VALUE(Y1, 31)
+MIN_EQUAL_VALUE(Y2, 0 )
+MAX_EQUAL_VALUE(Y2, 31)
+MIN_EQUAL_VALUE(Y3, 0 )
+MAX_EQUAL_VALUE(Y3, 31)
+MIN_EQUAL_VALUE(Y4, 0 )
+MAX_EQUAL_VALUE(Y4, 31) 
 
 PARAM_TITLE(Y0, L"Труба на датчике Y0(вход)")
 PARAM_TITLE(Y1, L"Труба на датчике Y1(выход)")

@@ -235,28 +235,6 @@ template<class O, class P>struct __test__
 	}
 };
 
-/*
-template<class Table, class T>struct __ok_table_btn__
-{
-	typedef typename T::__template_must_be_overridded__ noused; 
-};
-  
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::password_typesize_multy_row_table_list>
-{
-	template<class T>bool operator()(HWND h, T &t)
-	{
-		if(!TL::find<T::list, __test__>()(&t.items, &h))return false;
-		CBase base(ParametersBase().name());
-		if(base.IsOpen())
-		{
-			__update_data__<Table> _data(base);
-			TL::foreach<T::list, __ok_btn__>()(&t.items, &_data);
-			_data.update.Where().ID(1).Execute();
-		}
-		return true;
-	}
-};
-  */
 template<class Table>struct __ok_table_btn__
 {
 	template<class T>bool operator()(HWND h, T &t)
@@ -480,10 +458,12 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 	}
 };
 //------------------------------------------------------------------------------------
-template<class T>struct EmptySubItem;
 template<class T>struct EmptySubItem
-{\
-	template<class P>bool operator()(Wapper<n> *, P *){return true;}\
+{
+	HWND Init(HWND h, int &width, int &dy, T &t)
+	{		
+		return 0;
+	}
 };
 struct ShowItem
 {
