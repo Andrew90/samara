@@ -72,16 +72,16 @@ struct PointsOptionsTable
 };
 //----------------------------------------------------------------------------------
 DEFINE_PARAM(LessMinimumEnergy, int, 0xff555555)
-	DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
-	DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
-	DEFINE_PARAM(Undefined, int, 0xff555555)
+DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
+DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
+DEFINE_PARAM(Undefined, int, 0xff555555)
 
-	DEFINE_PARAM(Nominal, int, 0xff00ff00)
-	DEFINE_PARAM(Treshold2Class, int, 0xff0000ff)
-	DEFINE_PARAM(Defect, int, 0xffff0000)
+DEFINE_PARAM(Nominal, int, 0xff00ff00)
+DEFINE_PARAM(Treshold2Class, int, 0xff0000ff)
+DEFINE_PARAM(Defect, int, 0xffff0000)
  
 
-	DEFINE_PARAM(DeathZone, int, 0xff333333)  
+DEFINE_PARAM(DeathZone, int, 0xff333333)  
 
 struct ColorTable
 {
@@ -185,29 +185,29 @@ struct ACFBorderTable
  template<int>struct Peak;
 
 #define PEAK(n)\
-	DEFINE_PARAM_NUM(MinEnergy, n, double, 0.1)\
-	DEFINE_PARAM_NUM(MaxEnergy, n, double, 1000)\
-	DEFINE_PARAM_NUM(Peak, n, double, 0.2)
+DEFINE_PARAM_NUM(MinEnergy, n, double, 0.1)\
+DEFINE_PARAM_NUM(MaxEnergy, n, double, 1000)\
+DEFINE_PARAM_NUM(Peak, n, double, 0.2)
 
-     PEAK(0)
-	 PEAK(1)
-	 PEAK(2)
-	 //PEAK(3)
-	 //PEAK(4)
-	 //PEAK(5)
+PEAK(0)
+PEAK(1)
+PEAK(2)
+//PEAK(3)
+//PEAK(4)
+//PEAK(5)
 
 #undef PEAK
 
 #define PEAK(n) MinEnergy<n>, MaxEnergy<n>, Peak<n>
- struct SignalParametersTable
- {
-	 typedef TL::MkTlst<		
-		 PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
-	 >::Result items_list;
-	 typedef TL::Factory<items_list> TItems;
-	 TItems items;
-	 const wchar_t *name(){return L"SignalParametersTable";}
- };
+struct SignalParametersTable
+{
+	typedef TL::MkTlst<		
+		PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"SignalParametersTable";}
+};
 #undef PEAK
 //-------------------------------------------------------------------------------------------------------
  template<int NUM>struct CoefficientA;
@@ -338,7 +338,7 @@ struct Descriptor1730Table
 		 , ParametersTable			   
 		 , ThresholdsTable			  
 		 , DeadAreaTable				  
-		 , BorderCredibilityTable	 
+		 , BorderCredibilityTable	
 	 >::Result multy_row_table_list;
 
 	 typedef TL::MkTlst<

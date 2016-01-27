@@ -70,6 +70,9 @@
     <Filter Include="Log">
       <UniqueIdentifier>{0848524a-2624-41e1-a8ed-bcbc47b90e06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Device\USPC">
+      <UniqueIdentifier>{b2215e62-e234-436a-b06a-0b9679101153}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -450,6 +453,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h">
       <Filter>Common\DlgTemplates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\USPCParam.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="App\TablesDefine.h">
+      <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

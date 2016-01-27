@@ -76,13 +76,13 @@ namespace TL
 		typedef Tlst<Wapper<Head>, NullType> Result;
 	};
 //---------------------------------------------------------------------------
-    template<template<int>class Wapper, int count, int max = count>struct CreateNumList
+    template<template<int>class Wapper, int start, int max = count>struct CreateNumList
 	{
-		typedef Tlst<Wapper<max - count>, typename CreateNumList<Wapper, count - 1, max>::Result> Result;
+		typedef Tlst<Wapper<start>, typename CreateNumList<Wapper, 1 + start, max>::Result> Result;
 	};
-	template<template<int>class Wapper, int max>struct CreateNumList<Wapper, 1, max>
+	template<template<int>class Wapper, int max>struct CreateNumList<Wapper, max, max>
 	{
-		typedef Tlst<Wapper<max - 1>, NullType> Result;
+		typedef Tlst<Wapper<max>, NullType> Result;
 	};
 //--------------------------------------------------------------------------------------------------------------
 	template<typename T, typename tmp = NullType>struct Reverse;
