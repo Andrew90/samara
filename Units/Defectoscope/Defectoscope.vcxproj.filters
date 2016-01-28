@@ -248,6 +248,9 @@
     <ClCompile Include="Windows\USPCWindowToolBar.cpp">
       <Filter>Windows\USPCWindow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp">
+      <Filter>Common\window_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -477,6 +480,12 @@
     </ClInclude>
     <ClInclude Include="Windows\USPCWindowToolBar.h">
       <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\DropDownItem.h">
+      <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include "message.h"
+#include "MessagesInterface.h"
 #include "DebugMess.h"
 
 /**
@@ -7,7 +8,7 @@
 * \param T - шаблонный параметр пример использования смотри  TestCheckBox
 */
 
-template<class T>class CheckBoxWidget : public T
+template<class T>class CheckBoxWidget : public T, public TCommandEvent
 {
 	HWND hWnd;
 public:
@@ -25,7 +26,7 @@ public:
 			, WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX | WS_TABSTOP
 			, 0, 0, 0, 0, hOwner, NULL, GetModuleHandle(NULL), NULL
 			);
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)&CheckBoxWidget::Command);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)this);
 		Button_SetCheck(hWnd, T::Init(hWnd) ? BST_CHECKED : BST_UNCHECKED);
 	}
 	/**
@@ -41,21 +42,23 @@ private:
 	* \brief выполняется при снятии или установки галочки 
 	* \param static void T::Command(bool) - определить в шаблонном параметре
 	*/
-	static void Command(TCommand &m)
+	void Do(TCommand &m)
 	{
-		(T::Command)(m, BST_CHECKED == Button_GetCheck(m.hControl));
+		T::Command(m, BST_CHECKED == Button_GetCheck(m.hControl));
 	}
 };
-
-template<int N>struct TestCheckBox
+/*
+template<int N>class TestCheckBox
 {
+public:
 	bool Init()
 	{
 		dprint(__FUNCTION__);
 		return true;
 	}
-	static void Command(TCommand &m, bool b)
+	void Do(TCommand &m, bool b)
 	{
 		dprint(__FUNCTION__"%d", b);
 	}
 };
+*/

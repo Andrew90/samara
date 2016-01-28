@@ -2,6 +2,7 @@
 #include <CommCtrl.h>
 #include "MenuAPI.h"
 #include "typelist.hpp"
+#include "MessagesInterface.h"
 //---------------------------------------------------------------------------
 void GetMenuToolBarEvent(TCommand &m)
 {
@@ -15,9 +16,10 @@ void GetMenuToolBarEvent(TCommand &m)
 			SendMessage(m.hControl, (UINT) TB_GETBUTTONINFO, m.id , (LPARAM)&button_info);
 			((void (__cdecl *)(HWND))(button_info.lParam))(m.hwnd);
 		}
-		else if(LONG p = GetWindowLongPtr(m.hControl, GWLP_USERDATA))
+		else if(TCommandEvent *p = (TCommandEvent *)GetWindowLongPtr(m.hControl, GWLP_USERDATA))
 		{
-			((void (*)(TCommand &))(p))(m);
+			//((void (*)(TCommand &))(p))(m);
+			p->Do(m);
 		}
 	}
 	else

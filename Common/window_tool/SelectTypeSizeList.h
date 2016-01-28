@@ -1,7 +1,6 @@
 #pragma once
-
-struct TCommand;
-class SelectTypeSizeList
+#include "MessagesInterface.h"
+class SelectTypeSizeList: public TCommandEvent
 {
 	struct TObj{};
 	TObj *obj;
@@ -12,7 +11,7 @@ public:
 	SelectTypeSizeList();
 	void Create(HWND);
 	void Size(int x, int y, int width);
-	static void Do(TCommand &);
+	void Do(TCommand &);
 	void AddMenuItem(wchar_t *);
 	void DelMenuItem(wchar_t *);
 	template<class T>void SetCommandHandler(T *t, void (TObj::*t_ptr)())

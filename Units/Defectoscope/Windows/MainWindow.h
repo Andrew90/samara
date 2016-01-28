@@ -10,11 +10,12 @@
 #include "CrossViewer.h"
 #include "LongViewer.h"
 #include "ResultViewer.h"
+#include "MessagesInterface.h"
 
-template<int N>struct TestCheckBoxX
+template<int N>class TestCheckBoxX
 {
 protected:
-	static void Command(TCommand &m, bool b)
+	void Command(TCommand &m, bool b)
 	{
 		MainWindow *o = (MainWindow *) GetWindowLongPtr(m.hwnd, GWLP_USERDATA);
 		wchar_t text[128];

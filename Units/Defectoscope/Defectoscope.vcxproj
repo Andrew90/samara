@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp" />
     <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Grid.cpp" />
     <ClCompile Include="..\..\Common\window_tool\GridItems.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="..\..\Common\USPC\USPCParam.h" />
     <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\DlgFiles.h" />
+    <ClInclude Include="..\..\Common\window_tool\DropDownItem.h" />
     <ClInclude Include="..\..\Common\window_tool\Emptywindow.h" />
     <ClInclude Include="..\..\Common\window_tool\Grid.h" />
     <ClInclude Include="..\..\Common\window_tool\GridItems.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="..\..\Common\window_tool\InRect.h" />
     <ClInclude Include="..\..\Common\window_tool\MenuAPI.h" />
     <ClInclude Include="..\..\Common\window_tool\message.h" />
+    <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h" />
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
