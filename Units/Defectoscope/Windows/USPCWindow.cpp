@@ -14,7 +14,28 @@ void USPCWindow::operator()(TSize &m)
 {
 	if(m.resizing == SIZE_MINIMIZED || 0 == m.Width || 0 == m.Height) return;
 	MoveWindow(hStatusWindow, 0, 0, 0, 0, false);
-	
+
+	static const int offs = toolBar.Width();
+	static const int dropDownUnitOffs = 220;
+	dropDownUnit.Size(offs, 5, dropDownUnitOffs);
+	static const int dropDownSensorsOffs = 190;
+	dropDownSensors.Size(offs + dropDownUnitOffs + 10, 5, dropDownSensorsOffs);
+
+	RECT rt;
+	GetClientRect(toolBar.hWnd, &rt);
+    RECT rs;
+	GetClientRect(hStatusWindow, &rs);
+	RECT r;
+	GetClientRect(m.hwnd, &r);	
+
+	static const int bottomPanelHigth = 200;
+
+	int y = rt.bottom;
+	int t = r.bottom - rs.bottom - rt.bottom + 2 - bottomPanelHigth;
+
+	MoveWindow(uspcChartViewer.hWnd , 0, y, r.right, t, true);
+	y += t;
+	MoveWindow(panel.hWnd , 0, y, r.right, bottomPanelHigth, true);
 }
 //------------------------------------------------------------------------
 void USPCWindow::operator()(TCommand &m)
@@ -36,10 +57,33 @@ void USPCWindow::operator()(TGetMinMaxInfo &m)
 unsigned USPCWindow::operator()(TCreate &m)
 {
 	Menu<USPCWindowMenu::MainMenu>().Init(m.hwnd);
-//
 	toolBar.Init(m.hwnd);
-	//select.Create(toolBar.hWnd);
-//
+
+	const wchar_t *items[] = {
+		L"Продольный"
+		, L"Поперечный"
+		, L"Толщина"
+		, L"Все"
+	};
+	dropDownUnit.Init(toolBar.hWnd, 40, items, dimention_of(items));
+
+	const wchar_t *sens[] = {
+		L"Датчик 0"
+		, L"Датчик 1"
+		, L"Датчик 2"
+		, L"Датчик 3"
+		, L"Датчик 4"
+		, L"Датчик 5"
+		, L"Датчик 6"
+		, L"Датчик 7"
+		, L"Все"
+	};
+	dropDownSensors.Init(toolBar.hWnd, 40, sens, dimention_of(sens));
+
+	uspcChartViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<USPCChartViewer>::Proc, L"USPCChartViewer", &uspcChartViewer);
+
+	panel.hWnd = CreateChildWindowBackground(m.hwnd, (WNDPROC)&Viewer<Panel>::Proc, L"Panel", &panel);
+
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {550,900, 3000};
 	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);

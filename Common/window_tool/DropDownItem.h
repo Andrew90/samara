@@ -3,16 +3,18 @@
 class DropDown: public TCommandEvent
 {
 	struct TObj{};
-	void (TObj::*ptr)(wchar_t *);
+	void (TObj::*ptr)(int);
 	TObj *obj;
+	int width;
 public:
 	HWND hWnd;
 	DropDown();
-	void Create(HWND, int fontSize, int height, const wchar_t *textItems, int countTextItems);
+	void Init(HWND, int fontSize, const wchar_t **items, int count);
 	void Do(TCommand &);
-	template<class T>void SetCommandHandler(T *t, void (TObj::*t_ptr)(wchar_t *))
+	void Size(int x, int y, int width);
+	template<class T>void SetCommandHandler(T *t, void (TObj::*t_ptr)(int))
 	{
 		obj = (TObj *)t;
-		ptr = (void (TObj::*)(wchar_t *))t_ptr;
+		ptr = (void (TObj::*)(int))t_ptr;
 	}
 };

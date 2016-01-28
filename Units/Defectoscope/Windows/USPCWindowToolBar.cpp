@@ -20,7 +20,7 @@ void TestBtn(HWND);
 
 #define TOOL_LIP_TEXT(name, text)struct name{static wchar_t *Do(){return text;}};
 
-TOOL_LIP_TEXT(ToolLipCycleBtn     , L"Цикл")
+TOOL_LIP_TEXT(ToolLipCycleBtn     , L"Старт")
 TOOL_LIP_TEXT(ToolLipReset  	  , L"Стоп")
 TOOL_LIP_TEXT(ToolTresholdsViewBtn  , L"Просмотр")
 TOOL_LIP_TEXT(ToolTestBtn  , L"Тест")
@@ -31,8 +31,8 @@ typedef TL::MkTlst<
   SeparatorToolbar<0>
   , ButtonToolbar<IDB_CycleBtn, SycleMeashurement, ToolLipCycleBtn>  
   , ButtonToolbar<IDB_Reset, StopMeashurement    , ToolLipReset>  
-  , ButtonToolbar<IDB_QueryBtn, TestBtn             , ToolTestBtn>  
-  , ButtonToolbar<IDB_MashBtn, TresholdsViewBtn  , ToolTresholdsViewBtn>
+  //, ButtonToolbar<IDB_QueryBtn, TestBtn             , ToolTestBtn>  
+  //, ButtonToolbar<IDB_MashBtn, TresholdsViewBtn  , ToolTresholdsViewBtn>
   , SeparatorToolbar<1>
 >::Result tool_button_list;
 //----------------------------------------------------------------------------------

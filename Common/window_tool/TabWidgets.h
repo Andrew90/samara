@@ -176,7 +176,11 @@ public:
 		y = r.top +(r.bottom - r.top - height) / 2;
 		MoveWindow(h, x, y, width, height, FALSE);
 		hTab = CreateWindowEx(0, WC_TABCONTROL, 0,   WS_CHILD | WS_VISIBLE, 
-			0, 0, width, height - 70, h, (HMENU)NULL, hInstance, 0);			
+			0, 0, width, height - 70, h, (HMENU)NULL, hInstance, 0);
+
+		//unsigned flags = SWP_NOSIZE | SWP_DRAWFRAME;
+
+		//SetWindowPos(hTab, WS_EX_TOPMOST, 0, 0, width, height - 70, flags);
 
 		TL::foreach<typename T::items_list, __tab_name__>()((TL::Factory<typename T::items_list> *)0, (HWND *)&hTab);
 
@@ -222,23 +226,6 @@ public:
 			return TRUE;
 
 		case WM_NOTIFY:	 return ((TabControl *)lParam)->Notify((TNotify &)h);
-			/*
-			switch (((LPNMHDR)lParam)->code)
-			{
-			case TCN_SELCHANGING:
-				{
-					((TabControl *)GetWindowLong(h, GWL_USERDATA))->Show(false);
-				}
-				return FALSE;
-
-			case TCN_SELCHANGE:
-				{ 
-					((TabControl *)GetWindowLong(h, GWL_USERDATA))->Show(true);
-				} 
-				break;
-			}
-			return TRUE;
-			*/
 		}
 		return FALSE;
 	}

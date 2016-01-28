@@ -135,6 +135,7 @@
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="Windows\USPCChartViewer.cpp" />
     <ClCompile Include="Windows\USPCWindow.cpp" />
     <ClCompile Include="Windows\USPCWindowToolBar.cpp" />
   </ItemGroup>
@@ -211,9 +212,11 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
+    <ClInclude Include="Windows\Panel.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
+    <ClInclude Include="Windows\USPCChartViewer.h" />
     <ClInclude Include="Windows\USPCWindow.h" />
     <ClInclude Include="Windows\USPCWindowMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />

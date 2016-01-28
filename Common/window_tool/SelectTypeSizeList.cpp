@@ -40,7 +40,7 @@ void SelectTypeSizeList::Create(HWND h)
 		, WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST|CBS_AUTOHSCROLL |WS_VSCROLL 
 		, 0, 0, 0, 0, h, 0, hInstance, 0
 		);
-	SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)this);//&SelectTypeSizeList::Do);
+	SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)this);
 	HFONT font = CreateFont(40,0,0,90,900,TRUE,0,0,ANSI_CHARSET,0,0,0,0, L"Times New Roman"); 
 	SendMessage(hWnd, WM_SETFONT, (WPARAM)font, (LPARAM)0);
 	FillSelect(hWnd);
@@ -71,8 +71,6 @@ void SelectTypeSizeList::Do(TCommand &m)
 				UpdateWhere<CurrentParametersTable>(t, base).ID(1).Execute();
 
 				AppBase::InitTypeSizeTables(base);
-				//SelectTypeSizeList &o = ((MainWindow *)GetWindowLongPtr(m.hwnd, GWLP_USERDATA))->select;
-				//if(o.obj&&o.ptr) (o.obj->*o.ptr)();
 				if(obj&&ptr)(obj->*ptr)();
 
 				SetFocus(m.hwnd);

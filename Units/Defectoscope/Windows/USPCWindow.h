@@ -3,6 +3,9 @@
 #include <windows.h>
 #include "message.h"
 #include "USPCWindowToolBar.h"
+#include "DropDownItem.h"
+#include "USPCChartViewer.h"
+#include "Panel.h"
 
 class USPCWindow
 {
@@ -10,6 +13,10 @@ public:
 	HWND hWnd;
 	HWND hStatusWindow;
 	USPCWindowToolBar toolBar;
+	DropDown dropDownUnit;
+	DropDown dropDownSensors;
+	USPCChartViewer uspcChartViewer;
+	Panel panel;
 	USPCWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);

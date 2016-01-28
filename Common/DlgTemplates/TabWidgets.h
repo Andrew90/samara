@@ -87,7 +87,7 @@ struct OkTabBtn
 				{
 					if(__ok_table_btn__<Table>()(p->hWnd, p->items.get<O>()))
 					{
-						//EndDialog(h, TRUE);
+						EndDialog(p->hWnd, TRUE);
 					}
 				}
 				return false;
@@ -192,14 +192,16 @@ template<class T, class ButtonsList = TL::MkTlst<OkTabBtn, CancelBtn>::Result>cl
 public:
 	HWND hWnd;
 	HWND hTab;
+	HWND hParent;
 	typedef T Table;
 	T &data;
 	int x, y, width, height;
 	int currentPage;
 	typedef typename TL::TypeToTypeLstParam1<typename Table::items_list, TabPage, TabControl>::Result list;
 	TL::Factory<list> items;
-	TabControl(T &t, int w, int h)
-		: data(t)
+	TabControl(HWND hwnd, T &t, int w, int h)
+		: hParent(hwnd)
+		, data(t)
 		, items(*this)
 		, width(w)
 		, height(h)
@@ -218,7 +220,7 @@ public:
 		y = r.top +(r.bottom - r.top - height) / 2;
 		MoveWindow(h, x, y, width, height, FALSE);
 		hTab = CreateWindowEx(0, WC_TABCONTROL, 0,   WS_CHILD | WS_VISIBLE, 
-			0, 0, width, height - 70, h, (HMENU)NULL, hInstance, 0);			
+			0, 0, width, height - 70, h, (HMENU)NULL, hInstance, 0);
 
 		TL::foreach<typename T::items_list, __tab_name__>()((TL::Factory<typename T::items_list> *)0, (HWND *)&hTab);
 
@@ -247,7 +249,7 @@ public:
 		}
 		return TRUE;
 	}
-	  static LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
+	static LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		switch(msg)
 		{
@@ -262,13 +264,13 @@ public:
 				((TabControl *)lParam)->Init(h);				
 			}
 			return TRUE;
-
 		case WM_NOTIFY:	 return ((TabControl *)lParam)->Notify((TNotify &)h);
 		}
 		return FALSE;
 	}
-	bool Do(HWND hWnd, wchar_t *title)
+	bool Do(wchar_t *title)
 	{
-		return TemplDlg_Do(hWnd, title, (DLGPROC)Proc, (LPARAM)this);
+		TemplDlg_Do(hParent, title, (DLGPROC)Proc, (LPARAM)this);
+		return true;
 	}
 };
