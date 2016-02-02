@@ -8,6 +8,7 @@
 
 //------------------------------------------------------------------------
 USPCWindow::USPCWindow()
+	: panel(dropDownUnit.current, dropDownSensors.current) 
 {}
 // 	 ---------------------------------------------------------------------
 void USPCWindow::operator()(TSize &m)
@@ -82,7 +83,7 @@ unsigned USPCWindow::operator()(TCreate &m)
 
 	uspcChartViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<USPCChartViewer>::Proc, L"USPCChartViewer", &uspcChartViewer);
 
-	panel.hWnd = CreateChildWindowBackground(m.hwnd, (WNDPROC)&Viewer<Panel>::Proc, L"Panel", &panel);
+	panel.hWnd = CreateChildWindowBackground(m.hwnd, (WNDPROC)&Viewer<USPCBottomPanel>::Proc, L"Panel", &panel);
 
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {550,900, 3000};

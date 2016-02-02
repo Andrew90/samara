@@ -5,7 +5,7 @@
 #include "USPCWindowToolBar.h"
 #include "DropDownItem.h"
 #include "USPCChartViewer.h"
-#include "Panel.h"
+#include "USPCBottomPanel.h"
 
 class USPCWindow
 {
@@ -16,7 +16,7 @@ public:
 	DropDown dropDownUnit;
 	DropDown dropDownSensors;
 	USPCChartViewer uspcChartViewer;
-	Panel panel;
+	USPCBottomPanel panel;
 	USPCWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);

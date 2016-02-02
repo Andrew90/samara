@@ -254,6 +254,15 @@
     <ClCompile Include="Windows\USPCChartViewer.cpp">
       <Filter>Windows\USPCWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\USPCBottomPanel.cpp">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\USPCbuttonOk.cpp">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\USPCParam.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -347,9 +356,6 @@
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h">
-      <Filter>Common\window_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\window_tool\TabWidgets.h">
       <Filter>Common\window_tool</Filter>
     </ClInclude>
     <ClInclude Include="Windows\CrossViewer.h">
@@ -493,7 +499,19 @@
     <ClInclude Include="Windows\USPCChartViewer.h">
       <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\Panel.h">
+    <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h">
+      <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\BottomPanel.h">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCBottomPanel.h">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCbuttonOk.h">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCpageItems.hpp">
       <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
   </ItemGroup>

@@ -93,6 +93,7 @@
     <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\..\Common\USPC\USPCParam.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp" />
     <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp" />
@@ -135,6 +136,8 @@
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="Windows\USPCBottomPanel.cpp" />
+    <ClCompile Include="Windows\USPCbuttonOk.cpp" />
     <ClCompile Include="Windows\USPCChartViewer.cpp" />
     <ClCompile Include="Windows\USPCWindow.cpp" />
     <ClCompile Include="Windows\USPCWindowToolBar.cpp" />
@@ -183,7 +186,7 @@
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
-    <ClInclude Include="..\..\Common\window_tool\TabWidgets.h" />
+    <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppBase.h" />
@@ -212,11 +215,14 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
-    <ClInclude Include="Windows\Panel.h" />
+    <ClInclude Include="Windows\BottomPanel.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
+    <ClInclude Include="Windows\USPCBottomPanel.h" />
+    <ClInclude Include="Windows\USPCbuttonOk.h" />
     <ClInclude Include="Windows\USPCChartViewer.h" />
+    <ClInclude Include="Windows\USPCpageItems.hpp" />
     <ClInclude Include="Windows\USPCWindow.h" />
     <ClInclude Include="Windows\USPCWindowMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />

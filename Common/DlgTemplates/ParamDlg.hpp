@@ -301,7 +301,7 @@ template<class T, int edit_width = 140>struct EditItems
 			);
 		HWND q = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
+			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, hInstance, NULL
 			);
 		SetWindowLong(hWnd, GWL_USERDATA, (LONG)q);
 		dy += 25;
@@ -448,7 +448,7 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 	    SetWindowLong(hWnd, GWL_USERDATA, (LONG)hUpdown);
 		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
+			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, hInstance, NULL
 			);
 		SetWindowLong(hUpdown, GWL_USERDATA, (LONG)hh);
 		SendMessage(hUpdown, UDM_SETBUDDY, (WPARAM)hWnd, 0);

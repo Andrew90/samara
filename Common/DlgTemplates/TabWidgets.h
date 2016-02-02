@@ -231,7 +231,7 @@ public:
 	{
 		TL::find<ButtonsList, __command__>()(&buttons, &__command_data__(h, *this));
 	}
-	bool Notify(TNotify &l)
+	void Notify(TNotify &l)
 	{
 		switch (l.pnmh->code)
 		{
@@ -239,15 +239,14 @@ public:
 			{
 				((TabControl *)GetWindowLong(l.hwnd, GWL_USERDATA))->Show(false);
 			}
-			return FALSE;
+			break;
 
 		case TCN_SELCHANGE:
 			{ 
 				((TabControl *)GetWindowLong(l.hwnd, GWL_USERDATA))->Show(true);
 			} 
 			break;
-		}
-		return TRUE;
+		}		
 	}
 	static LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -264,7 +263,9 @@ public:
 				((TabControl *)lParam)->Init(h);				
 			}
 			return TRUE;
-		case WM_NOTIFY:	 return ((TabControl *)lParam)->Notify((TNotify &)h);
+		case WM_NOTIFY:	  
+			((TabControl *)lParam)->Notify((TNotify &)h);
+			return TRUE;
 		}
 		return FALSE;
 	}

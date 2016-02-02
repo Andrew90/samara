@@ -9,6 +9,7 @@ extern HINSTANCE hInstance;
 DropDown::DropDown()
 	: ptr(NULL)
 	, obj(NULL)
+	, current(0)
 {}
 
 void DropDown::Do(TCommand &m)
@@ -17,8 +18,8 @@ void DropDown::Do(TCommand &m)
 	{
 		wchar_t buf[128];
 		GetWindowText(m.hControl, buf, dimention_of(buf));
-		int num = ComboBox_FindStringExact(m.hControl, 0, buf);
-		if(obj&&ptr) (obj->*ptr)(num);
+		current = ComboBox_FindStringExact(m.hControl, 0, buf);
+		if(obj&&ptr) (obj->*ptr)(current);
 		SetFocus(m.hwnd);
 	}
 }

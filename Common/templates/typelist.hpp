@@ -14,12 +14,12 @@ namespace TL
 #define c(n) class n=NullType
 #define a(n) c(_##n##0),c(_##n##1),c(_##n##2),c(_##n##3),c(_##n##4),c(_##n##5),c(_##n##6),c(_##n##7),c(_##n##8),c(_##n##9)
 #define b(n) _##n##0,_##n##1,_##n##2,_##n##3,_##n##4,_##n##5,_##n##6,_##n##7,_##n##8,_##n##9
-	template<a(0),a(1),a(2),a(3),a(4)>struct MkTlst
+	template<a(0),a(1),a(2),a(3),a(4),a(5),a(6),a(7),a(8),a(9)>struct MkTlst
 	{
 		typedef Tlst<_00
 			, typename MkTlst<
 			_01,_02,_03,_04,_05,_06,_07,_08,_09
-			,b(1),b(2),b(3),b(4)
+			,b(1),b(2),b(3),b(4),b(5),b(6),b(7),b(8),b(9)
 			>::Result
 		> Result;
 	};
@@ -76,13 +76,31 @@ namespace TL
 		typedef Tlst<Wapper<Head>, NullType> Result;
 	};
 //---------------------------------------------------------------------------
-    template<template<int>class Wapper, int start, int max = count>struct CreateNumList
+    template<template<int>class Wapper, int start, int max>struct CreateNumList
 	{
 		typedef Tlst<Wapper<start>, typename CreateNumList<Wapper, 1 + start, max>::Result> Result;
 	};
 	template<template<int>class Wapper, int max>struct CreateNumList<Wapper, max, max>
 	{
 		typedef Tlst<Wapper<max>, NullType> Result;
+	};
+//--------------------------------------------------------------------------------------------------------------
+	template<template<class, int>class Wapper, class T, int start, int max>struct CreateWapperNumList
+	{
+		typedef Tlst<Wapper<T, start>, typename CreateWapperNumList<Wapper, T, 1 + start, max>::Result> Result;
+	};
+	template<template<class, int>class Wapper, class T, int max>struct CreateWapperNumList<Wapper, T, max, max>
+	{
+		typedef Tlst<Wapper<T, max>, NullType> Result;
+	};
+//--------------------------------------------------------------------------------------------------------------
+	template<template<class, class, class, int>class Wapper, class T, class T1, class T2, int start, int max>struct CreateWapper3NumList
+	{
+		typedef Tlst<Wapper<T, T1, T2, start>, typename CreateWapper3NumList<Wapper, T, T1, T2, 1 + start, max>::Result> Result;
+	};
+	template<template<class, class, class, int>class Wapper, class T, class T1, class T2, int max>struct CreateWapper3NumList<Wapper, T, T1, T2, max, max>
+	{
+		typedef Tlst<Wapper<T, T1, T2, max>, NullType> Result;
 	};
 //--------------------------------------------------------------------------------------------------------------
 	template<typename T, typename tmp = NullType>struct Reverse;

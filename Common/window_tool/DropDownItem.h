@@ -7,6 +7,7 @@ class DropDown: public TCommandEvent
 	TObj *obj;
 	int width;
 public:
+	int current;
 	HWND hWnd;
 	DropDown();
 	void Init(HWND, int fontSize, const wchar_t **items, int count);

@@ -9,7 +9,7 @@ namespace {
 bool TestWindowRect(RECT &inp)
 {
 	RECT r;
-	GetWindowRect(0, &r);
+	GetWindowRect(GetDesktopWindow(), &r);
 	return (unsigned)inp.left < (unsigned)r.right && (unsigned)inp.top < (unsigned)r.bottom;
 }
 void GetPath(wchar_t (&path)[1024])
