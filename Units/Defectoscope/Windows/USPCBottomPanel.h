@@ -1,7 +1,7 @@
 #pragma once
 #include "message.h"
 #include "TabControlUnits.h"
-#include "USPCbuttonOk.h"
+#include "Button.h"
 #include "USPCParam.h"
 #include "App.h"
 #include "USPCpageItems.hpp"
@@ -44,7 +44,7 @@ public:
 	USPCParam uspcParam;
 	USPCTabs uspcTabs;
 	TabControlUnit<USPCTabs> tabControl;
-	USPCbuttonOk uspcButtonOk;	
+	Button uspcButtonOk;	
 public:
 	HWND hWnd;
 	USPCBottomPanel(int &, int &);

@@ -25,7 +25,7 @@ unsigned USPCBottomPanel::operator()(TCreate &l)
 	tabControl.y = 0;
 	tabControl.width = 500;	
 	tabControl.Create(l.hwnd);
-	uspcButtonOk.Create(l.hwnd);
+	uspcButtonOk.Create(l.hwnd, L"Применить");
 	firstSize = true;
 	uspcButtonOk.SetCommandHandler(&tabControl, &TabControlUnit<USPCTabs>::StorePage);
 	return 0;
