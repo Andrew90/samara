@@ -1,6 +1,6 @@
 #pragma once
 #include "MessagesInterface.h"
-class SelectTypeSizeList: public TCommandEvent
+class SelectTypeSizeList: public TEvent
 {
 	struct TObj{};
 	TObj *obj;

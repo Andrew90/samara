@@ -1,12 +1,10 @@
 #pragma once
+#include "typelist.hpp"
+#include "USPCParam.h"
 
 template<class T>struct USCPpageItems
 {
-	typedef TL::MkTlst<
-		 LongParam
-		 , CrossParam
-		 , ThicknessParam
-	 >::Result params_list;
+	typedef typename USPCParam::items_list params_list;
 
 	typedef typename T::items_list items_list;
 	
@@ -20,9 +18,46 @@ template<class T>struct USCPpageItems
 		, sens(z.sens)
 		, params(z.items)
 	{}
-	
+private:
+	template<class List, class Z>struct __data__
+	{
+		typedef List list;
+		typedef Z RET;
+		RET *ret;
+		USCPpageItems *self;
+	};
+	template<class O, class P>struct __sens__
+	{
+		bool operator()(O *o, P *p)
+		{
+			
+			if(TL::IndexOf<P::list, O>::value == p->self->sens)
+			{
+				dprint("%s  +++\n", typeid(O).name());
+				p->ret = &o->items.get<TL::Inner<P::RET>::Result>().items.get<P::RET>();
+				return false;
+			}
+			return true;
+		}
+	};
+	template<class O, class P>struct __unit__
+	{
+		bool operator()(O *o, P *p)
+		{
+			if(TL::IndexOf<P::list, O>::value == p->self->unit)
+			{
+				TL::find<typename O::items_list, __sens__>()(&o->items, (__data__<O::items_list, P::RET> *)p);
+				return false;
+			}
+			return true;
+		}
+	};
+public:	
 	template<class Z>Z &get()
 	{
-		static Z z; return z;
+		dprint("%s %d  %d get\n", typeid(Z).name(), unit, sens);
+		__data__<params_list, Z> data = {NULL, this};
+		TL::find<params_list, __unit__>()(&params, &data);
+		return *data.ret;
 	}
 };

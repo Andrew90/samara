@@ -41,7 +41,7 @@ void USPCWindow::operator()(TSize &m)
 //------------------------------------------------------------------------
 void USPCWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //------------------------------------------------------------------------
 void USPCWindow::operator()(TGetMinMaxInfo &m)
@@ -64,7 +64,6 @@ unsigned USPCWindow::operator()(TCreate &m)
 		L"Продольный"
 		, L"Поперечный"
 		, L"Толщина"
-		, L"Все"
 	};
 	dropDownUnit.Init(toolBar.hWnd, 40, items, dimention_of(items));
 
@@ -77,7 +76,6 @@ unsigned USPCWindow::operator()(TCreate &m)
 		, L"Датчик 5"
 		, L"Датчик 6"
 		, L"Датчик 7"
-		, L"Все"
 	};
 	dropDownSensors.Init(toolBar.hWnd, 40, sens, dimention_of(sens));
 
@@ -88,6 +86,8 @@ unsigned USPCWindow::operator()(TCreate &m)
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {550,900, 3000};
 	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);
+	dropDownUnit.SetCommandHandler(&panel, &USPCBottomPanel::UpdatePage);
+	dropDownSensors.SetCommandHandler(&panel, &USPCBottomPanel::UpdatePage);
 	return 0;
 }
 //-------------------------------------------------------------------------

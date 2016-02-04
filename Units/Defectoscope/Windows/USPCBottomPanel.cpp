@@ -2,25 +2,14 @@
 #include "USPCBottomPanel.h"
 #include "TabControlUnits.h"
 #include "AppBase.h"
-/*
-PARAM_TITLE(USPCBottomPanel::USPCTabs::gateIFPage, L"gateIF")
-PARAM_TITLE(USPCBottomPanel::USPCTabs::gate1Page, L"gate1")
-PARAM_TITLE(USPCBottomPanel::USPCTabs::gate2Page, L"gate2")
-PARAM_TITLE(USPCBottomPanel::USPCTabs::scopePage, L"scope")
-*/
+#include "MenuAPI.h"
+
 PARAM_TITLE(USCPpageItems<gateIF>, L"gateIF")
 PARAM_TITLE(USCPpageItems<gate1>, L"gate1")
 PARAM_TITLE(USCPpageItems<gate2>, L"gate2")
 PARAM_TITLE(USCPpageItems<scope>, L"scope")
 
-PARAM_TITLE(position, L"position")
-PARAM_TITLE(width, L"width")
-PARAM_TITLE(level, L"level")
-PARAM_TITLE(nb_alarm_level, L"alarm level")
 
-PARAM_TITLE(offset, L"offset")
-PARAM_TITLE(range, L"range")
-PARAM_TITLE(velocity, L"velocity")
 
 USPCBottomPanel::USPCBottomPanel(int &u, int &s)
 : unit(u)
@@ -38,17 +27,19 @@ unsigned USPCBottomPanel::operator()(TCreate &l)
 	tabControl.Create(l.hwnd);
 	uspcButtonOk.Create(l.hwnd);
 	firstSize = true;
+	uspcButtonOk.SetCommandHandler(&tabControl, &TabControlUnit<USPCTabs>::StorePage);
 	return 0;
 }
 
 void USPCBottomPanel::operator()(TNotify &l)
 {
-	tabControl.Notify(l);
+	EventDo(l);
 }
 
 void USPCBottomPanel::operator()(TCommand &l)
 {
-	zprint(" ~~~");
+	zprint(" ~~~\n");
+	EventDo(l);
 }
 
 void USPCBottomPanel::operator()(TSize &l)
@@ -64,3 +55,9 @@ void USPCBottomPanel::operator()(TSize &l)
 	tabControl.Size(l);
 	uspcButtonOk.Size(tabControl.width + 20, tabControl.height - 40);
 }
+
+void USPCBottomPanel::UpdatePage(int)
+{
+	tabControl.UpdatePage();
+}
+

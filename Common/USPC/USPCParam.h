@@ -2,13 +2,13 @@
 #include "TablesDefine.h"
 #include "typelist.hpp"
 
-#define ITEM(item, type, def)struct item\
-{\
-  typedef type type_value;\
-  type_value value;\
-  const type_value default_value;\
-  item() : value(def), default_value(def){}\
-};
+#define ITEM(name, type, def)template<class T>struct name\
+	{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	name() : value(def), default_value(def){}\
+	};
 
 ITEM(position		, double, 10)
 ITEM(width			, double, 10)
@@ -22,40 +22,44 @@ ITEM(velocity		, double, 10)
 
 struct gateIF
 {
-	typedef TL::MkTlst<position, width, level>::Result items_list;
+	typedef  TL::MkTlst<position<gateIF>, width<gateIF>, level<gateIF> >::Result items_list;
 	TL::Factory<items_list> items;
 };
 struct gate1
 {
-	typedef TL::MkTlst<position, width, level, nb_alarm_level>::Result items_list;
+	typedef  TL::MkTlst<position<gate1>, width<gate1>, level<gate1>, nb_alarm_level<gate1>>::Result items_list;
 	TL::Factory<items_list> items;
 };
 struct gate2
 {
-	typedef TL::MkTlst<position, width, level, nb_alarm_level>::Result items_list;
+	typedef  TL::MkTlst<position<gate2>, width<gate2>, level<gate2>, nb_alarm_level<gate2> >::Result items_list;
 	TL::Factory<items_list> items;
 };
 struct scope
 {
-	typedef TL::MkTlst<offset, range, velocity>::Result items_list;
+	typedef  TL::MkTlst<offset<scope>, range<scope>, velocity<scope>>::Result items_list;
 	TL::Factory<items_list> items;
 };
 
-
+template<class T, int NUM>struct Unit
+{
+	typedef typename TL::MkTlst<gateIF, gate1, gate2, scope>::Result items_list;
+	TL::Factory<items_list> items;
+};
 
 struct LongParam
 {
-	typedef TL::MkTlst<gateIF, gate1, gate2, scope>::Result items_list;
+	typedef TL::CreateWapperNumList<Unit, LongParam, 0, 7>::Result items_list;
 	TL::Factory<items_list> items;
 };
 struct CrossParam
 {
-	typedef TL::MkTlst<gateIF, gate1, gate2, scope>::Result items_list;
+	typedef TL::CreateWapperNumList<Unit, CrossParam, 0, 7>::Result items_list;
 	TL::Factory<items_list> items;
 };
 struct ThicknessParam
 {
-	typedef TL::MkTlst<gateIF, gate1, gate2, scope>::Result items_list;
+	typedef TL::CreateWapperNumList<Unit, ThicknessParam, 0, 7>::Result items_list;
 	TL::Factory<items_list> items;
 };
 

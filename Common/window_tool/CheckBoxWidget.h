@@ -7,7 +7,7 @@
 * \brief Шаблон для чекбокса 
 * \param T - шаблонный параметр пример использования смотри  TestCheckBox
 */
-template<class T>class CheckBoxWidget : public T, public TCommandEvent
+template<class T>class CheckBoxWidget : public T, public TEvent
 {
 	HWND hWnd;
 public:

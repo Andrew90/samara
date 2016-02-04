@@ -42,5 +42,5 @@ void DropDown::Init(HWND h, int fontSize, const wchar_t **items, int count)
 	{
 		ComboBox_AddString(hWnd, items[i]);
 	}
-	ComboBox_SetCurSel(hWnd, 0);
+	ComboBox_SetCurSel(hWnd, current);
 }

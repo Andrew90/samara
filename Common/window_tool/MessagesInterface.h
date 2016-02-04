@@ -1,8 +1,8 @@
 #pragma once
-
-struct TCommand;
-class TCommandEvent
+#include "message.h"
+class TEvent
 {
 public:
-	virtual void Do(TCommand &) = 0;
+	virtual void Do(TCommand &){}
+	virtual void Do(TNotify &){}
 };

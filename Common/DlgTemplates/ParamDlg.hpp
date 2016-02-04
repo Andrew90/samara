@@ -26,6 +26,16 @@ template<class T>struct DlgItem
 	{
 		hWnd = DlgSubItems<T, typename T::type_value>().Init(h, width, dy, value);
 	}
+	void Update()
+	{
+		SetWindowText(hWnd, Wchar_from<typename T::type_value>(value.value)());
+	}
+	void Store()
+	{
+		wchar_t buf[64];
+		GetWindowText(hWnd, buf, dimention_of(buf));
+		value.value = Wchar_to<typename T::type_value>()(buf);
+	}
 };
 //-------------------------------------------------------------------------------------------------
 template<class T>struct __update_data__

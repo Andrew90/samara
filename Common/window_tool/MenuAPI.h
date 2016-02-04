@@ -193,4 +193,5 @@ template<class T>void ChangeTextSubMenu(HWND h, wchar_t *text)
 #define MENU_TEXT(txt, item)template<>struct NameMenu<item >{wchar_t *operator()(HWND){return txt;}};
 #define MENU_ITEM(txt, item) MENU_TEXT(txt, MenuItem<item>) template<>struct Event<MenuItem<item> >:item{};
 
-void GetMenuToolBarEvent(TCommand &m);
+void EventDo(TCommand &m);
+void EventDo(TNotify &m);

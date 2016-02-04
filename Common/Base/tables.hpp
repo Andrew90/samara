@@ -1069,6 +1069,12 @@ template<typename Table>struct Delete
 			return false;
 		}
 	}
+//------------------------------------------------------------------
+    template<class T>struct Inner;
+	template<template<class>class Wapper, class T>struct Inner<Wapper<T> >
+	{
+		typedef T Result;
+	};
 };
 
 #pragma warning( disable : 4996 )

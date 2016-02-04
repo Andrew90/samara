@@ -410,6 +410,7 @@ namespace TL
 		typedef NullType Result;
 	};
 //----------------------------------------------------------------------------------------------------------
+	/*
 	template<class T>struct GetInnerType
 	{
 		typedef T Result;
@@ -419,6 +420,7 @@ namespace TL
 	{
 		typedef T Result;
 	};
+	*/
 //----------------------------------------------------------------------------------------------------------
 	template<class T>struct NoWapperType
 	{
