@@ -129,7 +129,6 @@ template<class T>class TabControlUnit: TEvent
 	{
 		void operator()(O *o, P *p)
 		{
-			  dprint("%s rrr\n", typeid(O).name());
 			  o->Store();
 			  typedef typename TL::Inner<O>::Result T;
 			  p->data.items.get<USCPpageItems<typename TL::Inner<T>::Result> >().get<T>().value = o->value.value;

@@ -72,7 +72,8 @@ struct ThicknessParam
 		 , ThicknessParam
 	 >::Result items_list;
 	 
-	 TL::Factory<items_list> items;
+	 typedef TL::Factory<items_list> TItems;
+	 TItems items;
 	 void Init();
 	 void Save();
 	 void Update();

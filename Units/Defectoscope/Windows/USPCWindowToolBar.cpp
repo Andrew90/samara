@@ -38,12 +38,12 @@ typedef TL::MkTlst<
 //----------------------------------------------------------------------------------
 void SycleMeashurement(HWND h)
 {
-  zprint("");
+  zprint("\n");
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)
 {
-	zprint("");
+	zprint("\n");
 	//DetailedWindow::Open();
 	//app.mainWindow.viewers.get<ThicknessViewer>().openDetailedWindow = true;
 	//RepaintWindow(DetailedWindow::Instance().hWnd);
@@ -51,7 +51,7 @@ void TresholdsViewBtn(HWND h)
 //-----------------------------------------------------------------------------
 void TestBtn(HWND)
 {
-	zprint("");
+	zprint("\n");
 	//if(automat.TestMode())
 	//{
 	//	app.mainWindow.viewers.get<ThicknessViewer>().Repaint();
@@ -60,7 +60,7 @@ void TestBtn(HWND)
 //----------------------------------------------------------------------------
 void StopMeashurement(HWND h)
 {
-	 zprint("");
+	 zprint("\n");
 }
 }
 //--------------------------------------------------------------------------------------------

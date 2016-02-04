@@ -153,7 +153,6 @@ void CrossViewer::operator()(TMouseWell &l)
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));		
 	}
-	//zprint("~~~~~~~~x %d y %d %d %d %d\n", l.x, l.y, l.delta / 120, r.left, r.top);
 }
 //--------------------------------------------------------------------------------------
 void CrossViewer::operator()(TLButtonDown &)

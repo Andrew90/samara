@@ -38,7 +38,6 @@ void USPCBottomPanel::operator()(TNotify &l)
 
 void USPCBottomPanel::operator()(TCommand &l)
 {
-	zprint(" ~~~\n");
 	EventDo(l);
 }
 

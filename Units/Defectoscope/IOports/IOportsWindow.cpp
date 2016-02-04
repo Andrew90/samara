@@ -62,7 +62,6 @@ unsigned IOportsWindow::operator()(TCreate &m)
 //------------------------------------------------------------------------
 void IOportsWindow::operator()(TDestroy &m)
 {
-	dprint("TDestroy");
 	viewer.Stop();
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
 }

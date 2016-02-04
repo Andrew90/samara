@@ -129,7 +129,6 @@ template<class O, class P>struct __mouse_down__
 		int y1 = y0 + 15;
 		if(p->l.x > x0 && p->l.x < x1 && p->l.y > y0 && p->l.y < y1)
 		{
-			dprint("mouse %d %d %s", p->l.x, p->l.y, typeid(O).name());
 			p->value ^= o->value;
 			device1730.WriteOutput(p->value);
 		}

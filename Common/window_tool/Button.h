@@ -1,15 +1,15 @@
 #pragma once
 #include "MessagesInterface.h"
 
-class USPCbuttonOk : public TEvent
+class Button : public TEvent
 {
 	class TObj{} *obj;
 	void(TObj::*ptr)();
 	HWND hWnd;
 public:
-	USPCbuttonOk();
+	Button();
 	void Do(TCommand &);
-	void Create(HWND);
+	void Create(HWND, wchar_t *);
 	void Size(int, int);
 	template<class T>void SetCommandHandler(T *o, void(T::*p)())
 	{

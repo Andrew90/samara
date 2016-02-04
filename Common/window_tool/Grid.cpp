@@ -72,8 +72,6 @@ LRESULT GridNotify::Notify(TNotify &m)
 			if(handlers)handlers->RClick((LPNMITEMACTIVATE)m.pnmh);
 		}
 		break;
-	 default:
-		 dprint("%d", m.pnmh->code);
 	}
 	return DefWindowProc(m.hwnd, WM_NOTIFY, (WPARAM)m.idCtrl, (LPARAM)m.pnmh);
 }

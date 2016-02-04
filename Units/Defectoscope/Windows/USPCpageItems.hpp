@@ -16,7 +16,7 @@ template<class T>struct USCPpageItems
 	template<class Z>USCPpageItems(Z &z)
 		: unit(z.unit)
 		, sens(z.sens)
-		, params(z.items)
+		, params(z.uspcParam.items)
 	{}
 private:
 	template<class List, class Z>struct __data__
@@ -33,7 +33,6 @@ private:
 			
 			if(TL::IndexOf<P::list, O>::value == p->self->sens)
 			{
-				dprint("%s  +++\n", typeid(O).name());
 				p->ret = &o->items.get<TL::Inner<P::RET>::Result>().items.get<P::RET>();
 				return false;
 			}
@@ -55,7 +54,6 @@ private:
 public:	
 	template<class Z>Z &get()
 	{
-		dprint("%s %d  %d get\n", typeid(Z).name(), unit, sens);
 		__data__<params_list, Z> data = {NULL, this};
 		TL::find<params_list, __unit__>()(&params, &data);
 		return *data.ret;

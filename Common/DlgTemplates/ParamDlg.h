@@ -51,7 +51,6 @@ template<class O, class P>struct __make_btn__
 {
 	void operator()(O *o, P *p)
 	{
-		dprint("%s", __FUNCTION__);
 		CreateWindow(L"button", o->Title()
 			, WS_VISIBLE | WS_CHILD | WS_TABSTOP
 			,p->offs, p->height, O::width, 30, p->h, (HMENU)O::ID, hInstance, NULL
@@ -224,7 +223,6 @@ template<class Table>struct TestPassword
 	bool operator()(HWND h)
 	{
 		static const int t = TL::TypeInMultyList<ParametersBase::multy_type_list, Table>::Result::value;
-		zprint(" %d  \n", t);
 		return (0 == t)
 			? TypesizePasswordDlg().Do(h)
 			: OptionPasswordDlg().Do(h);

@@ -136,7 +136,6 @@ void LongViewer::operator()(TMouseWell &l)
 			, 0 == l.flags.lButton 
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-		//zprint("~~~~~~~~x %d y %d %d\n", l.x, l.y, l.delta / 120);
 	}
 }
 //--------------------------------------------------------------------------------------

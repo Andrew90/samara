@@ -1,31 +1,30 @@
 #include "stdafx.h"
-#include "USPCbuttonOk.h"
+#include "Button.h"
 #include <Windows.h>
 #include "DebugMess.h"
 
 extern HINSTANCE hInstance;
 
-USPCbuttonOk::USPCbuttonOk()
+Button::Button()
 	: obj(NULL)
 	, ptr(NULL)
 {}
 
-void USPCbuttonOk::Do(TCommand &l)
+void Button::Do(TCommand &l)
 {
-	zprint(" ~~~");
 	if(obj&&ptr) (obj->*ptr)();
 }
 
-void USPCbuttonOk::Create(HWND h)
+void Button::Create(HWND h, wchar_t *txt)
 {
-	hWnd = CreateWindow(L"button", L"Применить"
+	hWnd = CreateWindow(L"button", txt//L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
 				, 0, 0, 0, 0, h, NULL, hInstance, NULL
 				);
 	SetWindowLongPtr(hWnd, GWLP_USERDATA, (DWORD)this);
 }
 
-void USPCbuttonOk::Size(int x, int y)
+void Button::Size(int x, int y)
 {
 	  MoveWindow(hWnd, x, y, 200, 25, TRUE);
 }
