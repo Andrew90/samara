@@ -121,8 +121,6 @@ void USPCWindow::operator()(TMouseWell &l)
 //--------------------------------------------------------------------------------
 void USPCWindow::Do(HWND)
 {
-	static USPCWindow x;
-
 	HWND hh = FindWindow(L"USPCWindow", 0);
 	if(NULL != hh)
 	{
@@ -133,8 +131,13 @@ void USPCWindow::Do(HWND)
 	{
 		RECT r;
 		WindowPosition::Get<USPCWindow>(r);
-		HWND h = WindowTemplate(&x, L"Настройка USPC", r.left, r.top, r.right, r.bottom);
+		HWND h = WindowTemplate(&Instance(), L"Настройка USPC", r.left, r.top, r.right, r.bottom);
 		ShowWindow(h, SW_SHOWNORMAL);
 	}
+}
+
+USPCWindow &USPCWindow::Instance()
+{
+	static USPCWindow x; return x;
 }
 

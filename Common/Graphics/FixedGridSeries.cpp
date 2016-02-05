@@ -10,8 +10,6 @@ FixedGridSeries::FixedGridSeries(Chart &chart)
 	: chart(chart)
 	, sensorCount(8)
 	, countZones(App::zonesCount)
-	//, dx(chart.deltaTickX)
-	//, dy(chart.deltaTickY)
 {
 
 	SetColorCellHandler(this, &FixedGridSeries::GetColorCellDefault);
@@ -28,7 +26,6 @@ void FixedGridSeries::Draw()
 		CombineModeReplace
 		);	
 	double length = chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight;
-//	dx = length / countZones;
 	double left = chart.rect.left + chart.offsetAxesLeft;
 	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	double x;
@@ -47,18 +44,6 @@ void FixedGridSeries::Draw()
 	}
 	chart.g->SetClip(&Region());
 }
-//----------------------------------------------------------------------------
-/*
-void FixedGridSeries::CoordCell(int mX, int mY, int &x, int &y)
-{
-	double left = chart.rect.left + chart.offsetAxesLeft;
-	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
-
-	x = int((mX - left) / dx);
-	y = int((bottom - mY) / dy);
-	xprint("x %d y %d", x, y);
-}
-*/
 //----------------------------------------------------------
 void FixedGridSeries::OffsetToPixel(WORD &offsX, WORD &offsY, int delta, bool horisontalMove)
 {
@@ -116,7 +101,7 @@ void FixedGrid::Draw()
 		offs += dX;
 	}
 	offs = chart.offsetGridY;
-	y_b = chart.offsetAxesLeft + 3;//chart.rect.left + chart.offsetAxesLeft + 3;
+	y_b = chart.offsetAxesLeft + 3;
 	y_t = chart.rect.right - chart.offsetAxesRight - 3;
 	int bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	while(bottom <= offs) offs -= dY;
@@ -144,11 +129,10 @@ void FixedLeftAxes::Draw()
 	double height;
 
 	int maxLen = 0;
-	chart.offsetAxesLeft = leftOffset;//7 + chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
+	chart.offsetAxesLeft = leftOffset;
 
 	chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
 	maxLen += 2;
-	//int x = chart.rect.left + chart.offsetAxesLeft;
 	int x = leftOffset;
 	int bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	chart.g->DrawLine(&pen, x, chart.rect.top + chart.offsetAxesTop, x, bottom);
@@ -160,18 +144,6 @@ void FixedLeftAxes::Draw()
 	double deltaDigit = 0;
 	double digit = 0;
 	double minTick = 0;
-	/*
-	OffsetAxes(
-		int(height * 2)
-		, chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop
-		, chart.minAxesY
-		, chart.maxAxesY
-		, deltaDigit
-		, deltaTick
-		, digit
-		, minTick
-		);
-		*/
 	deltaDigit = 1;
 	digit = chart.minAxesY;
 	minTick = 0;
@@ -180,7 +152,7 @@ void FixedLeftAxes::Draw()
 	chart.deltaTickY = deltaTick;
 	chart.deltaDigitY = deltaDigit;
 	chart.offsetGridX = leftOffset + deltaTick;
-	chart.offsetAxesLeft = leftOffset;// + deltaTick;
+	chart.offsetAxesLeft = leftOffset;
 	while(bottom < offs)
 	{
 		offs -= deltaTick;
@@ -191,8 +163,6 @@ void FixedLeftAxes::Draw()
 	while(offs > chart.rect.top + chart.offsetAxesTop)
 	{
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
-		//gcvt(digit, 5, buf);
-		//mbstowcs(wbuf, buf, 32);
 		_itow((int)digit, wbuf, 10);
 		len = wcslen(wbuf) + 1;
 		if(len <= maxLen)
@@ -240,7 +210,6 @@ void NoOffsetLeftAxes::Draw()
 	double deltaDigit = 0;
 	double digit = 0;
 	double minTick = 0;
-	///*
 	OffsetAxes(
 		int(height * 2)
 		, chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop
@@ -251,16 +220,11 @@ void NoOffsetLeftAxes::Draw()
 		, digit
 		, minTick
 		);
-		//*/
-//	deltaDigit = 1;
-//	digit = chart.minAxesY;
-//	minTick = 0;
-//	deltaTick = (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
 	double offs = chart.offsetGridY = chart.rect.bottom - chart.offsetAxesBottom + minTick;
 	chart.deltaTickY = deltaTick;
 	chart.deltaDigitY = deltaDigit;
 	chart.offsetGridX = leftOffset + deltaTick;
-	chart.offsetAxesLeft = leftOffset;// + deltaTick;
+	chart.offsetAxesLeft = leftOffset;
 	while(bottom < offs)
 	{
 		offs -= deltaTick;
@@ -273,7 +237,6 @@ void NoOffsetLeftAxes::Draw()
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
-	//	_itow((int)digit, wbuf, 10);
 		len = wcslen(wbuf) + 1;
 		if(len <= maxLen)
 		{
@@ -317,7 +280,6 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		if(offsMin >= offsY){offsY = offsMin + 3; return;}
 		int offsMax = chart.rect.bottom - chart.offsetAxesBottom;
 		if(offsMax <= offsY)offsY = WORD(offsMax - dY / 2);
-		//dprint("YYYY %d %f  %f  %d  %d  %d\n", offsY, dY, t, tt, offsMin, offsMax);
 	}
 }
 

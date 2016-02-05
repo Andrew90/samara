@@ -5,6 +5,7 @@ template<class Chart, class List>class ChartDraw : public Chart
 {
 	template<class O, class P>struct __draw__{void operator()(O *o, P *){o->Draw();}};
 public:
+	typedef List items_list;
 	TL::Factory<List> items;
 public:
 	ChartDraw(Gdiplus::Bitmap *&backScreen_): Chart(backScreen_), items((Chart &)*this){}

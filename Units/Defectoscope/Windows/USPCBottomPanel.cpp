@@ -3,6 +3,7 @@
 #include "TabControlUnits.h"
 #include "AppBase.h"
 #include "MenuAPI.h"
+#include "USPCmessages.h"
 
 PARAM_TITLE(USCPpageItems<gateIF>, L"gateIF")
 PARAM_TITLE(USCPpageItems<gate1>, L"gate1")
@@ -58,5 +59,6 @@ void USPCBottomPanel::operator()(TSize &l)
 void USPCBottomPanel::UpdatePage(int)
 {
 	tabControl.UpdatePage();
+	SetParamToGateItem();
 }
 

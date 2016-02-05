@@ -6,16 +6,48 @@
 #include "ColorLabel.h"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
-class LongViewerData;
+#include "Gate.h"
+
+template<class T>class GateItem;
+struct gateIF;
+struct gate1;
+struct gate2;
+template<>class GateItem<gateIF>: public Gate
+{
+public:
+	GateItem(Chart &c): Gate(c)
+	{
+		color = 0xff0000ff;
+	}
+};
+template<>class GateItem<gate1>: public Gate
+{
+public:
+	GateItem(Chart &c): Gate(c)
+	{
+		color = 0xff00ff00;
+	}
+};
+template<>class GateItem<gate2>: public Gate
+{
+public:
+	GateItem(Chart &c): Gate(c)
+	{
+		color = 0xffff0000;
+	}
+};
+
 class USPCChartViewer
 {
 public:
 	HWND hWnd;
-private:	
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
 		, LineSeries
+		, GateItem<gateIF>
+		, GateItem<gate1>
+		, GateItem<gate2>
 		, Grid		
 	>::Result> TChart;
 	struct CursorLabel
@@ -37,7 +69,6 @@ public:
 private:
 	ColorLabel label;
 	Cursor cursor;
-//	LongViewerData &viewerData;
 	CursorLabel cursorLabel;
 public:
 	USPCChartViewer();

@@ -21,7 +21,6 @@ PAR(velocity, L"velocity")
 
 class USPCBottomPanel
 {
-	//typedef USPCParam::items_list items_list;
 	bool firstSize;
 public:
 	int &unit;
@@ -40,7 +39,6 @@ public:
 		TL::Factory<items_list> items;
 		template<class T>USPCTabs(T &t): items(t){}
 	};
-	//TL::Factory<items_list> items;
 	USPCParam uspcParam;
 	USPCTabs uspcTabs;
 	TabControlUnit<USPCTabs> tabControl;

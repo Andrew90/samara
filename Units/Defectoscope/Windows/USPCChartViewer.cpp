@@ -126,12 +126,6 @@ void USPCChartViewer::operator()(TMouseWell &l)
 	{
 		mouseMove = false;
 	
-		//chart.items.get<BottomAxes>().OffsetToPixel(
-		//	storedMouseMove.x
-		//	//, storedMouseMove.y
-		//	, l.delta / 120
-		//	//, 0 == l.flags.lButton 
-		//	);
 		OffsetToPixel(chart, storedMouseMove.x,  storedMouseMove.y, l.delta / 120, 0 == l.flags.lButton); 
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 	}

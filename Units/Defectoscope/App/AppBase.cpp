@@ -15,16 +15,16 @@ template<class O, class P>struct row_table
 	}
 };
 
-void DPrint(double d){dprint("%f", d);}
-void DPrint(int d){dprint("%d", d);}
+//void DPrint(double d){dprint("%f", d);}
+//void DPrint(int d){dprint("%d", d);}
 template<int N>void DPrint(Holder<N> &d){dprint("%S", (wchar_t *)d);}
 	template<class O, class P>struct __default_param__
 	{
 		void operator()(O *o, P *)
 		{
-		   dprint(__FUNCTION__" ");
+		   //dprint(__FUNCTION__" ");
 		 //  Singleton<O>::Instance().value = o->value;
-		   DPrint(o->value);
+		  // DPrint(o->value);
 		}
 	};	
 	template<class X, class P>struct __default_param__<ID<X>, P>
@@ -41,9 +41,9 @@ template<int N>void DPrint(Holder<N> &d){dprint("%S", (wchar_t *)d);}
 	{
 		void operator()(O *o, P *)
 		{
-		   dprint(__FUNCTION__" ");
+		  // dprint(__FUNCTION__" ");
 		  // Singleton<O>::Instance().value = o->value;
-		   DPrint(o->value);
+		  // DPrint(o->value);
 		}
 	};	
 	template<class X, class P>struct __default_param__XXX<ID<X>, P>

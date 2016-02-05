@@ -263,6 +263,12 @@
     <ClCompile Include="..\..\Common\window_tool\Button.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\Gate.cpp">
+      <Filter>Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\USPCmessages.cpp">
+      <Filter>Windows\USPCWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -510,6 +516,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\Button.h">
       <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\Gate.h">
+      <Filter>Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\USPCmessages.h">
+      <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
