@@ -204,17 +204,4 @@ bool GridSeries::GetColorCellDefault(unsigned sensor, unsigned zone, double &dat
 	return zone < 33;
 }
 //----------------------------------------------------------------------------
-/*
-void GridSeries::CoordCell(int mX, int mY, int &x, int &y)
-{
-	double dx = chart.deltaTickX / chart.deltaDigitX;
-	double dy = chart.deltaTickY / chart.deltaDigitY;
-	double left = chart.rect.left + chart.offsetAxesLeft;
-	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 
-	x = int((mX - left) / dx);
-	y = int((bottom - mY) / dy);
-	xprint("x %d y %d", x, y);
-}
-*/
-//-------------------------------------------------------

@@ -25,29 +25,27 @@ namespace
 	{
 		void operator()(O *o, P *p)
 		{
-			dprint("^^^^^^  %s\n", typeid(O).name());
-			typedef typename USCPpageItems<typename TL::Inner<O>::Result> T;
+			//dprint("^^^^^^  %s\n", typeid(O).name());
+			typedef typename TL::Inner<O>::Result Inner;
+			typedef typename USCPpageItems<Inner> T;
 			T &t = p->get<T>();
-			dprint("^^^^^^  %s\n", typeid(t.).name());
+			//dprint("tttt  %f\n", t.get<position<typename TL::Inner<O>::Result> >().value);
+			o->x     = t.get<position<Inner> >().value;
+			o->y     = t.get<level   <Inner> >().value;
+			o->width = t.get<width   <Inner> >().value;
 		}
 	};
 }
 
-/*
-void SetDateToGateItems(USPCChartViewer &viewer, USPCBottomPanel &panel)
-{
-	typedef Filtr<USPCChartViewer::TChart::items_list, GateItem>::Result list;
-	dprint("\n~~~~ %s\n", typeid(list).name());
-}
-*/
-
 void SetParamToGateItem()
 {
 	typedef Filtr<USPCChartViewer::TChart::items_list, GateItem>::Result list;
-	dprint("\n~~~~ %s\n", typeid(list).name());
+	USPCWindow &w = USPCWindow::Instance();
 
 	TL::foreach<list, __set_gate_item_param__>()(
-		&USPCWindow::Instance().uspcChartViewer.chart.items
-		, &USPCWindow::Instance().panel.uspcTabs.items
+		&w.uspcChartViewer.chart.items
+		, &w.panel.uspcTabs.items
 		);
+
+	w.uspcChartViewer.Update();
 }

@@ -4,6 +4,7 @@
 #include "DebugMess.h"
 #include "ParamDlg.h"
 #include "USPCParam.h"
+#include "USPCmessages.h"
 
 template<class Table, class List>class TabPage
 {
@@ -224,5 +225,6 @@ public:
 	void StorePage()
 	{
 		TL::find<page_list, __store__>()(&page, this);
+		SetParamToGateItem();
 	}	
 };

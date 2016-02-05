@@ -44,11 +44,11 @@ public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
-		, LineSeries
+		, LineSeries		
+		, Grid	
 		, GateItem<gateIF>
 		, GateItem<gate1>
 		, GateItem<gate2>
-		, Grid		
 	>::Result> TChart;
 	struct CursorLabel
 	{

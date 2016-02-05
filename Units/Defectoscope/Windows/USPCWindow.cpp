@@ -4,6 +4,7 @@
 #include <CommCtrl.h>
 #include "USPCWindowMenu.hpp"
 #include "Emptywindow.h"
+#include "USPCmessages.h"
 #include "DebugMess.h"
 
 //------------------------------------------------------------------------
@@ -133,6 +134,7 @@ void USPCWindow::Do(HWND)
 		WindowPosition::Get<USPCWindow>(r);
 		HWND h = WindowTemplate(&Instance(), L"Настройка USPC", r.left, r.top, r.right, r.bottom);
 		ShowWindow(h, SW_SHOWNORMAL);
+		SetParamToGateItem();
 	}
 }
 

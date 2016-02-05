@@ -259,9 +259,9 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		int offsMin = chart.rect.left + chart.offsetAxesLeft;
 		double t = offsX - offsMin - dX * delta;
 		t /= dX;
-		WORD tt = t;
-		tt *= dX;
-		tt += dX;
+		int tt = (int)t;
+		tt = int(dX * tt);
+		tt = int(dX + tt);
 		offsX = tt + offsMin;
 		if(offsMin >= offsX){offsX = offsMin + 3; return;}
 		int offsMax = chart.rect.right - chart.offsetAxesRight;
@@ -273,9 +273,9 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		int offsMin = chart.rect.top + chart.offsetAxesTop;
 		double t = offsY - offsMin + dY * delta;
 		t /= dY;
-		WORD tt = (WORD)t;
-		tt *= dY;
-		tt += dY;
+		int tt = (int)t;
+		tt = int(dY * tt);
+		tt = int(dY + tt);
 		offsY = tt + offsMin;
 		if(offsMin >= offsY){offsY = offsMin + 3; return;}
 		int offsMax = chart.rect.bottom - chart.offsetAxesBottom;
