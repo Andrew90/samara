@@ -13,10 +13,10 @@ public:
 	HWND hWnd;
 private:	
 	typedef ChartDraw<Chart, TL::MkTlst<
-		FixedLeftAxes
-		, BottomAxesGrid
-		, FixedGridSeries
-		, FixedGrid		
+		LeftAxes
+		, BottomAxes
+		, LineSeries
+		, Grid		
 	>::Result> TChart;
 	struct CursorLabel
 	{

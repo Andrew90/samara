@@ -199,7 +199,6 @@ typedef void(*TptrMess)(void *);
 void MainWindow::operator()(TMessage &m)
 {
 	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
-	dprint(__FUNCTION__);
 }
 //-----------------------------------------------------------------------------
 namespace 

@@ -7,8 +7,6 @@ class FixedGridSeries
 	typedef bool(TObj::*Tptr)(unsigned, unsigned, double &, unsigned &);
 	TObj *obj;
 	Tptr SetColorBar;
-//	double &dx;
-//	double &dy;
 	bool GetColorCellDefault(unsigned sensor, int zone, double &data, unsigned &color);
 public:
 	int countZones;
@@ -16,7 +14,6 @@ public:
 	Chart &chart;
 	FixedGridSeries(Chart &chart);
 	void Draw();
-	//void CoordCell(int mX, int mY, int &x, int &y);
 	void OffsetToPixel(WORD &, WORD &, int , bool );
 	template<class T>void SetColorCellHandler(T *t, bool(T::*ptr)(unsigned, int, double &, unsigned &))
 	{
@@ -51,3 +48,5 @@ public:
   NoOffsetLeftAxes(Chart &);
   void Draw();
 };
+
+void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horisontalMove);

@@ -169,7 +169,7 @@ void LeftAxes::Draw()
 		{
 			chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
 			origin.Y = REAL(offs - deltaTick + deltaTick/2);
-			origin.X = 8;
+			//origin.X = 8;
 			chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
 		}
 		offs -= deltaTick;

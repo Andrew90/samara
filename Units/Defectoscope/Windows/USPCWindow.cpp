@@ -15,7 +15,7 @@ void USPCWindow::operator()(TSize &m)
 {
 	if(m.resizing == SIZE_MINIMIZED || 0 == m.Width || 0 == m.Height) return;
 	MoveWindow(hStatusWindow, 0, 0, 0, 0, false);
-
+	toolBar.Size();
 	static const int offs = toolBar.Width();
 	static const int dropDownUnitOffs = 220;
 	dropDownUnit.Size(offs, 5, dropDownUnitOffs);
@@ -115,6 +115,8 @@ void USPCWindow::operator()(TMessage &m)
 //-----------------------------------------------------------------------------
 void USPCWindow::operator()(TMouseWell &l)
 {
+	l.hwnd = uspcChartViewer.hWnd;
+	SendMessage(MESSAGE(l));
 }
 //--------------------------------------------------------------------------------
 void USPCWindow::Do(HWND)

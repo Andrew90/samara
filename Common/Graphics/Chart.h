@@ -131,7 +131,7 @@ public:
 	Chart &chart;
 	int count;
 	double *data;
-	LineSeries(Chart &chart);// : chart(chart), data(NULL) {}
+	LineSeries(Chart &chart);
 	int color;
 	void Draw();
 	void SetData(double *data, int countSamples, double minValue, double maxValue);

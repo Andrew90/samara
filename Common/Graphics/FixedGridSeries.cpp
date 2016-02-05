@@ -288,4 +288,37 @@ void NoOffsetLeftAxes::Draw()
 }
 //----------------------------------------------------------------------------------------------
 
+void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horisontalMove)
+{
+	if(horisontalMove)
+	{
+		double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
+		int offsMin = chart.rect.left + chart.offsetAxesLeft;
+		double t = offsX - offsMin - dX * delta;
+		t /= dX;
+		WORD tt = t;
+		tt *= dX;
+		tt += dX;
+		offsX = tt + offsMin;
+		if(offsMin >= offsX){offsX = offsMin + 3; return;}
+		int offsMax = chart.rect.right - chart.offsetAxesRight;
+		if(offsMax <= offsX)offsX = offsMax - 3;
+	}
+	else
+	{
+		double dY = (double)(chart.rect.bottom - chart.rect.top - chart.offsetAxesTop - chart.offsetAxesBottom) / (chart.maxAxesY - chart.minAxesY);
+		int offsMin = chart.rect.top + chart.offsetAxesTop;
+		double t = offsY - offsMin + dY * delta;
+		t /= dY;
+		WORD tt = (WORD)t;
+		tt *= dY;
+		tt += dY;
+		offsY = tt + offsMin;
+		if(offsMin >= offsY){offsY = offsMin + 3; return;}
+		int offsMax = chart.rect.bottom - chart.offsetAxesBottom;
+		if(offsMax <= offsY)offsY = WORD(offsMax - dY / 2);
+		//dprint("YYYY %d %f  %f  %d  %d  %d\n", offsY, dY, t, tt, offsMin, offsMax);
+	}
+}
+
 

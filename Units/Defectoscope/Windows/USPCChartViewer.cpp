@@ -43,17 +43,14 @@ USPCChartViewer::USPCChartViewer()
 	, cursorLabel(*this)
 {
 	
-	chart.items.get<FixedGridSeries>().sensorCount = App::maxSensorCrossCount;
-	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::maxSensorCrossCount;
+	chart.minAxesY = 0;
+	chart.maxAxesY = 256;
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
-//	cursor.SetMouseMoveHandler(&cursorLabel, &LongViewer::CursorLabel::Draw);
+	chart.maxAxesX = 512;
 	label.fontHeight = 12;
 	label.top = 0;
 	chart.rect.top = 17;
 	mouseMove = true;
-//	chart.items.get<FixedGridSeries>().SetColorCellHandler(&cursorLabel, &LongViewer::CursorLabel::GetColorBar);
 }
 //--------------------------------------------------------------------------
 void USPCChartViewer::operator()(TSize &l)
@@ -129,14 +126,14 @@ void USPCChartViewer::operator()(TMouseWell &l)
 	{
 		mouseMove = false;
 	
-		chart.items.get<FixedGridSeries>().OffsetToPixel(
-			storedMouseMove.x
-			, storedMouseMove.y
-			, l.delta / 120
-			, 0 == l.flags.lButton 
-			);
+		//chart.items.get<BottomAxes>().OffsetToPixel(
+		//	storedMouseMove.x
+		//	//, storedMouseMove.y
+		//	, l.delta / 120
+		//	//, 0 == l.flags.lButton 
+		//	);
+		OffsetToPixel(chart, storedMouseMove.x,  storedMouseMove.y, l.delta / 120, 0 == l.flags.lButton); 
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-		//zprint("~~~~~~~~x %d y %d %d\n", l.x, l.y, l.delta / 120);
 	}
 }
 //--------------------------------------------------------------------------------------
