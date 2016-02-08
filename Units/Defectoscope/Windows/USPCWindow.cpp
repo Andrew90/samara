@@ -122,7 +122,7 @@ void USPCWindow::operator()(TMouseWell &l)
 //--------------------------------------------------------------------------------
 void USPCWindow::Do(HWND)
 {
-	HWND hh = FindWindow(L"USPCWindow", 0);
+	HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
 	if(NULL != hh)
 	{
 		SendMessage(hh, WM_SYSCOMMAND, SC_RESTORE, 0);
@@ -136,6 +136,17 @@ void USPCWindow::Do(HWND)
 		ShowWindow(h, SW_SHOWNORMAL);
 		SetParamToGateItem();
 	}
+}
+
+bool USPCWindow::Destroy()
+{
+	HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
+	if(NULL != hh)
+	{
+		DestroyWindow(hh);
+		return true;
+	}
+	return false;
 }
 
 USPCWindow &USPCWindow::Instance()

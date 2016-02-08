@@ -29,6 +29,18 @@ HWND CreateChildWindowBackground(HWND hParent, WNDPROC WndProc, wchar_t *classSt
 #define CREATE_CHILD_WINDOW(hParent, type) o##type.hWnd = CreateChildWindow(hParent, (WNDPROC)&Viewer<type>::Proc, L###type, &o##type);
 
 #pragma warning(disable :  4996)
+template<class T>struct WindowClass
+{
+	wchar_t buf[512];
+	WindowClass()
+	{
+		mbstowcs(buf, &(typeid(T).name())[6], dimention_of(buf));
+	}
+	wchar_t *operator()()const
+	{
+		return (wchar_t *)buf;
+	}
+};
 template<class T>HWND WindowTemplate(
 	T *self
 	, wchar_t *title	
@@ -40,10 +52,11 @@ template<class T>HWND WindowTemplate(
 	, HBRUSH backGround = NULL	
 	)
 {
-	wchar_t buf[512];
-	mbstowcs(buf, &(typeid(T).name())[6], dimention_of(buf));
-	MyRegisterClass(Viewer<T>::Proc, buf,  CS_HREDRAW | CS_VREDRAW, styleS, styleS, backGround);
-	HWND hWnd = MyCreateWindow(buf, title, self, WS_OVERLAPPEDWINDOW, NULL, x, y, width, height);
+	//wchar_t buf[512];
+	//mbstowcs(buf, &(typeid(T).name())[6], dimention_of(buf));
+	WindowClass<T> t;
+	MyRegisterClass(Viewer<T>::Proc, t(),  CS_HREDRAW | CS_VREDRAW, styleS, styleS, backGround);
+	HWND hWnd = MyCreateWindow(t(), title, self, WS_OVERLAPPEDWINDOW, NULL, x, y, width, height);
 	return hWnd;
 }
 

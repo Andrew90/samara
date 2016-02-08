@@ -39,6 +39,7 @@ typedef TL::MkTlst<
 void SycleMeashurement(HWND h)
 {
   zprint("\n");
+  USPCWindow::Instance().uspcChartViewer.StartTimer();
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)
@@ -61,6 +62,7 @@ void TestBtn(HWND)
 void StopMeashurement(HWND h)
 {
 	 zprint("\n");
+	 USPCWindow::Instance().uspcChartViewer.StopTimer();
 }
 }
 //--------------------------------------------------------------------------------------------

@@ -10,6 +10,7 @@
 #include "Emptywindow.h"
 //#include "Automat.h"
 #include "MainWindow.h"
+#include "USPCWindow.h"
 namespace 
 {
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
@@ -34,13 +35,14 @@ typedef TL::MkTlst<
   , ButtonToolbar<IDB_CycleBtn, SycleMeashurement, ToolLipCycleBtn>  
   , ButtonToolbar<IDB_Reset, StopMeashurement    , ToolLipReset>  
   , ButtonToolbar<IDB_QueryBtn, TestBtn             , ToolTestBtn>  
-  , ButtonToolbar<IDB_MashBtn, TresholdsViewBtn  , ToolTresholdsViewBtn>
+  //, ButtonToolbar<IDB_MashBtn, TresholdsViewBtn  , ToolTresholdsViewBtn>
   , SeparatorToolbar<1>
 >::Result tool_button_list;
 //----------------------------------------------------------------------------------
 void SycleMeashurement(HWND h)
 {
   zprint("");
+  if(USPCWindow::Instance().Destroy()) Sleep(500);
   SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------

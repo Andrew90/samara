@@ -28,5 +28,6 @@ public:
 	void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
 	static void Do(HWND);
+	bool Destroy();
 	static USPCWindow &Instance();
 };

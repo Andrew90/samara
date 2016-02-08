@@ -146,5 +146,61 @@ unsigned USPCChartViewer::operator()(TCreate &l)
 	storedMouseMove.hwnd = l.hwnd;
 	storedMouseMove.x = 0;	
 	storedMouseMove.y = WORD(chart.rect.top + 1);
+	StartTimer();
 	return 0;
 }
+//-------------------------------------------------------------------------------------
+void USPCChartViewer::operator()(TTimer &l)
+{
+	//dprint("USPCChartViewer\n");
+	//test	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	double *d = data;
+	int i = 0;
+	for(; i < 10; ++i)
+	{
+		d[i] = rand() % 40;
+	}
+	for(; i < 20; ++i)
+	{
+		d[i] = rand() % 200;
+	}
+	for(; i < 200; ++i)
+	{
+		d[i] = rand() % 35;
+	}
+	for(; i < 220; ++i)
+	{
+		d[i] = rand() % 160;
+	}
+	for(; i < 400; ++i)
+	{
+		d[i] = rand() % 30;
+	}
+	for(; i < 420; ++i)
+	{
+		d[i] = rand() % 120;
+	}
+	for(; i < dimention_of(data); ++i)
+	{
+		d[i] = rand() % 20;
+	}
+	//test	##########################################################
+	chart.items.get<LineSeries>().SetData(data, 512, 0, 511);
+	Update();
+}
+//-------------------------------------------------------------------------------------
+void USPCChartViewer::operator()(TDestroy &l)
+{
+	StopTimer();
+}
+//-------------------------------------------------------------------------------------
+void USPCChartViewer::StartTimer()
+{
+   SetTimer(hWnd, timerID, 500, NULL);
+}
+void USPCChartViewer::StopTimer()
+{
+	KillTimer(hWnd, timerID);
+}
+//--------------------------------------------------------------------------------------
+

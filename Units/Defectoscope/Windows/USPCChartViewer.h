@@ -39,6 +39,8 @@ public:
 
 class USPCChartViewer
 {
+	static const int timerID = 123456;
+	double data[512];
 public:
 	HWND hWnd;
 	typedef ChartDraw<Chart, TL::MkTlst<
@@ -79,5 +81,9 @@ public:
 	void operator()(TLButtonDbClk &);
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
+	void operator()(TTimer &);
+	void operator()(TDestroy &);
 	void Update();
+	void StartTimer();
+	void StopTimer();	
 };
