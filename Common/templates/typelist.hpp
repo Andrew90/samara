@@ -441,4 +441,13 @@ namespace TL
 		typedef NullType Result;
 	};
 //------------------------------------------------------------------------------------------------------
+	template<class List, class T>struct EraseItem;
+	template<class Head, class Tail, class T>struct EraseItem<Tlst<Head, Tail>, T>
+	{
+		typedef typename Tlst<Head, typename EraseItem<Tail, T>::Result> Result;
+	};
+	template<class Tail, class T>struct EraseItem<Tlst<T, Tail>, T>
+	{
+		typedef Tail Result;
+	};
 }

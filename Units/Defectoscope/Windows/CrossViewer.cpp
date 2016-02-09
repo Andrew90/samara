@@ -4,6 +4,9 @@
 #include "CrossData.h"
 #include "DebugMess.h"
 #include "ConstData.h"
+#include "MenuApi.h"
+#include "ViewerMenu.hpp"
+#include "CrossWindow.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------
@@ -172,3 +175,11 @@ unsigned CrossViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	return 0;
 }
+//------------------------------------------------------------------------------------------
+//DETALIED_VIEW(CrossWindow)
+void CrossViewer::operator()(TRButtonDown &l)
+{
+	zprint("\n");
+	//PopupMenu<CrossWindowViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+}
+//--------------------------------------------------------------------------------

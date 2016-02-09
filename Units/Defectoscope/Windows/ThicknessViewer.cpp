@@ -221,3 +221,9 @@ unsigned ThicknessViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	return 0;
 }
+//------------------------------------------------------------------------------------------
+void ThicknessViewer::operator()(TRButtonDown &l)
+{
+	zprint("\n");
+}
+//--------------------------------------------------------------------------------

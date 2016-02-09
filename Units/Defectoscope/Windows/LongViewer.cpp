@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "LongViewer.h"
 #include "EmptyWindow.h"
-#include "LongViewer.h"
 #include "LongData.h"
 #include "DebugMess.h"
 #include "ConstData.h"
+#include "MenuApi.h"
+#include "ViewerMenu.hpp"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------
@@ -83,7 +84,6 @@ void LongViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-//	label.Draw(g);
 	chart.Draw(g);
 
 }
@@ -156,3 +156,10 @@ unsigned LongViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	return 0;
 }
+//------------------------------------------------------------------------------------------
+void LongViewer::operator()(TRButtonDown &l)
+{
+	zprint("\n");
+	PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+}
+//--------------------------------------------------------------------------------

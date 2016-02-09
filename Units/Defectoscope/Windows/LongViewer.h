@@ -48,5 +48,6 @@ public:
 	void operator()(TLButtonDbClk &);
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
+	void operator()(TRButtonDown &);
 	void Update();
 };

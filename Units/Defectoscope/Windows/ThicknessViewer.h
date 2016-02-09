@@ -48,6 +48,7 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TKeyDown &l);
 	void operator()(TLButtonDown &l);
+	void operator()(TRButtonDown &);
 	void Repaint();
 };
 

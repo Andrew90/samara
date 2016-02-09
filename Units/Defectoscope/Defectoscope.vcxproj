@@ -131,7 +131,9 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
+    <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
+    <ClCompile Include="Windows\LineViewer.cpp" />
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
@@ -214,7 +216,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
+    <ClInclude Include="Windows\CrossWindow.h" />
     <ClInclude Include="Windows\LabelMessage.h" />
+    <ClInclude Include="Windows\LineViewer.h" />
     <ClInclude Include="Windows\LongViewer.h" />
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
@@ -229,6 +233,7 @@
     <ClInclude Include="Windows\USPCWindow.h" />
     <ClInclude Include="Windows\USPCWindowMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />
+    <ClInclude Include="Windows\ViewerMenu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

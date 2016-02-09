@@ -76,6 +76,12 @@
     <Filter Include="Windows\USPCWindow">
       <UniqueIdentifier>{d1e6fb2c-cbc1-4803-84b8-6a5c5493c224}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\CrossWindow">
+      <UniqueIdentifier>{86d36ce5-4271-4214-aa38-111e78af6d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Common">
+      <UniqueIdentifier>{3d3ef53b-c634-48e1-bc17-9e21985d2c6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -268,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="Windows\USPCmessages.cpp">
       <Filter>Windows\USPCWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\CrossWindow.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\LineViewer.cpp">
+      <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -522,6 +534,15 @@
     </ClInclude>
     <ClInclude Include="Windows\USPCmessages.h">
       <Filter>Windows\USPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\CrossWindow.h">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LineViewer.h">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ViewerMenu.hpp">
+      <Filter>Windows\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

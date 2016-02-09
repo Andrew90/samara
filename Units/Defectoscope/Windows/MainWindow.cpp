@@ -59,7 +59,6 @@ namespace {
 
 	template<class O, class P>struct __sub_in_rect__
 	{
-		//O == TMouseWell
 		void operator()(O *o, P *p)
 		{
 			RECT r;
@@ -179,9 +178,39 @@ void MainWindow::operator()(TKeyDown &l)
 	dprint(__FUNCTION__);
 }
 //-------------------------------------------------------------------------
+namespace
+{
+	template<class T>struct MainWindowData
+	{
+	  MainWindow &owner;
+	  T &l;
+	  MainWindowData(MainWindow &owner, T &l)
+	  :	owner(owner)
+	  , l(l)
+	  {}
+	};
+   /*
+	 template<class O, class P>struct __in_rect_r_button__
+	{
+		bool operator()(O *o, P *p)
+		{
+			RECT r;
+			GetWindowRect(o->hWnd, &r);
+			if(InRect(p->l.x, p->l.y, r))
+			{
+				p->l.hwnd = o->hWnd;
+				SendMessage(MESSAGE(p->l));
+				return false;
+			}
+			return true;
+		}
+	};
+	*/
+}
 void MainWindow::operator()(TRButtonDown &l)
 {
-  dprint(__FUNCTION__);
+  typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
+  TL::find<lst, __in_rect__>()(&viewers, &MainWindowData<TRButtonDown>(*this, l));
 }
 //------------------------------------------------------------------------
 void MainWindow::operator()(TDestroy &)
@@ -201,21 +230,9 @@ void MainWindow::operator()(TMessage &m)
 	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
 }
 //-----------------------------------------------------------------------------
-namespace 
-{
-	struct MainWindowData
-	{
-	  MainWindow &owner;
-	  TMouseWell &l;
-	  MainWindowData(MainWindow &owner, TMouseWell &l)
-	  :	owner(owner)
-	  , l(l)
-	  {}
-	};
-}
 void MainWindow::operator()(TMouseWell &l)
 {
-	TL::find<viewers_list, __in_rect__>()(&viewers, &MainWindowData(*this, l));
+	TL::find<viewers_list, __in_rect__>()(&viewers, &MainWindowData<TMouseWell>(*this, l));
 }
 //--------------------------------------------------------------------------------
 

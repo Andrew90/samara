@@ -92,26 +92,10 @@ unsigned USPCWindow::operator()(TCreate &m)
 	return 0;
 }
 //-------------------------------------------------------------------------
-void USPCWindow::operator()(TKeyDown &l)
-{
-	dprint(__FUNCTION__);
-}
-//-------------------------------------------------------------------------
-void USPCWindow::operator()(TRButtonDown &l)
-{
-  dprint(__FUNCTION__);
-}
-//------------------------------------------------------------------------
-void USPCWindow::operator()(TDestroy &)
-{
-
-}
-//---------------------------------------------------------------------------
 typedef void(*TptrMess)(void *);
 void USPCWindow::operator()(TMessage &m)
 {
 	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
-	dprint(__FUNCTION__);
 }
 //-----------------------------------------------------------------------------
 void USPCWindow::operator()(TMouseWell &l)
