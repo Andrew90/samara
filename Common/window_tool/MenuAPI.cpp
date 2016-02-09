@@ -2,8 +2,9 @@
 #include <CommCtrl.h>
 #include "MenuAPI.h"
 #include "typelist.hpp"
+#include "MessagesInterface.h"
 //---------------------------------------------------------------------------
-void GetMenuToolBarEvent(TCommand &m)
+void EventDo(TCommand &m)
 {
 	if(m.hControl)
 	{
@@ -30,4 +31,10 @@ void GetMenuToolBarEvent(TCommand &m)
 			((void (__cdecl *)(HWND))(mii.dwItemData))(m.hwnd);
 		}
 	}
+}
+
+void EventDo(TNotify &m)
+{
+	TEvent *x = (TEvent *)GetWindowLongPtr(m.pnmh->hwndFrom, GWLP_USERDATA);
+	if(NULL != x) x->Do(m);
 }

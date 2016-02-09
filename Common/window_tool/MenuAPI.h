@@ -148,7 +148,6 @@ template<class O, class P>struct __insert_menu__
 	bool operator()(O *o, P *p)
 	{	
 		Param param(CreatePopupMenu(), p->hWnd);
-		//TL::find<typename O::list, __insert_item_menu__>()((TL::Factory<typename O::list> *)0, &param);
 		if(NotNullList<typename O::list, __insert_item_menu__>()((TL::Factory<typename O::list> *)0, &param))
 		{
 			p->m.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA | MIIM_ID | MIIM_STATE;
@@ -214,7 +213,8 @@ template<class T>void ChangeTextSubMenu(HWND h, wchar_t *text)
 	SetMenuItemInfo(GetMenu(h), (unsigned short)Event<T>::Do, false, &mii);
 }
 
-#define MENU_TEXT(txt, item)template<>struct NameMenu<item >{\
-	wchar_t *operator()(HWND){return txt;}};
+void EventDo(TCommand &m);
+void EventDo(TNotify &m);
 
-void GetMenuToolBarEvent(TCommand &m);
+#define MENU_TEXT(txt, item)template<>struct NameMenu<item >{wchar_t *operator()(HWND){return txt;}};
+#define MENU_ITEM(txt, item) MENU_TEXT(txt, MenuItem<item>) template<>struct Event<MenuItem<item> >:item{};

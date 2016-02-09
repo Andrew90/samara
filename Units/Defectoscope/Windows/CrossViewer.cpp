@@ -176,10 +176,10 @@ unsigned CrossViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
-//DETALIED_VIEW(CrossWindow)
+DETALIED_VIEW(CrossWindow)
 void CrossViewer::operator()(TRButtonDown &l)
 {
 	zprint("\n");
-	//PopupMenu<CrossWindowViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+	PopupMenu<CrossWindowViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
