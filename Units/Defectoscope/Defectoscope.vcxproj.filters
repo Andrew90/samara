@@ -281,6 +281,9 @@
     <ClCompile Include="Windows\LineViewer.cpp">
       <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\CommonWindows.cpp">
+      <Filter>Windows\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -542,6 +545,9 @@
       <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
     <ClInclude Include="Windows\ViewerMenu.hpp">
+      <Filter>Windows\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\CommonWindows.h">
       <Filter>Windows\Common</Filter>
     </ClInclude>
   </ItemGroup>

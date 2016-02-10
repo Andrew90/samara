@@ -36,9 +36,7 @@ struct PaintGraphics:VGraphics
 
 inline bool InRect(int x, int y, RECT &r)
 {
-	//return r.left < x && r.right > x && r.top < y && r.bottom > y;
-	//return 	r.top < y && (r.right - r.left) > y;
-	return r.top < y && r.bottom > y && (r.right - r.left) > y;
+	return r.top < y && r.bottom > y && r.left < x && r.right > x;
 }
 
 class Chart
@@ -63,7 +61,7 @@ public:
   bool ValuesAxes(double, double, int &, int &);
   virtual void Draw(Gdiplus::Graphics &graph);
   void Restore(HWND);
-  int BetweenLeftRight(int); //-1 0 1
+  int BetweenLeftRight(int);
   void OffsetToPixelHorizontal(WORD &offsX, int delta);
   void OffsetToPixelVertical(WORD &offsY, int delta);
   void CoordCell(int mX, int mY, int &x, int &y);

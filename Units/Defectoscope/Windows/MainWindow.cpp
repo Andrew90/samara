@@ -4,6 +4,7 @@
 #include "MainWindowMenu.hpp"
 #include "EmptyWindow.h"
 #include <CommCtrl.h>
+#include "CommonWindows.h"
 
 #include "DebugMess.h"
 namespace {
@@ -29,79 +30,8 @@ namespace {
 			MoveWindow(o->hWnd , 0, p->y, p->width, resultViewerHeight, true);
 		}
 	};
-	
-	template<class O, class P>struct __create_window__
-	{
-		void operator()(O *o, P *p)
-		{
-			wchar_t name[256];
-			const char *s = &(typeid(O).name())[6];
-			int len = 1 + strlen(s);
-			mbstowcs(name, s, len);
-			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<O>::Proc, name, o);
-		}
-	};
-	template<class O, class P>struct __in_rect__
-	{
-		bool operator()(O *o, P *p)
-		{
-			RECT r;
-			GetWindowRect(o->hWnd, &r);
-			if(InRect(p->l.x, p->l.y, r))
-			{
-				p->l.hwnd = o->hWnd;
-				SendMessage(MESSAGE(p->l));
-				return false;
-			}
-			return true;
-		}
-	};
-
-	template<class O, class P>struct __sub_in_rect__
-	{
-		void operator()(O *o, P *p)
-		{
-			RECT r;
-			GetWindowRect(o->hWnd, &r);
-			p->l.hwnd = o->hWnd;
-			p->l.y = WORD(r.top + (r.bottom - r.top) / 2);
-			o->storedMouseMove.x = p->l.x;
-			SendMessage(MESSAGE(p->l));
-		}
-	};
-
-	template<class P>struct __sub_in_rect__<ResultViewer, P>
-	{
-		typedef ResultViewer O;
-		void operator()(O *, P *){}
-	};
-
-	template<class P>struct __in_rect__<ResultViewer, P>
-	{
-		typedef ResultViewer O;
-		bool operator()(O *o, P *p)
-		{
-			RECT r;
-			GetWindowRect(o->hWnd, &r);
-			if(InRect(p->l.x, p->l.y, r))
-			{
-				p->l.hwnd = o->hWnd;
-				SendMessage(MESSAGE(p->l));
-
-				p->l.x = o->storedMouseMove.x;
-				p->l.delta = 0;
-				TL::foreach<MainWindow::viewers_list, __sub_in_rect__>()(&p->owner.viewers, p);
-				return false;
-			}
-			return true;
-		}
-	};
-
 }
 //------------------------------------------------------------------------
-MainWindow::MainWindow()
-{}
-// 	 ---------------------------------------------------------------------
 void MainWindow::operator()(TSize &m)
 {
 	if(m.resizing == SIZE_MINIMIZED || 0 == m.Width || 0 == m.Height) return;
@@ -115,7 +45,6 @@ void MainWindow::operator()(TSize &m)
 	RECT r;
 	GetClientRect(m.hwnd, &r);	
 
-//	static const int width = 400;
 	static const int width = toolBar.Width();
 	select.Size(width, 5, 400);
 
@@ -146,8 +75,6 @@ void MainWindow::operator()(TGetMinMaxInfo &m)
 	{
 		m.pMinMaxInfo->ptMinTrackSize.x = 600;
 		m.pMinMaxInfo->ptMinTrackSize.y = 600;
-	//	m.pMinMaxInfo->ptMaxTrackSize.x = 2000;
-	//	m.pMinMaxInfo->ptMaxTrackSize.y = 700;		
 	}		
 }
 //------------------------------------------------------------------------
@@ -169,58 +96,21 @@ unsigned MainWindow::operator()(TCreate &m)
 //
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	topLabelViewer.label.fontHeight = 16;
-	TL::foreach<viewers_list, __create_window__>()(&viewers, &m.hwnd);
+	TL::foreach<viewers_list, CommonWindows::__create_window__>()(&viewers, &m.hwnd);
 	return 0;
 }
 //-------------------------------------------------------------------------
-void MainWindow::operator()(TKeyDown &l)
-{
-	dprint(__FUNCTION__);
-}
-//-------------------------------------------------------------------------
-namespace
-{
-	template<class T>struct MainWindowData
-	{
-	  MainWindow &owner;
-	  T &l;
-	  MainWindowData(MainWindow &owner, T &l)
-	  :	owner(owner)
-	  , l(l)
-	  {}
-	};
-   /*
-	 template<class O, class P>struct __in_rect_r_button__
-	{
-		bool operator()(O *o, P *p)
-		{
-			RECT r;
-			GetWindowRect(o->hWnd, &r);
-			if(InRect(p->l.x, p->l.y, r))
-			{
-				p->l.hwnd = o->hWnd;
-				SendMessage(MESSAGE(p->l));
-				return false;
-			}
-			return true;
-		}
-	};
-	*/
-}
 void MainWindow::operator()(TRButtonDown &l)
 {
   typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
-  TL::find<lst, __in_rect__>()(&viewers, &MainWindowData<TRButtonDown>(*this, l));
+  TL::find<lst, CommonWindows::__in_rect__>()(
+	  &viewers
+	  , &CommonWindows::__event_data__<TRButtonDown, MainWindow>(*this, l)
+	  );
 }
 //------------------------------------------------------------------------
 void MainWindow::operator()(TDestroy &)
 {
-#if 0
-	dprint("TDestroy");
-	DestroyGlobalData();
-	Sleep(1000);
-#endif
-//	Sleep(500);
 	PostQuitMessage(0);
 }
 //---------------------------------------------------------------------------
@@ -230,9 +120,17 @@ void MainWindow::operator()(TMessage &m)
 	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
 }
 //-----------------------------------------------------------------------------
+namespace CommonWindows
+{
+	template<class P>struct __in_rect__<ResultViewer, P>: __in_rect_all__<ResultViewer, P, MainWindow::viewers_list>{};
+}
+//------------------------------------------------------------------------------
 void MainWindow::operator()(TMouseWell &l)
 {
-	TL::find<viewers_list, __in_rect__>()(&viewers, &MainWindowData<TMouseWell>(*this, l));
+	TL::find<viewers_list, CommonWindows::__in_rect__>()(
+		&viewers
+		, &CommonWindows::__event_data__<TMouseWell, MainWindow>(*this, l)
+		);
 }
 //--------------------------------------------------------------------------------
 

@@ -80,7 +80,6 @@ void USPCChartViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-//	label.Draw(g);
 	chart.Draw(g);
 
 }

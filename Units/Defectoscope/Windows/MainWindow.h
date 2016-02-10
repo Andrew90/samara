@@ -61,14 +61,12 @@ public:
 		, ResultViewer
 	>::Result viewers_list;
 	TL::Factory<viewers_list> viewers;
-	MainWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
 	void operator()(TMessage &);
-	void operator()(TKeyDown &);
 	void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
 };

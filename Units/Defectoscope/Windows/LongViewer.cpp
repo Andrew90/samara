@@ -23,7 +23,7 @@ bool LongViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
+	wsprintf(label.buffer, L"<ff>Р·РѕРЅР° %d  РґР°С‚С‡РёРє %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
 	return x < owner.viewerData.currentOffset;
@@ -123,10 +123,6 @@ void LongViewer::operator()(TLButtonDbClk &l)
 //--------------------------------------------------------------------------------
 void LongViewer::operator()(TMouseWell &l)
 {
-	RECT r;
-	GetWindowRect(l.hwnd, &r);
-	if(InRect(l.x, l.y, r))
-	{
 		mouseMove = false;
 	
 		chart.items.get<FixedGridSeries>().OffsetToPixel(
@@ -136,7 +132,6 @@ void LongViewer::operator()(TMouseWell &l)
 			, 0 == l.flags.lButton 
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	}
 }
 //--------------------------------------------------------------------------------------
 void LongViewer::operator()(TLButtonDown &l)
@@ -159,7 +154,6 @@ unsigned LongViewer::operator()(TCreate &l)
 //------------------------------------------------------------------------------------------
 void LongViewer::operator()(TRButtonDown &l)
 {
-	zprint("\n");
 	PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

@@ -10,6 +10,7 @@ public:
 	template<int N>struct Line: LineViewer
 	{
 		static const int ID = N;
+		typedef LineViewer Parent;
 	};
 	typedef TL::AppendList<
 		    TL::MkTlst<CrossViewer>::Result

@@ -253,6 +253,7 @@ void NoOffsetLeftAxes::Draw()
 
 void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horisontalMove)
 {
+	if(0 == delta) return;
 	if(horisontalMove)
 	{
 		double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
@@ -272,11 +273,18 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		double dY = (double)(chart.rect.bottom - chart.rect.top - chart.offsetAxesTop - chart.offsetAxesBottom) / (chart.maxAxesY - chart.minAxesY);
 		int offsMin = chart.rect.top + chart.offsetAxesTop;
 		double t = offsY - offsMin + dY * delta;
+		int offs = offsY;
 		t /= dY;
 		int tt = (int)t;
 		tt = int(dY * tt);
-		tt = int(dY + tt);
 		offsY = tt + offsMin;
+		if(offs == offsY)
+		{
+			offsY += delta < 0 
+				? -1
+				: 1
+				;
+		}
 		if(offsMin >= offsY){offsY = offsMin + 3; return;}
 		int offsMax = chart.rect.bottom - chart.offsetAxesBottom;
 		if(offsMax <= offsY)offsY = WORD(offsMax - dY / 2);

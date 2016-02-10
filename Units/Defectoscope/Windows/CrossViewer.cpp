@@ -44,7 +44,6 @@ CrossViewer::CrossViewer()
 	, viewerData(Singleton<CrossViewerData>::Instance())
 	, cursorLabel(*this)
 {
-	
 	chart.items.get<FixedGridSeries>().sensorCount = App::maxSensorCrossCount;
 	chart.minAxesY = 1;
 	chart.maxAxesY = 1 + App::maxSensorCrossCount;
@@ -84,7 +83,6 @@ void CrossViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-//	label.Draw(g);
 	chart.Draw(g);
 
 }
@@ -124,27 +122,9 @@ void CrossViewer::operator()(TLButtonDbClk &l)
 //--------------------------------------------------------------------------------
 void CrossViewer::operator()(TMouseWell &l)
 {
-	/*
-	mouseMove = false;
-	if(0 == l.flags.lButton )
-	{
-		chart.OffsetToPixelHorizontal(
-			storedMouseMove.x
-			, l.delta / 120
-			);
-	}
-	else
-	{
-		chart.OffsetToPixelVertical(
-			storedMouseMove.y
-			, l.delta / 120
-			);
-	}
-	cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	*/
-	RECT r;
-	GetWindowRect(l.hwnd, &r);
-	if(InRect(l.x, l.y, r))
+	//RECT r;
+	//GetWindowRect(l.hwnd, &r);
+	//if(InRect(l.x, l.y, r))
 	{
 		mouseMove = false;
 	
@@ -179,7 +159,6 @@ unsigned CrossViewer::operator()(TCreate &l)
 DETALIED_VIEW(CrossWindow)
 void CrossViewer::operator()(TRButtonDown &l)
 {
-	zprint("\n");
 	PopupMenu<CrossWindowViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

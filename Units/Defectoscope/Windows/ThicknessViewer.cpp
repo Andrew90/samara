@@ -35,7 +35,7 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 			double yMin = Singleton<ThicknessViewerData>::Instance().zonesMin[leftOffs];////////////////////////////////////////////////////
 			double yMax = Singleton<ThicknessViewerData>::Instance().zonesMax[leftOffs];
 			double delta = yMax - yMin;
-			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ.мин. <0xff0000>%0.2f <ff>толщ.макс. <0xff0000>%0.2f %s <ff>Толщ.класс 2 %.2f  <ff>Толщ.брак %.2f%"
+			sprintf(buf, "<ff>Р—РѕРЅР° <0xff0000>%d <ff>РЎРјРµС‰РµРЅРёРµ <ff0000>%.2f <ff>Рј С‚РѕР»С‰.РјРёРЅ. <0xff0000>%0.2f <ff>С‚РѕР»С‰.РјР°РєСЃ. <0xff0000>%0.2f %s <ff>РўРѕР»С‰.РєР»Р°СЃСЃ 2 %.2f  <ff>РўРѕР»С‰.Р±СЂР°Рє %.2f%"
 				, 1 + leftOffs
 				, 0.001 * zone_length * (1 + leftOffs)
 				, yMin
@@ -47,7 +47,7 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 		}
 		else
 		{
-			sprintf(buf, "<ff>Зона <ff0000>%d  %s  "
+			sprintf(buf, "<ff>Р—РѕРЅР° <ff0000>%d  %s  "
 				, 1 + leftOffs
 				, txt
 				);
@@ -65,7 +65,7 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 //////////////////////////////////test
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d         ", 1 + x);
+	wsprintf(label.buffer, L"<ff>Р·РѕРЅР° %d         ", 1 + x);
 	label.Draw(g());
 
 	return x < owner.viewerData.currentOffset;
@@ -187,16 +187,11 @@ void ThicknessViewer::operator()(TLButtonDbClk &l)
 	}
 }
 void ThicknessViewer::operator()(TMouseWell &l)
-{
-	RECT r;
-	GetWindowRect(l.hwnd, &r);
-	if(InRect(l.x, l.y, r))
-	{
+{	
 		mouseMove = false;
 
 		chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	}
 }
 void ThicknessViewer::operator()(TKeyDown &l)
 {	

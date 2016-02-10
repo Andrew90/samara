@@ -130,6 +130,7 @@
     <ClCompile Include="Log\LogMessages.cpp" />
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Windows\CommonWindows.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Windows\CommonWindows.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
     <ClInclude Include="Windows\CrossWindow.h" />
     <ClInclude Include="Windows\LabelMessage.h" />
