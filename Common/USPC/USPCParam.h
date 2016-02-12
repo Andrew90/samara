@@ -2,7 +2,15 @@
 #include "TablesDefine.h"
 #include "typelist.hpp"
 
-#define ITEM(name, type, def)template<class T>struct name\
+template<class T>struct position		;
+template<class T>struct width			;
+template<class T>struct level			;
+template<class T>struct nb_alarm_level	;
+template<class T>struct offset			;
+template<class T>struct range			;
+template<class T>struct velocity		;
+
+#define ITEM(name, sub, type, def)template<>struct name<sub>\
 	{\
 	typedef type type_value;\
 	type_value value;\
@@ -10,13 +18,28 @@
 	name() : value(def), default_value(def){}\
 	};
 
-ITEM(position		, double, 10)
-ITEM(width			, double, 10)
-ITEM(level			, double, 10)
-ITEM(nb_alarm_level , double, 10)
-ITEM(offset			, double, 10)
-ITEM(range			, double, 10)
-ITEM(velocity		, double, 10)
+struct gateIF;
+struct gate1 ;
+struct gate2 ;
+struct scope ;
+
+ITEM(position      , gateIF, double, 5)
+ITEM(width         , gateIF, double, 50)
+ITEM(level         , gateIF, double, 100)
+			  	    		  
+ITEM(position      , gate1, double, 190)
+ITEM(width         , gate1, double, 50)
+ITEM(level         , gate1, double, 80)
+ITEM(nb_alarm_level, gate1, double, 100)
+
+ITEM(position      , gate2, double, 390)
+ITEM(width         , gate2, double, 50)
+ITEM(level         , gate2, double, 60)
+ITEM(nb_alarm_level, gate2, double, 100)
+
+ITEM(offset        , scope, double, 50)
+ITEM(range         , scope, double, 80)
+ITEM(velocity      , scope, double, 2000)
 
 #undef ITEM
 

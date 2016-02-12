@@ -8,6 +8,8 @@
 #include "Device1730.h"
 #include "AppBase.h"
 #include "Automat.h"
+#include "USPCData.h"
+
 
 extern HINSTANCE hInstance;
 
@@ -39,6 +41,15 @@ void App::Init()
 #endif
 	}
 	automat.Init();
+//--------------------------test
+	zprint("---------------------\n");
+	unsigned start = GetTickCount();
+	 TestUSPC test;
+	 test.Init(Singleton<ItemData<Long> >::Instance().uspcData);
+	 test.Init(Singleton<ItemData<Cross> >::Instance().uspcData);
+	 test.Init(Singleton<ItemData<Thickness> >::Instance().uspcData);
+	 zprint("  Stop time %d\n", GetTickCount() - start);
+	//-------------------------------test------------------------------
 }
 
 void App::Destroy()

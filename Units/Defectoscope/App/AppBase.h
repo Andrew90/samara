@@ -179,72 +179,6 @@ struct ACFBorderTable
 	 TItems items;
 	 const wchar_t *name(){return L"MedianFilterTable";}
  };
-//------------------------------------------------------------------------------------------------------ 
- template<int>struct MinEnergy;
- template<int>struct MaxEnergy;
- template<int>struct Peak;
-
-#define PEAK(n)\
-DEFINE_PARAM_NUM(MinEnergy, n, double, 0.1)\
-DEFINE_PARAM_NUM(MaxEnergy, n, double, 1000)\
-DEFINE_PARAM_NUM(Peak, n, double, 0.2)
-
-PEAK(0)
-PEAK(1)
-PEAK(2)
-//PEAK(3)
-//PEAK(4)
-//PEAK(5)
-
-#undef PEAK
-
-#define PEAK(n) MinEnergy<n>, MaxEnergy<n>, Peak<n>
-struct SignalParametersTable
-{
-	typedef TL::MkTlst<		
-		PEAK(0), PEAK(1), PEAK(2)//, PEAK(3), PEAK(4), PEAK(5)
-	>::Result items_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"SignalParametersTable";}
-};
-#undef PEAK
-//-------------------------------------------------------------------------------------------------------
- template<int NUM>struct CoefficientA;
- template<int NUM>struct CoefficientB;
- DEFINE_PARAM_NUM(CoefficientA, 1, double, 3.12e-002)
- DEFINE_PARAM_NUM(CoefficientB, 1, double, 0.3398)
- DEFINE_PARAM_NUM(CoefficientA, 2, double, 3.12e-002)
- DEFINE_PARAM_NUM(CoefficientB, 2, double, 0.3398)
- DEFINE_PARAM_NUM(CoefficientA, 3, double, 3.12e-002)
- DEFINE_PARAM_NUM(CoefficientB, 3, double, 0.3398)
- //DEFINE_PARAM_NUM(CoefficientA, 4, double, 6.12e-002)
- //DEFINE_PARAM_NUM(CoefficientB, 4, double, 0.3398)
- //DEFINE_PARAM_NUM(CoefficientA, 5, double, 6.12e-002)
- //DEFINE_PARAM_NUM(CoefficientB, 5, double, 0.3398)
- //DEFINE_PARAM_NUM(CoefficientA, 6, double, 6.12e-002)
- //DEFINE_PARAM_NUM(CoefficientB, 6, double, 0.3398)
-
- struct CoefficientParametersTable
- {
-	 typedef TL::MkTlst<		
-		 CoefficientA<1>
-		 , CoefficientB<1>
-		 , CoefficientA<2>
-		 , CoefficientB<2>
-		 , CoefficientA<3>
-		 , CoefficientB<3>
-	//	 , CoefficientA<4>
-	//	 , CoefficientB<4>
-	//	 , CoefficientA<5>
-	//	 , CoefficientB<5>
-	//	 , CoefficientA<6>
-	//	 , CoefficientB<6>
-	 >::Result items_list;
-	 typedef TL::Factory<items_list> TItems;
-	 TItems items;
-	 const wchar_t *name(){return L"CoefficientParametersTable";}
- };
  //---------------------------------------------------------------------------------------------------------
  DEFINE_PARAM(NamePlate1730, int, 3)
  struct NamePlate1730ParametersTable
@@ -319,9 +253,7 @@ struct Descriptor1730Table
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
-		 SignalParametersTable		   
-		 , CoefficientParametersTable	 
-		 , NamePlate1730ParametersTable	  		
+		  NamePlate1730ParametersTable	  		
 		 , PointsOptionsTable			
 		 , GraphicSignalOptionsTable	   
 		 , AdditionalSettingsTable
