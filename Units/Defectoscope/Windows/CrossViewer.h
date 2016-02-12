@@ -6,7 +6,8 @@
 #include "ColorLabel.h"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
-class CrossViewerData;
+#include "USPCData.h"
+//class CrossViewerData;
 class CrossViewer
 {
 public:
@@ -36,7 +37,7 @@ public:
 	Cursor cursor;
 	CursorLabel cursorLabel;
 public:
-	CrossViewerData &viewerData;
+	ItemData<Cross> &viewerData;
 	CrossViewer();
 	unsigned operator()(TCreate &);
 	void operator()(TSize &);

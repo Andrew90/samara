@@ -1,7 +1,7 @@
 #pragma once
 #include "DebugMess.h"
 
-namespace CommonWindows
+namespace Common
 {
 	template<class T>struct IsParent
 	{
@@ -13,9 +13,9 @@ namespace CommonWindows
 		{
 			typedef typename Z::Parent Result;
 		};
-		template<class Z>static bool Is(Z *, typename Z::Parent * = 0);
+		template<class Z>static char Is(Z *, typename Z::Parent * = 0);
 		static double Is(...);
-		typedef typename Ret<sizeof(bool) == sizeof(Is((T *)0)), T>::Result Result;
+		typedef typename Ret<sizeof(char) == sizeof(Is((T *)0)), T>::Result Result;
 	};
 	template<class O, class P>struct __create_window__
 	{
@@ -24,7 +24,8 @@ namespace CommonWindows
 			wchar_t name[256];
 			const char *s = &(typeid(O).name())[6];
 			int len = 1 + strlen(s);
-			mbstowcs(name, s, len);
+			size_t converted;
+			mbstowcs_s(&converted, name, s, len);
 			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<typename IsParent<O>::Result>::Proc, name, o);
 		}
 	};
@@ -86,4 +87,37 @@ namespace CommonWindows
 			return true;
 		}
 	};
+
+	template<class T>bool DestroyWindow(HWND h)
+	{
+		HWND hh = FindWindow(WindowClass<T>()(), 0);
+		if(NULL != hh)
+		{
+			DestroyWindow(hh);
+			return true;
+		}
+		return false;
+	}
+
+	template<class T>struct OpenWindow
+	{
+		static void Do(HWND)
+		{
+			HWND hh = FindWindow(WindowClass<T>()(), 0);
+			if(NULL != hh)
+			{
+				SendMessage(hh, WM_SYSCOMMAND, SC_RESTORE, 0);
+				SetForegroundWindow(hh);
+			}
+			else
+			{
+				RECT r;
+				WindowPosition::Get<T>(r);
+				HWND h = WindowTemplate(&Singleton<T>::Instance(), T::Title(), r.left, r.top, r.right, r.bottom);
+				ShowWindow(h, SW_SHOWNORMAL);
+				SetParamToGateItem();
+			}
+		}
+	};	
 }
+

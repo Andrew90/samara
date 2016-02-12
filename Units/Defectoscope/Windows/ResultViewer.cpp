@@ -65,7 +65,7 @@ bool ResultViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 //////////////////////////////////test
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>–∑–æ–Ω–∞ %d         ", 1 + x);
+	wsprintf(label.buffer, L"<ff>«ÓÌ‡ %d         ", 1 + x);
 	label.Draw(g());
 
 	return x < owner.viewerData.currentOffset;

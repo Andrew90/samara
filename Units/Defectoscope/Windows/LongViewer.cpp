@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "LongViewer.h"
 #include "EmptyWindow.h"
-#include "LongData.h"
+#include "USPCData.h"
 #include "DebugMess.h"
 #include "ConstData.h"
 #include "MenuApi.h"
-#include "ViewerMenu.hpp"
+#include "ViewersMenu.hpp"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------
@@ -23,7 +23,7 @@ bool LongViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>Ð·Ð¾Ð½Ð° %d  Ð´Ð°Ñ‚Ñ‡Ð¸Ðº %d        ", 1 + x, 1 + y);
+	wsprintf(label.buffer, L"<ff>çîíà %d  äàò÷èê %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
 	return x < owner.viewerData.currentOffset;
@@ -40,13 +40,13 @@ LongViewer::LongViewer()
 	: backScreen(NULL)
 	, chart(backScreen)
 	, cursor(chart)
-	, viewerData(Singleton<LongViewerData>::Instance())
+	, viewerData(Singleton<ItemData<Long> >::Instance())
 	, cursorLabel(*this)
 {
 	
-	chart.items.get<FixedGridSeries>().sensorCount = App::maxSensorCrossCount;
+	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
 	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::maxSensorCrossCount;
+	chart.maxAxesY = 1 + App::count_sensors;
 	chart.minAxesX = 0;
 	chart.maxAxesX = App::zonesCount;
 	cursor.SetMouseMoveHandler(&cursorLabel, &LongViewer::CursorLabel::Draw);
@@ -152,8 +152,10 @@ unsigned LongViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
+//CONTEXT_MENU(DetailedView)
 void LongViewer::operator()(TRButtonDown &l)
 {
-	PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+	//PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+	//PopupMenu<DetailedViewContextMenu::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

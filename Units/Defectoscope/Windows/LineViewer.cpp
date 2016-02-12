@@ -80,7 +80,7 @@ void LineViewer::operator()(TMouseWell &l)
 //--------------------------------------------------------------
  bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
  {
-	 int x, y;
+	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
 	wsprintf(label.buffer, L"<ff>смещение %d  величина %d        ", 1 + x, 1 + y);
 	label.Draw(g());

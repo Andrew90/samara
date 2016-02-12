@@ -4,7 +4,7 @@
 #include "MainWindowMenu.hpp"
 #include "EmptyWindow.h"
 #include <CommCtrl.h>
-#include "CommonWindows.h"
+#include "Common.h"
 
 #include "DebugMess.h"
 namespace {
@@ -96,16 +96,16 @@ unsigned MainWindow::operator()(TCreate &m)
 //
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	topLabelViewer.label.fontHeight = 16;
-	TL::foreach<viewers_list, CommonWindows::__create_window__>()(&viewers, &m.hwnd);
+	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &m.hwnd);
 	return 0;
 }
 //-------------------------------------------------------------------------
 void MainWindow::operator()(TRButtonDown &l)
 {
   typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
-  TL::find<lst, CommonWindows::__in_rect__>()(
+  TL::find<lst, Common::__in_rect__>()(
 	  &viewers
-	  , &CommonWindows::__event_data__<TRButtonDown, MainWindow>(*this, l)
+	  , &Common::__event_data__<TRButtonDown, MainWindow>(*this, l)
 	  );
 }
 //------------------------------------------------------------------------
@@ -120,16 +120,16 @@ void MainWindow::operator()(TMessage &m)
 	if(m.wParam)((TptrMess )(m.wParam))((void *)m.lParam);
 }
 //-----------------------------------------------------------------------------
-namespace CommonWindows
+namespace Common
 {
 	template<class P>struct __in_rect__<ResultViewer, P>: __in_rect_all__<ResultViewer, P, MainWindow::viewers_list>{};
 }
 //------------------------------------------------------------------------------
 void MainWindow::operator()(TMouseWell &l)
 {
-	TL::find<viewers_list, CommonWindows::__in_rect__>()(
+	TL::find<viewers_list, Common::__in_rect__>()(
 		&viewers
-		, &CommonWindows::__event_data__<TMouseWell, MainWindow>(*this, l)
+		, &Common::__event_data__<TMouseWell, MainWindow>(*this, l)
 		);
 }
 //--------------------------------------------------------------------------------

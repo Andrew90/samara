@@ -2,7 +2,7 @@
 #include "USPCWindow.h"
 #include "MenuApi.h"
 #include <CommCtrl.h>
-#include "USPCWindowMenu.hpp"
+#include "ViewersMenu.hpp"
 #include "Emptywindow.h"
 #include "USPCmessages.h"
 #include "DebugMess.h"
@@ -51,14 +51,13 @@ void USPCWindow::operator()(TGetMinMaxInfo &m)
 	{
 		m.pMinMaxInfo->ptMinTrackSize.x = 600;
 		m.pMinMaxInfo->ptMinTrackSize.y = 600;
-	//	m.pMinMaxInfo->ptMaxTrackSize.x = 2000;
-	//	m.pMinMaxInfo->ptMaxTrackSize.y = 700;		
 	}		
 }
 //------------------------------------------------------------------------
+VIEWERS_MENU(USPCWindow)
 unsigned USPCWindow::operator()(TCreate &m)
 {
-	Menu<USPCWindowMenu::MainMenu>().Init(m.hwnd);
+	Menu<ViewersMenuUSPCWindow::MainMenu>().Init(m.hwnd);
 	toolBar.Init(m.hwnd);
 
 	const wchar_t *items[] = {
@@ -104,6 +103,7 @@ void USPCWindow::operator()(TMouseWell &l)
 	SendMessage(MESSAGE(l));
 }
 //--------------------------------------------------------------------------------
+/*
 void USPCWindow::Do(HWND)
 {
 	HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
@@ -116,12 +116,13 @@ void USPCWindow::Do(HWND)
 	{
 		RECT r;
 		WindowPosition::Get<USPCWindow>(r);
-		HWND h = WindowTemplate(&Instance(), L"Настройка USPC", r.left, r.top, r.right, r.bottom);
+		HWND h = WindowTemplate(&Singleton<USPCWindow>::Instance(), L"Настройка USPC", r.left, r.top, r.right, r.bottom);
 		ShowWindow(h, SW_SHOWNORMAL);
 		SetParamToGateItem();
 	}
 }
-
+*/
+ /*
 bool USPCWindow::Destroy()
 {
 	HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
@@ -132,9 +133,10 @@ bool USPCWindow::Destroy()
 	}
 	return false;
 }
+*/
+ wchar_t *USPCWindow::Title()
+ {
+	 return L"Настройка USPC";
+ }
 
-USPCWindow &USPCWindow::Instance()
-{
-	static USPCWindow x; return x;
-}
 

@@ -24,7 +24,7 @@ public:
 	unsigned operator()(TCreate &);
 	void operator()(TMessage &);
 	void operator()(TMouseWell &);
-	static void Do(HWND);
-	bool Destroy();
-	static USPCWindow &Instance();
+	static wchar_t *Title();
+	//static void Do(HWND);
+	//bool Destroy();
 };

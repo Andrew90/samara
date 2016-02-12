@@ -32,5 +32,4 @@ void Gate::Draw()
 
 	chart.g->DrawLine(&pen, (int)xx, (int)yy, (int)(xx + width__), (int)yy);
 	chart.g->SetClip(&Region());
-	dprint("x=%f  y=%f  width=%f\n", x, y, width);
 }

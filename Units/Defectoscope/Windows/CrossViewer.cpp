@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "CrossViewer.h"
 #include "EmptyWindow.h"
-#include "CrossData.h"
+#include "USPCData.h"
 #include "DebugMess.h"
 #include "ConstData.h"
 #include "MenuApi.h"
-#include "ViewerMenu.hpp"
+#include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 
 using namespace Gdiplus;
@@ -41,12 +41,12 @@ CrossViewer::CrossViewer()
 	: backScreen(NULL)
 	, chart(backScreen)
 	, cursor(chart)
-	, viewerData(Singleton<CrossViewerData>::Instance())
+	, viewerData(Singleton<ItemData<Cross> >::Instance())
 	, cursorLabel(*this)
 {
-	chart.items.get<FixedGridSeries>().sensorCount = App::maxSensorCrossCount;
+	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
 	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::maxSensorCrossCount;
+	chart.maxAxesY = 1 + App::count_sensors;
 	chart.minAxesX = 0;
 	chart.maxAxesX = App::zonesCount;
 	cursor.SetMouseMoveHandler(&cursorLabel, &CrossViewer::CursorLabel::Draw);	
@@ -122,10 +122,6 @@ void CrossViewer::operator()(TLButtonDbClk &l)
 //--------------------------------------------------------------------------------
 void CrossViewer::operator()(TMouseWell &l)
 {
-	//RECT r;
-	//GetWindowRect(l.hwnd, &r);
-	//if(InRect(l.x, l.y, r))
-	{
 		mouseMove = false;
 	
 		chart.items.get<FixedGridSeries>().OffsetToPixel(
@@ -135,7 +131,6 @@ void CrossViewer::operator()(TMouseWell &l)
 			, 0 == l.flags.lButton 
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));		
-	}
 }
 //--------------------------------------------------------------------------------------
 void CrossViewer::operator()(TLButtonDown &)
@@ -156,9 +151,9 @@ unsigned CrossViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
-DETALIED_VIEW(CrossWindow)
+CONTEXT_MENU(CrossWindow)
 void CrossViewer::operator()(TRButtonDown &l)
 {
-	PopupMenu<CrossWindowViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+	PopupMenu<ContextMenuCrossWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

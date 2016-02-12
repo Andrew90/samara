@@ -52,8 +52,6 @@ template<class T>HWND WindowTemplate(
 	, HBRUSH backGround = NULL	
 	)
 {
-	//wchar_t buf[512];
-	//mbstowcs(buf, &(typeid(T).name())[6], dimention_of(buf));
 	WindowClass<T> t;
 	MyRegisterClass(Viewer<T>::Proc, t(),  CS_HREDRAW | CS_VREDRAW, styleS, styleS, backGround);
 	HWND hWnd = MyCreateWindow(t(), title, self, WS_OVERLAPPEDWINDOW, NULL, x, y, width, height);

@@ -2,11 +2,13 @@
 #include "message.h"
 #include "ColorLabel.h"
 #include "Chart.h"
-#include "ThicknessData.h"
+//#include "ThicknessData.h"
 #include "Chart.hpp"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
 #include "GridChart.h"
+#include "Common.h"
+#include "USPCData.h"
 
 class ThicknessViewer
 {
@@ -38,7 +40,7 @@ public:
 	HWND hWnd;
 	TMouseMove storedMouseMove;
 	bool openDetailedWindow;
-	ThicknessViewerData &viewerData;
+	ItemData<Thickness> &viewerData;
 	ThicknessViewer();
 	unsigned operator()(TCreate &);
 	void operator()(TSize &);

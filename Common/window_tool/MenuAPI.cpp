@@ -16,9 +16,10 @@ void EventDo(TCommand &m)
 			SendMessage(m.hControl, (UINT) TB_GETBUTTONINFO, m.id , (LPARAM)&button_info);
 			((void (__cdecl *)(HWND))(button_info.lParam))(m.hwnd);
 		}
-		else if(LONG p = GetWindowLongPtr(m.hControl, GWLP_USERDATA))
+		else if(TEvent *x = (TEvent *)GetWindowLongPtr(m.hControl, GWLP_USERDATA))
 		{
-			((void (*)(TCommand &))(p))(m);
+			//((void (*)(TCommand &))(p))(m);
+			x->Do(m);
 		}
 	}
 	else

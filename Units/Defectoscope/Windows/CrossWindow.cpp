@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "CrossWindow.h"
+#include "MenuApi.h"
+#include "ViewersMenu.hpp"
 #include "Emptywindow.h"
-#include "WindowsPosition.h"
-#include "CommonWindows.h"
+#include "Common.h"
 #include "DebugMess.h"
+#include "App.h"
 
 CrossWindow::CrossWindow()
 {
@@ -47,9 +49,6 @@ void CrossWindow::operator()(TSize &l)
 	__data__ data = {cross_window_height, r.right,  (r.bottom - cross_window_height) / 4};
 	TL::foreach<viewers_list, __draw__>()(&viewers, &data);
 }
-void CrossWindow::operator()(TCommand &)
-{
-}
 void CrossWindow::operator()(TGetMinMaxInfo &m)
 {
 	if(NULL != m.pMinMaxInfo)
@@ -58,14 +57,15 @@ void CrossWindow::operator()(TGetMinMaxInfo &m)
 		m.pMinMaxInfo->ptMinTrackSize.y = 600;
 	}	
 }
-
+VIEWERS_MENU(CrossWindow)
 unsigned CrossWindow::operator()(TCreate &l)
 {
-	TL::foreach<viewers_list, CommonWindows::__create_window__>()(&viewers, &l.hwnd);
+	Menu<ViewersMenuCrossWindow::MainMenu>().Init(l.hwnd);
+	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &l.hwnd);
 	return 0;
 }
 //--------------------------------------------------------------------------------
-namespace CommonWindows
+namespace Common
 {
 	template<int N, class P>struct __in_rect__<CrossWindow::Line<N>, P>
 	  : __in_rect_all__<CrossWindow::Line<N>, P, TL::EraseItem<CrossWindow::viewers_list, CrossViewer>::Result>{};
@@ -73,12 +73,17 @@ namespace CommonWindows
 //----------------------------------------------------------------------------------------------
 void CrossWindow::operator()(TMouseWell &l)
 {
-	TL::find<viewers_list, CommonWindows::__in_rect__>()(
+	TL::find<viewers_list, Common::__in_rect__>()(
 		&viewers
-		, &CommonWindows::__event_data__<TMouseWell, CrossWindow>(*this, l)
+		, &Common::__event_data__<TMouseWell, CrossWindow>(*this, l)
 		);
 }
 //-----------------------------------------------------------------------------------
+void CrossWindow::operator()(TCommand &l)
+{
+	EventDo(l);
+}
+//----------------------------------------------------------------------
 void CrossWindow::Do(HWND)
 {
 	HWND hh = FindWindow(WindowClass<CrossWindow>()(), 0);
@@ -91,10 +96,16 @@ void CrossWindow::Do(HWND)
 	{
 		RECT r;
 		WindowPosition::Get<CrossWindow>(r);
-		HWND h = WindowTemplate(&Instance(), L"Просмотр поперечных дефектов", r.left, r.top, r.right, r.bottom);
+		HWND h = WindowTemplate(&Singleton<CrossWindow>::Instance(), L"Просмотр поперечных дефектов", r.left, r.top, r.right, r.bottom);
 		ShowWindow(h, SW_SHOWNORMAL);
 	}
 }
+
+wchar_t *CrossWindow::Title()
+{
+	return L"Просмотр поперечных дефектов";
+}
+/*
 bool CrossWindow::Destroy()
 {
 	HWND hh = FindWindow(WindowClass<CrossWindow>()(), 0);
@@ -105,7 +116,10 @@ bool CrossWindow::Destroy()
 	}
 	return false;
 }
+*/
+/*
 CrossWindow &CrossWindow::Instance()
 {
 	static CrossWindow x; return x;
 }
+*/

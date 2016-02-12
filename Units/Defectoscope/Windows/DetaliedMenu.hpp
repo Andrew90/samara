@@ -1,5 +1,6 @@
 #pragma once
 
+/*
 namespace ViewerMenu
 {
 	struct DetailedView{};
@@ -22,7 +23,8 @@ namespace ViewerMenu
 		}
 	};
 };
-
+*/
+/*
 #define DETALIED_VIEW(name)namespace name##ViewerMenu\
 {											   \
 	template<>struct TopMenu<name>			   \
@@ -45,3 +47,4 @@ namespace ViewerMenu
 		}									   \
 	};										   \
 };
+*/

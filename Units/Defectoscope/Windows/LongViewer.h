@@ -6,7 +6,8 @@
 #include "ColorLabel.h"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
-class LongViewerData;
+#include "USPCData.h"
+//class LongViewerData;
 class LongViewer
 {
 public:
@@ -37,7 +38,7 @@ public:
 private:
 	ColorLabel label;
 	Cursor cursor;
-	LongViewerData &viewerData;
+	ItemData<Long> &viewerData;
 	CursorLabel cursorLabel;
 public:
 	LongViewer();

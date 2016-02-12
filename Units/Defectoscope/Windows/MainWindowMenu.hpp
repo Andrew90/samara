@@ -82,7 +82,7 @@ namespace MainWindowMenu
 	struct Setting{};
 	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct AnalogPlate            : USPCWindow{};//{static void Do(HWND h){zprint("");}};
+	struct AnalogPlate            : Common::OpenWindow<USPCWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlate	      {static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};

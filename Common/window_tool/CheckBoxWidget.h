@@ -46,18 +46,3 @@ private:
 		T::Command(m, BST_CHECKED == Button_GetCheck(m.hControl));
 	}
 };
-/*
-template<int N>class TestCheckBox
-{
-public:
-	bool Init()
-	{
-		dprint(__FUNCTION__);
-		return true;
-	}
-	void Do(TCommand &m, bool b)
-	{
-		dprint(__FUNCTION__"%d", b);
-	}
-};
-*/

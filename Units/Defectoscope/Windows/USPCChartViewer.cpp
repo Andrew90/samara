@@ -151,7 +151,6 @@ unsigned USPCChartViewer::operator()(TCreate &l)
 //-------------------------------------------------------------------------------------
 void USPCChartViewer::operator()(TTimer &l)
 {
-	//dprint("USPCChartViewer\n");
 	//test	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	double *d = data;
 	int i = 0;

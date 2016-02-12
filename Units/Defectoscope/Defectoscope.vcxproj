@@ -121,16 +121,14 @@
     <ClCompile Include="IOports\IOportsViewer.cpp" />
     <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
-    <ClCompile Include="ItemsData\CrossData.cpp" />
-    <ClCompile Include="ItemsData\LongData.cpp" />
     <ClCompile Include="ItemsData\ResultData.cpp" />
-    <ClCompile Include="ItemsData\ThicknessData.cpp" />
+    <ClCompile Include="ItemsData\USPCData.cpp" />
     <ClCompile Include="ItemsData\ZonesData.cpp" />
     <ClCompile Include="Log\LogBuffer.cpp" />
     <ClCompile Include="Log\LogMessages.cpp" />
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Windows\CommonWindows.cpp" />
+    <ClCompile Include="Windows\Common.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
@@ -175,6 +173,7 @@
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
+    <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\USPCParam.h" />
     <ClInclude Include="..\..\Common\window_tool\Button.h" />
     <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
@@ -205,10 +204,8 @@
     <ClInclude Include="IOports\IOportsWindow.h" />
     <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="ItemsData\ConstData.h" />
-    <ClInclude Include="ItemsData\CrossData.h" />
-    <ClInclude Include="ItemsData\LongData.h" />
     <ClInclude Include="ItemsData\ResultData.h" />
-    <ClInclude Include="ItemsData\ThicknessData.h" />
+    <ClInclude Include="ItemsData\USPCData.h" />
     <ClInclude Include="ItemsData\ZonesData.h" />
     <ClInclude Include="Log\LogBuffer.h" />
     <ClInclude Include="Log\LogMessages.h" />
@@ -216,7 +213,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Windows\CommonWindows.h" />
+    <ClInclude Include="Windows\Common.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
     <ClInclude Include="Windows\CrossWindow.h" />
     <ClInclude Include="Windows\LabelMessage.h" />
@@ -233,9 +230,9 @@
     <ClInclude Include="Windows\USPCmessages.h" />
     <ClInclude Include="Windows\USPCpageItems.hpp" />
     <ClInclude Include="Windows\USPCWindow.h" />
-    <ClInclude Include="Windows\USPCWindowMenu.hpp" />
+    <ClInclude Include="Windows\ViewersMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />
-    <ClInclude Include="Windows\ViewerMenu.hpp" />
+    <ClInclude Include="Windows\DetaliedMenu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,22 +25,20 @@ namespace
 	{
 		void operator()(O *o, P *p)
 		{
-			//dprint("^^^^^^  %s\n", typeid(O).name());
 			typedef typename TL::Inner<O>::Result Inner;
 			typedef typename USCPpageItems<Inner> T;
 			T &t = p->get<T>();
-			//dprint("tttt  %f\n", t.get<position<typename TL::Inner<O>::Result> >().value);
 			o->x     = t.get<position<Inner> >().value;
 			o->y     = t.get<level   <Inner> >().value;
 			o->width = t.get<width   <Inner> >().value;
-		}
+		}										   
 	};
 }
 
 void SetParamToGateItem()
 {
 	typedef Filtr<USPCChartViewer::TChart::items_list, GateItem>::Result list;
-	USPCWindow &w = USPCWindow::Instance();
+	USPCWindow &w = Singleton<USPCWindow>::Instance();
 
 	TL::foreach<list, __set_gate_item_param__>()(
 		&w.uspcChartViewer.chart.items

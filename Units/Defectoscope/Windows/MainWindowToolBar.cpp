@@ -11,6 +11,7 @@
 //#include "Automat.h"
 #include "MainWindow.h"
 #include "USPCWindow.h"
+#include "Common.h"
 namespace 
 {
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
@@ -42,7 +43,7 @@ typedef TL::MkTlst<
 void SycleMeashurement(HWND h)
 {
   zprint("");
-  if(USPCWindow::Instance().Destroy()) Sleep(500);
+  if(Common::DestroyWindow<USPCWindow>(h)) Sleep(500);
   SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------

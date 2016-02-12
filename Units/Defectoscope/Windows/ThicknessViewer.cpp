@@ -12,7 +12,7 @@ ThicknessViewer::CursorLabel::CursorLabel(ThicknessViewer &o)
 	: owner(o)
 	, label(o.label)
 	, cursor(o.cursor)
-	, chart(o.chart)
+	, chart(o.chart)	
 {
 	label.fontHeight = 12;
 	label.top = 0;	
@@ -65,7 +65,7 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 //////////////////////////////////test
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>Р·РѕРЅР° %d         ", 1 + x);
+	wsprintf(label.buffer, L"<ff>зона %d        ", 1 + x);
 	label.Draw(g());
 
 	return x < owner.viewerData.currentOffset;
@@ -77,16 +77,16 @@ bool ThicknessViewer::CursorLabel::GetColorBar(int zone, double &data_, unsigned
 	if(zone)
 	{
 		int i = zone - 1;
-		data_1 = Singleton<ThicknessViewerData>::Instance().zonesMin[i];
-		data_ =  Singleton<ThicknessViewerData>::Instance().zonesMax[i];
-		ColorBar(data_, color1, Singleton<ThicknessViewerData>::Instance().status[i]);
+		data_1 = owner.viewerData.zonesMin[i];
+		data_ =  owner.viewerData.zonesMax[i];
+		ColorBar(data_, color1, owner.viewerData.commonStatus[i]);
 
 		color = color1;
 		unsigned char *x = (unsigned char *) &color;
 		x[0] = unsigned char(3.0 * x[0] / 4);
 		x[1] = unsigned char(3.0 * x[1] / 4);
 		x[2] = unsigned char(3.0 * x[2] / 4);
-		return 0 != Singleton<ThicknessViewerData>::Instance().status[i];
+		return 0 != owner.viewerData.commonStatus[i];	  
 	}
 	data_ = 0;
 	return true;
@@ -100,7 +100,7 @@ ThicknessViewer::ThicknessViewer()
 	, painting(true)
 	, mouseMove(true)
 	, cursorLabel(*this)
-	, viewerData(Singleton<ThicknessViewerData>::Instance())
+	, viewerData(Singleton<ItemData<Thickness> >::Instance())
 {
 	chart.rect.top = 17;
 	
@@ -141,11 +141,8 @@ void ThicknessViewer::operator()(TSize &l)
 	g.FillRectangle(&solidBrush, 0, 29, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
 
-//	chart.minAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
-//	chart.maxAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-//	label.Draw(g);
 	chart.Draw(g);
 }
 //----------------------------------------------------------------------------------------------------

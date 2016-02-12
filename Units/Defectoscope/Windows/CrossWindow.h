@@ -23,7 +23,8 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TMouseWell &);
+	static wchar_t *Title();
 	static void Do(HWND);
-	bool Destroy();
-	static CrossWindow &Instance();
+	//bool Destroy();
+	//static CrossWindow &Instance();
 };
