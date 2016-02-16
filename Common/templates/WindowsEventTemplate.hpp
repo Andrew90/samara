@@ -5,13 +5,11 @@
 namespace{
 template<class T>struct TypeToEvent
 {
-	/*
-	необходимо для типа Т сопоставить сообщение windows
-	*/
+	///\brief необходимо для типа Т сопоставить сообщение windows
 	typedef typename T::_must_match_the_class_of_message_windows nonexist;
 };
 
-template<>struct TypeToEvent<TMouseMove>{static const int value = WM_MOUSEMOVE;};//<-------см. ниже комментарий
+template<>struct TypeToEvent<TMouseMove>{static const int value = WM_MOUSEMOVE;};///<-------см. ниже комментарий
 template<>struct TypeToEvent<TSize>{static const int value = WM_SIZE;};
 template<>struct TypeToEvent<TPaint>{static const int value = WM_PAINT;};
 template<>struct TypeToEvent<TActivate>{static const int value = WM_ACTIVATE;};
@@ -96,10 +94,8 @@ template<class T>struct EventHandler
 	};
 	template<class T>struct TestNotNullType<NullType, T>
 	{
-		/*
-		класс должен иметь обработчик в виде- unsigned T::operator()(XXX &) или void T::operator()(XXX &);
-		где: XXX - TMouseMove, TSize, TPaint, TActivate(добавить при необходимости в список type_events_all_list, см. выше)
-		*/
+		///\brief класс должен иметь обработчик в виде- unsigned T::operator()(XXX &) или void T::operator()(XXX &);
+		///где: XXX - TMouseMove, TSize, TPaint, TActivate(добавить при необходимости в список type_events_all_list, см. выше)
 		typedef typename T::_class_does_not_have_any_handler nonexist;
 	};
 	TMessage &mess;
