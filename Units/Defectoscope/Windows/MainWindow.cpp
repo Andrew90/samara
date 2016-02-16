@@ -16,7 +16,9 @@ namespace {
 	template<class O, class P>struct __move_window__
 	{
 		void operator()(O *o, P *p)
-		{
+		{			
+			TSize size = {o->hWnd, WM_SIZE, 0, p->width, p->height};
+			SendMessage(MESSAGE(size));
 			MoveWindow(o->hWnd , 0, p->y, p->width, p->height, true);
 			p->y += p->height;
 		}
@@ -27,6 +29,8 @@ namespace {
 		typedef ResultViewer O;
 		void operator()(O *o, P *p)
 		{
+			TSize size = {o->hWnd, WM_SIZE, 0, p->width, resultViewerHeight};
+			SendMessage(MESSAGE(size));
 			MoveWindow(o->hWnd , 0, p->y, p->width, resultViewerHeight, true);
 		}
 	};

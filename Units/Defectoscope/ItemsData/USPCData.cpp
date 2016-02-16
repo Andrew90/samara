@@ -54,23 +54,14 @@ void USPCData::AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSa
 
 unsigned char *USPCData::CurrentFrame()
 {
-	return (BYTE *)&buffer[currentOffsetFrames];
+	return (BYTE *)&ascanBuffer[currentOffsetFrames];
 }
-
-USPCViewerData::USPCViewerData()
-	: uspcData(Singleton<USPCData>::Instance())
-{}
-
-USPCViewerThicknessData::USPCViewerThicknessData()
-	: USPCViewerData()
-{}
-
 //-----------------------------------------------------------------------------------------
 
  void TestUSPC::Init(USPCData &d)
  {
 	 ///эмитация считанных данных
-	 USPC7100_ASCANDATAHEADER *b = d.buffer;
+	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 	 int i = 0;
 	 for(; i < 8; ++i)
 	 {
@@ -97,4 +88,7 @@ USPCViewerThicknessData::USPCViewerThicknessData()
 	 {
 		 d.offsets[j] = 16000 * (1 + j);
 	 }
+
+	 d.currentOffsetFrames = 16000 * 50;
+	 d.currentOffsetZones = 50;
  }

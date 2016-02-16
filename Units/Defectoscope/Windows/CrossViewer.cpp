@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CrossViewer.h"
 #include "EmptyWindow.h"
-#include "USPCData.h"
 #include "DebugMess.h"
 #include "ConstData.h"
 #include "MenuApi.h"
@@ -10,51 +9,43 @@
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------
-CrossViewer::CursorLabel::CursorLabel(CrossViewer &o)
-	: owner(o)
-	, label(o.label)
-	, cursor(o.cursor)
-	, chart(o.chart)
+CrossViewer::CrossViewer()
+	: backScreen(NULL)
+	, chart(backScreen)
+	, cursor(chart)
+	, viewerData(Singleton<ItemData<Cross> >::Instance())
 {
+	chart.minAxesY = 1;
+	chart.maxAxesY = 1 + App::count_sensors;
+	chart.minAxesX = 0;
+	chart.maxAxesX = App::zonesCount;
+	chart.rect.top = 17;
+	mouseMove = true;
 	label.fontHeight = 12;
 	label.top = 0;
+	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &CrossViewer::GetColorBar);
+	cursor.SetMouseMoveHandler(this, &CrossViewer::Draw);	
+	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
 }
-
-bool CrossViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
+//--------------------------------------------------------------------------
+bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
 	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
 	label.Draw(g());
 
-	return x < owner.viewerData.currentOffset;
+	return x < viewerData.currentOffsetZones;
 }
-
-bool CrossViewer::CursorLabel::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
+bool CrossViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
-	data = owner.viewerData.buffer[sensor][zone];
-	color = ConstData::ZoneColor(owner.viewerData.status[sensor][zone]);
-	return zone < owner.viewerData.currentOffset;
+	--sensor;
+	data = viewerData.buffer[sensor][zone];
+	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
+	zprint("s=%d z=%d  c%x\n", sensor, zone, color);
+	return zone < viewerData.currentOffsetZones;
 }
-//-----------------------------------------------------------------------------------------
-CrossViewer::CrossViewer()
-	: backScreen(NULL)
-	, chart(backScreen)
-	, cursor(chart)
-	, viewerData(Singleton<ItemData<Cross> >::Instance())
-	, cursorLabel(*this)
-{
-	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
-	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::count_sensors;
-	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
-	cursor.SetMouseMoveHandler(&cursorLabel, &CrossViewer::CursorLabel::Draw);	
-	chart.rect.top = 17;
-	mouseMove = true;
-	chart.items.get<FixedGridSeries>().SetColorCellHandler(&cursorLabel, &CrossViewer::CursorLabel::GetColorBar);
-}
-//--------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////
 void CrossViewer::operator()(TSize &l)
 {
 	if(l.resizing == SIZE_MINIMIZED || 0 == l.Width || 0 == l.Height) return;	
@@ -84,7 +75,6 @@ void CrossViewer::operator()(TSize &l)
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
 	chart.Draw(g);
-
 }
 //-----------------------------------------------------------------------
 void CrossViewer::operator()(TPaint &l)
@@ -136,11 +126,6 @@ void CrossViewer::operator()(TMouseWell &l)
 void CrossViewer::operator()(TLButtonDown &)
 {
 		mouseMove = false;
-}
-//------------------------------------------------------------------------------------------------
-void CrossViewer::Repaint()
-{
-	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------
 unsigned CrossViewer::operator()(TCreate &l)

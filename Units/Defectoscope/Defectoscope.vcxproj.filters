@@ -82,6 +82,9 @@
     <Filter Include="Windows\Common">
       <UniqueIdentifier>{3d3ef53b-c634-48e1-bc17-9e21985d2c6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Compute">
+      <UniqueIdentifier>{25e3a2c0-c4ac-4abf-995f-e00eecc8d9ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -277,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="Windows\Common.cpp">
       <Filter>Windows\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute.cpp">
+      <Filter>Compute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +546,9 @@
     </ClInclude>
     <ClInclude Include="Windows\Common.h">
       <Filter>Windows\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute.h">
+      <Filter>Compute</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

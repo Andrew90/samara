@@ -22,6 +22,7 @@ public:
 	void Destroy();
 	void MainWindowTopLabel(wchar_t *);
 	void MainWindowBottomLabel(int, wchar_t *);  
+	void MainWindowUpdate();
 };
 
 extern App app;

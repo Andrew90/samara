@@ -9,6 +9,7 @@
 #include "AppBase.h"
 #include "Automat.h"
 #include "USPCData.h"
+#include "ConstData.h"
 
 
 extern HINSTANCE hInstance;
@@ -40,16 +41,17 @@ void App::Init()
 		return;
 #endif
 	}
+	ConstData::Init();
 	automat.Init();
-//--------------------------test
+///--------------------------test
 	zprint("---------------------\n");
 	unsigned start = GetTickCount();
 	 TestUSPC test;
-	 test.Init(Singleton<ItemData<Long> >::Instance().uspcData);
-	 test.Init(Singleton<ItemData<Cross> >::Instance().uspcData);
-	 test.Init(Singleton<ItemData<Thickness> >::Instance().uspcData);
+	 test.Init(Singleton<ItemData<Long> >::Instance());
+	 test.Init(Singleton<ItemData<Cross> >::Instance());
+	 test.Init(Singleton<ItemData<Thickness> >::Instance());
 	 zprint("  Stop time %d\n", GetTickCount() - start);
-	//-------------------------------test------------------------------
+///-------------------------------test------------------------------
 }
 
 void App::Destroy()
@@ -66,6 +68,11 @@ void App::MainWindowTopLabel(wchar_t *txt)
 void App::MainWindowBottomLabel(int n, wchar_t *text)
 {
 	SendMessage(mainWindow.hStatusWindow, SB_SETTEXT, n, (LONG)text);
+}
+
+void App::MainWindowUpdate()
+{
+	RepaintWindow(mainWindow.hWnd);
 }
 
 Device1730 device1730;

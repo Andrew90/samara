@@ -4,21 +4,11 @@
 #include "EmptyWindow.h"
 #include "LabelMessage.h"
 #include "DebugMess.h"
+#include "AppBase.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
-
-ThicknessViewer::CursorLabel::CursorLabel(ThicknessViewer &o)
-	: owner(o)
-	, label(o.label)
-	, cursor(o.cursor)
-	, chart(o.chart)	
-{
-	label.fontHeight = 12;
-	label.top = 0;	
-}
-
-bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
+bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	/*
 	char buf[512];
@@ -68,28 +58,22 @@ bool ThicknessViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	wsprintf(label.buffer, L"<ff>зона %d        ", 1 + x);
 	label.Draw(g());
 
-	return x < owner.viewerData.currentOffset;
+	return x < viewerData.currentOffsetZones;
 	//////////////////////////////////////////test
 }
 
-bool ThicknessViewer::CursorLabel::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)
+bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)
 {
-	if(zone)
-	{
-		int i = zone - 1;
-		data_1 = owner.viewerData.zonesMin[i];
-		data_ =  owner.viewerData.zonesMax[i];
-		ColorBar(data_, color1, owner.viewerData.commonStatus[i]);
+	data_1 = viewerData.zonesMin[zone];
+	data_ =  viewerData.zonesMax[zone];
+	ColorBar(data_, color1, viewerData.commonStatus[zone]);
 
-		color = color1;
-		unsigned char *x = (unsigned char *) &color;
-		x[0] = unsigned char(3.0 * x[0] / 4);
-		x[1] = unsigned char(3.0 * x[1] / 4);
-		x[2] = unsigned char(3.0 * x[2] / 4);
-		return 0 != owner.viewerData.commonStatus[i];	  
-	}
-	data_ = 0;
-	return true;
+	color = color1;
+	unsigned char *x = (unsigned char *) &color;
+	x[0] = unsigned char(3.0 * x[0] / 4);
+	x[1] = unsigned char(3.0 * x[1] / 4);
+	x[2] = unsigned char(3.0 * x[2] / 4);
+	return zone < viewerData.currentOffsetZones;	  
 }
 //-----------------------------------------------------------------------------
 ThicknessViewer::ThicknessViewer()
@@ -99,7 +83,6 @@ ThicknessViewer::ThicknessViewer()
 	, openDetailedWindow(false)
 	, painting(true)
 	, mouseMove(true)
-	, cursorLabel(*this)
 	, viewerData(Singleton<ItemData<Thickness> >::Instance())
 {
 	chart.rect.top = 17;
@@ -108,11 +91,11 @@ ThicknessViewer::ThicknessViewer()
 	chart.maxAxesX = App::zonesCount;
 	chart.minAxesY = 0;
 
-	cursor.SetMouseMoveHandler(&cursorLabel, &CursorLabel::Draw);
-	chart.items.get<BarSeriesDouble>().SetColorBarHandler(&cursorLabel, &ThicknessViewer::CursorLabel::GetColorBar);
+	label.fontHeight = 12;
+	label.top = 0;	
 
-	//chart.items.get<BottomAxesMeters>().minBorder = 0;
-	//chart.items.get<BottomAxesMeters>().maxBorder = 0.001 * (App::zonesCount) * App::zone_length;
+	cursor.SetMouseMoveHandler(this, &ThicknessViewer::Draw);
+	chart.items.get<BarSeriesDouble>().SetColorBarHandler(this, &ThicknessViewer::GetColorBar);
 }
 //----------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996)
@@ -143,6 +126,8 @@ void ThicknessViewer::operator()(TSize &l)
 
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
+	chart.minAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
+	chart.maxAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
 	chart.Draw(g);
 }
 //----------------------------------------------------------------------------------------------------
@@ -189,21 +174,6 @@ void ThicknessViewer::operator()(TMouseWell &l)
 
 		chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-}
-void ThicknessViewer::operator()(TKeyDown &l)
-{	
-	int offs = VK_RIGHT == l.VirtKey ? -1 : VK_LEFT == l.VirtKey ? 1 : 0;
-	if(offs)
-	{
-		mouseMove = false;
-		chart.OffsetToPixelHorizontal(storedMouseMove.x, offs);
-		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	}
-}
-//-----------------------------------------------------------------------------------------------------
-void ThicknessViewer::Repaint()
-{
-	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------------------------------------------
 unsigned ThicknessViewer::operator()(TCreate &l)

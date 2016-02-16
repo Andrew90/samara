@@ -9,31 +9,22 @@
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------
-LongViewer::CursorLabel::CursorLabel(LongViewer &o)
-	: owner(o)
-	, label(o.label)
-	, cursor(o.cursor)
-	, chart(o.chart)
-{
-	label.fontHeight = 10;
-	label.top = 2;	
-}
-
-bool LongViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
+bool LongViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
+	wsprintf(label.buffer, L"<ff>зона %d  датчик %d  %x      ", 1 + x, 1 + y, viewerData.status[y][x]);
 	label.Draw(g());
 
-	return x < owner.viewerData.currentOffset;
+	return x < viewerData.currentOffsetZones;
 }
 
-bool LongViewer::CursorLabel::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
+bool LongViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
-	data = owner.viewerData.buffer[sensor][zone];
-	color = ConstData::ZoneColor(owner.viewerData.status[sensor][zone]);
-	return zone < owner.viewerData.currentOffset;
+	--sensor;
+	data = viewerData.buffer[sensor][zone];
+	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
+	return zone < viewerData.currentOffsetZones;
 }
 //------------------------------------------------------------------
 LongViewer::LongViewer()
@@ -41,7 +32,6 @@ LongViewer::LongViewer()
 	, chart(backScreen)
 	, cursor(chart)
 	, viewerData(Singleton<ItemData<Long> >::Instance())
-	, cursorLabel(*this)
 {
 	
 	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
@@ -49,12 +39,15 @@ LongViewer::LongViewer()
 	chart.maxAxesY = 1 + App::count_sensors;
 	chart.minAxesX = 0;
 	chart.maxAxesX = App::zonesCount;
-	cursor.SetMouseMoveHandler(&cursorLabel, &LongViewer::CursorLabel::Draw);
+	cursor.SetMouseMoveHandler(this, &LongViewer::Draw);
 	label.fontHeight = 12;
 	label.top = 0;
 	chart.rect.top = 17;
 	mouseMove = true;
-	chart.items.get<FixedGridSeries>().SetColorCellHandler(&cursorLabel, &LongViewer::CursorLabel::GetColorBar);
+	label.fontHeight = 10;
+	label.top = 2;
+
+	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
 }
 //--------------------------------------------------------------------------
 void LongViewer::operator()(TSize &l)
@@ -137,11 +130,6 @@ void LongViewer::operator()(TMouseWell &l)
 void LongViewer::operator()(TLButtonDown &l)
 {
 	mouseMove = false;
-}
-//-----------------------------------------------------------------------------------------
-void LongViewer::Update()
-{
-	RepaintWindow(hWnd);
 }
 //------------------------------------------------------------------------------------------------
 unsigned LongViewer::operator()(TCreate &l)

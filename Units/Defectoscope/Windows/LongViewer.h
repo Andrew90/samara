@@ -7,7 +7,7 @@
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
 #include "USPCData.h"
-//class LongViewerData;
+
 class LongViewer
 {
 public:
@@ -19,17 +19,6 @@ private:
 		, FixedGridSeries
 		, FixedGrid		
 	>::Result> TChart;
-	struct CursorLabel
-	{
-		friend class LongViewer;
-		LongViewer &owner;
-		ColorLabel &label;
-		Cursor &cursor;
-		TChart &chart;
-		CursorLabel(LongViewer &);
-		bool Draw(TMouseMove &l, VGraphics &g);
-		bool GetColorBar(unsigned sensor, int zone, double &data, unsigned &color);
-	};
 	Gdiplus::Bitmap *backScreen;
 	TChart chart;
 	bool mouseMove;
@@ -39,7 +28,6 @@ private:
 	ColorLabel label;
 	Cursor cursor;
 	ItemData<Long> &viewerData;
-	CursorLabel cursorLabel;
 public:
 	LongViewer();
 	unsigned operator()(TCreate &);
@@ -50,5 +38,7 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
 	void operator()(TRButtonDown &);
-	void Update();
+
+	bool LongViewer::Draw(TMouseMove &, VGraphics &);
+	bool LongViewer::GetColorBar(unsigned , int , double &, unsigned &);
 };

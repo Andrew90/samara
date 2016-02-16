@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
-
+/*
 ResultViewer::CursorLabel::CursorLabel(ResultViewer &o)
 	: owner(o)
 	, label(o.label)
@@ -17,8 +17,8 @@ ResultViewer::CursorLabel::CursorLabel(ResultViewer &o)
 	label.fontHeight = 12;
 	label.top = 0;	
 }
-
-bool ResultViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
+ */
+bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	/*
 	char buf[512];
@@ -68,16 +68,16 @@ bool ResultViewer::CursorLabel::Draw(TMouseMove &l, VGraphics &g)
 	wsprintf(label.buffer, L"<ff>Зона %d         ", 1 + x);
 	label.Draw(g());
 
-	return x < owner.viewerData.currentOffset;
+	return x < viewerData.currentOffset;
 	//////////////////////////////////////////test
 }
 
-bool ResultViewer::CursorLabel::GetColorBar(int zone, double &data, unsigned &color)
+bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 {
 	int i = zone - 1;
-	ColorBar(data, color, owner.viewerData.status[i]);
+	ColorBar(data, color, viewerData.status[i]);
 
-	return zone < owner.viewerData.currentOffset;
+	return zone < viewerData.currentOffset;
 }
 //-----------------------------------------------------------------------------
 ResultViewer::ResultViewer()
@@ -87,7 +87,6 @@ ResultViewer::ResultViewer()
 	, openDetailedWindow(false)
 	, painting(true)
 	, mouseMove(true)
-	, cursorLabel(*this)
 	, viewerData(Singleton<ResultViewerData>::Instance())
 {
 	storedMouseMove.x = 0;
@@ -98,8 +97,11 @@ ResultViewer::ResultViewer()
 	chart.maxAxesX = App::zonesCount;
 	chart.minAxesY = 0;
 
-	cursor.SetMouseMoveHandler(&cursorLabel, &CursorLabel::Draw);
-	chart.items.get<BarSeries>().SetColorBarHandler(&cursorLabel, &ResultViewer::CursorLabel::GetColorBar);
+	label.fontHeight = 12;
+	label.top = 0;	
+
+	cursor.SetMouseMoveHandler(this, &ResultViewer::Draw);
+	chart.items.get<BarSeries>().SetColorBarHandler(this, &ResultViewer::GetColorBar);
 
 	chart.items.get<BottomAxesMeters__>().minBorder = 0;
 	chart.items.get<BottomAxesMeters__>().maxBorder = 0.001 * App::zonesCount * App::zone_length;
@@ -184,21 +186,21 @@ void ResultViewer::operator()(TMouseWell &l)
 		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
-void ResultViewer::operator()(TKeyDown &l)
-{	
-	int offs = VK_RIGHT == l.VirtKey ? -1 : VK_LEFT == l.VirtKey ? 1 : 0;
-	if(offs)
-	{
-		mouseMove = false;
-		chart.items.get<BottomAxesMeters>().OffsetToPixel(storedMouseMove.x, offs);
-		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	}
-}
+//void ResultViewer::operator()(TKeyDown &l)
+//{	
+//	int offs = VK_RIGHT == l.VirtKey ? -1 : VK_LEFT == l.VirtKey ? 1 : 0;
+//	if(offs)
+//	{
+//		mouseMove = false;
+//		chart.items.get<BottomAxesMeters>().OffsetToPixel(storedMouseMove.x, offs);
+//		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+//	}
+//}
 //-----------------------------------------------------------------------------------------------------
-void ResultViewer::Repaint()
-{
-	RepaintWindow(hWnd);
-}
+//void ResultViewer::Repaint()
+//{
+//	RepaintWindow(hWnd);
+//}
 //------------------------------------------------------------------------------------------------------
 unsigned ResultViewer::operator()(TCreate &l)
 {

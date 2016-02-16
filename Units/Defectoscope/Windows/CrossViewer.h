@@ -7,7 +7,6 @@
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
 #include "USPCData.h"
-//class CrossViewerData;
 class CrossViewer
 {
 public:
@@ -19,23 +18,12 @@ public:
 		, FixedGrid
 	>::Result>	TChart;
 public:
-	struct CursorLabel
-	{
-		CrossViewer &owner;
-		ColorLabel &label;
-		Cursor &cursor;
-		TChart &chart;
-		CursorLabel(CrossViewer &);
-		bool Draw(TMouseMove &l, VGraphics &g);
-		bool GetColorBar(unsigned sensor, int zone, double &data, unsigned &color);
-	};
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
 	bool mouseMove;
 	TMouseMove storedMouseMove;
 	ColorLabel label;
 	Cursor cursor;
-	CursorLabel cursorLabel;
 public:
 	ItemData<Cross> &viewerData;
 	CrossViewer();
@@ -47,5 +35,7 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
 	void operator()(TRButtonDown &);
-	void Repaint();
+
+	bool Draw(TMouseMove &, VGraphics &);
+	bool GetColorBar(unsigned , int , double &, unsigned &);
 };

@@ -29,18 +29,19 @@ void FixedGridSeries::Draw()
 	double left = chart.rect.left + chart.offsetAxesLeft;
 	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	double x;
-	double y = bottom - chart.deltaDigitY;
+	double y = bottom - chart.deltaTickY;
 	unsigned color;
 	double data;
-	for(unsigned i = 0; i < sensorCount; ++i)
+	double dX = chart.deltaTickX / chart.deltaDigitX;
+	for(unsigned i = (unsigned)chart.minAxesY, len = (unsigned)chart.maxAxesY; i < len; ++i)//sensorCount; ++i)
 	{
 		x = left;
 		for(unsigned j  = 0; j < 60 && (obj->*SetColorBar)(i, j, data, color); ++j)
 		{
-			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)chart.deltaDigitX, (REAL)chart.deltaDigitY);
-			x += chart.deltaDigitY;
+			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)dX, (REAL)chart.deltaTickY);
+			x += dX;
 		}
-		y -= chart.deltaDigitY;
+		y -= chart.deltaTickY;
 	}
 	chart.g->SetClip(&Region());
 }
