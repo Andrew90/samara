@@ -186,21 +186,6 @@ void ResultViewer::operator()(TMouseWell &l)
 		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
-//void ResultViewer::operator()(TKeyDown &l)
-//{	
-//	int offs = VK_RIGHT == l.VirtKey ? -1 : VK_LEFT == l.VirtKey ? 1 : 0;
-//	if(offs)
-//	{
-//		mouseMove = false;
-//		chart.items.get<BottomAxesMeters>().OffsetToPixel(storedMouseMove.x, offs);
-//		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-//	}
-//}
-//-----------------------------------------------------------------------------------------------------
-//void ResultViewer::Repaint()
-//{
-//	RepaintWindow(hWnd);
-//}
 //------------------------------------------------------------------------------------------------------
 unsigned ResultViewer::operator()(TCreate &l)
 {

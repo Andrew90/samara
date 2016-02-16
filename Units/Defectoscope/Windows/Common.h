@@ -3,6 +3,7 @@
 
 namespace Common
 {
+	/*
 	template<class T>struct IsParent
 	{
 		template<bool, class Z>struct Ret
@@ -17,6 +18,7 @@ namespace Common
 		static double Is(...);
 		typedef typename Ret<sizeof(char) == sizeof(Is((T *)0)), T>::Result Result;
 	};
+	*/
 	template<class O, class P>struct __create_window__
 	{
 		void operator()(O *o, P *p)
@@ -26,7 +28,8 @@ namespace Common
 			int len = 1 + strlen(s);
 			size_t converted;
 			mbstowcs_s(&converted, name, s, len);
-			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<typename IsParent<O>::Result>::Proc, name, o);
+			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<O>::Proc, name, o);
+			//o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<typename IsParent<O>::Result>::Proc, name, o);
 		}
 	};
 

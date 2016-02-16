@@ -68,6 +68,7 @@ unsigned LineViewer::operator()(TCreate &l)
 	storedMouseMove.x = 0;	
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	mouseMove = true;
+	mouseMove = false;
 	return 0;
 }
 //----------------------------------------------------------------

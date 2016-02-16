@@ -105,21 +105,3 @@ wchar_t *CrossWindow::Title()
 {
 	return L"Просмотр поперечных дефектов";
 }
-/*
-bool CrossWindow::Destroy()
-{
-	HWND hh = FindWindow(WindowClass<CrossWindow>()(), 0);
-	if(NULL != hh)
-	{
-		DestroyWindow(hh);
-		return true;
-	}
-	return false;
-}
-*/
-/*
-CrossWindow &CrossWindow::Instance()
-{
-	static CrossWindow x; return x;
-}
-*/
