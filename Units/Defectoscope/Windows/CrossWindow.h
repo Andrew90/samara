@@ -10,6 +10,7 @@ public:
 	template<int N>struct Line: LineViewer
 	{
 		static const int ID = N;
+		typedef Cross Owner;
 		typedef LineViewer Parent;
 	};
 	typedef TL::AppendList<
@@ -24,7 +25,5 @@ public:
 	unsigned operator()(TCreate &);
 	void operator()(TMouseWell &);
 	static wchar_t *Title();
-	static void Do(HWND);
-	//bool Destroy();
-	//static CrossWindow &Instance();
+	bool Draw(int, double &, unsigned &);
 };

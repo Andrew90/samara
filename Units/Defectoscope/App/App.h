@@ -2,6 +2,10 @@
 #include "uspc7100_exports.h"
 class MainWindow;
 
+struct Long{};
+struct Cross{};
+struct Thickness{};
+
 class App
 {
 public:

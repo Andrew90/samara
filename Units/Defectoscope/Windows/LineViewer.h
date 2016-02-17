@@ -3,6 +3,8 @@
 #include "Chart.h"
 #include "Chart.hpp"
 #include "ColorLabel.h"
+#include "BarSeries.h"
+#include "uspc7100_exports.h"
 
 class LineViewer
 {
@@ -12,12 +14,16 @@ public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
-		, LineSeries		
+		//, LineSeries		
+		, BarSeries
 		, Grid	
 	>::Result> TChart;
 	TChart chart;
 	ColorLabel label;
 	Cursor cursor;
+	int count;
+	double *data;
+	USPC7100_ASCANDATAHEADER *scan;
 	TMouseMove storedMouseMove;
 	bool mouseMove;
 	LineViewer();
@@ -29,4 +35,5 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
+	void SetData(double *, USPC7100_ASCANDATAHEADER *, int);
 };

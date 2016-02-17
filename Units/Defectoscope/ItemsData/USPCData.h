@@ -1,5 +1,6 @@
 #pragma once
 #include "App.h"
+#include "AppBase.h"
 
 ///	Хранит данные с платы USPC
 class USPCData
@@ -35,10 +36,6 @@ public:
 	double zonesMin[App::zonesCount];	///<минимальная толщина в зоне
 	double zonesMax[App::zonesCount];	///<максимальная толщина в зоне
 };
-
-struct Long{};
-struct Cross{};
-struct Thickness{};
 
 template<class T>struct ItemData: USPCViewerData{}; 
 

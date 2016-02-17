@@ -6,6 +6,7 @@
 #include "MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
+#include "Common.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------

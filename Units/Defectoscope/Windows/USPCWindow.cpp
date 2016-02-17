@@ -88,6 +88,7 @@ unsigned USPCWindow::operator()(TCreate &m)
 	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);
 	dropDownUnit.SetCommandHandler(&panel, &USPCBottomPanel::UpdatePage);
 	dropDownSensors.SetCommandHandler(&panel, &USPCBottomPanel::UpdatePage);
+	SetParamToGateItem();
 	return 0;
 }
 //-------------------------------------------------------------------------

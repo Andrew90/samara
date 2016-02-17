@@ -7,17 +7,6 @@
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
-/*
-ResultViewer::CursorLabel::CursorLabel(ResultViewer &o)
-	: owner(o)
-	, label(o.label)
-	, cursor(o.cursor)
-	, chart(o.chart)
-{
-	label.fontHeight = 12;
-	label.top = 0;	
-}
- */
 bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	/*

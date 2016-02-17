@@ -2,7 +2,7 @@
 //
 //  SOCOMATE INTERNATIONAL
 //
-
+#pragma once
 #define USPC7100_MAX_ROW       100 // Size of parameter's array
 #define USPC7100_MAX_HEADER    100 // Size of parameter's array to build header of A-scan
 

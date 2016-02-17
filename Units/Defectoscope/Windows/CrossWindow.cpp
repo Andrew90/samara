@@ -40,6 +40,18 @@ namespace
 			 if(!b) p->y += p->height;
 		}
 	};
+	template<class O, class P>struct __set_line__
+	{
+		void operator()(O *, P *){}
+	};
+	template<int N, class P>struct __set_line__<CrossWindow::Line<N>, P>
+	{
+		typedef CrossWindow::Line<N> O;
+		void operator()(O *o, P *p)
+		{
+			o->chart.items.get<BarSeries>().SetColorBarHandler(p, &CrossWindow::Draw);
+		}
+	};
 }
 void CrossWindow::operator()(TSize &l)
 {
@@ -62,6 +74,7 @@ unsigned CrossWindow::operator()(TCreate &l)
 {
 	Menu<ViewersMenuCrossWindow::MainMenu>().Init(l.hwnd);
 	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &l.hwnd);
+	TL::foreach<viewers_list, __set_line__>()(&viewers, this);
 	return 0;
 }
 //--------------------------------------------------------------------------------
@@ -84,24 +97,24 @@ void CrossWindow::operator()(TCommand &l)
 	EventDo(l);
 }
 //----------------------------------------------------------------------
-void CrossWindow::Do(HWND)
-{
-	HWND hh = FindWindow(WindowClass<CrossWindow>()(), 0);
-	if(NULL != hh)
-	{
-		SendMessage(hh, WM_SYSCOMMAND, SC_RESTORE, 0);
-		SetForegroundWindow(hh);
-	}
-	else
-	{
-		RECT r;
-		WindowPosition::Get<CrossWindow>(r);
-		HWND h = WindowTemplate(&Singleton<CrossWindow>::Instance(), L"Просмотр поперечных дефектов", r.left, r.top, r.right, r.bottom);
-		ShowWindow(h, SW_SHOWNORMAL);
-	}
-}
-
 wchar_t *CrossWindow::Title()
 {
 	return L"Просмотр поперечных дефектов";
 }
+//--------------------------------------------------------------------------------------
+//-----------todo test
+unsigned xcolor[] = {
+	0xffff0000
+	, 0xff00ff00
+	, 0xff0000ff
+	, 0xffffff00
+	, 0xff00ffff
+};
+	//---------------------todo test
+bool CrossWindow::Draw(int offs, double &data, unsigned &color)
+{
+	data = (double)(rand() % 200) + 30;
+	color = xcolor[rand() % 5];
+	return offs < 512;
+}
+//----------------------------------------------------------------------------------------

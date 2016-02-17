@@ -3,22 +3,6 @@
 
 namespace Common
 {
-	/*
-	template<class T>struct IsParent
-	{
-		template<bool, class Z>struct Ret
-		{
-			typedef Z Result;
-		};
-		template<class Z>struct Ret<true, Z>
-		{
-			typedef typename Z::Parent Result;
-		};
-		template<class Z>static char Is(Z *, typename Z::Parent * = 0);
-		static double Is(...);
-		typedef typename Ret<sizeof(char) == sizeof(Is((T *)0)), T>::Result Result;
-	};
-	*/
 	template<class O, class P>struct __create_window__
 	{
 		void operator()(O *o, P *p)
@@ -29,7 +13,6 @@ namespace Common
 			size_t converted;
 			mbstowcs_s(&converted, name, s, len);
 			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<O>::Proc, name, o);
-			//o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<typename IsParent<O>::Result>::Proc, name, o);
 		}
 	};
 
@@ -118,7 +101,6 @@ namespace Common
 				WindowPosition::Get<T>(r);
 				HWND h = WindowTemplate(&Singleton<T>::Instance(), T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(h, SW_SHOWNORMAL);
-				SetParamToGateItem();
 			}
 		}
 	};	

@@ -56,7 +56,7 @@
 		static void Do(HWND h)				   \
 		{									   \
 			zprint("\n");					   \
-			name::Do(h);					   \
+			Common::OpenWindow<name>::Do(h);		   \
 		}									   \
 	};										   \
 };

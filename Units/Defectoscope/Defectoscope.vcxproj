@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\..\Common\templates\Frame.cpp" />
     <ClCompile Include="..\..\Common\USPC\USPCParam.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="..\..\Common\Graphics\GridChart.h" />
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
+    <ClInclude Include="..\..\Common\templates\Frame.h" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\USPCParam.h" />

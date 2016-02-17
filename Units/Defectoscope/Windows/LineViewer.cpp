@@ -2,12 +2,15 @@
 #include "LineViewer.h"
 #include "FixedGridSeries.h"
 #include "DebugMess.h"
+#include "EmptyWindow.h"
 
 using namespace Gdiplus;
 LineViewer::LineViewer()
 	: backScreen(NULL)
 	, chart(backScreen)
 	, cursor(chart)
+	, data(NULL)
+	, scan(NULL)
 {
 	chart.minAxesY = 0;
 	chart.maxAxesY = 256;
@@ -69,14 +72,17 @@ unsigned LineViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	mouseMove = true;
 	mouseMove = false;
+	data = NULL;
+	scan = NULL;
 	return 0;
 }
 //----------------------------------------------------------------
 void LineViewer::operator()(TMouseWell &l)
 {
 	mouseMove = false;
-	OffsetToPixel(chart, storedMouseMove.x, storedMouseMove.y, l.delta / 120, 0 == l.flags.lButton);
-	cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+	OffsetToPixel(chart, storedMouseMove.x, storedMouseMove.y, l.delta / 120, true);//0 == l.flags.lButton);
+	//cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
 //--------------------------------------------------------------
  bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
@@ -92,7 +98,7 @@ void LineViewer::operator()(TMouseWell &l)
  {	 
 	 if(mouseMove)
 	 {
-		 if(cursor.CrossCursor(l, HDCGraphics(l.hwnd, backScreen)))
+		 if(cursor.VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
 		 {
 			 storedMouseMove = l;
 		 }
@@ -107,9 +113,17 @@ void LineViewer::operator()(TMouseWell &l)
  void LineViewer::operator()(TLButtonDbClk &l)
 {
 	 mouseMove = true;
-	if(cursor.CrossCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
+	if(cursor.VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
 	{
 		storedMouseMove.x = l.x;
 	}
 }
  //--------------------------------------------------------------------------
+ void LineViewer::SetData(double *d, USPC7100_ASCANDATAHEADER *s, int c)
+ {
+	 data = d;
+	 scan = s;
+	 count = c;	
+	 RepaintWindow(hWnd);
+ }
+ //--------------------------------------------------------------------------------
