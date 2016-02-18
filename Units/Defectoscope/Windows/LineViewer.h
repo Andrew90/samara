@@ -4,7 +4,7 @@
 #include "Chart.hpp"
 #include "ColorLabel.h"
 #include "BarSeries.h"
-#include "uspc7100_exports.h"
+#include "App.h"
 
 class LineViewer
 {
@@ -14,20 +14,20 @@ public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
-		//, LineSeries		
 		, BarSeries
 		, Grid	
 	>::Result> TChart;
 	TChart chart;
 	ColorLabel label;
 	Cursor cursor;
-	int count;
-	double *data;
-	USPC7100_ASCANDATAHEADER *scan;
+	//int count;
+	//double *data;
+	//USPC7100_ASCANDATAHEADER **scan;
 	TMouseMove storedMouseMove;
 	bool mouseMove;
 	LineViewer();
 	bool CursorDraw(TMouseMove &l, VGraphics &g);
+	//bool BarDraw(int, double &, unsigned &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	unsigned operator()(TCreate &);
@@ -35,5 +35,5 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
-	void SetData(double *, USPC7100_ASCANDATAHEADER *, int);
+	//void SetData(double *, USPC7100_ASCANDATAHEADER **, int);
 };

@@ -287,6 +287,9 @@
     <ClCompile Include="..\..\Common\templates\Frame.cpp">
       <Filter>Common\templates</Filter>
     </ClCompile>
+    <ClCompile Include="ItemsData\DataViewer.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -555,6 +558,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\templates\Frame.h">
       <Filter>Common\templates</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsData\DataViewer.h">
+      <Filter>ItemsData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

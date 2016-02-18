@@ -123,6 +123,7 @@
     <ClCompile Include="IOports\IOportsViewer.cpp" />
     <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
+    <ClCompile Include="ItemsData\DataViewer.cpp" />
     <ClCompile Include="ItemsData\ResultData.cpp" />
     <ClCompile Include="ItemsData\USPCData.cpp" />
     <ClCompile Include="ItemsData\ZonesData.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="IOports\IOportsWindow.h" />
     <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="ItemsData\ConstData.h" />
+    <ClInclude Include="ItemsData\DataViewer.h" />
     <ClInclude Include="ItemsData\ResultData.h" />
     <ClInclude Include="ItemsData\USPCData.h" />
     <ClInclude Include="ItemsData\ZonesData.h" />

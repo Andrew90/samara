@@ -1,13 +1,12 @@
 #pragma once
 
 struct Frame
-{
-	Frame *next;
-public:
+{	
 	struct Data
 	{
-		char buf[1024];
+		char buf[24000];
 	} data;
+	Frame *next;
 	static void Drop(void *);	
 	template<class T>static Frame *Get()
 	{

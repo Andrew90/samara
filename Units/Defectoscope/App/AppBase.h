@@ -1,6 +1,11 @@
 #pragma once
 #include "tables.hpp"
 #include "TablesDefine.h"
+#include "App.h"
+//--------------------------------------------------------
+//struct Long;
+//struct Cross;
+//struct Thickness;
 //-------------------------------------------------------------------------------------------
 DEFINE_PARAM(CurrentID, int, 1)
 
@@ -14,16 +19,45 @@ struct CurrentParametersTable
 	const wchar_t *name(){return L"CurrentParametersTable";}
 };
 
-STR_PARAM(NameParam, 128, L"NONAME")
+//STR_PARAM(NameParam, 128, L"NONAME")
+//------------------------------------------------------------------------------------------
+/*
+#define DEFINE_PARAM_WAPPER(wapper, z, type, def_val) template<> struct wapper<z>\
+{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	const wchar_t *name(){return L#wapper##L#z;}\
+	wapper() : value(def_val), default_value(def_val) {}\
+};
+*/
+template<class>struct Border2Class;
+template<class>struct BorderDefect;
 
-DEFINE_PARAM(Border2Class, double, 5.8)
-DEFINE_PARAM(BorderDefect, double, 4.5)
+template<class>struct AboveBorder;
+template<class>struct LowerBorder;
+template<class>struct NominalBorder;
+
+DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Long, double, App::zonesCount, 5.8)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 4.5)
+
+DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Cross, double, App::zonesCount, 5.8)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 4.5)
+
+DEFINE_ARRAY_PARAM_WAPPER(AboveBorder  , Thickness, double, App::zonesCount, 3.0)
+DEFINE_ARRAY_PARAM_WAPPER(LowerBorder  , Thickness, double, App::zonesCount, 2.0)
+DEFINE_ARRAY_PARAM_WAPPER(NominalBorder, Thickness, double, App::zonesCount, 12.0)
 
 struct ThresholdsTable
 {
 	typedef TL::MkTlst<
-		Border2Class
-		, BorderDefect
+		Border2Class<Long>
+		, BorderDefect<Long>
+		, Border2Class<Cross>
+		, BorderDefect<Cross>
+		 , AboveBorder  <Thickness>
+		 , LowerBorder  <Thickness>
+		 , NominalBorder<Thickness>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -194,6 +228,7 @@ struct ACFBorderTable
 DEFINE_PARAM_ID(ThresholdsTable            , int, 1)
 DEFINE_PARAM_ID(DeadAreaTable			   , int, 1)
 DEFINE_PARAM_ID(BorderCredibilityTable	   , int, 1)
+STR_PARAM(NameParam, 128, L"NONAME")
  struct ParametersTable
  {
 	typedef TL::MkTlst<
@@ -250,9 +285,6 @@ struct Descriptor1730Table
 	const wchar_t *name(){return L"Descriptor1730Table";}
  };
  //--------------------------------------------------------------------------------------------------------
-struct Long;
-struct Cross;
-struct Thickness;
 template<class T, int N>struct Offset;
 DEFINE_PARAM_WAPPER_NUM(Offset, Long, 0, int, 0)
 DEFINE_PARAM_WAPPER_NUM(Offset, Long, 1, int, 0)

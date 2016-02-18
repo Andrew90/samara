@@ -43,7 +43,7 @@ bool CrossViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned 
 	--sensor;
 	data = viewerData.buffer[sensor][zone];
 	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
-	zprint("s=%d z=%d  c%x\n", sensor, zone, color);
+	//zprint("s=%d z=%d  c%x\n", sensor, zone, color);
 	return zone < viewerData.currentOffsetZones;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////

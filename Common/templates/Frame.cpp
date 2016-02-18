@@ -27,16 +27,17 @@ Frame *Frame::_Get()
 	Frame *result = NULL;
 	EnterCriticalSection(&cs);
 	result = head;
+	++nex;
 	if (NULL != result) 
 	{
 		head = head->next;
-		dprint(" next Frames %d \n", ++nex);
+		dprint(" next Frames %d \n", nex);
 	}
 	else
 	{
 		result = new Frame;
 		result->next = NULL;
-		dprint(" Count Frames %d ", ++counter);
+		dprint(" Count Frames %d size %d\n", ++counter, sizeof(Frame));
 	}
 	LeaveCriticalSection(&cs);
 	return result;

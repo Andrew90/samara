@@ -75,3 +75,15 @@ template<class T>struct ID
 	const wchar_t *name(){return L#wapper##L#z##L#n;}\
 	wapper() : value(def_val), default_value(def_val) {}\
 };
+
+#define DEFINE_ARRAY_PARAM_WAPPER(wapper, z, type, count, def_val) template<>struct wapper<z>\
+{\
+	typedef type type_value[count];\
+	type_value value;\
+	const type default_value;\
+	const wchar_t *name(){return L#z;}\
+	wapper(): default_value(def_val) \
+    {\
+		for(int i = 0; i < count; ++i) value[i] = def_val;\
+	}\
+};

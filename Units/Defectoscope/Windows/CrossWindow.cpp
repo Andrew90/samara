@@ -8,7 +8,9 @@
 #include "App.h"
 
 CrossWindow::CrossWindow()
+	: crossViewer(viewers.get<CrossViewer>())
 {
+	crossViewer.cursor.SetMouseMoveHandler(this, &CrossWindow::DrawCursor);
 }
 namespace
 {
@@ -40,18 +42,18 @@ namespace
 			 if(!b) p->y += p->height;
 		}
 	};
-	template<class O, class P>struct __set_line__
-	{
-		void operator()(O *, P *){}
-	};
-	template<int N, class P>struct __set_line__<CrossWindow::Line<N>, P>
-	{
-		typedef CrossWindow::Line<N> O;
-		void operator()(O *o, P *p)
-		{
-			o->chart.items.get<BarSeries>().SetColorBarHandler(p, &CrossWindow::Draw);
-		}
-	};
+	//template<class O, class P>struct __set_line__
+	//{
+	//	void operator()(O *, P *){}
+	//};
+	//template<int N, class P>struct __set_line__<CrossWindow::Line<N>, P>
+	//{
+	//	typedef CrossWindow::Line<N> O;
+	//	void operator()(O *o, P *p)
+	//	{
+	//		o->chart.items.get<BarSeries>().SetColorBarHandler(p, &CrossWindow::GetColorBar);
+	//	}
+	//};
 }
 void CrossWindow::operator()(TSize &l)
 {
@@ -72,9 +74,9 @@ void CrossWindow::operator()(TGetMinMaxInfo &m)
 VIEWERS_MENU(CrossWindow)
 unsigned CrossWindow::operator()(TCreate &l)
 {
+	lastZone = -1;
 	Menu<ViewersMenuCrossWindow::MainMenu>().Init(l.hwnd);
 	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &l.hwnd);
-	TL::foreach<viewers_list, __set_line__>()(&viewers, this);
 	return 0;
 }
 //--------------------------------------------------------------------------------
@@ -96,25 +98,54 @@ void CrossWindow::operator()(TCommand &l)
 {
 	EventDo(l);
 }
+//-------------------------------------------------------------------------------------
+namespace
+{
+	template<class O, class P>struct __drop__
+	{
+		void operator()(O *o, P *)
+		{
+			o->dataViewer.Drop();
+		}
+	};
+}
+void CrossWindow::operator()(TDestroy &)
+{
+	TL::foreach<TL::CreateNumList<Line, 0, 7>::Result, __drop__>()(&viewers, (int *)0);
+}
 //----------------------------------------------------------------------
 wchar_t *CrossWindow::Title()
 {
 	return L"Просмотр поперечных дефектов";
 }
 //--------------------------------------------------------------------------------------
-//-----------todo test
-unsigned xcolor[] = {
-	0xffff0000
-	, 0xff00ff00
-	, 0xff0000ff
-	, 0xffffff00
-	, 0xff00ffff
-};
-	//---------------------todo test
-bool CrossWindow::Draw(int offs, double &data, unsigned &color)
+namespace
 {
-	data = (double)(rand() % 200) + 30;
-	color = xcolor[rand() % 5];
-	return offs < 512;
+	typedef TL::EraseItem<CrossWindow::viewers_list, CrossViewer>::Result __line_list__;
+	template<class O, class P>struct __update__;
+	template<int N, class P>struct __update__<CrossWindow::Line<N>, P>
+	{
+		typedef CrossWindow::Line<N> O;
+		void operator()(O *o, P *p)
+		{
+			o->dataViewer.Do(*p);
+			o->chart.maxAxesX = o->dataViewer.count;
+			RepaintWindow(o->hWnd);
+		}
+	};
 }
-//----------------------------------------------------------------------------------------
+bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
+{
+	int x, y;
+	crossViewer.chart.CoordCell(l.x, l.y, x, y);	
+	wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
+	crossViewer.label.Draw(g());
+	bool b = x < crossViewer.viewerData.currentOffsetZones;
+	if(b && lastZone != x)
+	{
+		lastZone = x;
+		TL::foreach<__line_list__, __update__>()(&viewers, &x);
+		
+	}
+	return b;
+}
