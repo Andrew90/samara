@@ -4,6 +4,7 @@
 #include "typelist.hpp"
 
 namespace{
+	///\brief в типе Т присутствует член-тип "Parent"
 	template<class T>struct IsParent
 	{
 		template<bool, class Z>struct Ret
@@ -100,14 +101,17 @@ namespace{
 		typedef tmp Result;
 	};
 
-	template<class T, bool b = false>struct isCreate
+	template<class T>struct isParentExist
 	{
-	   static const bool value = b || isCreate<typename IsParent<T>::Result, IsFuncExist<T, TCreate>::value>::value;
+		typedef typename TL::_if<
+			IsFuncExist<T, TCreate>::value
+			, T
+			, typename isParentExist<typename IsParent<T>::Result>::Result
+			>:: Result Result;
 	};
-
-	template<bool b>struct isCreate<NullType, b>
+	template<>struct isParentExist<NullType>
 	{
-	   static const bool value = b;
+		typedef NullType Result;
 	};
 
 	typedef TL::MkTlst<
@@ -207,7 +211,17 @@ namespace{
 //------------------------------------------------------------------------------------------------
 template<class T>class Viewer
 {
-	template<bool>struct Create
+	template<class Z>struct Create
+	{
+		unsigned operator()(TCreate &l)
+		{
+			T *o = (T *)l.create->lpCreateParams;
+			o->hWnd = l.hwnd;
+			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG)o);
+			return (*(Z *)o)(l);
+		}
+	};
+	template<>struct Create<NullType>
 	{
 		unsigned operator()(TCreate &l)
 		{
@@ -216,17 +230,7 @@ template<class T>class Viewer
 			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG)o);
 			return 0;
 		}
-	};
-	template<>struct Create<true>
-	{
-		unsigned operator()(TCreate &l)
-		{
-			T *o = (T *)l.create->lpCreateParams;
-			o->hWnd = l.hwnd;
-			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG)o);
-			return (*o)(l);
-		}
-	};
+	};	
 public:
 	static LRESULT CALLBACK Proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
@@ -242,7 +246,7 @@ public:
 		}	
 		else if(message == WM_CREATE)
 		{
-			return Create<isCreate<T>::value>()((TCreate &)hWnd);
+			return Create<isParentExist<T>::Result>()((TCreate &)hWnd);
 		}
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}	

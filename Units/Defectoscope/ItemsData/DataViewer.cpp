@@ -21,8 +21,9 @@ DefectData::DefectData()
 	, scan(NULL)
 {}
 
-void DefectData::Set(int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)
+void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)
 {
+	zone = z;
 	if(NULL == data)data = (double *)Frame::Get<Data>();
 	if(NULL == scan)scan = (USPC7100_ASCANDATAHEADER **)Frame::Get<PTR>();
 	stop += offs;

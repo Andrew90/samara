@@ -7,8 +7,9 @@ struct DefectData
 	double *data;
 	USPC7100_ASCANDATAHEADER **scan;
 	int count;
+	int zone;
 	DefectData();
-	void Set(int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
+	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
 	void Drop();
 };
 
@@ -22,6 +23,6 @@ template<class T, int channel>struct DataViewer: DefectData
 	   int offs = Singleton<OffsetsTable>::Instance().items.get<Offset<T, channel> >().value;
 	   int maxOffs = d.currentOffsetFrames;
 	   USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
-	   Set(start, stop, channel, offs, maxOffs, s);
+	   Set(zone, start, stop, channel, offs, maxOffs, s);
 	}
 };

@@ -83,47 +83,20 @@ private:
 			Set<O::IDB_>().Do<O>(p->tbb[TL::IndexOf<list, O>::value], p);
 		};
 	};	    
-	public:
-#if 1
-		HWND operator()(HWND hwnd)
-		{
-			memset(tbb, 0, sizeof(tbb));
-			himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
-			TL::foreach<list, loc>()((TL::Factory<list> *)0, this);
-			HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
-				, (UINT)tbb
-				, TL::Length<list>::value, hInstance, NULL
-				, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
-				);
-			//Свяжите image list с ToolBar -ом
-			SendMessage(hToolBar, TB_SETIMAGELIST, 0, (LPARAM)himl);
-			SendMessage(hToolBar, TB_AUTOSIZE, 0, 0);
-			return hToolBar;
-		}	
-#else
-		HWND operator()(HWND hwnd)
-		{
-			memset(tbb, 0, sizeof(tbb));
-			himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
-			TL::foreach<list, loc>()((TL::Factory<list> *)0, this);
-			HWND hToolBar = CreateToolbarEx(hwnd, WS_CHILD | WS_VISIBLE | WS_BORDER 
-                                      | TBSTYLE_FLAT
-                                      | WS_CLIPSIBLINGS
-                                      | WS_CLIPCHILDREN
-                                      | TBSTYLE_TOOLTIPS
-                                      | CCS_NODIVIDER
-                                      | CCS_TOP
-                                      | CCS_NODIVIDER
-				, (UINT)tbb
-				, TL::Length<list>::value, hInstance, NULL
-				, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
-				);
-			//Свяжите image list с ToolBar -ом
-			SendMessage(hToolBar, TB_SETIMAGELIST, 0, (LPARAM)himl);
-			SendMessage(hToolBar, TB_AUTOSIZE, 0, 0);
-			SendMessage(hToolBar, TB_SETEXTENDEDSTYLE, 0, (LPARAM)TBSTYLE_EX_MIXEDBUTTONS);
-			SendMessage(hToolBar, TB_SETMAXTEXTROWS, 0, 0);
-			return hToolBar;
-		}	
-#endif
-	};
+public:
+	HWND operator()(HWND hwnd)
+	{
+		memset(tbb, 0, sizeof(tbb));
+		himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
+		TL::foreach<list, loc>()((TL::Factory<list> *)0, this);
+		HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
+			, (UINT)tbb
+			, TL::Length<list>::value, hInstance, NULL
+			, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
+			);
+		//Свяжите image list с ToolBar -ом
+		SendMessage(hToolBar, TB_SETIMAGELIST, 0, (LPARAM)himl);
+		SendMessage(hToolBar, TB_AUTOSIZE, 0, 0);
+		return hToolBar;
+	}	
+};

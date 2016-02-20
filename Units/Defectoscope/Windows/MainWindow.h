@@ -40,7 +40,6 @@ protected:
 		SendMessage(o->hStatusWindow, SB_SETTEXT, N, (LONG)text);
 		return b;
 	}
-
 };
 
 class MainWindow

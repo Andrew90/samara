@@ -3,6 +3,7 @@
 #include "WindowsPosition.h"
 #include "Dialogs.h"
 #include "USPCWindow.h"
+#include "ThresholdWindow.h"
 namespace MainWindowMenu
 {
 	struct MainFile{};
@@ -33,7 +34,7 @@ namespace MainWindowMenu
 	struct MainOptionTypeSize{};
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-	struct ThicknessTreshold {static void Do(HWND h){zprint("");}};
+	struct ThicknessTreshold : Common::OpenWindow<TresholdWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
 	struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};

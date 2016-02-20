@@ -18,7 +18,6 @@ void EventDo(TCommand &m)
 		}
 		else if(TEvent *x = (TEvent *)GetWindowLongPtr(m.hControl, GWLP_USERDATA))
 		{
-			//((void (*)(TCommand &))(p))(m);
 			x->Do(m);
 		}
 	}

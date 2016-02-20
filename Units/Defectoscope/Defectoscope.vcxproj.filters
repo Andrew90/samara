@@ -85,6 +85,9 @@
     <Filter Include="Compute">
       <UniqueIdentifier>{25e3a2c0-c4ac-4abf-995f-e00eecc8d9ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\ThresholdWindow">
+      <UniqueIdentifier>{c8199b39-32e0-48da-861e-3e007d5a5523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -289,6 +292,15 @@
     </ClCompile>
     <ClCompile Include="ItemsData\DataViewer.cpp">
       <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ThresholdWindow.cpp">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ThresholdWindowTopPanel.cpp">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp">
+      <Filter>Common\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -561,6 +573,15 @@
     </ClInclude>
     <ClInclude Include="ItemsData\DataViewer.h">
       <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ThresholdWindow.h">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ThresholdWindowTopPanel.h">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\StepSeries.h">
+      <Filter>Common\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

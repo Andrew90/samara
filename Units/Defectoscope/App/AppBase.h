@@ -41,8 +41,8 @@ template<class>struct NominalBorder;
 DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Long, double, App::zonesCount, 5.8)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 4.5)
 
-DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Cross, double, App::zonesCount, 5.8)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 4.5)
+DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Cross, double, App::zonesCount, 40)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 60)
 
 DEFINE_ARRAY_PARAM_WAPPER(AboveBorder  , Thickness, double, App::zonesCount, 3.0)
 DEFINE_ARRAY_PARAM_WAPPER(LowerBorder  , Thickness, double, App::zonesCount, 2.0)
@@ -285,6 +285,7 @@ struct Descriptor1730Table
 	const wchar_t *name(){return L"Descriptor1730Table";}
  };
  //--------------------------------------------------------------------------------------------------------
+///\brief Смещение измерительных датчиков
 template<class T, int N>struct Offset;
 DEFINE_PARAM_WAPPER_NUM(Offset, Long, 0, int, 0)
 DEFINE_PARAM_WAPPER_NUM(Offset, Long, 1, int, 0)

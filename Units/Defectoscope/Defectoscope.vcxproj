@@ -92,6 +92,7 @@
     <ClCompile Include="..\..\Common\Graphics\FixedGridSeries.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Gate.cpp" />
     <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\templates\Frame.cpp" />
@@ -141,6 +142,8 @@
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
+    <ClCompile Include="Windows\ThresholdWindow.cpp" />
+    <ClCompile Include="Windows\ThresholdWindowTopPanel.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
     <ClCompile Include="Windows\USPCBottomPanel.cpp" />
     <ClCompile Include="Windows\USPCChartViewer.cpp" />
@@ -173,6 +176,7 @@
     <ClInclude Include="..\..\Common\Graphics\FixedGridSeries.h" />
     <ClInclude Include="..\..\Common\Graphics\Gate.h" />
     <ClInclude Include="..\..\Common\Graphics\GridChart.h" />
+    <ClInclude Include="..\..\Common\Graphics\StepSeries.h" />
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\Frame.h" />
@@ -230,6 +234,8 @@
     <ClInclude Include="Windows\MainWindowToolBar.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
+    <ClInclude Include="Windows\ThresholdWindow.h" />
+    <ClInclude Include="Windows\ThresholdWindowTopPanel.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
     <ClInclude Include="Windows\USPCBottomPanel.h" />
     <ClInclude Include="Windows\USPCChartViewer.h" />

@@ -7,10 +7,25 @@
 #include "DebugMess.h"
 #include "App.h"
 
+namespace 
+{
+	template<class O, class P>struct __set_border_color__
+	{
+		void operator()(O *o, P *p)
+		{
+			o->chart.items.get<LineViewer::BorderDefect>().color = 0xffff0000;
+			o->owner = p;
+		}
+	};
+}
+
 CrossWindow::CrossWindow()
-	: crossViewer(viewers.get<CrossViewer>())
+    : crossViewer(viewers.get<CrossViewer>())
+	, border2Class(Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross>>())
+	, borderDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Cross>>())
 {
 	crossViewer.cursor.SetMouseMoveHandler(this, &CrossWindow::DrawCursor);
+	TL::foreach<line_list, __set_border_color__>()(&viewers, this);
 }
 namespace
 {
@@ -28,9 +43,9 @@ namespace
 			 MoveWindow(o->hWnd, 0, 0, p->width, cross_window_height, TRUE);
 		}
 	};
-	template<int N, class P>struct __draw__<CrossWindow::Line<N>, P>
+	template<int N, class P>struct __draw__<CrossWindow::Line<CrossWindow, N>, P>
 	{
-		typedef CrossWindow::Line<N> O;
+		typedef CrossWindow::Line<CrossWindow, N> O;
 		void operator()(O *o, P *p)
 		{
 			bool b = N % 2 == 0;
@@ -82,8 +97,8 @@ unsigned CrossWindow::operator()(TCreate &l)
 //--------------------------------------------------------------------------------
 namespace Common
 {
-	template<int N, class P>struct __in_rect__<CrossWindow::Line<N>, P>
-	  : __in_rect_all__<CrossWindow::Line<N>, P, TL::EraseItem<CrossWindow::viewers_list, CrossViewer>::Result>{};
+	template<int N, class P>struct __in_rect__<CrossWindow::Line<CrossWindow, N>, P>
+	  : __in_rect_all__<CrossWindow::Line<CrossWindow, N>, P, CrossWindow::line_list>{};
 }
 //----------------------------------------------------------------------------------------------
 void CrossWindow::operator()(TMouseWell &l)
@@ -111,7 +126,7 @@ namespace
 }
 void CrossWindow::operator()(TDestroy &)
 {
-	TL::foreach<TL::CreateNumList<Line, 0, 7>::Result, __drop__>()(&viewers, (int *)0);
+	TL::foreach<CrossWindow::line_list, __drop__>()(&viewers, (int *)0);
 }
 //----------------------------------------------------------------------
 wchar_t *CrossWindow::Title()
@@ -121,15 +136,16 @@ wchar_t *CrossWindow::Title()
 //--------------------------------------------------------------------------------------
 namespace
 {
-	typedef TL::EraseItem<CrossWindow::viewers_list, CrossViewer>::Result __line_list__;
 	template<class O, class P>struct __update__;
-	template<int N, class P>struct __update__<CrossWindow::Line<N>, P>
+	template<int N, class P>struct __update__<CrossWindow::Line<CrossWindow, N>, P>
 	{
-		typedef CrossWindow::Line<N> O;
+		typedef CrossWindow::Line<CrossWindow, N> O;
 		void operator()(O *o, P *p)
 		{
-			o->dataViewer.Do(*p);
+			o->dataViewer.Do(p->lastZone);
 			o->chart.maxAxesX = o->dataViewer.count;
+			o->chart.items.get<LineViewer::Border2Class>().value = p->border2Class.value[p->lastZone];
+			o->chart.items.get<LineViewer::BorderDefect>().value = p->borderDefect.value[p->lastZone];
 			RepaintWindow(o->hWnd);
 		}
 	};
@@ -144,8 +160,10 @@ bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 	if(b && lastZone != x)
 	{
 		lastZone = x;
-		TL::foreach<__line_list__, __update__>()(&viewers, &x);
+		TL::foreach<line_list, __update__>()(&viewers, this);
 		
 	}
 	return b;
 }
+//-------------------------------------------------------------------------------------
+

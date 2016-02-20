@@ -46,3 +46,28 @@ private:
 		T::Command(m, BST_CHECKED == Button_GetCheck(m.hControl));
 	}
 };
+
+class CheckBoxHandler
+{
+	struct TObj{};
+	TObj *o;
+	void(TObj::*ptr)(bool);
+protected:
+	void Command(TCommand &m, bool b)
+	{
+		if(o && ptr) (o->*ptr)(b);
+	}
+	bool Init(HWND h)
+	{
+		bool b = false;
+		if(o && ptr) (o->*ptr)(b);
+		return b;
+	}
+public:
+	CheckBoxHandler(): o(NULL), ptr(NULL){}
+	template<class T>void SetHandler(T *t, void(T::*p)(bool))
+	{
+		o = (TObj *)t;
+		ptr = (void(TObj::*)(bool))p
+	}
+};

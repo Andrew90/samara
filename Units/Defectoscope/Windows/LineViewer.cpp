@@ -3,15 +3,12 @@
 #include "FixedGridSeries.h"
 #include "DebugMess.h"
 #include "EmptyWindow.h"
-#include "uspc7100_exports.h"
 
 using namespace Gdiplus;
 LineViewer::LineViewer()
 	: backScreen(NULL)
 	, chart(backScreen)
 	, cursor(chart)
-	//, data(NULL)
-	//, scan(NULL)
 {
 	chart.minAxesY = 0;
 	chart.maxAxesY = 256;
@@ -23,7 +20,6 @@ LineViewer::LineViewer()
 	chart.rect.top = 17;
 
 	cursor.SetMouseMoveHandler(this, &LineViewer::CursorDraw);
-	//chart.items.get<BarSeries>().SetColorBarHandler(this, &LineViewer::BarDraw);
 }
 void LineViewer::operator()(TSize &l)		   
 {
@@ -74,8 +70,6 @@ unsigned LineViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	mouseMove = true;
 	mouseMove = false;
-	//data = NULL;
-	//scan = NULL;
 	return 0;
 }
 //----------------------------------------------------------------
@@ -94,17 +88,7 @@ void LineViewer::operator()(TMouseWell &l)
 	label.Draw(g());
 	return true;
  }
- //--------------------------------------------------------------------------
- //bool LineViewer::BarDraw(int offs, double &d, unsigned &color)
- //{
-//	 if(NULL != data && offs < count)
-//	 {
-//		 color = 0xffff0000;
-//		 d = data[count];
-//		 return true;
-//	 }
-//	 return false;
- //}
+
  //--------------------------------------------------------------------------
  void LineViewer::operator()(TMouseMove &l)
  {	 
@@ -131,14 +115,4 @@ void LineViewer::operator()(TMouseWell &l)
 	}
 }
  //--------------------------------------------------------------------------
- /*
- void LineViewer::SetData(double *d, USPC7100_ASCANDATAHEADER **s, int c)
- {
-	 data = d;
-	 scan = s;
-	 count = c;	
-	 chart.maxAxesX = count;
-	 RepaintWindow(hWnd);
- }
- */
- //--------------------------------------------------------------------------------
+ 

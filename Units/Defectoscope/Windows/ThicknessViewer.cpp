@@ -172,7 +172,14 @@ void ThicknessViewer::operator()(TMouseWell &l)
 {	
 		mouseMove = false;
 
-		chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
+		//chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
+		OffsetToPixel(
+			chart
+			, storedMouseMove.x
+			, storedMouseMove.y
+			, l.delta / 120
+			, true 
+			);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
 //------------------------------------------------------------------------------------------------------

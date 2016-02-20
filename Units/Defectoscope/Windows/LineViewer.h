@@ -4,6 +4,7 @@
 #include "Chart.hpp"
 #include "ColorLabel.h"
 #include "BarSeries.h"
+#include "Borders.h"
 #include "App.h"
 
 class LineViewer
@@ -11,23 +12,23 @@ class LineViewer
 	Gdiplus::Bitmap *backScreen;
 public:
 	HWND hWnd;
+	struct Border2Class: HBorder{Border2Class(Chart &c): HBorder(c){}};
+	struct BorderDefect: HBorder{BorderDefect(Chart &c): HBorder(c){}};
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
 		, BarSeries
 		, Grid	
+		, Border2Class
+		, BorderDefect
 	>::Result> TChart;
 	TChart chart;
 	ColorLabel label;
 	Cursor cursor;
-	//int count;
-	//double *data;
-	//USPC7100_ASCANDATAHEADER **scan;
 	TMouseMove storedMouseMove;
 	bool mouseMove;
 	LineViewer();
 	bool CursorDraw(TMouseMove &l, VGraphics &g);
-	//bool BarDraw(int, double &, unsigned &);
 	void operator()(TSize &);
 	void operator()(TPaint &);
 	unsigned operator()(TCreate &);
@@ -35,5 +36,4 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
-	//void SetData(double *, USPC7100_ASCANDATAHEADER **, int);
 };
