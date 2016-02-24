@@ -38,8 +38,8 @@ template<class>struct AboveBorder;
 template<class>struct LowerBorder;
 template<class>struct NominalBorder;
 
-DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Long, double, App::zonesCount, 5.8)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 4.5)
+DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Long, double, App::zonesCount, 20)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 30)
 
 DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Cross, double, App::zonesCount, 40)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 60)

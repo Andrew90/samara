@@ -296,11 +296,11 @@
     <ClCompile Include="Windows\ThresholdWindow.cpp">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\ThresholdWindowTopPanel.cpp">
-      <Filter>Windows\ThresholdWindow</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp">
       <Filter>Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\CrossThresholdWindow.cpp">
+      <Filter>Windows\ThresholdWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -577,11 +577,85 @@
     <ClInclude Include="Windows\ThresholdWindow.h">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\ThresholdWindowTopPanel.h">
-      <Filter>Windows\ThresholdWindow</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\StepSeries.h">
       <Filter>Common\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h">
+      <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\CrossThresholdWindow.h">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Common\Resource\RefreshBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\sep.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\MashBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\ResetBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\OptionsBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\ExitTubeBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\Clamp1OnBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\Clamp2OnBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\CycleBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\QueryBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\LeftArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\RightArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\UpArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\DownArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\SensorsUnit.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\clamp.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\upload.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\POSTITL.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\settings.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\BottomArr.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\TopArr.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\LeftArr.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\RightArr.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -264,7 +264,7 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		t /= dX;
 		int tt = (int)(t + 0.5);
 		tt = int(dX * tt);
-		offsX = tt + offsMin + dX / 2;
+		offsX = WORD(tt + offsMin + dX / 2);
 		if(offs == offsX)
 		{
 			offsX += delta < 0 
@@ -285,7 +285,7 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 		t /= dY;
 		int tt = (int)(t + 0.5);
 		tt = int(dY * tt);
-		offsY = tt + offsMin + dY / 2;
+		offsY = WORD(tt + offsMin + dY / 2);
 		if(offs == offsY)
 		{
 			offsY += delta < 0 

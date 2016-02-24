@@ -133,6 +133,7 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Windows\Common.cpp" />
+    <ClCompile Include="Windows\CrossThresholdWindow.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
@@ -143,7 +144,6 @@
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\ThresholdWindow.cpp" />
-    <ClCompile Include="Windows\ThresholdWindowTopPanel.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
     <ClCompile Include="Windows\USPCBottomPanel.cpp" />
     <ClCompile Include="Windows\USPCChartViewer.cpp" />
@@ -199,6 +199,7 @@
     <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h" />
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
+    <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Windows\Common.h" />
+    <ClInclude Include="Windows\CrossThresholdWindow.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
     <ClInclude Include="Windows\CrossWindow.h" />
     <ClInclude Include="Windows\LabelMessage.h" />
@@ -235,7 +237,6 @@
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\ThresholdWindow.h" />
-    <ClInclude Include="Windows\ThresholdWindowTopPanel.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
     <ClInclude Include="Windows\USPCBottomPanel.h" />
     <ClInclude Include="Windows\USPCChartViewer.h" />
@@ -245,6 +246,31 @@
     <ClInclude Include="Windows\ViewersMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />
     <ClInclude Include="Windows\DetaliedMenu.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Common\Resource\BottomArr.bmp" />
+    <None Include="..\..\Common\Resource\clamp.bmp" />
+    <None Include="..\..\Common\Resource\Clamp1OnBtn.bmp" />
+    <None Include="..\..\Common\Resource\Clamp2OnBtn.bmp" />
+    <None Include="..\..\Common\Resource\CycleBtn.bmp" />
+    <None Include="..\..\Common\Resource\DownArrow.bmp" />
+    <None Include="..\..\Common\Resource\ExitTubeBtn.bmp" />
+    <None Include="..\..\Common\Resource\LeftArr.bmp" />
+    <None Include="..\..\Common\Resource\LeftArrow.bmp" />
+    <None Include="..\..\Common\Resource\MashBtn.bmp" />
+    <None Include="..\..\Common\Resource\OptionsBtn.bmp" />
+    <None Include="..\..\Common\Resource\POSTITL.ICO" />
+    <None Include="..\..\Common\Resource\QueryBtn.bmp" />
+    <None Include="..\..\Common\Resource\RefreshBtn.bmp" />
+    <None Include="..\..\Common\Resource\ResetBtn.bmp" />
+    <None Include="..\..\Common\Resource\RightArr.bmp" />
+    <None Include="..\..\Common\Resource\RightArrow.bmp" />
+    <None Include="..\..\Common\Resource\SensorsUnit.bmp" />
+    <None Include="..\..\Common\Resource\sep.bmp" />
+    <None Include="..\..\Common\Resource\settings.ico" />
+    <None Include="..\..\Common\Resource\TopArr.bmp" />
+    <None Include="..\..\Common\Resource\UpArrow.bmp" />
+    <None Include="..\..\Common\Resource\upload.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

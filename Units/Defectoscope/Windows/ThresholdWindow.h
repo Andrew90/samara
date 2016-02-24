@@ -9,26 +9,84 @@
 #include "FixedGridSeries.h"
 #include "StepSeries.h"
 #include "App.h"
+#include "CheckBoxWidget.h"
+#include "RadioBtnWidget.h"
 
 class TresholdWindow
 {
 public:
-	HWND hWnd;
+	class CbHandler
+	{
+	public:
+		CbHandler(): value(true){}
+		bool value;
+		void Command(TCommand &m, bool b)
+		{
+			value = b;
+		}
+		bool Init(HWND h){return value;}
+	};
+	template<bool value>class FastOffset
+	{
+	public:
+		TresholdWindow &owner;
+		template<class T>FastOffset(T &t): owner(t){}
+		void Command(TCommand &m)
+		{
+			owner.fastOffset = value;
+		}
+		bool Init(HWND h, bool initValue){return initValue;}
+	};
+	template<void(TresholdWindow::*ptr)(int, double)>class AlignThreshold
+	{
+	public:
+		TresholdWindow &owner;
+		template<class T>AlignThreshold(T &t): owner(t){}
+		void Command(TCommand &m)
+		{
+			owner.ptrAlign = ptr;
+		}
+		bool Init(HWND h, bool initValue){return initValue;}
+	};
+public:
+	struct BrackThresh: StepSeries{BrackThresh(Chart &c): StepSeries(c){}};
+	struct Klass2Thresh: StepSeries{Klass2Thresh(Chart &c): StepSeries(c){}};
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxesGrid
-		//, FixedGridSeries
-		, StepSeries
+		, BrackThresh
+		, Klass2Thresh
 		, FixedGrid
 	>::Result>	TChart;
+
+	HWND hWnd;
+	HWND hToolBar;
+
+	void(TresholdWindow::*ptrAlign)(int, double);
+	
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
 	bool mouseMove;
+	bool fastOffset;
 	TMouseMove storedMouseMove;
 	ColorLabel label;
 	Cursor cursor;
-	double border[3][App::zonesCount];
+	double brak[App::zonesCount];
+	double klass2[App::zonesCount];
 public:
+	CheckBoxWidget<CbHandler> border2ClassCheckBox;
+	CheckBoxWidget<CbHandler> borderDefectCheckBox;
+
+	RadioBtnWidget<FastOffset<false> > offset01;
+	RadioBtnWidget<FastOffset<true> > offset50;
+
+	void AlignOneZone (int, double);
+	void AlignAllZones(int, double);
+	void AlignThresh  (int, double);
+
+	RadioBtnWidget<AlignThreshold<&TresholdWindow::AlignOneZone> > alignOneZone;
+	RadioBtnWidget<AlignThreshold<&TresholdWindow::AlignAllZones> > alignAllZones;
+	RadioBtnWidget<AlignThreshold<&TresholdWindow::AlignThresh> > alignThreshold;
 	TresholdWindow();
 	unsigned operator()(TCreate &);
 	void operator()(TSize &);
@@ -38,7 +96,10 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
 	void operator()(TKeyDown &);
+	void operator()(TCommand &);
 
 	bool Draw(TMouseMove &, VGraphics &);
 	static wchar_t *Title();
+
+	void Draw(TSize &);
 };

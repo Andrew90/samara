@@ -67,6 +67,10 @@ IDB_UpArrow             BITMAP                  "..\\..\\Common\\Resource\\UpArr
 IDB_DownArrow           BITMAP                  "..\\..\\Common\\Resource\\DownArrow.bmp"
 IDB_SensorsUnit         BITMAP                  "..\\..\\Common\\Resource\\SensorsUnit.bmp"
 IDB_ClampBtn            BITMAP                  "..\\..\\Common\\Resource\\clamp.bmp"
+IDB_DownArrow64         BITMAP                  "..\\..\\Common\\Resource\\BottomArr.bmp"
+IDB_UpArrow64           BITMAP                  "..\\..\\Common\\Resource\\TopArr.bmp"
+IDB_LeftArrow64         BITMAP                  "..\\..\\Common\\Resource\\LeftArr.bmp"
+IDB_RightArrow64        BITMAP                  "..\\..\\Common\\Resource\\RightArr.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

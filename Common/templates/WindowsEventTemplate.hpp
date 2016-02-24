@@ -44,6 +44,7 @@ namespace{
 	template<>struct TypeToEvent<TSizing>{static const int value =  WM_SIZING;};
 	template<>struct TypeToEvent<TMessage>{static const int value =  WM_MESSAGE;};
 	template<>struct TypeToEvent<TTimer>{static const int value =  WM_TIMER;};
+	template<>struct TypeToEvent<TClose>{static const int value =  WM_CLOSE;};
 
 	template<class O, class P>class IsFuncExist
 	{
@@ -119,7 +120,7 @@ namespace{
 		, TLButtonDown, TLButtonUp, TLButtonDbClk, TKeyDown 
 		, TUser, TCommand, TDestroy
 		, TGetMinMaxInfo, TMouseWell, TRButtonDown, TMoving, TSizing
-		, TMessage, TTimer
+		, TMessage, TTimer, TClose
 	>::Result type_events_all_list; //<-------см. ниже комментарий
 
 	template<class T, class tmp>struct AddTypeEvent<NullType, T, tmp>

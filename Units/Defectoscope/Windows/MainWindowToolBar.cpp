@@ -22,7 +22,7 @@ void TresholdsViewBtn(HWND);
 
 void TestBtn(HWND);
 
-#define TOOL_LIP_TEXT(name, text)struct name{static wchar_t *Do(){return text;}};
+#define TOOL_LIP_TEXT(name, text)struct name{static wchar_t *Text(){return text;}};
 
 TOOL_LIP_TEXT(ToolLipCycleBtn     , L"Цикл")
 TOOL_LIP_TEXT(ToolLipReset  	  , L"Стоп")
