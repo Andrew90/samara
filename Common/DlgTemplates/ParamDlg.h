@@ -6,37 +6,6 @@
 #include "ParamDlg.hpp"
 #include "Pass.h"
 #include "DebugMess.h"
-#ifdef XDEBUG
-#define dprint debug.print
-#else	
-#define  dprint
-#endif
-#if 0
-class ParametersDialog
-{
-	static LRESULT CALLBACK Proc(HWND , UINT , WPARAM , LPARAM );
-protected:	
-	virtual bool OkBtn(HWND) = 0;
-	virtual bool CancelBtn(HWND);
-	virtual void Init(HWND h, int &width, int &height) = 0;
-	virtual void Command(TCommand &);
-public:
-	bool Do(HWND hWnd, wchar_t *title);
-};
-
-class ParametersDialogOkCancelDelete
-{
-	static LRESULT CALLBACK Proc(HWND , UINT , WPARAM , LPARAM );
-protected:	
-	virtual bool OkBtn(HWND) = 0;
-	virtual bool DeleteBtn(HWND);
-	virtual bool CancelBtn(HWND);
-	virtual void Init(HWND h, int &width, int &height) = 0;
-	virtual void Command(TCommand &){}
-public:
-	bool Do(HWND hWnd, wchar_t *title);
-};
-#endif
 //-------------------------------------------------------------------------------------------------------------------------------
 template<class T>struct DlgItem;
 bool TemplDlg_Do(HWND hWnd, wchar_t *title, DLGPROC proc, LPARAM param);
@@ -70,13 +39,10 @@ template<class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Res
 {
 	struct __command_data__
 	{
-		//TMessage &mes;
 		HWND hwnd;
 		unsigned id;
 		TemplDialog &owner;
-	//	__command_data__(TMessage &mes, TemplDialog &owner)
 		__command_data__(HWND hwnd, unsigned id, TemplDialog &owner)
-			//: mes(mes)
 			: hwnd(hwnd)
 			, id(id)
 			, owner(owner)
@@ -86,10 +52,8 @@ template<class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Res
 	{
 		bool operator()(O *o, P *p)
 		{
-			//if(p->mes.wParam == O::ID)
 			if(p->id == O::ID)
 			{
-				//o->BtnHandler(p->owner, p->mes.hwnd);
 				o->BtnHandler(p->owner, p->hwnd);
 				return false;
 			}
@@ -152,20 +116,6 @@ template<class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Res
 			MoveWindow(h, x, y, width, height, FALSE);
 		}
 		return TRUE;
-		/*
-	case WM_CTLCOLOREDIT:
-		{
-			TemplDialog *e = (TemplDialog *)GetWindowLong(h, GWL_USERDATA);
-			if(TL::find<list, TemplDialogCtlColorEdit>()(&e->items, (TCtlColorEdit *)&h))
-			{
-				return FALSE;
-			}
-			else
-			{
-				return (LRESULT)((TCtlColorEdit *)h)->hdcEdit;
-			}
-		}
-		*/
 	}
 	return FALSE;
 	}

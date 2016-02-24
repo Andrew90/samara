@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CrossThresholdWindow.h"
 #include "AppBase.h"
+#include "ParamDlg.h"
+#include "ParamDlg.hpp"
 
 unsigned CrossThresholdWindow::operator()(TCreate &l)
 {
@@ -17,54 +19,75 @@ unsigned CrossThresholdWindow::operator()(TCreate &l)
 	return 0;
 }
 
+namespace
+{
+	template<class O, class P>struct __store__
+	{
+		void operator()(O *o, P *p)
+		{
+			dprint("%s", __FUNCTION__);
+			p->update.set<O>(o->value);
+		}
+	};
+}
+
 void CrossThresholdWindow::operator()(TClose &l)
 {
-	bool brakChanged = false;
-	double *data = Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Cross> >().value;
+	ThresholdsTable &table = Singleton<ThresholdsTable>::Instance();
+	bool changed = false;
+	double *data = table.items.get<BorderDefect<Cross> >().value;
 	for(int i = 0; i < dimention_of(brak); ++i)
 	{
 		if(data[i] != brak[i])
 		{
-			brakChanged = true;
+			changed = true;
 			break;
 		}
 	}
-	bool klass2Changed = false;
-	data = Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross> >().value;
-	for(int i = 0; i < dimention_of(brak); ++i)
+	
+	if(!changed)
 	{
-		if(data[i] != klass2[i])
+		data = table.items.get<Border2Class<Cross> >().value;
+		for(int i = 0; i < dimention_of(brak); ++i)
 		{
-			klass2Changed = true;
-			break;
+			if(data[i] != klass2[i])
+			{
+				changed = true;
+				break;
+			}
 		}
 	}
-	if(brakChanged || klass2Changed)
+	if(changed)
 	{
 		int ret = MessageBox(l.hwnd, L"Данные были изменены!\nСохранить?", L"Cообщение", MB_ICONQUESTION | MB_YESNOCANCEL);
 		if(IDYES == ret)
 		{
-			zprint("  if(brakChanged || klass2Changed)\n");
-			//if(brakChanged)
-			//{
+			if(TestPassword<ThresholdsTable>()(l.hwnd))
+			{
+				zprint("  if(brakChanged || klass2Changed)\n");
 				memmove(
-					Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Cross> >().value
+					table.items.get<BorderDefect<Cross> >().value
 					, brak
 					, sizeof(brak)
 					);
-			//}
-			//if(klass2Changed)
-			//{
 				memmove(
-					Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross> >().value
+					table.items.get<Border2Class<Cross> >().value
 					, klass2
 					, sizeof(klass2)
 					);
-			//}
+				CBase base(ParametersBase().name());
+				if(base.IsOpen())
+				{
+					__update_data__<ThresholdsTable> _data(base);
+					typedef TL::MkTlst<BorderDefect<Cross>, Border2Class<Cross> >::Result lst;
+					TL::foreach<lst, __store__>()(&table.items, &_data);
+					_data.update.Where().ID(1).Execute();
+				}
+			}
 		}
 		if(IDCANCEL == ret) return;
 	}
-	DestroyWindow(l.hwnd);
+		DestroyWindow(l.hwnd);
 }
 
 wchar_t *CrossThresholdWindow::Title()
