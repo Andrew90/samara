@@ -191,13 +191,7 @@ unsigned TresholdWindow::operator()(TCreate &l)
 	storedMouseMove.hwnd = l.hwnd;
 	storedMouseMove.x = 0;
 	storedMouseMove.y = 0;
-	//---------test------------------------------
-	for(int i = 0; i < 60; ++i) 
-		{
-			brak[i] = 20 + i;
-			klass2[i] = 50 + i;
-	}
-	//-----------------test---------------------------------------
+	
 	hToolBar = __tool_bar__()(l.hwnd);
 
 	border2ClassCheckBox.Init(hToolBar, L"Порог \"Класс 2\"");
@@ -296,11 +290,6 @@ void TresholdWindow::operator()(TCommand &l)
 {
 	EventDo(l);
 }
-//--------------------------------------------------------------------------------------------
-wchar_t *TresholdWindow::Title()
-{
-	return L"Ntcnm";
-}
 //----------------------------------------------------------------------------------------------
 void TresholdWindow::AlignOneZone  (int x, double offs)
 {
@@ -328,3 +317,46 @@ void TresholdWindow::AlignThresh(int x, double offs)
 	if(border2ClassCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) klass2[i] += offs;
 }
 //-----------------------------------------------------------------------------------------------------
+namespace
+{
+	template<void(TresholdWindow::*)(int, double)>struct __x__{};
+
+	template<class O, class P>struct __ret__;
+
+	template<class P>struct __ret__<__x__<&TresholdWindow::AlignOneZone>, P>
+	{
+		bool operator()(__x__<&TresholdWindow::AlignOneZone> *, P *p)
+		{
+			if(p->ptrAlign == &TresholdWindow::AlignOneZone)
+			{
+				Button_SetCheck(p->alignOneZone.hWnd, BST_CHECKED);
+				return false;
+			}
+			return true;
+		}
+	};
+	template<class P>struct __ret__<__x__<&TresholdWindow::AlignThresh>, P>
+	{
+		bool operator()(__x__<&TresholdWindow::AlignThresh> *, P *p)
+		{
+			if(p->ptrAlign == &TresholdWindow::AlignThresh)
+			{
+				Button_SetCheck(p->alignThreshold.hWnd, BST_CHECKED);
+				return false;
+			}
+			return true;
+		}
+	};
+
+	typedef TL::MkTlst<__x__<&TresholdWindow::AlignOneZone>, __x__<&TresholdWindow::AlignThresh> >::Result lst;
+}
+void TresholdWindow::AlignThreshold<&TresholdWindow::AlignAllZones>::Command(TCommand &m)
+{
+	TL::find<lst, __ret__>()((TL::Factory<lst> *)0, &owner);
+	Button_SetCheck(m.hControl, BST_UNCHECKED);
+	int x, y;
+	owner.chart.CoordCell( owner.storedMouseMove.x, owner.storedMouseMove.y, x, y);
+	(owner.TresholdWindow::AlignAllZones)(x, 0);
+	RepaintWindow(m.hwnd);
+}
+//-------------------------------------------------------------------------------------

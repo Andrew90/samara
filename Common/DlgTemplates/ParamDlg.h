@@ -148,6 +148,7 @@ struct OkBtn
 		{
 			if(__ok_table_btn__<
 				Owner::Table
+				, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
 			>()(h, owner))  
 			{
 				EndDialog(h, TRUE);

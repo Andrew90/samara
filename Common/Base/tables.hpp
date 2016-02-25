@@ -797,7 +797,7 @@ template<typename Table, int N = 1024>struct Update
 	}
 	
 
-	template<typename O>Update &set(typename O::type_value p)
+	template<typename O>Update &set(typename O::type_value &p)
 	{
         wcscat(head, O().name());
 		wcscat(head, L"=?,");

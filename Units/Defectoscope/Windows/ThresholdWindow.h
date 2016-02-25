@@ -15,6 +15,9 @@
 class TresholdWindow
 {
 public:
+	void AlignOneZone (int, double);
+	void AlignAllZones(int, double);
+	void AlignThresh  (int, double);
 	class CbHandler
 	{
 	public:
@@ -48,6 +51,14 @@ public:
 		}
 		bool Init(HWND h, bool initValue){return initValue;}
 	};
+	template<>class AlignThreshold<&TresholdWindow::AlignAllZones>
+	{
+	public:
+		TresholdWindow &owner;
+		template<class T>AlignThreshold(T &t): owner(t){}
+		void Command(TCommand &m);		
+		bool Init(HWND h, bool initValue){return initValue;}
+	};
 public:
 	struct BrackThresh: StepSeries{BrackThresh(Chart &c): StepSeries(c){}};
 	struct Klass2Thresh: StepSeries{Klass2Thresh(Chart &c): StepSeries(c){}};
@@ -78,11 +89,7 @@ public:
 	CheckBoxWidget<CbHandler> borderDefectCheckBox;
 
 	RadioBtnWidget<FastOffset<false> > offset01;
-	RadioBtnWidget<FastOffset<true> > offset50;
-
-	void AlignOneZone (int, double);
-	void AlignAllZones(int, double);
-	void AlignThresh  (int, double);
+	RadioBtnWidget<FastOffset<true> > offset50;	
 
 	RadioBtnWidget<AlignThreshold<&TresholdWindow::AlignOneZone> > alignOneZone;
 	RadioBtnWidget<AlignThreshold<&TresholdWindow::AlignAllZones> > alignAllZones;
@@ -99,7 +106,6 @@ public:
 	void operator()(TCommand &);
 
 	bool Draw(TMouseMove &, VGraphics &);
-	static wchar_t *Title();
 
 	void Draw(TSize &);
 };

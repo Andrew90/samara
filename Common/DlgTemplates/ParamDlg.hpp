@@ -99,7 +99,7 @@ template<class O, class P>struct __ok_btn__
 	void operator()(O *o, P *p)
 	{
 		dprint("%s", __FUNCTION__);
-        o->value.value =  __data_from_widget__<O, typename TL::Inner<O>::Result::type_value>()(*o);//->hWnd);
+        o->value.value =  __data_from_widget__<O, typename TL::Inner<O>::Result::type_value>()(*o);
 		p->update.set<typename TL::Inner<O>::Result>(o->value.value);
 	}
 };
@@ -244,8 +244,16 @@ template<class O, class P>struct __test__
 		return Skip<O, typename TL::Inner<O>::Result::type_value>()(o, p);
 	}
 };
+//ParametersBase::multy_row_table_list>
+//ParametersBase::one_row_table_list
 
-template<class Table>struct __ok_table_btn__
+//, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
+template<class Table, class T>struct __ok_table_btn__
+{
+	typedef typename T::__template_must_be_overridded__ noused; 
+};
+
+template<class Table>struct __ok_table_btn__<Table, ParametersBase::one_row_table_list>
 {
 	template<class T>bool operator()(HWND h, T &t)
 	{
@@ -256,6 +264,55 @@ template<class Table>struct __ok_table_btn__
 			__update_data__<Table> _data(base);
 			TL::foreach<T::list, __ok_btn__>()(&t.items, &_data);
 			_data.update.Where().ID(1).Execute();
+		}
+		return true;
+	}
+};
+template<class , class>class TemplDialog;
+
+
+template<class Table, class T>struct Insert
+{
+	void operator()(T &z, CBase &base)
+	{
+		zprint("   Дописать %s\n", typeid(z).name());
+	}
+};
+
+template<class Table, class T, class B>struct Insert<Table, TemplDialog<T, B> >
+{
+	typedef TemplDialog<T, B> Z;
+	void operator()(Z &t, CBase &base)
+	{
+		zprint("   === %s\n", typeid(t).name());
+		Insert_Into<Table>(t.table, base).Execute();
+		int id = Select<Table>(base).eq_all<Table::items_list>(&t.table.items).Execute();
+		UpdateId<ID<Table> >(base, id);
+	}
+};
+
+template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_table_list>
+{
+	template<class T>bool operator()(HWND h, T &t)
+	{
+		if(!TL::find<typename T::list, __test__>()(&t.items, &h))return false;
+		CBase base(ParametersBase().name());
+		if(base.IsOpen())
+		{
+			int id = CurrentId<ID<Table> >();	
+			__update_data__<Table> _data(base);			
+			TL::foreach<typename T::list, __ok_btn__>()(&t.items, &_data);
+			if(1 == CountId<ID<Table> >(base, id))
+			{
+				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
+			}
+			else
+			{
+				Insert<Table, T>()(t, base);
+				//Insert_Into<Table>(t.table, base).Execute();
+				//int id = Select<Table>(base).eq_all<Table::items_list>(&t.items).Execute();
+				//UpdateId<ID<Table> >(base, id);
+			}
 		}
 		return true;
 	}

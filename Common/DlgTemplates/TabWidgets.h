@@ -85,7 +85,9 @@ struct OkTabBtn
 				
 				if(TestPassword<Table>()(p->hWnd))
 				{
-					if(__ok_table_btn__<Table>()(p->hWnd, p->items.get<O>()))
+					if(__ok_table_btn__<Table
+						, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Table>::Result
+					>()(p->hWnd, p->items.get<O>()))
 					{
 						EndDialog(p->hWnd, TRUE);
 					}

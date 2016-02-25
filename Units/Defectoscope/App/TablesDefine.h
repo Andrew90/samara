@@ -81,7 +81,7 @@ template<class T>struct ID
 	typedef type type_value[count];\
 	type_value value;\
 	const type default_value;\
-	const wchar_t *name(){return L#z;}\
+	const wchar_t *name(){return L#wapper##L#z;}\
 	wapper(): default_value(def_val) \
     {\
 		for(int i = 0; i < count; ++i) value[i] = def_val;\

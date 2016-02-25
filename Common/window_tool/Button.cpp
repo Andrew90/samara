@@ -17,7 +17,7 @@ void Button::Do(TCommand &l)
 
 void Button::Create(HWND h, wchar_t *txt)
 {
-	hWnd = CreateWindow(L"button", txt//L"Применить"
+	hWnd = CreateWindow(L"button", txt
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
 				, 0, 0, 0, 0, h, NULL, hInstance, NULL
 				);

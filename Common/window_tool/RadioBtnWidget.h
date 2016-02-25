@@ -9,6 +9,7 @@
 */
 template<class T>class RadioBtnWidget : public T, public TEvent
 {
+public:
 	HWND hWnd;
 public:
 	RadioBtnWidget(){}
