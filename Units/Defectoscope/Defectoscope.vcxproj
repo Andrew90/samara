@@ -138,6 +138,7 @@
     <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\LabelMessage.cpp" />
     <ClCompile Include="Windows\LineViewer.cpp" />
+    <ClCompile Include="Windows\LongThresholdWindow.cpp" />
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Windows\CrossWindow.h" />
     <ClInclude Include="Windows\LabelMessage.h" />
     <ClInclude Include="Windows\LineViewer.h" />
+    <ClInclude Include="Windows\LongThresholdWindow.h" />
     <ClInclude Include="Windows\LongViewer.h" />
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />

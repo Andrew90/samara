@@ -302,6 +302,9 @@
     <ClCompile Include="Windows\CrossThresholdWindow.cpp">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\LongThresholdWindow.cpp">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -584,6 +587,9 @@
       <Filter>Common\window_tool</Filter>
     </ClInclude>
     <ClInclude Include="Windows\CrossThresholdWindow.h">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LongThresholdWindow.h">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
   </ItemGroup>

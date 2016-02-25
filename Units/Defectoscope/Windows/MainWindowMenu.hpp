@@ -4,6 +4,7 @@
 #include "Dialogs.h"
 #include "USPCWindow.h"
 #include "CrossThresholdWindow.h"
+#include "LongThresholdWindow.h"
 namespace MainWindowMenu
 {
 	struct MainFile{};
@@ -34,15 +35,29 @@ namespace MainWindowMenu
 	struct MainOptionTypeSize{};
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-	struct ThicknessTreshold : Common::OpenWindow<CrossThresholdWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct ThicknessTreshold {};//: Common::OpenWindow<CrossThresholdWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
 	struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
 	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
 	struct MainDeleteTypeSize: DelTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
+
+	struct CrossThresholdWindow__: Common::OpenWindow<CrossThresholdWindow>{};
+	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
+
+	template<>struct SubMenu<ThicknessTreshold>
+	{
+		typedef TL::TypeToTypeLst<
+			typename TL::MkTlst<CrossThresholdWindow__, LongThresholdWindow__>::Result 
+			, MenuItem
+		>::Result list;
+	};
 	
-    MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
+   // MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
+	MENU_TEXT(L"Пороги отбраковки", SubMenu<ThicknessTreshold>)
+	MENU_ITEM(L"Поперечные пороги", CrossThresholdWindow__)
+	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
 	MENU_ITEM(L"Допустимая толщина", AllowableThickness)
 	MENU_ITEM(L"Скорость вращения", RotationalSpeed)
@@ -52,7 +67,7 @@ namespace MainWindowMenu
 	template<>struct TopMenu<MainOptionTypeSize>
 	{
 		typedef TL::MkTlst<
-		     MenuItem<ThicknessTreshold>
+		     SubMenu<ThicknessTreshold>
 			, MenuItem<DeadZones>
 			, MenuItem<AllowableThickness>
 			, MenuItem<RotationalSpeed>
@@ -84,7 +99,7 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	struct AnalogPlate            : Common::OpenWindow<USPCWindow>{};//{static void Do(HWND h){zprint("");}};
-	struct DiscretePlate	      {static void Do(HWND h){zprint("");}};
+	struct DiscretePlate	      {};//static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct ColorItems             {static void Do(HWND h){zprint("");}};
