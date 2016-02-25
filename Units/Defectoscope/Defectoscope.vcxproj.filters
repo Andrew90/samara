@@ -305,6 +305,9 @@
     <ClCompile Include="Windows\LongThresholdWindow.cpp">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\ThicknessThresholdWindow .cpp">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -590,6 +593,9 @@
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
     <ClInclude Include="Windows\LongThresholdWindow.h">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ThicknessThresholdWindow.h">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
   </ItemGroup>

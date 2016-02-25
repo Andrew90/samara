@@ -5,6 +5,8 @@
 #include "USPCWindow.h"
 #include "CrossThresholdWindow.h"
 #include "LongThresholdWindow.h"
+#include "ThicknessThresholdWindow.h"
+
 namespace MainWindowMenu
 {
 	struct MainFile{};
@@ -45,11 +47,16 @@ namespace MainWindowMenu
 
 	struct CrossThresholdWindow__: Common::OpenWindow<CrossThresholdWindow>{};
 	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
+	struct ThicknessThresholdWindow__: Common::OpenWindow<ThicknessThresholdWindow>{};
 
 	template<>struct SubMenu<ThicknessTreshold>
 	{
 		typedef TL::TypeToTypeLst<
-			typename TL::MkTlst<CrossThresholdWindow__, LongThresholdWindow__>::Result 
+			typename TL::MkTlst<
+			CrossThresholdWindow__
+			, LongThresholdWindow__
+			, ThicknessThresholdWindow__
+			>::Result 
 			, MenuItem
 		>::Result list;
 	};
@@ -58,6 +65,7 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Пороги отбраковки", SubMenu<ThicknessTreshold>)
 	MENU_ITEM(L"Поперечные пороги", CrossThresholdWindow__)
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
+	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
 	MENU_ITEM(L"Допустимая толщина", AllowableThickness)
 	MENU_ITEM(L"Скорость вращения", RotationalSpeed)

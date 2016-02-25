@@ -143,6 +143,7 @@
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
+    <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\ThresholdWindow.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
+    <ClInclude Include="Windows\ThicknessThresholdWindow.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\ThresholdWindow.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
