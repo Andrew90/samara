@@ -94,7 +94,7 @@ void TresholdWindow::operator()(TMouseWell &l)
 	}
 	if(0 == storedMouseMove.y)
 	{
-		storedMouseMove.y = (WORD)(chart.rect.bottom - chart.rect.top) / 2;
+		storedMouseMove.y = (WORD)(chart.rect.top + 3);
 	}
 	mouseMove = false;
 	int d = l.delta / 120;
@@ -250,12 +250,12 @@ void TresholdWindow::Draw(TSize &l)
 {
 	RECT r;
 	GetClientRect(hToolBar, &r);
-	const int topOffs = r.bottom - r.top;
+	if(0 > r.top)  return;
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
-	g.FillRectangle(&solidBrush, 0, topOffs, l.Width, 20);  
-	label.top = topOffs;
-	chart.rect.top = topOffs + 20;
+	g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);  
+	label.top = r.bottom;
+	chart.rect.top = r.bottom + 20;
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
 	chart.Draw(g);

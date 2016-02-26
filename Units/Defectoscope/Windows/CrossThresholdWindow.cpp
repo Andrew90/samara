@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "CrossThresholdWindow.h"
-#include "AppBase.h"
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
+#include "ViewersMenu.hpp"
 
+CrossThresholdWindow::CrossThresholdWindow()
+	: minAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMin<Cross> >().value)
+	, maxAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMax<Cross> >().value)
+{}
+
+TOP_MENU(Cross)
 unsigned CrossThresholdWindow::operator()(TCreate &l)
 {
+	Menu<TopMenuCross::MainMenu>().Init(l.hwnd);
 	(*(Parent *)this)(l);
 
 	memmove(brak
@@ -17,6 +22,13 @@ unsigned CrossThresholdWindow::operator()(TCreate &l)
 		, sizeof(klass2)
 		);
 	return 0;
+}
+
+void CrossThresholdWindow::operator()(TSize &l)
+{
+	chart.minAxesY = minAxesY;
+	chart.maxAxesY = maxAxesY;
+	(*(TresholdWindow *)this)(l);
 }
 
 void CrossThresholdWindow::operator()(TClose &l)

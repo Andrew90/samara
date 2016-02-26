@@ -84,6 +84,8 @@ public:
 	TMouseMove storedMouseMove;
 	ColorLabel label;
 	Cursor cursor;
+	double &minAxesY;
+	double &maxAxesY;
 	double aboveBorder   [App::zonesCount];
 	double lowerBorder   [App::zonesCount];
 	double nominalBorder [App::zonesCount];

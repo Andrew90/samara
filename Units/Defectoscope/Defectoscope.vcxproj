@@ -226,6 +226,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Windows\AxesDlg.hpp" />
     <ClInclude Include="Windows\Common.h" />
     <ClInclude Include="Windows\CrossThresholdWindow.h" />
     <ClInclude Include="Windows\CrossViewer.h" />

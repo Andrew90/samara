@@ -3,9 +3,12 @@
 
 class LongThresholdWindow: public TresholdWindow
 {
+	double &minAxesY;
+	double &maxAxesY;
 public:
 	typedef TresholdWindow Parent;
 	unsigned operator()(TCreate &);
+	void operator()(TSize &);
 	void operator()(TClose &);
 	static wchar_t *Title();
 };

@@ -126,7 +126,7 @@ void LeftAxes::Draw()
 	double height;
 	
 	int maxLen = 0;
-	chart.offsetAxesLeft = 7 + chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
+	chart.offsetAxesLeft = 10 + chart.GetCountDigit(chart.minAxesY, chart.maxAxesY, height, font, maxLen);
 	maxLen += 2;
 	int x = chart.rect.left + chart.offsetAxesLeft;
 	int bottom = chart.rect.bottom - chart.offsetAxesBottom;

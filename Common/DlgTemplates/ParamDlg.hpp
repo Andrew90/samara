@@ -98,7 +98,6 @@ template<class O, class P>struct __ok_btn__
 {
 	void operator()(O *o, P *p)
 	{
-		dprint("%s", __FUNCTION__);
         o->value.value =  __data_from_widget__<O, typename TL::Inner<O>::Result::type_value>()(*o);
 		p->update.set<typename TL::Inner<O>::Result>(o->value.value);
 	}
@@ -309,14 +308,39 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 			else
 			{
 				Insert<Table, T>()(t, base);
-				//Insert_Into<Table>(t.table, base).Execute();
-				//int id = Select<Table>(base).eq_all<Table::items_list>(&t.items).Execute();
-				//UpdateId<ID<Table> >(base, id);
 			}
 		}
 		return true;
 	}
 };
+//-------------------------------------------
+/*
+template<class Table, class List, template<class, class>class W>struct __ok_table_btn__<W<Table, List>, ParametersBase::multy_row_table_list>
+{
+	typedef typename TL::TypeToTypeLst<List, DlgItem>::Result lst;
+	template<class T>bool operator()(HWND h, T &t)
+	{
+		if(!TL::find<lst, __test__>()(&t.items, &h))return false;
+		CBase base(ParametersBase().name());
+		if(base.IsOpen())
+		{			
+			int id = CurrentId<ID<Table> >();	
+			__update_data__<Table> _data(base);			
+			TL::foreach<lst, __ok_btn__>()(&t.items, &_data);
+			if(1 == CountId<ID<Table> >(base, id))
+			{
+				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
+			}
+			else
+			{
+				Insert<Table, T>()(t, base);
+			}
+		}
+		return true;
+	}
+};
+*/
+//-------------------------------------------------
 
 template<class O, class P>struct __init__
 {

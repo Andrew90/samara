@@ -410,18 +410,6 @@ namespace TL
 		typedef NullType Result;
 	};
 //----------------------------------------------------------------------------------------------------------
-	/*
-	template<class T>struct GetInnerType
-	{
-		typedef T Result;
-	};
-
-	template<template<class>class W, class T>struct GetInnerType<W<T> >
-	{
-		typedef T Result;
-	};
-	*/
-//----------------------------------------------------------------------------------------------------------
 	template<class T>struct NoWapperType
 	{
 		typedef T Result;
@@ -450,4 +438,19 @@ namespace TL
 	{
 		typedef Tail Result;
 	};
+//------------------------------------------------------------------------------------------------------
+	template<class List, class T>struct SelectT;
+	template<class Head, class Tail, class T>struct SelectT<Tlst<Head, Tail>, T>
+	{
+		typedef typename SelectT<Tail, T>::Result Result;
+	};
+	template<class Tail, class T, template<class >class W>struct SelectT<Tlst<W<T>, Tail>, T>
+	{
+		typedef Tlst<W<T>, typename SelectT<Tail, T>::Result> Result;
+	};
+	template<class T>struct SelectT<NullType, T>
+	{
+		typedef NullType Result;
+	};
+//----------------------------------------------------------------------------------------------
 }

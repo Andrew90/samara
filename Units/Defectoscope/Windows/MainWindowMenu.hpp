@@ -37,9 +37,9 @@ namespace MainWindowMenu
 	struct MainOptionTypeSize{};
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-	struct ThicknessTreshold {};//: Common::OpenWindow<CrossThresholdWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct ThicknessTreshold {};
 	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
-	struct AllowableThickness{static void Do(HWND h){zprint("");}};
+	//struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
 	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
@@ -67,7 +67,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
-	MENU_ITEM(L"Допустимая толщина", AllowableThickness)
+	//MENU_ITEM(L"Допустимая толщина", AllowableThickness)
 	MENU_ITEM(L"Скорость вращения", RotationalSpeed)
 	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
 	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
@@ -77,7 +77,7 @@ namespace MainWindowMenu
 		typedef TL::MkTlst<
 		     SubMenu<ThicknessTreshold>
 			, MenuItem<DeadZones>
-			, MenuItem<AllowableThickness>
+			//, MenuItem<AllowableThickness>
 			, MenuItem<RotationalSpeed>
 			, Separator<0>
 			, MenuItem<MainCreateTypesize>

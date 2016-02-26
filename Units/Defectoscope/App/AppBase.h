@@ -139,18 +139,18 @@ template<class T>struct Stat
 		static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
 	};
 //----------------------------------------------------------------------------------- 
-DEFINE_PARAM(MinimumThicknessPipeWall, double, 3.0)
-DEFINE_PARAM(MaximumThicknessPipeWall, double, 15.0)
-struct BorderCredibilityTable
-{
-	typedef TL::MkTlst<
-		MinimumThicknessPipeWall
-		, MaximumThicknessPipeWall
-	>::Result items_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"BorderCredibilityTable";}
-};
+//DEFINE_PARAM(MinimumThicknessPipeWall, double, 3.0)
+//DEFINE_PARAM(MaximumThicknessPipeWall, double, 15.0)
+//struct BorderCredibilityTable
+//{
+//	typedef TL::MkTlst<
+//		MinimumThicknessPipeWall
+//		, MaximumThicknessPipeWall
+//	>::Result items_list;
+//	typedef TL::Factory<items_list> TItems;
+//	TItems items;
+//	const wchar_t *name(){return L"BorderCredibilityTable";}
+//};
 //-------------------------------------------------------------------------------------- 
 DEFINE_PARAM(SupplySensorDelay, int, 150)
 DEFINE_PARAM(RemoveSensorDelay, int,  150)
@@ -225,16 +225,17 @@ struct ACFBorderTable
 	 const wchar_t *name(){return L"NamePlate1730ParametersTable";}
  };
 //-------------------------------------------------------------------------------------------------------
+ struct AxesTable;
 DEFINE_PARAM_ID(ThresholdsTable            , int, 1)
 DEFINE_PARAM_ID(DeadAreaTable			   , int, 1)
-DEFINE_PARAM_ID(BorderCredibilityTable	   , int, 1)
+DEFINE_PARAM_ID(AxesTable	   , int, 1)
 STR_PARAM(NameParam, 128, L"NONAME")
  struct ParametersTable
  {
 	typedef TL::MkTlst<
 		ID<ThresholdsTable>
 		, ID<DeadAreaTable			   	>
-		, ID<BorderCredibilityTable	   	>
+		, ID<AxesTable	   	>
 		, NameParam
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -326,6 +327,30 @@ struct OffsetsTable
 	const wchar_t *name(){return L"OffsetsTable";}
 };
 //-----------------------------------------------------------------------------------------------------------
+template<class T>struct AxesYMin;
+template<class T>struct AxesYMax;
+DEFINE_PARAM_WAPPER(AxesYMin, Long, double, 0)
+DEFINE_PARAM_WAPPER(AxesYMax, Long, double, 150)
+DEFINE_PARAM_WAPPER(AxesYMin, Cross, double, 0)
+DEFINE_PARAM_WAPPER(AxesYMax, Cross, double, 150)
+DEFINE_PARAM_WAPPER(AxesYMin, Thickness, double, 0)
+DEFINE_PARAM_WAPPER(AxesYMax, Thickness, double, 15)
+
+struct AxesTable
+{
+	typedef TL::MkTlst<
+		AxesYMin<Long>
+		, AxesYMax<Long>
+		, AxesYMin<Cross>
+		, AxesYMax<Cross>
+		, AxesYMin<Thickness>
+		, AxesYMax<Thickness>
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"AxesTable";}
+};
+//-----------------------------------------------------------------------------------------------------------
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
@@ -347,7 +372,8 @@ struct OffsetsTable
 		 , ParametersTable			   
 		 , ThresholdsTable			  
 		 , DeadAreaTable				  
-		 , BorderCredibilityTable	
+		 //, BorderCredibilityTable	
+		 , AxesTable
 	 >::Result multy_row_table_list;
 
 	 typedef TL::MkTlst<

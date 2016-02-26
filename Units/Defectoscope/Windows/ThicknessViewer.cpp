@@ -126,8 +126,8 @@ void ThicknessViewer::operator()(TSize &l)
 
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-	chart.minAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
-	chart.maxAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
+	chart.minAxesY = 0;//Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
+	chart.maxAxesY = 15;//Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
 	chart.Draw(g);
 }
 //----------------------------------------------------------------------------------------------------

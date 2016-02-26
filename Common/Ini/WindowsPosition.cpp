@@ -52,6 +52,6 @@ void WindowPosition::Set_(const char *n, RECT &r)
 
 	ItemIni::Set(name, L"X"     , r.left  , path);
 	ItemIni::Set(name, L"Y"     , r.top   , path);				 
-	ItemIni::Set(name, L"Width" , r.right , path);
-	ItemIni::Set(name, L"Height", r.bottom, path);
+	ItemIni::Set(name, L"Width" , r.right - r.left, path);
+	ItemIni::Set(name, L"Height", r.bottom - r.top, path);
 }

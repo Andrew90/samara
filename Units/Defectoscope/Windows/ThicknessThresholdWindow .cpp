@@ -3,12 +3,13 @@
 #include "EmptyWindow.h"
 #include "DebugMess.h"
 #include "ConstData.h"
-#include "MenuApi.h"
+//#include "MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 #include "Common.h"
 #include "InitToolBar.hpp"
-#include "ParamDlg.h"
+#include "AxesDlg.hpp"
+#include "App.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------
@@ -21,9 +22,9 @@ ThicknessThresholdWindow::ThicknessThresholdWindow()
 	, alignThreshold(*this)
 	, offset01(*this)
 	, offset50(*this)
+	, minAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMin<Thickness> >().value)
+	, maxAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMax<Thickness> >().value)
 {
-	chart.minAxesY = 0;
-	chart.maxAxesY = 255;
 	chart.minAxesX = 0;
 	chart.maxAxesX = App::zonesCount;
 	chart.rect.top = 17;
@@ -102,7 +103,7 @@ void ThicknessThresholdWindow::operator()(TMouseWell &l)
 	}
 	if(0 == storedMouseMove.y)
 	{
-		storedMouseMove.y = (WORD)(chart.rect.bottom - chart.rect.top) / 2;
+		storedMouseMove.y = (WORD)(chart.rect.top + 3);
 	}
 	mouseMove = false;
 	int d = l.delta / 120;
@@ -194,8 +195,11 @@ namespace
 	>::Result>::Result __tool_bar_tool_list__;
 	typedef InitToolbar<__tool_bar_tool_list__, 64> __tool_bar__;
 }
+
+TOP_MENU(Thickness)
 unsigned ThicknessThresholdWindow::operator()(TCreate &l)
 {
+	Menu<TopMenuThickness::MainMenu>().Init(l.hwnd);
 	storedMouseMove.hwnd = l.hwnd;
 	storedMouseMove.x = 0;
 	storedMouseMove.y = 0;
@@ -259,6 +263,8 @@ void ThicknessThresholdWindow::operator()(TSize &l)
 		return;
 	}
 	MoveWindow(hToolBar, 0, 0, 0, 0, false);
+	chart.minAxesY = minAxesY;
+	chart.maxAxesY = maxAxesY;
 	Draw(l);
 //----toolbar
 	int tool_bar_width = 320;
@@ -279,12 +285,12 @@ void ThicknessThresholdWindow::Draw(TSize &l)
 {
 	RECT r;
 	GetClientRect(hToolBar, &r);
-	const int topOffs = r.bottom - r.top;
+	if(0 > r.top)  return;
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
-	g.FillRectangle(&solidBrush, 0, topOffs, l.Width, 20);  
-	label.top = topOffs;
-	chart.rect.top = topOffs + 20;
+	g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);  
+	label.top = r.bottom;
+	chart.rect.top = r.bottom + 20;
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
 	chart.Draw(g);

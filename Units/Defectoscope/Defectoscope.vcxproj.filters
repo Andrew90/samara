@@ -598,6 +598,9 @@
     <ClInclude Include="Windows\ThicknessThresholdWindow.h">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
+    <ClInclude Include="Windows\AxesDlg.hpp">
+      <Filter>Windows\ThresholdWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\RefreshBtn.bmp">

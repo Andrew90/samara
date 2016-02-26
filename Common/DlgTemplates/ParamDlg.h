@@ -179,6 +179,134 @@ template<class Table>struct TestPassword
 			: OptionPasswordDlg().Do(h);
 	}
 };
+//-------------------------------------------------------------------
+/*
+template<class T, class I>struct __ok_btn_list__
+{
+	typedef T Table;
+	typedef I ItemList;
+};
+template<class List>struct OkBtn
+{
+	static const int width = 120;
+	static const int height = 30;
+	static const int ID = IDOK;
+	wchar_t *Title(){return L"Применить";}
+	template<class Owner>void BtnHandler(Owner &owner, HWND h)
+	{
+		if(TestPassword<Owner::Table>()(h))
+		{
+			if(__ok_table_btn__<
+				__ok_btn_list__<Owner::Table, List>
+				, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
+			>()(h, owner))  
+			{
+				EndDialog(h, TRUE);
+			}
+		}
+	}
+};
+*/
+
+template<class TableParam, class List, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialogList
+{
+	struct __command_data__
+	{
+		HWND hwnd;
+		unsigned id;
+		TemplDialogList &owner;
+		__command_data__(HWND hwnd, unsigned id, TemplDialogList &owner)
+			: hwnd(hwnd)
+			, id(id)
+			, owner(owner)
+		{}
+	};
+	template<class O, class P>struct __command__
+	{
+		bool operator()(O *o, P *p)
+		{
+			if(p->id == O::ID)
+			{
+				o->BtnHandler(p->owner, p->hwnd);
+				return false;
+			}
+			return true;
+		}
+	};
+	template<class List>struct __btn_width__;
+	template<class Head, class Tail>struct __btn_width__<Tlst<Head, Tail> >
+	{
+		static const int value = Head::width + __btn_width__<Tail>::value;
+	};
+	template<>struct __btn_width__<NullType>
+	{
+		static const int value = 0;
+	};
+	struct __make_btn_data__
+	{
+		int offs;
+		int height;
+		HWND h;
+		__make_btn_data__(int offs, int height, HWND h)
+			: offs(offs)
+			, height(height)
+			, h(h)
+		{}
+	};	
+	
+	static LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		switch(msg)
+	{
+	case WM_COMMAND:
+		{
+			TemplDialogList *e = (TemplDialogList *)GetWindowLong(h, GWL_USERDATA);	
+			if(!TL::find<ButtonsList, __command__>()(&e->buttons
+				, &__command_data__(h, wParam, *e))
+				) return TRUE;
+		}
+		break;
+	case WM_INITDIALOG:
+		{			
+			SetWindowLong(h, GWL_USERDATA, lParam);
+			TemplDialogList *e = (TemplDialogList *)lParam;
+			int width = 450;
+			int height = 10;
+			TL::foreach<list, __init__>()(&e->items, &__table_data__(h, width, height));
+			int offs = __btn_width__<ButtonsList>::value + (TL::Length<ButtonsList>::value - 1) * 10;
+
+			offs = (width - offs) / 2;
+			height += 15;
+
+			TL::foreach<ButtonsList, __make_btn__>()(&e->buttons, &__make_btn_data__(offs, height, h));
+
+			RECT r;
+			GetWindowRect(GetDesktopWindow(), &r);
+			
+			height += 65;
+			int x = r.left +(r.right - r.left - width) / 2;
+			int y = r.top +(r.bottom - r.top - height) / 2;
+			MoveWindow(h, x, y, width, height, FALSE);
+		}
+		return TRUE;
+	}
+	return FALSE;
+	}
+protected:
+public:
+	typedef TableParam Table;
+	Table &table;	
+	typedef typename TL::TypeToTypeLst<List, DlgItem>::Result list;
+	TL::Factory<list> items;
+	TL::Factory<ButtonsList> buttons;
+public:
+	TemplDialogList(Table &table_) : table(table_), items(table_.items){}
+	bool Do(HWND hWnd, wchar_t *title)
+	{
+		return TemplDlg_Do(hWnd, title, (DLGPROC)Proc, (LPARAM)this);
+	}
+};
+
 
 
 

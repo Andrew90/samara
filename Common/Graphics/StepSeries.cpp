@@ -29,9 +29,10 @@ void StepSeries::Draw()
 	int x0 = chart.rect.left + chart.offsetAxesLeft;
 	double x = x0;
 	int last = 0;
+	double minAxes = chart.minAxesY;
 	for(int i = 0; i < count; ++i)
 	{
-		int tmp = int(y - data[i] * dY);
+		int tmp = int(y - (data[i] - minAxes) * dY);
 		chart.g-> DrawLine(&pen, (int)x, tmp, int(x + dX), tmp);
 		x += dX;
 	}

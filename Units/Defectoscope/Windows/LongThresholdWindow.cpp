@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "LongThresholdWindow.h"
-#include "AppBase.h"
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
+#include "ViewersMenu.hpp"
 
+LongThresholdWindow::LongThresholdWindow()
+	: minAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMin<Long> >().value)
+	, maxAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMax<Long> >().value)
+{}
+
+TOP_MENU(Long)
 unsigned LongThresholdWindow::operator()(TCreate &l)
 {
+	Menu<TopMenuLong::MainMenu>().Init(l.hwnd);
 	(*(Parent *)this)(l);
 
 	memmove(brak
@@ -17,6 +22,13 @@ unsigned LongThresholdWindow::operator()(TCreate &l)
 		, sizeof(klass2)
 		);
 	return 0;
+}
+
+void LongThresholdWindow::operator()(TSize &l)
+{
+	chart.minAxesY = minAxesY;
+	chart.maxAxesY = maxAxesY;
+	(*(TresholdWindow *)this)(l);
 }
 
 void LongThresholdWindow::operator()(TClose &l)
