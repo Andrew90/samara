@@ -7,6 +7,7 @@
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 #include "Common.h"
+#include "LabelMessage.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------
@@ -32,8 +33,9 @@ CrossViewer::CrossViewer()
 bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
+	chart.CoordCell(l.x, l.y, x, y);
+	char *s = StatusText(viewerData.status[y][x]);
+	wsprintf(label.buffer, L"<ff>зона %d  датчик %d   %S     ", 1 + x, 1 + y, s);
 	label.Draw(g());
 
 	return x < viewerData.currentOffsetZones;

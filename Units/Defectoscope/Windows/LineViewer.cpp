@@ -3,6 +3,7 @@
 #include "FixedGridSeries.h"
 #include "DebugMess.h"
 #include "EmptyWindow.h"
+#include "templates.hpp"
 
 using namespace Gdiplus;
 LineViewer::LineViewer()
@@ -70,21 +71,25 @@ unsigned LineViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	mouseMove = true;
 	mouseMove = false;
+	offsetX = 0;
 	return 0;
 }
 //----------------------------------------------------------------
 void LineViewer::operator()(TMouseWell &l)
 {
 	mouseMove = false;
-	OffsetToPixel(chart, storedMouseMove.x, storedMouseMove.y, l.delta / 120, true);
+	if(l.delta > 0) offsetX -= 1; else offsetX += 1;
+	double dX = (chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight)
+		/(chart.maxAxesX - chart.minAxesX);
+	storedMouseMove.x = (WORD)(chart.rect.left + chart.offsetAxesLeft + dX * offsetX);
 	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+	zprint(" TMouseWell %f %d\n", left, l.y);
 }
 //--------------------------------------------------------------
- bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
- {
-	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>смещение %d  величина %d        ", 1 + x, 1 + y);
+bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
+{	
+	double valY = chart.items.get<BarSeries>().ValueY(offsetX);
+	wsprintf(label.buffer, L"<ff>смещение %d  величина %s        ", offsetX, Wchar_from<double, 5>(valY)());
 	label.Draw(g());
 	return true;
  }
@@ -97,6 +102,9 @@ void LineViewer::operator()(TMouseWell &l)
 		 if(cursor.VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
 		 {
 			 storedMouseMove = l;
+			 zprint(" TMouseMove %d %d\n", l.x, l.y);
+			 int y;
+			 chart.CoordCell(l.x, l.y, offsetX, y);	 
 		 }
 	 }
  }
@@ -111,8 +119,17 @@ void LineViewer::operator()(TMouseWell &l)
 	 mouseMove = true;
 	if(cursor.VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
 	{
-		storedMouseMove.x = l.x;
+		int y;
+	    chart.CoordCell(l.x, l.y, offsetX, y);	
 	}
 }
  //--------------------------------------------------------------------------
+void LineViewer::Move()
+{
+}
+//-----------------------------------------------------------------------------
+void LineViewer::Well()
+{
+}
+//------------------------------------------------------------------------------
  

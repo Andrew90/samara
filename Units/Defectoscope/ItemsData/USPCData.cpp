@@ -84,11 +84,11 @@ unsigned char *USPCData::CurrentFrame()
 	//	 memcpy(&b[i], &b[i % App::count_sensors], sizeof(USPC7100_ASCANDATAHEADER));
 	 //}
 	  ///эмитация смещения  кадров по зонам
-	 for(int j = 0; j < 50; ++j)
+	 for(int j = 0; j < 51; ++j)
 	 {
 		 d.offsets[j] = 16000 * j;
 	 }
 
-	 d.currentOffsetFrames = 16000 * 50;
+	 d.currentOffsetFrames = 16000 * 51;
 	 d.currentOffsetZones = 50;
  }

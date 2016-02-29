@@ -1,32 +1,66 @@
 #include "stdafx.h"
 #include "LabelMessage.h"
-//#include "PrimaryData.h"
 #include "AppBase.h"
 //-----------------------------------------------------------------
-template<class O, class P>struct __status_label__
+template<class O>struct __status_label__
 {
 	typedef typename O::__template_must_be_overridded__ noused;
 };
-StatusLabel::StatusLabel(char status)
-	: status(status)
-	, text("")
-{
-//	TL::find<PrimaryData::message_list, __status_label__>()((TL::Factory<PrimaryData::message_list> *)0, this);
-}
-#define STATUS_LABEL(n, txt)template<class P>struct __status_label__<PrimaryData::Mess<PrimaryData::n>, P>\
+//StatusLabel::StatusLabel(char status)
+//	: status(status)
+//	, text("")
+//{
+////	TL::find<PrimaryData::message_list, __status_label__>()((TL::Factory<PrimaryData::message_list> *)0, this);
+//}
+//#define STATUS_LABEL(n, txt)template<class P>struct __status_label__<PrimaryData::Mess<PrimaryData::n>, P>\
+//{\
+//	typedef PrimaryData::Mess<PrimaryData::n> O;\
+//	bool operator()(O *, P *p)\
+//    {\
+//        if(O::value == p->status)\
+//		{\
+//		     p->text = txt;\
+//             return false;\
+//		}\
+//		return true;\
+//    }\
+//};
+
+#define STATUS_LABEL(O, txt)template<>struct __status_label__<O>\
 {\
-	typedef PrimaryData::Mess<PrimaryData::n> O;\
-	bool operator()(O *, P *p)\
-    {\
-        if(O::value == p->status)\
-		{\
-		     p->text = txt;\
-             return false;\
-		}\
-		return true;\
-    }\
-};
-/*
+	static char *text;\
+};\
+char *__status_label__<O>::text = txt;
+
+namespace
+{
+	struct __data_text__
+	{
+		int id;
+		char *text;
+	};
+	template<class O, class P>struct __select__
+	{
+		bool operator()(O *, P *p)
+		{
+			if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)
+			{
+				p->text = __status_label__<O>::text;
+				return false;
+			}
+			return true;
+		}
+	};
+}
+
+char *StatusText(int id)
+{
+	__data_text__ data = {id, NULL};
+	TL::find<ColorTable::items_list, __select__>()((TL::Factory<ColorTable::items_list> *)0, &data);
+	return data.text;
+}
+
+
 STATUS_LABEL(LessMinimumEnergy, "Ёнерги€ сигнала меньше порогового значени€")
 //STATUS_LABEL(GreaterMaximumEnergy, "Ёнерги€ сигнала больше порогового значени€")
 STATUS_LABEL(ValueLessThreshold, "—игнал меньше порогового значени€")
@@ -44,7 +78,7 @@ STATUS_LABEL(Treshold2Class, "<ff> ласс 2")
 //STATUS_LABEL(DefectDifferentWallMin   , "<993333>Ѕрак разностенность минус")
 //STATUS_LABEL(DefectDifferentWallMax   , "<7749ff>Ѕрак разностенность плюс")
 //STATUS_LABEL(DefectDifferentWallMinMax, "<663300>Ѕрак разностенность плюс-минус")
- */
+
 #undef STATUS_LABEL
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__
@@ -52,21 +86,43 @@ template<class O, class P>struct __set_color_bar__
 	typedef typename O::__template_must_be_overridded__ noused;
 };
 
-ColorBar::ColorBar(double &data, unsigned &color, char status)
-: data(data)
-, color(color)
-, status(status)
+//ColorBar::ColorBar(double &data, unsigned &color, char status)
+//: data(data)
+//, color(color)
+//, status(status)
+//{
+//	//TL::find<PrimaryData::message_list, __set_color_bar__>()((TL::Factory<PrimaryData::message_list> *)0, this);
+//}
+namespace
 {
-	//TL::find<PrimaryData::message_list, __set_color_bar__>()((TL::Factory<PrimaryData::message_list> *)0, this);
+	struct __data_color__
+	{
+		int id;
+		unsigned &color;
+		double &data;
+		double defData;
+		__data_color__(int id, unsigned &color, double &data, double defData)
+			: id(id)
+		    , color(color)
+		    , data(data)
+			, defData(defData)
+		{}
+	};
 }
-#define COLOR(n)template<class P>struct __set_color_bar__<PrimaryData::Mess<PrimaryData::n>, P>\
+
+void ColorBar(double &data, unsigned &color, int id, double defData)
+{
+	__data_color__ d(id, color, data, defData);
+	TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+}
+
+#define COLOR(O)template<class P>struct __set_color_bar__<O, P>\
 {\
-	typedef PrimaryData::Mess<PrimaryData::n> O;\
 	int &color;\
-	__set_color_bar__() : color(Singleton<ColorTable>::Instance().items.get<n>().value){}\
+	__set_color_bar__() : color(Singleton<ColorTable>::Instance().items.get<O>().value){}\
 	bool operator()(O *, P *p)\
     {\
-        if(O::value == p->status)\
+        if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)\
 		{\
 		     p->color = color;\
              return false;\
@@ -75,27 +131,24 @@ ColorBar::ColorBar(double &data, unsigned &color, char status)
     }\
 };
 
-#define COLOR_DATA(n)template<class P>struct __set_color_bar__<PrimaryData::Mess<PrimaryData::n>, P>\
+#define COLOR_DATA(O)template<class P>struct __set_color_bar__<O, P>\
 {\
-	typedef PrimaryData::Mess<PrimaryData::n> O;\
 	int &color;\
-	double &res;\
 	__set_color_bar__() \
-        : color(Singleton<ColorTable>::Instance().items.get<n>().value)\
-		, res(Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value)\
+        : color(Singleton<ColorTable>::Instance().items.get<O>().value)\
         {}\
 	bool operator()(O *, P *p)\
     {\
-        if(O::value == p->status)\
+        if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)\
 		{\
 		     p->color = color;\
-			 p->data = res;\
+			 p->data = p->defData;\
              return false;\
 		}\
 		return true;\
     }\
 };
-/*
+
 COLOR_DATA(LessMinimumEnergy)
 //COLOR_DATA(GreaterMaximumEnergy)
 COLOR_DATA(ValueLessThreshold)
@@ -114,7 +167,6 @@ COLOR(Treshold2Class)
 //COLOR(DefectDifferentWallMin)
 //COLOR(DefectDifferentWallMax   )
 //COLOR(DefectDifferentWallMinMax)
- */
 #undef COLOR
 #undef COLOR_DATA
 //------------------------------------------------------------------------------------------------

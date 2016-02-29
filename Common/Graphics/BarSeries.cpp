@@ -44,6 +44,17 @@ bool BarSeries::GetColorBarDefault(int zone, double &data, unsigned &color)
 	return zone < 33;
 }
 //-----------------------------------------------------------------------------------------
+double BarSeries::ValueY(int zone)
+{
+	double data = 0;
+	unsigned color = 0;
+	if(obj&&SetColorBar)
+	{
+		(obj->*SetColorBar)(zone, data, color);
+	}
+	return data;
+}
+//-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 BarSeriesDouble::BarSeriesDouble(Chart &chart)
     : chart(chart) 

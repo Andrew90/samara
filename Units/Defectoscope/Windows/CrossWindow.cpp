@@ -6,6 +6,7 @@
 #include "Common.h"
 #include "DebugMess.h"
 #include "App.h"
+#include "LabelMessage.h"
 
 namespace 
 {
@@ -144,8 +145,21 @@ namespace
 		{
 			o->dataViewer.Do(p->lastZone);
 			o->chart.maxAxesX = o->dataViewer.count;
+			zprint("  count=%d\n", o->dataViewer.count);
 			o->chart.items.get<LineViewer::Border2Class>().value = p->border2Class.value[p->lastZone];
 			o->chart.items.get<LineViewer::BorderDefect>().value = p->borderDefect.value[p->lastZone];
+			RepaintWindow(o->hWnd);
+		}
+	};
+	template<class O, class P>struct __clr__;
+	template<int N, class P>struct __clr__<CrossWindow::Line<CrossWindow, N>, P>
+	{
+		typedef CrossWindow::Line<CrossWindow, N> O;
+		void operator()(O *o, P *p)
+		{
+			o->chart.maxAxesX = 0;
+			o->chart.items.get<LineViewer::Border2Class>().value = 0;
+			o->chart.items.get<LineViewer::BorderDefect>().value = 0;
 			RepaintWindow(o->hWnd);
 		}
 	};
@@ -154,14 +168,21 @@ bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	crossViewer.chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d        ", 1 + x, 1 + y);
+	char *s = StatusText(crossViewer.viewerData.status[y][x]);
+	wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d    %S    ", 1 + x, 1 + y, s);
 	crossViewer.label.Draw(g());
 	bool b = x < crossViewer.viewerData.currentOffsetZones;
-	if(b && lastZone != x)
+	if(lastZone != x)
 	{
 		lastZone = x;
-		TL::foreach<line_list, __update__>()(&viewers, this);
-		
+		if(b)
+		{			
+			TL::foreach<line_list, __update__>()(&viewers, this);
+		}
+		else
+		{
+			TL::foreach<line_list, __clr__>()(&viewers, this);
+		}
 	}
 	return b;
 }

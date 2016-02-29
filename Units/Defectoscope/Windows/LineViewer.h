@@ -10,6 +10,7 @@
 class LineViewer
 {
 	Gdiplus::Bitmap *backScreen;
+	int offsetX;
 public:
 	HWND hWnd;
 	struct Border2Class: HBorder{Border2Class(Chart &c): HBorder(c){}};
@@ -36,4 +37,6 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
+	void Move();
+	void Well();
 };

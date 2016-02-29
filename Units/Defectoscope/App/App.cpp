@@ -27,6 +27,7 @@ App::App()
 void App::Init()
 {
 	AppBase().Init();
+	ConstData::Init();
 	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -41,7 +42,7 @@ void App::Init()
 		return;
 #endif
 	}
-	ConstData::Init();
+	
 	automat.Init();
 ///--------------------------test
 	zprint("---------------------\n");

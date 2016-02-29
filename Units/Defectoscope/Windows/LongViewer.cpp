@@ -45,7 +45,7 @@ LongViewer::LongViewer()
 	chart.rect.top = 17;
 	mouseMove = true;
 	label.fontHeight = 10;
-	label.top = 2;
+	label.top = 0;
 
 	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
 }

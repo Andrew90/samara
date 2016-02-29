@@ -155,7 +155,7 @@ public:
 	   ptrMove = (TPtrMove)to;
    }   
 };
-void FrameDraw(Gdiplus::Graphics &, RECT &);
+//void FrameDraw(Gdiplus::Graphics &, RECT &);
 //--------------------для внутреннего использования
 void OffsetAxes(int , int , double , double , double &, double &, double &, double &);
 

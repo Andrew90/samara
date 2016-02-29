@@ -182,6 +182,7 @@
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\Frame.h" />
+    <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\USPCParam.h" />

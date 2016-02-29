@@ -64,7 +64,12 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 {
 	int i = zone - 1;
-	ColorBar(data, color, viewerData.status[i]);
+	ColorBar(
+		data
+		, color
+		, viewerData.status[i]
+	    , 10
+	);
 
 	return zone < viewerData.currentOffset;
 }

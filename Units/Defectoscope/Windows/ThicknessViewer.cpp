@@ -5,6 +5,7 @@
 #include "LabelMessage.h"
 #include "DebugMess.h"
 #include "AppBase.h"
+#include "App.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
@@ -66,7 +67,12 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 {
 	data_1 = viewerData.zonesMin[zone];
 	data_ =  viewerData.zonesMax[zone];
-	ColorBar(data_, color1, viewerData.commonStatus[zone]);
+	ColorBar(
+		data_
+		, color1
+		, viewerData.commonStatus[zone]
+		, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[zone]
+	);
 
 	color = color1;
 	unsigned char *x = (unsigned char *) &color;

@@ -601,6 +601,9 @@
     <ClInclude Include="Windows\AxesDlg.hpp">
       <Filter>Windows\ThresholdWindow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\templates\templates.hpp">
+      <Filter>Common\templates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\RefreshBtn.bmp">

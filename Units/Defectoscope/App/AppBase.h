@@ -120,13 +120,13 @@ DEFINE_PARAM(DeathZone, int, 0xff333333)
 struct ColorTable
 {
 	typedef TL::MkTlst<	
-		LessMinimumEnergy
+		 Undefined
+		, LessMinimumEnergy
 		, ValueLessThreshold
 		, ThicknessLessThreshold
 		, Nominal
 		, Defect
 		, Treshold2Class
-		, Undefined
 		, DeathZone
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -372,7 +372,6 @@ struct AxesTable
 		 , ParametersTable			   
 		 , ThresholdsTable			  
 		 , DeadAreaTable				  
-		 //, BorderCredibilityTable	
 		 , AxesTable
 	 >::Result multy_row_table_list;
 

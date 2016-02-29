@@ -7,6 +7,7 @@ class LongThresholdWindow: public TresholdWindow
 	double &maxAxesY;
 public:
 	typedef TresholdWindow Parent;
+	LongThresholdWindow();
 	unsigned operator()(TCreate &);
 	void operator()(TSize &);
 	void operator()(TClose &);
