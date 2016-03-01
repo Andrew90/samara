@@ -595,9 +595,9 @@ void Cursor::Draw()
 bool Chart::AxesValues(int x, int y, double &dx, double &dy)
 {	
 	if(
-         x > rect.left + offsetAxesLeft
+         x >= rect.left + offsetAxesLeft
 		 && x < rect.right - offsetAxesRight
-		 && y > rect.top + offsetAxesTop
+		 && y >= rect.top + offsetAxesTop
 		 && y < rect.bottom - offsetAxesBottom
 		)
 	{

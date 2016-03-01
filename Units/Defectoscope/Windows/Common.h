@@ -74,6 +74,42 @@ namespace Common
 		}
 	};
 
+	template<class O, class P>struct __sub_in_rect_wapper_
+	{
+		void operator()(O *o, P *p)
+		{
+			RECT r;
+			GetWindowRect(o->hWnd, &r);
+			//p->l.hwnd = o->hWnd;
+			//o->storedMouseMove.x = p->l.x;
+			o->offsetX = p->offsetX;
+			TMouseWell m = {o->hWnd, WM_MOUSEWHEEL, 0, 0, 0};
+			SendMessage(MESSAGE(m));
+		}
+	};
+
+	template<template<class, int>class W, class X, int N, class P, class List>struct __in_rect_all__<W<X,N>, P, List>
+	{
+		typedef W<X,N> O;
+		bool operator()(O *o, P *p)
+		{
+			RECT r;
+			GetWindowRect(o->hWnd, &r);
+			if(InRect(p->l.x, p->l.y, r))
+			{
+				p->l.hwnd = o->hWnd;
+				SendMessage(MESSAGE(p->l));
+
+				p->l.x = o->storedMouseMove.x;
+				p->l.delta = 0;
+				typedef TL::EraseItem<List, O>::Result lst;
+				TL::foreach<lst, __sub_in_rect_wapper_>()(&p->owner.viewers, o);
+				return false;
+			}
+			return true;
+		}
+	};
+
 	template<class T>bool DestroyWindow(HWND h)
 	{
 		HWND hh = FindWindow(WindowClass<T>()(), 0);

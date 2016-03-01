@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,6 +84,7 @@
     <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\ParamDlg.cpp" />
+    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp" />
     <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Borders.cpp" />
     <ClCompile Include="..\..\Common\Graphics\Chart.cpp" />
@@ -118,6 +119,7 @@
     </ClCompile>
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
+    <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />
@@ -169,6 +171,7 @@
     <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h" />
     <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp" />
     <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h" />
+    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h" />
     <ClInclude Include="..\..\Common\Graphics\BarSeries.h" />
     <ClInclude Include="..\..\Common\Graphics\Borders.h" />
     <ClInclude Include="..\..\Common\Graphics\Chart.h" />

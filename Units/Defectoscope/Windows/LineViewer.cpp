@@ -6,8 +6,9 @@
 #include "templates.hpp"
 
 using namespace Gdiplus;
-LineViewer::LineViewer()
+LineViewer::LineViewer(int n)
 	: backScreen(NULL)
+	, numSensor(n)
 	, chart(backScreen)
 	, cursor(chart)
 {
@@ -78,17 +79,17 @@ unsigned LineViewer::operator()(TCreate &l)
 void LineViewer::operator()(TMouseWell &l)
 {
 	mouseMove = false;
-	if(l.delta > 0) offsetX -= 1; else offsetX += 1;
+	if(l.delta > 0) offsetX -= 1; else if(l.delta < 0)offsetX += 1;
 	double dX = (chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight)
 		/(chart.maxAxesX - chart.minAxesX);
 	storedMouseMove.x = (WORD)(chart.rect.left + chart.offsetAxesLeft + dX * offsetX);
 	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	zprint(" TMouseWell %f %d\n", left, l.y);
 }
 //--------------------------------------------------------------
 bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
 {	
 	double valY = chart.items.get<BarSeries>().ValueY(offsetX);
+	//char *s = StatusText(viewerData.status[numSensor][offsetX]);
 	wsprintf(label.buffer, L"<ff>смещение %d  величина %s        ", offsetX, Wchar_from<double, 5>(valY)());
 	label.Draw(g());
 	return true;
@@ -102,7 +103,6 @@ bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
 		 if(cursor.VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
 		 {
 			 storedMouseMove = l;
-			 zprint(" TMouseMove %d %d\n", l.x, l.y);
 			 int y;
 			 chart.CoordCell(l.x, l.y, offsetX, y);	 
 		 }
@@ -124,12 +124,3 @@ bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
 	}
 }
  //--------------------------------------------------------------------------
-void LineViewer::Move()
-{
-}
-//-----------------------------------------------------------------------------
-void LineViewer::Well()
-{
-}
-//------------------------------------------------------------------------------
- 

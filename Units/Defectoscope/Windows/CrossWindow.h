@@ -18,6 +18,7 @@ public:
 		T *owner;
 		DataViewer<Cross, N> dataViewer;
 		Line()
+			: LineViewer(N)
 		{
 			chart.items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
 		}	

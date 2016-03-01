@@ -30,6 +30,7 @@ DLG(AboutWindowDlg)
 DLG(IOportsDlg)
 DLG(TestTabsDlg)
 DLG(RecalculationDlg)
+DLG(MedianFiltreDlg)
 
 #undef DLG
 

@@ -49,6 +49,8 @@ namespace MainWindowMenu
 	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
 	struct ThicknessThresholdWindow__: Common::OpenWindow<ThicknessThresholdWindow>{};
 
+	struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
+
 	template<>struct SubMenu<ThicknessTreshold>
 	{
 		typedef TL::TypeToTypeLst<
@@ -72,12 +74,15 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
 	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
 
+	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
+
 	template<>struct TopMenu<MainOptionTypeSize>
 	{
 		typedef TL::MkTlst<
 		     SubMenu<ThicknessTreshold>
 			, MenuItem<DeadZones>
 			//, MenuItem<AllowableThickness>
+			, MenuItem<MedianFiltre>
 			, MenuItem<RotationalSpeed>
 			, Separator<0>
 			, MenuItem<MainCreateTypesize>
@@ -113,7 +118,7 @@ namespace MainWindowMenu
 	struct ColorItems             {static void Do(HWND h){zprint("");}};
 	struct DiscretePlateDescriptor: Descriptor1730Dlg{};//{static void Do(HWND h){zprint("");}};
 	struct Coefficient            {static void Do(HWND h){zprint("");}};
-	struct MedianFiltre           {static void Do(HWND h){zprint("");}};
+	//struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
 	struct ACFBorder              {static void Do(HWND h){zprint("");}};
 	struct TestTab                : TestTabsDlg{};//{static void Do(HWND h){zprint("");}};
@@ -123,7 +128,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Выодные порты", DiscretePlateOutputs)
 	MENU_ITEM(L"Дискриптор платы", DiscretePlateDescriptor)
 	MENU_ITEM(L"Коэффициенты пересчёта", Coefficient)
-	MENU_ITEM(L"Ширина медианного фильтра", MedianFiltre)
+	
 	MENU_ITEM(L"Аналоговая плата", AnalogPlate)
 	MENU_ITEM(L"Параметры сигнала", Signal)
 	MENU_ITEM(L"Границы АЧХ", ACFBorder)

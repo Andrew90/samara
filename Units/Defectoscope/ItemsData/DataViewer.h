@@ -4,13 +4,15 @@
 
 struct DefectData
 {
-	double *data;
-	USPC7100_ASCANDATAHEADER **scan;
+	double data[2048];
+	USPC7100_ASCANDATAHEADER *scan[2048];
+	char status[2048];
 	int count;
 	int zone;
+	int &medianFiltreWidth;
+	bool &medianFiltreOn;
 	DefectData();
 	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
-	void Drop();
 };
 
 template<class T, int channel>struct DataViewer: DefectData

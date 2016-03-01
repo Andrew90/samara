@@ -11,6 +11,7 @@ class LineViewer
 {
 	Gdiplus::Bitmap *backScreen;
 public:
+	const int numSensor;
 	int offsetX;
 public:
 	HWND hWnd;
@@ -29,7 +30,7 @@ public:
 	Cursor cursor;
 	TMouseMove storedMouseMove;
 	bool mouseMove;
-	LineViewer();
+	LineViewer(int );
 	bool CursorDraw(TMouseMove &l, VGraphics &g);
 	void operator()(TSize &);
 	void operator()(TPaint &);
@@ -38,6 +39,4 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
-	void Move();
-	void Well();
 };

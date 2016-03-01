@@ -88,6 +88,9 @@
     <Filter Include="Windows\ThresholdWindow">
       <UniqueIdentifier>{c8199b39-32e0-48da-861e-3e007d5a5523}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Filtre">
+      <UniqueIdentifier>{f4e25430-5a7b-4f78-af80-ccf33a227b99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -307,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp">
       <Filter>Windows\ThresholdWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp">
+      <Filter>Filtre</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\MedianFiltreDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -603,6 +612,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\templates\templates.hpp">
       <Filter>Common\templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
+      <Filter>Filtre</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

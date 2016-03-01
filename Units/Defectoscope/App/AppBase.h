@@ -203,15 +203,17 @@ struct ACFBorderTable
 	const wchar_t *name(){return L"DeadAreaTable";}
  };
 //----------------------------------------------------------------------------------------------------
- DEFINE_PARAM(MedianFilter, int, 5)
- struct MedianFilterTable
+ DEFINE_PARAM(MedianFiltreWidth, int, 5)
+ DEFINE_PARAM(MedianFiltreOn, bool, true)
+ struct MedianFiltreTable
  {
 	 typedef TL::MkTlst<
-		 MedianFilter
+		 MedianFiltreWidth
+		 , MedianFiltreOn 
 	 >::Result items_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;
-	 const wchar_t *name(){return L"MedianFilterTable";}
+	 const wchar_t *name(){return L"MedianFiltreTable";}
  };
  //---------------------------------------------------------------------------------------------------------
  DEFINE_PARAM(NamePlate1730, int, 3)
@@ -225,10 +227,11 @@ struct ACFBorderTable
 	 const wchar_t *name(){return L"NamePlate1730ParametersTable";}
  };
 //-------------------------------------------------------------------------------------------------------
- struct AxesTable;
+struct AxesTable;
 DEFINE_PARAM_ID(ThresholdsTable            , int, 1)
 DEFINE_PARAM_ID(DeadAreaTable			   , int, 1)
 DEFINE_PARAM_ID(AxesTable	   , int, 1)
+DEFINE_PARAM_ID(MedianFiltreTable, int, 1)
 STR_PARAM(NameParam, 128, L"NONAME")
  struct ParametersTable
  {
@@ -236,6 +239,7 @@ STR_PARAM(NameParam, 128, L"NONAME")
 		ID<ThresholdsTable>
 		, ID<DeadAreaTable			   	>
 		, ID<AxesTable	   	>
+		, ID<MedianFiltreTable>
 		, NameParam
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -359,7 +363,7 @@ struct AxesTable
 		 , GraphicSignalOptionsTable	   
 		 , AdditionalSettingsTable
 		 , ColorTable
-		 , MedianFilterTable
+		 
 		 , ACFBorderTable
 		 , InputBitTable
 		 , OutputBitTable
@@ -371,7 +375,8 @@ struct AxesTable
 		  CurrentParametersTable		 
 		 , ParametersTable			   
 		 , ThresholdsTable			  
-		 , DeadAreaTable				  
+		 , DeadAreaTable	
+		 , MedianFiltreTable
 		 , AxesTable
 	 >::Result multy_row_table_list;
 

@@ -115,6 +115,7 @@ void CrossWindow::operator()(TCommand &l)
 	EventDo(l);
 }
 //-------------------------------------------------------------------------------------
+/*
 namespace
 {
 	template<class O, class P>struct __drop__
@@ -125,9 +126,10 @@ namespace
 		}
 	};
 }
+*/
 void CrossWindow::operator()(TDestroy &)
 {
-	TL::foreach<CrossWindow::line_list, __drop__>()(&viewers, (int *)0);
+	//TL::foreach<CrossWindow::line_list, __drop__>()(&viewers, (int *)0);
 }
 //----------------------------------------------------------------------
 wchar_t *CrossWindow::Title()

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "DataViewer.h"
-#include "Frame.h"
+#include "typelist.hpp"
+#include "MedianFiltre.h"
+#include "AppBase.h"
 
 
 namespace
@@ -17,34 +19,60 @@ namespace
 }
 
 DefectData::DefectData()
-	: data(NULL)
-	, scan(NULL)
+	: medianFiltreWidth(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth>().value)
+	, medianFiltreOn(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn>().value)
 {}
 
 void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)
 {
 	zone = z;
-	if(NULL == data)data = (double *)Frame::Get<Data>();
-	if(NULL == scan)scan = (USPC7100_ASCANDATAHEADER **)Frame::Get<PTR>();
 	stop += offs;
 	int cnt = 0;
 	if(stop > maxOffs) stop = maxOffs;
-	for(int i = start + offs; i < stop; ++i)
+	int i = start + offs;
+	if(!medianFiltreOn)
 	{
-		if(channel == s[i].Channel)
+		for(; i < stop; ++i)
 		{
-			data[cnt] = s[i].hdr.G2Amp;
-			scan[cnt] = &s[i];
-			++cnt;
+			if(channel == s[i].Channel)
+			{
+				data[cnt] = s[i].hdr.G2Amp;
+				scan[cnt] = &s[i];
+				if(++cnt >= dimention_of(data)) break;
+			}
+		}
+	}
+	else
+	{
+		MedianFiltre f;
+		int offs = i - medianFiltreWidth * App::count_sensors;
+		if(offs < 0) offs = 0;
+		int z = 0;
+		double tmp[dimention_of(f.buf)];
+		USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
+		for(offs; offs < i; ++offs)
+		{
+			if(channel == s[offs].Channel)
+			{
+				tmp[z] = s[offs].hdr.G2Amp;
+				sk[z] = &s[offs];
+				if(++z >= medianFiltreWidth) break;
+			} 
+		}
+		
+		f.Init(medianFiltreWidth, tmp);
+		
+		for(; i < stop; ++i)
+		{
+			if(channel == s[i].Channel)
+			{
+				sk[f.index % f.width] = &s[i];
+				int ret = f.Add(s[i].hdr.G2Amp);
+				data[cnt] = f.buf[ret];
+				scan[cnt] = sk[ret];
+				if(++cnt >= dimention_of(data)) break;
+			}
 		}
 	}
 	count = cnt;
-}
-
-void DefectData::Drop()
-{
-	Frame::Drop(data);
-	Frame::Drop(scan);
-	data = NULL;
-	scan = NULL;
 }

@@ -128,6 +128,7 @@ template<int N>struct DlgSubItems<NameParam, Holder<N> >: EditItems<NameParam, 4
 NO_USED_MENU_ITEM(ID<ThresholdsTable>)
 NO_USED_MENU_ITEM(ID<DeadAreaTable>)
 NO_USED_MENU_ITEM(ID<AxesTable>)
+NO_USED_MENU_ITEM(ID<MedianFiltreTable>)
 
 void AddTypeSizeDlg::Do(HWND h)
 {
