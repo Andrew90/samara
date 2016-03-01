@@ -10,6 +10,7 @@
 class LineViewer
 {
 	Gdiplus::Bitmap *backScreen;
+public:
 	int offsetX;
 public:
 	HWND hWnd;
