@@ -12,7 +12,7 @@ class LongViewer
 {
 public:
 	HWND hWnd;
-private:	
+public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		FixedLeftAxes
 		, BottomAxesGrid
@@ -24,8 +24,8 @@ private:
 	bool mouseMove;
 public:
 	TMouseMove storedMouseMove;
-private:
 	ColorLabel label;
+public:
 	Cursor cursor;
 	ItemData<Long> &viewerData;
 public:

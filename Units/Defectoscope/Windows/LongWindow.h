@@ -1,20 +1,20 @@
 #pragma once
-#include "CrossViewer.h"
+#include "LongViewer.h"
 #include "LineViewer.h"
 #include "typelist.hpp"
 #include "DataViewer.h"
 #include "ConstData.h"
 #include "LineChart.hpp"
 
-class CrossWindow
+class LongWindow
 {
 public:
-	typedef Cross sub_type;
+	typedef Long sub_type;
 	int lastZone;
 public:
 	HWND hWnd;
-	Border2Class<Cross> &border2Class;
-	BorderDefect<Cross> &borderDefect;
+	Border2Class<Long> &border2Class;
+	BorderDefect<Long> &borderDefect;
 	double &minAxes, &maxAxes;
 	bool drawZones;
 	/*
@@ -22,7 +22,7 @@ public:
 	{
 		typedef LineViewer Parent;
 		T *owner;		
-		DataViewer<Cross, N> dataViewer;
+		DataViewer<Long, N> dataViewer;
 		Line()
 		{
 			chart.items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
@@ -56,15 +56,16 @@ public:
 			return true;
 		}
 	};
-	 */
-	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, 7>::Result line_list;
+	*/
+	
+	typedef TL::CreateWapperNumList<Line, LongWindow, 0, 7>::Result line_list;
 	typedef TL::AppendList<
-		    TL::MkTlst<CrossViewer>::Result
+		    TL::MkTlst<LongViewer>::Result
 		    , line_list
 	    >::Result viewers_list;
 	TL::Factory<viewers_list> viewers;
-	CrossViewer &crossViewer;
-	CrossWindow();
+	LongViewer &longViewer;
+	LongWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);
 	void operator()(TGetMinMaxInfo &);

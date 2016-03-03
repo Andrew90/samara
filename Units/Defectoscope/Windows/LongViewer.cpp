@@ -6,9 +6,46 @@
 #include "ConstData.h"
 #include "MenuApi.h"
 #include "ViewersMenu.hpp"
+#include "LongWindow.h"
+#include "Common.h"
 
 using namespace Gdiplus;
-//-----------------------------------------------------------------
+//------------------------------------------------------------------
+LongViewer::LongViewer()
+	: backScreen(NULL)
+	, chart(backScreen)
+	, cursor(chart)
+	, viewerData(Singleton<ItemData<Long> >::Instance())
+{
+	/*
+	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
+	chart.minAxesY = 1;
+	chart.maxAxesY = 1 + App::count_sensors;
+	chart.minAxesX = 0;
+	chart.maxAxesX = App::zonesCount;
+	cursor.SetMouseMoveHandler(this, &LongViewer::Draw);
+	label.fontHeight = 12;
+	label.top = 0;
+	chart.rect.top = 17;
+	mouseMove = true;
+	label.fontHeight = 12;
+	label.top = 0;
+
+	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
+	*/
+	chart.minAxesY = 1;
+	chart.maxAxesY = 1 + App::count_sensors;
+	chart.minAxesX = 0;
+	chart.maxAxesX = App::zonesCount;
+	chart.rect.top = 17;
+	mouseMove = true;
+	label.fontHeight = 12;
+	label.top = 0;
+	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
+	cursor.SetMouseMoveHandler(this, &LongViewer::Draw);	
+	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
+}
+//--------------------------------------------------------------------------
 bool LongViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
@@ -26,30 +63,7 @@ bool LongViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &
 	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
 	return zone < viewerData.currentOffsetZones;
 }
-//------------------------------------------------------------------
-LongViewer::LongViewer()
-	: backScreen(NULL)
-	, chart(backScreen)
-	, cursor(chart)
-	, viewerData(Singleton<ItemData<Long> >::Instance())
-{
-	
-	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
-	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::count_sensors;
-	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
-	cursor.SetMouseMoveHandler(this, &LongViewer::Draw);
-	label.fontHeight = 12;
-	label.top = 0;
-	chart.rect.top = 17;
-	mouseMove = true;
-	label.fontHeight = 10;
-	label.top = 0;
-
-	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
-}
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------
 void LongViewer::operator()(TSize &l)
 {
 	if(l.resizing == SIZE_MINIMIZED || 0 == l.Width || 0 == l.Height) return;	
@@ -141,10 +155,15 @@ unsigned LongViewer::operator()(TCreate &l)
 }
 //------------------------------------------------------------------------------------------
 //CONTEXT_MENU(DetailedView)
+//void LongViewer::operator()(TRButtonDown &l)
+//{
+//	//PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
+//	//PopupMenu<DetailedViewContextMenu::items_list>::Do(l.hwnd, l.hwnd);
+//}
+CONTEXT_MENU(LongWindow)
 void LongViewer::operator()(TRButtonDown &l)
 {
-	//PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
-	//PopupMenu<DetailedViewContextMenu::items_list>::Do(l.hwnd, l.hwnd);
+	PopupMenu<ContextMenuLongWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
 void LongViewer::operator()(TDestroy &m)

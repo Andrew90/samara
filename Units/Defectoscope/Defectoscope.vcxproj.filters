@@ -317,6 +317,9 @@
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\LongWindow.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -615,6 +618,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
       <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LongWindow.h">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LineChart.hpp">
+      <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "CrossWindow.h"
+#include "LongWindow.h"
 #include "MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "Emptywindow.h"
@@ -22,15 +22,15 @@ namespace
 	};
 }
 
-CrossWindow::CrossWindow()
-    : crossViewer(viewers.get<CrossViewer>())
-	, border2Class(Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross>>())
-	, borderDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Cross>>())
-	, minAxes(Singleton<AxesTable>::Instance().items.get<AxesYMin<Cross> >().value)
-	, maxAxes(Singleton<AxesTable>::Instance().items.get<AxesYMax<Cross> >().value)
+LongWindow::LongWindow()
+    : longViewer(viewers.get<LongViewer>())
+	, border2Class(Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Long>>())
+	, borderDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Long>>())
+	, minAxes(Singleton<AxesTable>::Instance().items.get<AxesYMin<Long> >().value)
+	, maxAxes(Singleton<AxesTable>::Instance().items.get<AxesYMax<Long> >().value)
 
 {
-	crossViewer.cursor.SetMouseMoveHandler(this, &CrossWindow::DrawCursor);	
+	longViewer.cursor.SetMouseMoveHandler(this, &LongWindow::DrawCursor);	
 }
 namespace
 {
@@ -40,17 +40,17 @@ namespace
 		int y, width, height;
 	};
 	template<class O, class P>struct __draw__;
-	template<class P>struct __draw__<CrossViewer, P>
+	template<class P>struct __draw__<LongViewer, P>
 	{
-		typedef CrossViewer O;
+		typedef LongViewer O;
 		void operator()(O *o, P *p)
 		{
 			 MoveWindow(o->hWnd, 0, 0, p->width, cross_window_height, TRUE);
 		}
 	};
-	template<int N, class P>struct __draw__<Line<CrossWindow, N>, P>
+	template<int N, class P>struct __draw__<Line<LongWindow, N>, P>
 	{
-		typedef Line<CrossWindow, N> O;
+		typedef Line<LongWindow, N> O;
 		void operator()(O *o, P *p)
 		{
 			bool b = N % 2 == 0;
@@ -63,7 +63,7 @@ namespace
 		}
 	};
 }
-void CrossWindow::operator()(TSize &l)
+void LongWindow::operator()(TSize &l)
 {
     RECT r;
 	GetClientRect(l.hwnd, &r);
@@ -71,7 +71,7 @@ void CrossWindow::operator()(TSize &l)
 	__data__ data = {cross_window_height, r.right,  (r.bottom - cross_window_height) / 4};
 	TL::foreach<viewers_list, __draw__>()(&viewers, &data);
 }
-void CrossWindow::operator()(TGetMinMaxInfo &m)
+void LongWindow::operator()(TGetMinMaxInfo &m)
 {
 	if(NULL != m.pMinMaxInfo)
 	{
@@ -79,36 +79,36 @@ void CrossWindow::operator()(TGetMinMaxInfo &m)
 		m.pMinMaxInfo->ptMinTrackSize.y = 600;
 	}	
 }
-VIEWERS_MENU(CrossWindow)
-unsigned CrossWindow::operator()(TCreate &l)
+VIEWERS_MENU(LongWindow)
+unsigned LongWindow::operator()(TCreate &l)
 {
 	TL::foreach<line_list, __set_border_color__>()(&viewers, this);
 	lastZone = -1;
-	Menu<ViewersMenuCrossWindow::MainMenu>().Init(l.hwnd);
+	Menu<ViewersMenuLongWindow::MainMenu>().Init(l.hwnd);
 	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &l.hwnd);
 	return 0;
 }
 //--------------------------------------------------------------------------------
 namespace Common
 {
-	template<int N, class P>struct __in_rect__<Line<CrossWindow, N>, P>
-	  : __in_rect_all__<Line<CrossWindow, N>, P, CrossWindow::line_list>{};
+	template<int N, class P>struct __in_rect__<Line<LongWindow, N>, P>
+	  : __in_rect_all__<Line<LongWindow, N>, P, LongWindow::line_list>{};
 }
 //----------------------------------------------------------------------------------------------
-void CrossWindow::operator()(TMouseWell &l)
+void LongWindow::operator()(TMouseWell &l)
 {
 	TL::find<viewers_list, Common::__in_rect__>()(
 		&viewers
-		, &Common::__event_data__<TMouseWell, CrossWindow>(*this, l)
+		, &Common::__event_data__<TMouseWell, LongWindow>(*this, l)
 		);
 }
 //-----------------------------------------------------------------------------------
-void CrossWindow::operator()(TCommand &l)
+void LongWindow::operator()(TCommand &l)
 {
 	EventDo(l);
 }
 //----------------------------------------------------------------------
-wchar_t *CrossWindow::Title()
+wchar_t *LongWindow::Title()
 {
 	return L"Просмотр поперечных дефектов";
 }
@@ -116,9 +116,9 @@ wchar_t *CrossWindow::Title()
 namespace
 {
 	template<class O, class P>struct __update__;
-	template<int N, class P>struct __update__<Line<CrossWindow, N>, P>
+	template<int N, class P>struct __update__<Line<LongWindow, N>, P>
 	{
-		typedef Line<CrossWindow, N> O;
+		typedef Line<LongWindow, N> O;
 		void operator()(O *o, P *p)
 		{
 			o->dataViewer.Do(p->lastZone);
@@ -129,9 +129,9 @@ namespace
 		}
 	};
 	template<class O, class P>struct __clr__;
-	template<int N, class P>struct __clr__<Line<CrossWindow, N>, P>
+	template<int N, class P>struct __clr__<Line<LongWindow, N>, P>
 	{
-		typedef Line<CrossWindow, N> O;
+		typedef Line<LongWindow, N> O;
 		void operator()(O *o, P *p)
 		{
 			o->chart.maxAxesX = 0;
@@ -141,28 +141,28 @@ namespace
 		}
 	};
 }
-bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
+bool LongWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	crossViewer.chart.CoordCell(l.x, l.y, x, y);	
+	longViewer.chart.CoordCell(l.x, l.y, x, y);	
 	
-	bool b = x < crossViewer.viewerData.currentOffsetZones;
+	bool b = x < longViewer.viewerData.currentOffsetZones;
 	if(lastZone != x)
 	{
 		lastZone = x;
 		if(b)
 		{	
-			char *s = StatusText(crossViewer.viewerData.status[y][x]);
-			double value = crossViewer.viewerData.buffer[y][x];
-			wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d  %s  %S", 1 + x, 1 + y, Wchar_from<double, 5>(value)(), s);
+			char *s = StatusText(longViewer.viewerData.status[y][x]);
+			double value = longViewer.viewerData.buffer[y][x];
+			wsprintf(longViewer.label.buffer, L"<ff>зона %d  датчик %d  %s  %S", 1 + x, 1 + y, Wchar_from<double, 5>(value)(), s);
 			TL::foreach<line_list, __update__>()(&viewers, this);
 		}
 		else
 		{
-			crossViewer.label.buffer[0] = 0;
+			longViewer.label.buffer[0] = 0;
 			TL::foreach<line_list, __clr__>()(&viewers, this);
 		}
-		crossViewer.label.Draw(g());
+		longViewer.label.Draw(g());
 	}
 	drawZones = b;
 	return b;

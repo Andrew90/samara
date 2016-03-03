@@ -1,28 +1,11 @@
 #pragma once
-#include "CrossViewer.h"
-#include "LineViewer.h"
-#include "typelist.hpp"
-#include "DataViewer.h"
-#include "ConstData.h"
-#include "LineChart.hpp"
 
-class CrossWindow
-{
-public:
-	typedef Cross sub_type;
-	int lastZone;
-public:
-	HWND hWnd;
-	Border2Class<Cross> &border2Class;
-	BorderDefect<Cross> &borderDefect;
-	double &minAxes, &maxAxes;
-	bool drawZones;
-	/*
-	template<class T, int N>struct Line: LineViewer
+
+template<class T, int N>struct Line: LineViewer
 	{
 		typedef LineViewer Parent;
 		T *owner;		
-		DataViewer<Cross, N> dataViewer;
+		DataViewer<typename T::sub_type, N> dataViewer;
 		Line()
 		{
 			chart.items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
@@ -56,21 +39,3 @@ public:
 			return true;
 		}
 	};
-	 */
-	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, 7>::Result line_list;
-	typedef TL::AppendList<
-		    TL::MkTlst<CrossViewer>::Result
-		    , line_list
-	    >::Result viewers_list;
-	TL::Factory<viewers_list> viewers;
-	CrossViewer &crossViewer;
-	CrossWindow();
-	void operator()(TSize &);
-	void operator()(TCommand &);
-	void operator()(TGetMinMaxInfo &);
-	unsigned operator()(TCreate &);
-	void operator()(TMouseWell &);
-	static wchar_t *Title();
-
-	bool DrawCursor(TMouseMove &, VGraphics &);
-};
