@@ -505,3 +505,11 @@ wchar_t *ThicknessThresholdWindow::Title()
 {
 	return L"Пороги толщины";
 }
+//----------------------------------------------------------------------------------------
+void ThicknessThresholdWindow::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}
+//----------------------------------------------------------------------------------------

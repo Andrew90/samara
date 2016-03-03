@@ -187,9 +187,12 @@ void USPCChartViewer::operator()(TTimer &l)
 	Update();
 }
 //-------------------------------------------------------------------------------------
-void USPCChartViewer::operator()(TDestroy &l)
+void USPCChartViewer::operator()(TDestroy &m)
 {
 	StopTimer();
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
 }
 //-------------------------------------------------------------------------------------
 void USPCChartViewer::StartTimer()

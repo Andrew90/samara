@@ -2,10 +2,6 @@
 #include "tables.hpp"
 #include "TablesDefine.h"
 #include "App.h"
-//--------------------------------------------------------
-//struct Long;
-//struct Cross;
-//struct Thickness;
 //-------------------------------------------------------------------------------------------
 DEFINE_PARAM(CurrentID, int, 1)
 
@@ -18,19 +14,7 @@ struct CurrentParametersTable
 	TItems items;
 	const wchar_t *name(){return L"CurrentParametersTable";}
 };
-
-//STR_PARAM(NameParam, 128, L"NONAME")
 //------------------------------------------------------------------------------------------
-/*
-#define DEFINE_PARAM_WAPPER(wapper, z, type, def_val) template<> struct wapper<z>\
-{\
-	typedef type type_value;\
-	type_value value;\
-	const type_value default_value;\
-	const wchar_t *name(){return L#wapper##L#z;}\
-	wapper() : value(def_val), default_value(def_val) {}\
-};
-*/
 template<class>struct Border2Class;
 template<class>struct BorderDefect;
 
@@ -111,7 +95,7 @@ DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
 DEFINE_PARAM(Undefined, int, 0xff555555)
 
 DEFINE_PARAM(Nominal, int, 0xff00ff00)
-DEFINE_PARAM(Treshold2Class, int, 0xff0000ff)
+DEFINE_PARAM(Treshold2Class, int, 0xffffff00)
 DEFINE_PARAM(Defect, int, 0xffff0000)
  
 
@@ -134,23 +118,15 @@ struct ColorTable
 	const wchar_t *name(){return L"ColorTable";}
 };
 
+template<class T>inline int StatusId()
+{
+	return TL::IndexOf<ColorTable::items_list, T>::value;
+}
+
 template<class T>struct Stat
 	{
 		static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
 	};
-//----------------------------------------------------------------------------------- 
-//DEFINE_PARAM(MinimumThicknessPipeWall, double, 3.0)
-//DEFINE_PARAM(MaximumThicknessPipeWall, double, 15.0)
-//struct BorderCredibilityTable
-//{
-//	typedef TL::MkTlst<
-//		MinimumThicknessPipeWall
-//		, MaximumThicknessPipeWall
-//	>::Result items_list;
-//	typedef TL::Factory<items_list> TItems;
-//	TItems items;
-//	const wchar_t *name(){return L"BorderCredibilityTable";}
-//};
 //-------------------------------------------------------------------------------------- 
 DEFINE_PARAM(SupplySensorDelay, int, 150)
 DEFINE_PARAM(RemoveSensorDelay, int,  150)
@@ -203,13 +179,27 @@ struct ACFBorderTable
 	const wchar_t *name(){return L"DeadAreaTable";}
  };
 //----------------------------------------------------------------------------------------------------
- DEFINE_PARAM(MedianFiltreWidth, int, 5)
- DEFINE_PARAM(MedianFiltreOn, bool, true)
+ template<class>struct MedianFiltreWidth;
+ template<class>struct MedianFiltreOn;
+
+ DEFINE_PARAM_WAPPER(MedianFiltreWidth, Cross, int, 5)
+ DEFINE_PARAM_WAPPER(MedianFiltreOn, Cross, bool, true)
+
+ DEFINE_PARAM_WAPPER(MedianFiltreWidth, Long, int, 5)
+ DEFINE_PARAM_WAPPER(MedianFiltreOn, Long, bool, true)
+
+ DEFINE_PARAM_WAPPER(MedianFiltreWidth, Thickness, int, 5)
+ DEFINE_PARAM_WAPPER(MedianFiltreOn, Thickness, bool, true)
+ 
  struct MedianFiltreTable
  {
 	 typedef TL::MkTlst<
-		 MedianFiltreWidth
-		 , MedianFiltreOn 
+		 MedianFiltreWidth<Cross>
+		 , MedianFiltreOn<Cross> 
+		 , MedianFiltreWidth<Long>
+		 , MedianFiltreOn<Long> 
+		 , MedianFiltreWidth<Thickness>
+		 , MedianFiltreOn<Thickness> 
 	 >::Result items_list;
 	 typedef TL::Factory<items_list> TItems;
 	 TItems items;

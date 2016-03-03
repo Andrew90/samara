@@ -6,9 +6,8 @@
 #include "templates.hpp"
 
 using namespace Gdiplus;
-LineViewer::LineViewer(int n)
+LineViewer::LineViewer()
 	: backScreen(NULL)
-	, numSensor(n)
 	, chart(backScreen)
 	, cursor(chart)
 {
@@ -19,10 +18,9 @@ LineViewer::LineViewer(int n)
 	label.fontHeight = 11;
 	label.top = 0;
 
-	chart.rect.top = 17;
-
-	cursor.SetMouseMoveHandler(this, &LineViewer::CursorDraw);
+	chart.rect.top = 17;	
 }
+
 void LineViewer::operator()(TSize &l)		   
 {
 	if(l.resizing == SIZE_MINIMIZED || 0 == l.Width || 0 == l.Height) return;	
@@ -86,14 +84,7 @@ void LineViewer::operator()(TMouseWell &l)
 	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
 //--------------------------------------------------------------
-bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
-{	
-	double valY = chart.items.get<BarSeries>().ValueY(offsetX);
-	//char *s = StatusText(viewerData.status[numSensor][offsetX]);
-	wsprintf(label.buffer, L"<ff>смещение %d  величина %s        ", offsetX, Wchar_from<double, 5>(valY)());
-	label.Draw(g());
-	return true;
- }
+
 
  //--------------------------------------------------------------------------
  void LineViewer::operator()(TMouseMove &l)
@@ -124,3 +115,9 @@ bool LineViewer::CursorDraw(TMouseMove &l, VGraphics &g)
 	}
 }
  //--------------------------------------------------------------------------
+ void LineViewer::operator()(TDestroy &)
+ {
+	 delete backScreen;
+	 backScreen = NULL;
+	 SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
+ }

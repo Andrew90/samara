@@ -9,4 +9,5 @@ struct MedianFiltre
 	int ind[16];
 	int Init(int , double *);
 	int Add(double);
+	void Clear(int);
 };

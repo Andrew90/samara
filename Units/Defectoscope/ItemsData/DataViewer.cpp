@@ -3,6 +3,7 @@
 #include "typelist.hpp"
 #include "MedianFiltre.h"
 #include "AppBase.h"
+#include "Compute.h"
 
 
 namespace
@@ -18,14 +19,16 @@ namespace
 	};
 }
 
-DefectData::DefectData()
-	: medianFiltreWidth(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth>().value)
-	, medianFiltreOn(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn>().value)
+DefectData::DefectData(int &filterWidth, bool &filterOn, double (&brak)[App::zonesCount], double (&klass2)[App::zonesCount])
+	: medianFiltreWidth(filterWidth)
+	, medianFiltreOn(filterOn)
+	, brackThreshold(brak) 
+	, klass2Threshold(klass2)
 {}
 
-void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)
+void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)
 {
-	zone = z;
+	zone = zone_;
 	stop += offs;
 	int cnt = 0;
 	if(stop > maxOffs) stop = maxOffs;
@@ -36,8 +39,9 @@ void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxO
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = s[i].hdr.G2Amp;
+				data[cnt] = s[i].hdr.G1Amp;
 				scan[cnt] = &s[i];
+				StatusZoneDefect(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -50,12 +54,15 @@ void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxO
 		int z = 0;
 		double tmp[dimention_of(f.buf)];
 		USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
+		char stat[dimention_of(f.buf)];
 		for(offs; offs < i; ++offs)
 		{
 			if(channel == s[offs].Channel)
 			{
-				tmp[z] = s[offs].hdr.G2Amp;
+				tmp[z] = s[offs].hdr.G1Amp;
 				sk[z] = &s[offs];
+				
+				StatusZoneDefect(offs, tmp[z], zone, brackThreshold, klass2Threshold, stat[z]);
 				if(++z >= medianFiltreWidth) break;
 			} 
 		}
@@ -66,10 +73,25 @@ void DefectData::Set(int z, int start, int stop, int channel, int offs, int maxO
 		{
 			if(channel == s[i].Channel)
 			{
-				sk[f.index % f.width] = &s[i];
-				int ret = f.Add(s[i].hdr.G2Amp);
-				data[cnt] = f.buf[ret];
-				scan[cnt] = sk[ret];
+				double t = s[i].hdr.G1Amp;
+				char st;
+				StatusZoneDefect(offs, t, zone, brackThreshold, klass2Threshold, st);
+				int ind = f.index % f.width;
+				sk[ind] = &s[i];
+				stat[ind] = st;
+				int ret = f.Add(t);
+				if(StatusId<DeathZone>() != st)
+				{
+					data[cnt] = f.buf[ret];
+					scan[cnt] = sk[ret];
+					status[cnt] = stat[ret];
+				}
+				else
+				{
+					data[cnt] = t;
+					scan[cnt] = &s[i];
+					status[cnt] = st;
+				}
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}

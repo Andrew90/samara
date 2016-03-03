@@ -6,25 +6,6 @@ template<class O>struct __status_label__
 {
 	typedef typename O::__template_must_be_overridded__ noused;
 };
-//StatusLabel::StatusLabel(char status)
-//	: status(status)
-//	, text("")
-//{
-////	TL::find<PrimaryData::message_list, __status_label__>()((TL::Factory<PrimaryData::message_list> *)0, this);
-//}
-//#define STATUS_LABEL(n, txt)template<class P>struct __status_label__<PrimaryData::Mess<PrimaryData::n>, P>\
-//{\
-//	typedef PrimaryData::Mess<PrimaryData::n> O;\
-//	bool operator()(O *, P *p)\
-//    {\
-//        if(O::value == p->status)\
-//		{\
-//		     p->text = txt;\
-//             return false;\
-//		}\
-//		return true;\
-//    }\
-//};
 
 #define STATUS_LABEL(O, txt)template<>struct __status_label__<O>\
 {\
@@ -69,7 +50,7 @@ STATUS_LABEL(ThicknessLessThreshold, "Вычисленная толщина меньше минимального зн
 STATUS_LABEL(Undefined, "Результат не определён")
 STATUS_LABEL(DeathZone, "Мёртвая зона")
 
-STATUS_LABEL(Nominal, "<ff00>Толщина в допуске")
+STATUS_LABEL(Nominal, "<ff00>Норма")
 STATUS_LABEL(Defect, "<ff0000>Брак")
 STATUS_LABEL(Treshold2Class, "<ff>Класс 2")
 //STATUS_LABEL(DefectMinMax, "<ffff00>Брак плюс-минус")

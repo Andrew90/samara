@@ -43,9 +43,6 @@ namespace
 					curr.items.get<CurrentID>().value = id;
 					UpdateWhere<CurrentParametersTable>(curr, base).ID(1).Execute();
 
-					//Singleton<CurrentID>::Instance().value = id;
-					//Singleton<NameParam>::Instance().value = buf;
-
 					HWND hMain = GetParent(h);
 
 					MainWindow *o = (MainWindow *)GetWindowLongPtr(hMain, GWLP_USERDATA);
@@ -109,11 +106,9 @@ namespace
 						if(id)
 						{
 							Update<CurrentParametersTable>(base).set<CurrentID>(id).Where().ID(1).Execute();
-
 							AppBase::InitTypeSizeTables(base);
 						}
 					}
-
 				}
 				EndDialog(h, TRUE);
 			}

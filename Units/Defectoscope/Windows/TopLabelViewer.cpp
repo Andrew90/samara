@@ -62,4 +62,11 @@ void TopLabelViewer::SetMessage(wchar_t *text)
 	SendMessage(hWnd, WM_USER, 0, (LPARAM)text);
 }
 //----------------------------------------------------------------------------------------------------
+void TopLabelViewer::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}
+//------------------------------------------------------------------------------------------------
 

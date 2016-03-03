@@ -687,5 +687,6 @@
     <None Include="..\..\Common\Resource\RightArr.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ReadMe.txt" />
   </ItemGroup>
 </Project>

@@ -63,6 +63,8 @@ unsigned IOportsWindow::operator()(TCreate &m)
 void IOportsWindow::operator()(TDestroy &m)
 {
 	viewer.Stop();
+	delete backScreen;
+    backScreen = NULL;
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
 }
 //------------------------------------------------------------------------

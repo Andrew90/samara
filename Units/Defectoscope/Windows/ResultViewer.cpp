@@ -188,3 +188,9 @@ unsigned ResultViewer::operator()(TCreate &l)
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	return 0;
 }
+void ResultViewer::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}

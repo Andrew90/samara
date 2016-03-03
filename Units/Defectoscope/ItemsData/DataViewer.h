@@ -11,12 +11,22 @@ struct DefectData
 	int zone;
 	int &medianFiltreWidth;
 	bool &medianFiltreOn;
-	DefectData();
+	double (&brackThreshold )[App::zonesCount];
+	double (&klass2Threshold)[App::zonesCount];
+	DefectData(int &, bool &, double (&)[App::zonesCount], double (&)[App::zonesCount]);
 	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
 };
 
 template<class T, int channel>struct DataViewer: DefectData
 {
+	DataViewer()
+		: DefectData(
+		   Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<T> >().value
+		   , Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<Border2Class<T> >().value
+		)
+	{}
 	void Do(int zone)
 	{
 	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();

@@ -147,3 +147,10 @@ void LongViewer::operator()(TRButtonDown &l)
 	//PopupMenu<DetailedViewContextMenu::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
+void LongViewer::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}
+

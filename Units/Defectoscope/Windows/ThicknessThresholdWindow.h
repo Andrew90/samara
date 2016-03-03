@@ -117,4 +117,6 @@ public:
 
 	void operator()(TClose &);
 	static wchar_t *Title();
+
+	void operator()(TDestroy &);
 };

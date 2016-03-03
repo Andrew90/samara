@@ -3,6 +3,7 @@
 #include "LineViewer.h"
 #include "typelist.hpp"
 #include "DataViewer.h"
+#include "ConstData.h"
 
 class CrossWindow
 {
@@ -12,41 +13,43 @@ public:
 	HWND hWnd;
 	Border2Class<Cross> &border2Class;
 	BorderDefect<Cross> &borderDefect;
+	double &minAxes, &maxAxes;
+	bool drawZones;
 	template<class T, int N>struct Line: LineViewer
 	{
 		typedef LineViewer Parent;
-		T *owner;
+		T *owner;		
 		DataViewer<Cross, N> dataViewer;
 		Line()
-			: LineViewer(N)
 		{
 			chart.items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
+			cursor.SetMouseMoveHandler(this, &Line<T, N>::CursorDraw);
 		}	
-		bool Line::GetColorBar(int offs, double &data, unsigned &color)
+		bool GetColorBar(int offs, double &data, unsigned &color)
 		{
 			if(NULL != dataViewer.data && offs < dataViewer.count)
 			{
-				 data = dataViewer.data[offs];
-				 if(owner->borderDefect.value[dataViewer.zone] < data)
-				 {
-					 color = 0xffff0000;
-				 }
-				 else if(owner->border2Class.value[dataViewer.zone] < data)
-				 {
-					 color = 0xffffff00;
-				 }
-				 else
-				 {
-					 color = 0xff00ff00;
-				 }
-				 return true;
+				data = dataViewer.data[offs];
+				color = ConstData::ZoneColor(dataViewer.status[offs]);
+				return true;
 			}
 			return false;
 		}
-		void operator()(TRButtonDown &l)
-		{
-			//PopupMenu<ContextMenuCrossWindow::items_list>::Do(l.hwnd, l.hwnd);
-			zprint(" >>>>> Добавить меню <<<\n");
+		
+		bool CursorDraw(TMouseMove &l, VGraphics &g)	  
+		{	
+			if(owner->drawZones)
+			{
+				double valY = chart.items.get<BarSeries>().ValueY(offsetX);
+				char *s = StatusText(dataViewer.status[offsetX]);
+				wsprintf(label.buffer, L"<ff>Датчик <ff0000>%d <ff>смещение %d  величина %s   %S     ", 1 + N, offsetX, Wchar_from<double, 5>(valY)(), s);
+			}
+			else
+			{
+				label.buffer[0] = 0;
+			}
+			label.Draw(g());
+			return true;
 		}
 	};
 	
@@ -63,7 +66,6 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TMouseWell &);
-	void operator()(TDestroy &);
 	static wchar_t *Title();
 
 	bool DrawCursor(TMouseMove &, VGraphics &);

@@ -61,6 +61,7 @@ unsigned char *USPCData::CurrentFrame()
  void TestUSPC::Init(USPCData &d)
  {
 	 ///эмитация считанных данных
+	 int xx[8] = {};
 	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 	 int i = 0;
 	 for(; i < App::count_frames; ++i)
@@ -68,7 +69,8 @@ unsigned char *USPCData::CurrentFrame()
 		 int c = i % App::count_sensors;
 		 b[i].Channel = c;
 		 ++c;
-		 b[i].hdr.G1Amp = 10 * c + rand() & 0xF;
+		 b[i].hdr.G1Amp = xx[c - 1] / 2000 * c;//10 * c + (rand() & 0xF);
+		 ++xx[c- 1];
 		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
 		 b[i].hdr.G1Tof = 100 * c;
 		 b[i].hdr.G2Tof = 200 * c;

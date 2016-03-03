@@ -360,3 +360,10 @@ void TresholdWindow::AlignThreshold<&TresholdWindow::AlignAllZones>::Command(TCo
 	RepaintWindow(m.hwnd);
 }
 //-------------------------------------------------------------------------------------
+void TresholdWindow::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}
+//-----------------------------------------------------------------------------------

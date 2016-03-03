@@ -202,3 +202,9 @@ void ThicknessViewer::operator()(TRButtonDown &l)
 	zprint("\n");
 }
 //--------------------------------------------------------------------------------
+void ThicknessViewer::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}

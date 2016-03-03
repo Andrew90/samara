@@ -14,5 +14,6 @@ public:
 	unsigned operator()(TPaint &);
 	unsigned operator()(TUser &);
 	void SetMessage(wchar_t *);
+	void operator()(TDestroy &);
 };
 

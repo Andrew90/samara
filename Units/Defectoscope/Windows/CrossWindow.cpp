@@ -16,6 +16,8 @@ namespace
 		{
 			o->chart.items.get<LineViewer::BorderDefect>().color = 0xffff0000;
 			o->owner = p;
+			o->chart.minAxesY = p->minAxes;
+			o->chart.maxAxesY = p->maxAxes;
 		}
 	};
 }
@@ -24,6 +26,9 @@ CrossWindow::CrossWindow()
     : crossViewer(viewers.get<CrossViewer>())
 	, border2Class(Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross>>())
 	, borderDefect(Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<Cross>>())
+	, minAxes(Singleton<AxesTable>::Instance().items.get<AxesYMin<Cross> >().value)
+	, maxAxes(Singleton<AxesTable>::Instance().items.get<AxesYMax<Cross> >().value)
+
 {
 	crossViewer.cursor.SetMouseMoveHandler(this, &CrossWindow::DrawCursor);
 	TL::foreach<line_list, __set_border_color__>()(&viewers, this);
@@ -58,18 +63,6 @@ namespace
 			 if(!b) p->y += p->height;
 		}
 	};
-	//template<class O, class P>struct __set_line__
-	//{
-	//	void operator()(O *, P *){}
-	//};
-	//template<int N, class P>struct __set_line__<CrossWindow::Line<N>, P>
-	//{
-	//	typedef CrossWindow::Line<N> O;
-	//	void operator()(O *o, P *p)
-	//	{
-	//		o->chart.items.get<BarSeries>().SetColorBarHandler(p, &CrossWindow::GetColorBar);
-	//	}
-	//};
 }
 void CrossWindow::operator()(TSize &l)
 {
@@ -114,23 +107,6 @@ void CrossWindow::operator()(TCommand &l)
 {
 	EventDo(l);
 }
-//-------------------------------------------------------------------------------------
-/*
-namespace
-{
-	template<class O, class P>struct __drop__
-	{
-		void operator()(O *o, P *)
-		{
-			o->dataViewer.Drop();
-		}
-	};
-}
-*/
-void CrossWindow::operator()(TDestroy &)
-{
-	//TL::foreach<CrossWindow::line_list, __drop__>()(&viewers, (int *)0);
-}
 //----------------------------------------------------------------------
 wchar_t *CrossWindow::Title()
 {
@@ -147,7 +123,6 @@ namespace
 		{
 			o->dataViewer.Do(p->lastZone);
 			o->chart.maxAxesX = o->dataViewer.count;
-			zprint("  count=%d\n", o->dataViewer.count);
 			o->chart.items.get<LineViewer::Border2Class>().value = p->border2Class.value[p->lastZone];
 			o->chart.items.get<LineViewer::BorderDefect>().value = p->borderDefect.value[p->lastZone];
 			RepaintWindow(o->hWnd);
@@ -170,22 +145,26 @@ bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	crossViewer.chart.CoordCell(l.x, l.y, x, y);	
-	char *s = StatusText(crossViewer.viewerData.status[y][x]);
-	wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d    %S    ", 1 + x, 1 + y, s);
-	crossViewer.label.Draw(g());
+	
 	bool b = x < crossViewer.viewerData.currentOffsetZones;
 	if(lastZone != x)
 	{
 		lastZone = x;
 		if(b)
-		{			
+		{	
+			char *s = StatusText(crossViewer.viewerData.status[y][x]);
+			double value = crossViewer.viewerData.buffer[y][x];
+			wsprintf(crossViewer.label.buffer, L"<ff>зона %d  датчик %d  %s  %S", 1 + x, 1 + y, Wchar_from<double, 5>(value)(), s);
 			TL::foreach<line_list, __update__>()(&viewers, this);
 		}
 		else
 		{
+			crossViewer.label.buffer[0] = 0;
 			TL::foreach<line_list, __clr__>()(&viewers, this);
 		}
+		crossViewer.label.Draw(g());
 	}
+	drawZones = b;
 	return b;
 }
 //-------------------------------------------------------------------------------------

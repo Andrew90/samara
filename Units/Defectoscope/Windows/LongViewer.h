@@ -38,6 +38,7 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
 	void operator()(TRButtonDown &);
+	void operator()(TDestroy &);
 
 	bool LongViewer::Draw(TMouseMove &, VGraphics &);
 	bool LongViewer::GetColorBar(unsigned , int , double &, unsigned &);

@@ -108,4 +108,5 @@ public:
 	bool Draw(TMouseMove &, VGraphics &);
 
 	void Draw(TSize &);
+	void operator()(TDestroy &);
 };

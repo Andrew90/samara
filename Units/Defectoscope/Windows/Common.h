@@ -80,8 +80,6 @@ namespace Common
 		{
 			RECT r;
 			GetWindowRect(o->hWnd, &r);
-			//p->l.hwnd = o->hWnd;
-			//o->storedMouseMove.x = p->l.x;
 			o->offsetX = p->offsetX;
 			TMouseWell m = {o->hWnd, WM_MOUSEWHEEL, 0, 0, 0};
 			SendMessage(MESSAGE(m));

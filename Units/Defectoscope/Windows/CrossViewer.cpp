@@ -144,3 +144,9 @@ void CrossViewer::operator()(TRButtonDown &l)
 	PopupMenu<ContextMenuCrossWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
+void CrossViewer::operator()(TDestroy &m)
+{
+	delete backScreen;
+    backScreen = NULL;
+	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+}

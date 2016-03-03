@@ -31,20 +31,4 @@ void IOportsDlg::Do(HWND h)
 		ShowWindow(h, SW_SHOWNORMAL);
 	}
 }
-/*
-void IOportsDlg::SendTitle()
-{
-	HWND hh = FindWindow(L"ManagementIOportsDlg", 0);
-	if(NULL != hh)
-	{
-		wchar_t *mess = L"Просмотр дискретных входов-выходов";
-		if(SendMessage(mainWindow.hToolBar, TB_ISBUTTONENABLED, IDB_SensorsUnit, 0))
-		{
-			mess = L"Управление дискретными выходами";
-		}
-		SetWindowText(hh, mess);
-		SendMessage(hh, WM_SYSCOMMAND, SC_RESTORE, 0);
-		SetForegroundWindow(hh);
-	}
-}
-*/
+
