@@ -2,7 +2,6 @@
 #include "message.h"
 #include "ColorLabel.h"
 #include "Chart.h"
-//#include "ThicknessData.h"
 #include "Chart.hpp"
 #include "BarSeries.h"
 #include "FixedGridSeries.h"

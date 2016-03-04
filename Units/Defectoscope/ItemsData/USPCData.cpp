@@ -4,6 +4,8 @@
 #include "AppBase.h"
 #include <math.h>
 #include <Mmsystem.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 #pragma comment(lib, "Winmm.lib")
 
@@ -74,17 +76,35 @@ unsigned char *USPCData::CurrentFrame()
 		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
 		 b[i].hdr.G1Tof = 100 * c;
 		 b[i].hdr.G2Tof = 200 * c;
-		 //BYTE *p = b[i].Point;
-		 //double dw = 2 * 3.1415 / 512;
-		 //for(int j = 0; j < 512; ++j)
-		 //{
-		//	 p[j] = BYTE(127 * (sin(dw * j * c + 0.1 * dw * rand() / RAND_MAX) + 1));
-		 //}
 	 }
-	 //for(; i < App::count_frames; ++i)
-	 //{
-	//	 memcpy(&b[i], &b[i % App::count_sensors], sizeof(USPC7100_ASCANDATAHEADER));
-	 //}
+	  ///эмитация смещения  кадров по зонам
+	 for(int j = 0; j < 51; ++j)
+	 {
+		 d.offsets[j] = 16000 * j;
+	 }
+
+	 d.currentOffsetFrames = 16000 * 51;
+	 d.currentOffsetZones = 50;
+ }
+
+ void TestUSPC::InitThickness(USPCData &d)
+ {
+	 ///эмитация считанных данных
+	 int xx[8] = {};
+	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
+	 int i = 0;
+	 double dw = M_PI / App::count_frames;
+	 for(; i < App::count_frames; ++i)
+	 {
+		 int c = i % App::count_sensors;
+		 b[i].Channel = c;
+		 ++c;
+		 b[i].hdr.G1Amp = (DWORD)(12.5 + 3 * sin(dw * i * c));
+		 ++xx[c - 1];
+		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
+		 b[i].hdr.G1Tof = 100 * c;
+		 b[i].hdr.G2Tof = 200 * c;
+	 }
 	  ///эмитация смещения  кадров по зонам
 	 for(int j = 0; j < 51; ++j)
 	 {

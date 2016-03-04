@@ -320,6 +320,12 @@
     <ClCompile Include="Windows\LongWindow.cpp">
       <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\ThicknessWindow.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsData\DataThicknessViewer.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -623,6 +629,9 @@
       <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
     <ClInclude Include="Windows\LineChart.hpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ThicknessWindow.h">
       <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
   </ItemGroup>

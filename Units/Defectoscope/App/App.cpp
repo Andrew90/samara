@@ -50,7 +50,7 @@ void App::Init()
 	 TestUSPC test;
 	 test.Init(Singleton<ItemData<Long> >::Instance());
 	 test.Init(Singleton<ItemData<Cross> >::Instance());
-	 test.Init(Singleton<ItemData<Thickness> >::Instance());
+	 test.InitThickness(Singleton<ItemData<Thickness> >::Instance());
 	 zprint("  Stop time %d\n", GetTickCount() - start);
 ///-------------------------------test------------------------------
 }

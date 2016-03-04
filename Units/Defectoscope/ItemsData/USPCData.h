@@ -29,12 +29,14 @@ public:
 class USPCViewerThicknessData: public USPCData
 {
 public:
-	double bufferMin[App::count_sensors][App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
-	double bufferMax[App::count_sensors][App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
-	char status[App::count_sensors][App::zonesCount];	///< статус данных по датчикам и зонам
-	char commonStatus[App::zonesCount];					///< общий статус по зонам
-	double zonesMin[App::zonesCount];	///<минимальная толщина в зоне
-	double zonesMax[App::zonesCount];	///<максимальная толщина в зоне
+	double bufferMin[App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
+	double bufferMax[App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
+	char statusMin[App::zonesCount];
+	char statusMax[App::zonesCount];
+	char status[App::zonesCount];	///< статус данных по датчикам и зонам
+	//char commonStatus[App::zonesCount];					///< общий статус по зонам
+	//double zonesMin[App::zonesCount];	///<минимальная толщина в зоне
+	//double zonesMax[App::zonesCount];	///<максимальная толщина в зоне
 };
 
 template<class T>struct ItemData: USPCViewerData{}; 
@@ -45,4 +47,5 @@ template<>struct ItemData<Thickness>: USPCViewerThicknessData{};
 struct TestUSPC
 {
 	void Init(USPCData &);
+	void InitThickness(USPCData &);
 };

@@ -126,6 +126,7 @@
     <ClCompile Include="IOports\IOportsViewer.cpp" />
     <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
+    <ClCompile Include="ItemsData\DataThicknessViewer.cpp" />
     <ClCompile Include="ItemsData\DataViewer.cpp" />
     <ClCompile Include="ItemsData\ResultData.cpp" />
     <ClCompile Include="ItemsData\USPCData.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
+    <ClCompile Include="Windows\ThicknessWindow.cpp" />
     <ClCompile Include="Windows\ThresholdWindow.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
     <ClCompile Include="Windows\USPCBottomPanel.cpp" />
@@ -248,6 +250,7 @@
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ThicknessThresholdWindow.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
+    <ClInclude Include="Windows\ThicknessWindow.h" />
     <ClInclude Include="Windows\ThresholdWindow.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
     <ClInclude Include="Windows\USPCBottomPanel.h" />

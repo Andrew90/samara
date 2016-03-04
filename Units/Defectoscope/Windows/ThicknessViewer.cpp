@@ -65,12 +65,12 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 
 bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)
 {
-	data_1 = viewerData.zonesMin[zone];
-	data_ =  viewerData.zonesMax[zone];
+	data_1 = viewerData.bufferMin[zone];
+	data_ =  viewerData.bufferMax[zone];
 	ColorBar(
 		data_
 		, color1
-		, viewerData.commonStatus[zone]
+		, viewerData.status[zone]
 		, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[zone]
 	);
 
@@ -79,6 +79,7 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 	x[0] = unsigned char(3.0 * x[0] / 4);
 	x[1] = unsigned char(3.0 * x[1] / 4);
 	x[2] = unsigned char(3.0 * x[2] / 4);
+
 	return zone < viewerData.currentOffsetZones;	  
 }
 //-----------------------------------------------------------------------------
@@ -132,8 +133,8 @@ void ThicknessViewer::operator()(TSize &l)
 
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-	chart.minAxesY = 0;//Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
-	chart.maxAxesY = 15;//Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
+	chart.minAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMin<Thickness> >().value;
+	chart.maxAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMax<Thickness> >().value;
 	chart.Draw(g);
 }
 //----------------------------------------------------------------------------------------------------
@@ -178,7 +179,6 @@ void ThicknessViewer::operator()(TMouseWell &l)
 {	
 		mouseMove = false;
 
-		//chart.items.get<BarSeriesDouble>().OffsetToPixel(storedMouseMove.x, l.delta / 120);
 		OffsetToPixel(
 			chart
 			, storedMouseMove.x
@@ -197,9 +197,10 @@ unsigned ThicknessViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
+//CONTEXT_MENU(ThicknessWindow)
 void ThicknessViewer::operator()(TRButtonDown &l)
 {
-	zprint("\n");
+//	PopupMenu<ContextMenuThicknessWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
 void ThicknessViewer::operator()(TDestroy &m)

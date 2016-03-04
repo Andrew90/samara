@@ -42,17 +42,18 @@ char *StatusText(int id)
 }
 
 
-STATUS_LABEL(LessMinimumEnergy, "Энергия сигнала меньше порогового значения")
+STATUS_LABEL(AboveNorm, "<ff>Толщина выше нормы")
 //STATUS_LABEL(GreaterMaximumEnergy, "Энергия сигнала больше порогового значения")
-STATUS_LABEL(ValueLessThreshold, "Сигнал меньше порогового значения")
-STATUS_LABEL(ThicknessLessThreshold, "Вычисленная толщина меньше минимального значения")
+STATUS_LABEL(BelowNorm, "<ff0000>Толщина ниже нормы")
+STATUS_LABEL(BelowAboveNorm, "<ff00ff>Толщина ниже и выше нормы")
+//STATUS_LABEL(ThicknessLessThreshold, "Вычисленная толщина меньше минимального значения")
 //STATUS_LABEL(ThicknessGreaterThreshold, "Вычисленная толщина больше максимального значения")
 STATUS_LABEL(Undefined, "Результат не определён")
 STATUS_LABEL(DeathZone, "Мёртвая зона")
 
 STATUS_LABEL(Nominal, "<ff00>Норма")
 STATUS_LABEL(Defect, "<ff0000>Брак")
-STATUS_LABEL(Treshold2Class, "<ff>Класс 2")
+STATUS_LABEL(Treshold2Class, "<ffff00>Класс 2")
 //STATUS_LABEL(DefectMinMax, "<ffff00>Брак плюс-минус")
 //STATUS_LABEL(DefectDifferentWall, "<ffff>Брак разностенность")
 
@@ -130,10 +131,10 @@ void ColorBar(double &data, unsigned &color, int id, double defData)
     }\
 };
 
-COLOR_DATA(LessMinimumEnergy)
+//COLOR_DATA(LessMinimumEnergy)
 //COLOR_DATA(GreaterMaximumEnergy)
-COLOR_DATA(ValueLessThreshold)
-COLOR_DATA(ThicknessLessThreshold)
+//COLOR_DATA(ValueLessThreshold)
+//COLOR_DATA(ThicknessLessThreshold)
 //COLOR_DATA(ThicknessGreaterThreshold)
 COLOR_DATA(Undefined)
 COLOR_DATA(DeathZone)
@@ -142,6 +143,9 @@ COLOR_DATA(DeathZone)
 COLOR(Nominal)
 COLOR(Defect)
 COLOR(Treshold2Class)
+COLOR(AboveNorm)
+COLOR(BelowNorm)
+COLOR(BelowAboveNorm)
 //COLOR(DefectMinMax)
 //COLOR(DefectDifferentWall)
 //

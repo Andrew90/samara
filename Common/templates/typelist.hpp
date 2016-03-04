@@ -453,4 +453,21 @@ namespace TL
 		typedef NullType Result;
 	};
 //----------------------------------------------------------------------------------------------
+	template<class List, template<class>class Wapper>struct SelectWapper;
+
+	template<class Head, class Tail, template<class>class Wapper>struct SelectWapper<Tlst<Head, Tail>, Wapper>
+	{
+		typedef typename SelectWapper<Tail, Wapper>::Result Result;
+	};
+
+	template<class Head, class Tail, template<class>class Wapper>struct SelectWapper<Tlst<Wapper<Head>, Tail>, Wapper>
+	{
+		typedef Tlst<Wapper<Head>, typename SelectWapper<Tail, Wapper>::Result> Result;
+	};
+
+	template<template<class>class Wapper>struct SelectWapper<NullType, Wapper>
+	{
+		typedef NullType Result;
+	};
+//--------------------------------------------------------------------------------------------------
 }

@@ -30,7 +30,8 @@ namespace Common
 			}
 			return true;
 		}
-	};
+	};	
+
 	template<class T, class Owner>struct __event_data__
 	{
 		Owner &owner;
@@ -73,6 +74,9 @@ namespace Common
 			return true;
 		}
 	};
+
+	template<template<class, int>class Wapper, class T, int N, class P>struct __in_rect__<Wapper<T, N>, P>
+	  : __in_rect_all__<Wapper<T, N>, P, typename T::line_list>{};
 
 	template<class O, class P>struct __sub_in_rect_wapper_
 	{

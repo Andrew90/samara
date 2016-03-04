@@ -154,12 +154,6 @@ unsigned LongViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
-//CONTEXT_MENU(DetailedView)
-//void LongViewer::operator()(TRButtonDown &l)
-//{
-//	//PopupMenu<ViewerMenu::items_list>::Do(l.hwnd, l.hwnd);
-//	//PopupMenu<DetailedViewContextMenu::items_list>::Do(l.hwnd, l.hwnd);
-//}
 CONTEXT_MENU(LongWindow)
 void LongViewer::operator()(TRButtonDown &l)
 {

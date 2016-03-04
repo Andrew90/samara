@@ -15,6 +15,7 @@ public:
 	int offsetX;
 public:
 	HWND hWnd;
+	/*
 	struct Border2Class: HBorder{Border2Class(Chart &c): HBorder(c){}};
 	struct BorderDefect: HBorder{BorderDefect(Chart &c): HBorder(c){}};
 	typedef ChartDraw<Chart, TL::MkTlst<
@@ -25,9 +26,11 @@ public:
 		, Border2Class
 		, BorderDefect
 	>::Result> TChart;
-	TChart chart;
+	*/	
 	ColorLabel label;
-	Cursor cursor;
+	Chart *chart;
+	Cursor *cursor;
+public:
 	TMouseMove storedMouseMove;
 	bool mouseMove;
 	LineViewer();
@@ -40,4 +43,35 @@ public:
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
 	void operator()(TDestroy &);
+};
+
+template<class T>struct Border: HBorder
+{
+	Border(Chart &c): HBorder(c){}
+};
+
+template<class Thresh>class LineTresholdsViewer: public LineViewer
+{
+public:	
+	typedef LineViewer Parent;
+	typedef typename ChartDraw<Chart, typename TL::MultyListToList<typename TL::MkTlst<
+		TL::MkTlst<
+		LeftAxes
+		, BottomAxes
+		, BarSeries
+		, Grid	
+		>::Result
+		, typename TL::ListToWapperList<Thresh, Border>::Result
+	>::Result>::Result> TChart;
+private:
+	TChart chartLoc;
+	Cursor cursorLoc;
+public:
+	LineTresholdsViewer()
+		: chartLoc(backScreen)
+		, cursorLoc(chartLoc)
+	{
+		chart = &chartLoc;
+		cursor = &cursorLoc;
+	}
 };

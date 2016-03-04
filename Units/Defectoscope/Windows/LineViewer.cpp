@@ -8,17 +8,9 @@
 using namespace Gdiplus;
 LineViewer::LineViewer()
 	: backScreen(NULL)
-	, chart(backScreen)
-	, cursor(chart)
 {
-	chart.minAxesY = 0;
-	chart.maxAxesY = 256;
-	chart.minAxesX = 0;
-	chart.maxAxesX = 512;
 	label.fontHeight = 11;
 	label.top = 0;
-
-	chart.rect.top = 17;	
 }
 
 void LineViewer::operator()(TSize &l)		   
@@ -46,10 +38,10 @@ void LineViewer::operator()(TSize &l)
 	g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29); 
 
-	chart.rect.right = l.Width;
-	chart.rect.bottom = l.Height;
+	chart->rect.right = l.Width;
+	chart->rect.bottom = l.Height;
 	
-	chart.Draw(g);
+	chart->Draw(g);
 }
 void LineViewer::operator()(TPaint &l)
 {
@@ -59,15 +51,20 @@ void LineViewer::operator()(TPaint &l)
 	{		
 		Graphics g(hdc);		
 		g.DrawCachedBitmap(&CachedBitmap(backScreen, &g), 0, 0);
-		cursor.VerticalCursor(storedMouseMove, PaintGraphics(g));
+		cursor->VerticalCursor(storedMouseMove, PaintGraphics(g));
 	}
 	EndPaint(l.hwnd, &p);
 }
 unsigned LineViewer::operator()(TCreate &l)	   
 {
+	chart->minAxesY = 0;
+	chart->maxAxesY = 256;
+	chart->minAxesX = 0;
+	chart->maxAxesX = 512;
+	chart->rect.top = 17;	
 	storedMouseMove.hwnd = l.hwnd;
 	storedMouseMove.x = 0;	
-	storedMouseMove.y = WORD(chart.rect.top + 1);
+	storedMouseMove.y = WORD(chart->rect.top + 1);
 	mouseMove = true;
 	mouseMove = false;
 	offsetX = 0;
@@ -78,24 +75,21 @@ void LineViewer::operator()(TMouseWell &l)
 {
 	mouseMove = false;
 	if(l.delta > 0) offsetX -= 1; else if(l.delta < 0)offsetX += 1;
-	double dX = (chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight)
-		/(chart.maxAxesX - chart.minAxesX);
-	storedMouseMove.x = (WORD)(chart.rect.left + chart.offsetAxesLeft + dX * offsetX);
-	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+	double dX = (chart->rect.right - chart->rect.left - chart->offsetAxesLeft - chart->offsetAxesRight)
+		/(chart->maxAxesX - chart->minAxesX);
+	storedMouseMove.x = (WORD)(chart->rect.left + chart->offsetAxesLeft + dX * offsetX);
+	cursor->VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
-//--------------------------------------------------------------
-
-
- //--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
  void LineViewer::operator()(TMouseMove &l)
  {	 
 	 if(mouseMove)
 	 {
-		 if(cursor.VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
+		 if(cursor->VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
 		 {
 			 storedMouseMove = l;
 			 int y;
-			 chart.CoordCell(l.x, l.y, offsetX, y);	 
+			 chart->CoordCell(l.x, l.y, offsetX, y);	 
 		 }
 	 }
  }
@@ -108,13 +102,13 @@ void LineViewer::operator()(TMouseWell &l)
  void LineViewer::operator()(TLButtonDbClk &l)
 {
 	 mouseMove = true;
-	if(cursor.VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
+	if(cursor->VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
 	{
 		int y;
-	    chart.CoordCell(l.x, l.y, offsetX, y);	
+	    chart->CoordCell(l.x, l.y, offsetX, y);	
 	}
 }
- //--------------------------------------------------------------------------
+ //-----------------------------------------------------------------------------
  void LineViewer::operator()(TDestroy &)
  {
 	 delete backScreen;

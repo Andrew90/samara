@@ -89,25 +89,31 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-DEFINE_PARAM(LessMinimumEnergy, int, 0xff555555)
-DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
-DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
+//DEFINE_PARAM(LessMinimumEnergy, int, 0xff555555)
+//DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
+//DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
 DEFINE_PARAM(Undefined, int, 0xff555555)
 
 DEFINE_PARAM(Nominal, int, 0xff00ff00)
 DEFINE_PARAM(Treshold2Class, int, 0xffffff00)
 DEFINE_PARAM(Defect, int, 0xffff0000)
- 
 
+DEFINE_PARAM(AboveNorm, int, 0xff0000ff)
+DEFINE_PARAM(BelowNorm, int, 0xffff0000)
+DEFINE_PARAM(BelowAboveNorm, int, 0xffff00ff)
+ 
 DEFINE_PARAM(DeathZone, int, 0xff333333)  
 
 struct ColorTable
 {
 	typedef TL::MkTlst<	
 		 Undefined
-		, LessMinimumEnergy
-		, ValueLessThreshold
-		, ThicknessLessThreshold
+		//, LessMinimumEnergy
+		//, ValueLessThreshold
+		//, ThicknessLessThreshold
+		, AboveNorm
+		, BelowNorm
+		, BelowAboveNorm
 		, Nominal
 		, Defect
 		, Treshold2Class
