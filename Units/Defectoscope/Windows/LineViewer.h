@@ -15,18 +15,6 @@ public:
 	int offsetX;
 public:
 	HWND hWnd;
-	/*
-	struct Border2Class: HBorder{Border2Class(Chart &c): HBorder(c){}};
-	struct BorderDefect: HBorder{BorderDefect(Chart &c): HBorder(c){}};
-	typedef ChartDraw<Chart, TL::MkTlst<
-		LeftAxes
-		, BottomAxes
-		, BarSeries
-		, Grid	
-		, Border2Class
-		, BorderDefect
-	>::Result> TChart;
-	*/	
 	ColorLabel label;
 	Chart *chart;
 	Cursor *cursor;
@@ -42,7 +30,7 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
-	void operator()(TDestroy &);
+	//void operator()(TDestroy &);
 };
 
 template<class T>struct Border: HBorder

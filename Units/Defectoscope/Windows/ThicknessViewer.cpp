@@ -6,6 +6,8 @@
 #include "DebugMess.h"
 #include "AppBase.h"
 #include "App.h"
+#include "ThicknessWindow.h"
+#include "ViewersMenu.hpp"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
@@ -197,15 +199,17 @@ unsigned ThicknessViewer::operator()(TCreate &l)
 	return 0;
 }
 //------------------------------------------------------------------------------------------
-//CONTEXT_MENU(ThicknessWindow)
+CONTEXT_MENU(ThicknessWindow)
 void ThicknessViewer::operator()(TRButtonDown &l)
 {
-//	PopupMenu<ContextMenuThicknessWindow::items_list>::Do(l.hwnd, l.hwnd);
+	PopupMenu<ContextMenuThicknessWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
+/*
 void ThicknessViewer::operator()(TDestroy &m)
 {
 	delete backScreen;
     backScreen = NULL;
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
 }
+*/

@@ -17,6 +17,7 @@ class HBorder
 public:
 	double value;
 	int color;
+	int widthPen;
 public:
   Chart &chart;
   HBorder(Chart &chart);

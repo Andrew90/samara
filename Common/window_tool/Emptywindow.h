@@ -59,5 +59,17 @@ template<class T>HWND WindowTemplate(
 }
 
 void RepaintWindow(HWND h);
+/*
+template<class T>class NewWindow: public T
+{
+public:
+	typedef T Parent;
+	void operator()(TDestroy &l)
+	{
+		//SetWindowLongPtr(l.hwnd, GWLP_USERDATA, 0);
+		delete this;
+	}
+};
+*/
 
 

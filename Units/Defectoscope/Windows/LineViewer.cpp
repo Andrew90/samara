@@ -56,9 +56,7 @@ void LineViewer::operator()(TPaint &l)
 	EndPaint(l.hwnd, &p);
 }
 unsigned LineViewer::operator()(TCreate &l)	   
-{
-	chart->minAxesY = 0;
-	chart->maxAxesY = 256;
+{	
 	chart->minAxesX = 0;
 	chart->maxAxesX = 512;
 	chart->rect.top = 17;	
@@ -109,9 +107,11 @@ void LineViewer::operator()(TMouseWell &l)
 	}
 }
  //-----------------------------------------------------------------------------
+ /*
  void LineViewer::operator()(TDestroy &)
  {
 	 delete backScreen;
 	 backScreen = NULL;
 	 SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
  }
+ */

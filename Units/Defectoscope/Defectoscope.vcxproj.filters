@@ -577,9 +577,6 @@
     <ClInclude Include="Windows\ViewersMenu.hpp">
       <Filter>Windows\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\DetaliedMenu.hpp">
-      <Filter>Windows\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h">
       <Filter>Common\Device\USPC</Filter>
     </ClInclude>

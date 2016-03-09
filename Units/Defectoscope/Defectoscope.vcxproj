@@ -260,7 +260,6 @@
     <ClInclude Include="Windows\USPCWindow.h" />
     <ClInclude Include="Windows\ViewersMenu.hpp" />
     <ClInclude Include="Windows\USPCWindowToolBar.h" />
-    <ClInclude Include="Windows\DetaliedMenu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\BottomArr.bmp" />

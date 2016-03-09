@@ -9,23 +9,24 @@ const int COLOR_AXES_FONT = 0xff000033;
 const int COLOR_GRID = 0xff007700;
 const int BACK_GROUND = 0xffdddddd;
 Chart::Chart(Gdiplus::Bitmap *&backScreen)
-  : offsetAxesLeft(52)
-  , offsetAxesBottom(20)
-  , offsetAxesTop(0)
-  , offsetAxesRight(10)
-  , minAxesX(0)
-  , maxAxesX(1)
-  , minAxesY(0)
-  , maxAxesY(1)
-  , minAxesYRight(-1.0)
-  , maxAxesYRight(1.0)
-  , colorAxes(COLOR_AXES)
-  , colorFontAxes(COLOR_AXES_FONT)
-  , fontHeight(7)
-  , colorGrid(COLOR_GRID)
-  , backScreen(backScreen)
-  , dScaleX(1.0)
-  {
+	: offsetAxesLeft(52)
+	, offsetAxesBottom(20)
+	, offsetAxesTop(0)
+	, offsetAxesRight(10)
+	, minAxesX(0)
+	, maxAxesX(1)
+	, minAxesY(0)
+	, maxAxesY(1)
+	, minAxesYRight(-1.0)
+	, maxAxesYRight(1.0)
+	, colorAxes(COLOR_AXES)
+	, colorFontAxes(COLOR_AXES_FONT)
+	, fontHeight(7)
+	, colorGrid(COLOR_GRID)
+	, backScreen(backScreen)
+	, dScaleX(1.0)
+{
+	memset(&rect, 0, sizeof(rect));
 }
 Chart::~Chart()
 {

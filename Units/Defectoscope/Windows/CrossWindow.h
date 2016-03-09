@@ -13,7 +13,6 @@ public:
 	int lastZone;
 public:
 	HWND hWnd;
-	//double &minAxes, &maxAxes;
 	bool drawZones;
 	
 	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, 7>::Result line_list;
@@ -29,6 +28,7 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TMouseWell &);
+	void operator()(TDestroy &);
 	static wchar_t *Title();
 
 	bool DrawCursor(TMouseMove &, VGraphics &);

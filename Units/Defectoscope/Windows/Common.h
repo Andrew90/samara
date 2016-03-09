@@ -1,5 +1,6 @@
 #pragma once
 #include "DebugMess.h"
+#include "AppBase.h"
 
 namespace Common
 {
@@ -137,10 +138,126 @@ namespace Common
 			{
 				RECT r;
 				WindowPosition::Get<T>(r);
-				HWND h = WindowTemplate(&Singleton<T>::Instance(), T::Title(), r.left, r.top, r.right, r.bottom);
+				//HWND h = WindowTemplate(&Singleton<T>::Instance(), T::Title(), r.left, r.top, r.right, r.bottom);
+				HWND h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(h, SW_SHOWNORMAL);
+				zprint("\n");
 			}
 		}
-	};	
+	};
+
+	template<class O, class P>struct __destroy__window__
+	{
+		void operator()(O *o, P *)
+		{
+			 delete o->backScreen;
+		}
+	};
+//-----------------------------------------------------------------------------------------------
+	namespace 
+{
+	template<class T>struct ColorThreshold
+	{
+		typedef typename T::__template_must_be_overridded__ noused;
+	};
+
+	template<template<class>class W, class X>struct ColorThreshold<W<BorderDefect<X> > >
+	{
+		typedef Defect Result;
+	};
+	template<template<class>class W, class X>struct ColorThreshold<W<Border2Class<X> > >
+	{
+		typedef Treshold2Class Result;
+	};
+	template<template<class>class W, class X>struct ColorThreshold<W<AboveBorder<X> > >
+	{
+		typedef AboveNorm Result;
+	};
+	template<template<class>class W, class X>struct ColorThreshold<W<LowerBorder<X> > >
+	{
+		typedef BelowNorm Result;
+	};
+	template<template<class>class W, class X>struct ColorThreshold<W<NominalBorder<X> > >
+	{
+		typedef Nominal Result;
+	};
+
+	template<class O, class P>struct __set_color__
+	{
+			void operator()(O *o, P *p)
+			{
+				o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<O>::Result>().value;
+			}
+	};
+	template<class O, class P>struct __set_border_color__
+	{
+		void operator()(O *o, P *p)
+		{
+			typedef TL::SelectWapper<typename O::TChart::items_list, Border>::Result lst;
+			TL::foreach<lst, __set_color__>()(&((typename O::TChart *)o->chart)->items, p);
+			o->owner = p;
+			o->chart->minAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMin<typename P::sub_type> >().value;
+			o->chart->maxAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMax<typename P::sub_type> >().value;
+		}
+	};
+	template<class O, class P>struct __set_thresholds__
+	{
+		void operator()(O *o, P *p)
+		{
+			o->value = Singleton<ThresholdsTable>::Instance().items.get<TL::Inner<O>::Result>().value[*p];
+		}
+	};
+	template<class O, class P>struct __update__;
+	template<template<class, int>class W, class X, int N, class P>struct __update__<W<X, N>, P>
+	{
+		typedef W<X, N> O;
+		void operator()(O *o, P *p)
+		{
+			o->dataViewer.Do(p->lastZone);
+			o->chart->maxAxesX = o->dataViewer.count;
+			typedef TL::SelectWapper<typename O::TChart::items_list, Border>::Result lst;
+			TL::foreach<lst, __set_thresholds__>()(&((typename O::TChart *)o->chart)->items, &p->lastZone);
+			RepaintWindow(o->hWnd);
+		}
+	};
+	template<class O, class P>struct __clr__;
+	template<template<class, int>class W, class X, int N, class P>struct __clr__<W<X, N>, P>
+	{
+		typedef W<X, N> O;
+		void operator()(O *o, P *p)
+		{
+			o->chart->maxAxesX = 0;
+			RepaintWindow(o->hWnd);
+		}
+	};
+
+	static const int cross_window_height = 200;
+	struct __data__
+	{
+		int y, width, height;
+	};
+	
+	template<class O, class P>struct __draw__
+	{
+		void operator()(O *o, P *p)
+		{
+			 MoveWindow(o->hWnd, 0, 0, p->width, cross_window_height, TRUE);
+		}
+	};
+	template<template<class, int>class L, class W, int N, class P>struct __draw__<L<W, N>, P>
+	{
+		typedef L<W, N> O;
+		void operator()(O *o, P *p)
+		{
+			bool b = N % 2 == 0;
+			int x = b 
+				? 0
+				: p->width / 2
+				;
+			 MoveWindow(o->hWnd, x, p->y, p->width / 2, p->height, TRUE);
+			 if(!b) p->y += p->height;
+		}
+	};
+}
 }
 

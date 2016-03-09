@@ -508,8 +508,7 @@ wchar_t *ThicknessThresholdWindow::Title()
 //----------------------------------------------------------------------------------------
 void ThicknessThresholdWindow::operator()(TDestroy &m)
 {
-	delete backScreen;
-    backScreen = NULL;
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+	delete backScreen;
 }
 //----------------------------------------------------------------------------------------

@@ -29,12 +29,12 @@ void VBorder::Draw()
 	 }
  }
 //--------------------------------------------------------------------
-HBorder::HBorder(Chart &c) : chart(c), color(0xffffff00){}
+HBorder::HBorder(Chart &c) : chart(c), color(0xffffff00), widthPen(2){}
 //---------------------------------------------------------------------
 void HBorder::Draw()
 {
 	Color col(color);
-	Pen pen(col, 1);
+	Pen pen(col, (Gdiplus::REAL)widthPen);
 	double dY = (double) (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
     double y = chart.rect.bottom - chart.offsetAxesBottom - (value - chart.minAxesY) * dY;
 

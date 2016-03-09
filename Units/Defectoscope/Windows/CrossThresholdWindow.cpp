@@ -102,7 +102,7 @@ void CrossThresholdWindow::operator()(TClose &l)
 	}
 	DestroyWindow(l.hwnd);
 }
-
+//------------------------------------------------------
 wchar_t *CrossThresholdWindow::Title()
 {
 	return L"Поперечные пороги";

@@ -362,8 +362,7 @@ void TresholdWindow::AlignThreshold<&TresholdWindow::AlignAllZones>::Command(TCo
 //-------------------------------------------------------------------------------------
 void TresholdWindow::operator()(TDestroy &m)
 {
-	delete backScreen;
-    backScreen = NULL;
 	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
+	delete backScreen;	
 }
 //-----------------------------------------------------------------------------------
