@@ -9,7 +9,7 @@ using namespace Gdiplus;
 LineViewer::LineViewer()
 	: backScreen(NULL)
 {
-	label.fontHeight = 11;
+	label.fontHeight = 9;
 	label.top = 0;
 }
 

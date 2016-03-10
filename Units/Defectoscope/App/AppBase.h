@@ -89,28 +89,32 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-//DEFINE_PARAM(LessMinimumEnergy, int, 0xff555555)
-//DEFINE_PARAM(ValueLessThreshold, int, 0xff555555)
-//DEFINE_PARAM(ThicknessLessThreshold, int, 0xff555555)
 DEFINE_PARAM(Undefined, int, 0xff555555)
 
-DEFINE_PARAM(Nominal, int, 0xff00ff00)
+DEFINE_PARAM(Nominal       , int, 0xff00ff00)
 DEFINE_PARAM(Treshold2Class, int, 0xffffff00)
-DEFINE_PARAM(Defect, int, 0xffff0000)
+DEFINE_PARAM(Defect        , int, 0xffff0000)
 
 DEFINE_PARAM(AboveNorm, int, 0xff0000ff)
 DEFINE_PARAM(BelowNorm, int, 0xffff0000)
 DEFINE_PARAM(BelowAboveNorm, int, 0xffff00ff)
+
+DEFINE_PARAM(DefectAboveNorm     , int, 0xffff0000)
+DEFINE_PARAM(DefectBelowNorm     , int, 0xffff0000)
+DEFINE_PARAM(DefectBelowAboveNorm, int, 0xffff0000)
+
+DEFINE_PARAM(Treshold2ClassAboveNorm     , int, 0xffffff00)
+DEFINE_PARAM(Treshold2ClassBelowNorm     , int, 0xffff0000)
+DEFINE_PARAM(Treshold2ClassBelowAboveNorm, int, 0xffff0000)
+
+
  
 DEFINE_PARAM(DeathZone, int, 0xff333333)  
 
 struct ColorTable
 {
 	typedef TL::MkTlst<	
-		 Undefined
-		//, LessMinimumEnergy
-		//, ValueLessThreshold
-		//, ThicknessLessThreshold
+		 Undefined		
 		, AboveNorm
 		, BelowNorm
 		, BelowAboveNorm
@@ -118,6 +122,12 @@ struct ColorTable
 		, Defect
 		, Treshold2Class
 		, DeathZone
+		, DefectAboveNorm     
+		, DefectBelowNorm     
+		, DefectBelowAboveNorm
+		, Treshold2ClassAboveNorm     
+		, Treshold2ClassBelowNorm     
+		, Treshold2ClassBelowAboveNorm
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -351,6 +361,23 @@ struct AxesTable
 	const wchar_t *name(){return L"AxesTable";}
 };
 //-----------------------------------------------------------------------------------------------------------
+template<class T>struct OnTheJob;
+DEFINE_PARAM_WAPPER(OnTheJob, Cross    , bool, true)
+DEFINE_PARAM_WAPPER(OnTheJob, Long     , bool, true)
+DEFINE_PARAM_WAPPER(OnTheJob, Thickness, bool, true)
+
+struct OnTheJobTable
+{
+	typedef TL::MkTlst<
+		OnTheJob<Cross    >
+		, OnTheJob<Long     >
+		, OnTheJob<Thickness>
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"OnTheJobTable";}
+};
+//-----------------------------------------------------------------------------------------------------------
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
@@ -359,12 +386,12 @@ struct AxesTable
 		 , GraphicSignalOptionsTable	   
 		 , AdditionalSettingsTable
 		 , ColorTable
-		 
 		 , ACFBorderTable
 		 , InputBitTable
 		 , OutputBitTable
 		 , Descriptor1730Table
 		 , OffsetsTable
+		 , OnTheJobTable
 	 >::Result one_row_table_list;
 
 	 typedef TL::MkTlst<

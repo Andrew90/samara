@@ -52,9 +52,13 @@ void MainWindow::operator()(TSize &m)
 	static const int width = toolBar.Width();
 	select.Size(width, 5, 400);
 
-	testCheckBox0.Size(width + 525, 52, 200, 20);
-	testCheckBox1.Size(width, 52, 525, 20);
-	testCheckBox2.Size(width, 69, 525, 20);
+	//testCheckBox0.Size(width + 525, 52, 200, 20);
+	//testCheckBox1.Size(width, 52, 525, 20);
+	//testCheckBox2.Size(width, 69, 525, 20);
+
+	crossCheckBox	 .Size (width + 425, 5 , 400, 20);
+	longCheckBox	 .Size (width + 425, 25, 400, 20);
+	thicknessCheckBox.Size (width + 425, 45, 400, 20);
 
 	static const int topLabelHeight = 28;
 	int y = rt.bottom - rt.top - 1;
@@ -92,12 +96,17 @@ unsigned MainWindow::operator()(TCreate &m)
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {550,900, 3000};
 	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);
-//	//test
-    testCheckBox0.Init(toolBar.hWnd, L"test check box 0");
-    testCheckBox1.Init(toolBar.hWnd, L"test check box 1");
-    testCheckBox2.Init(toolBar.hWnd, L"test check box 2");
-//	//test end
-//
+////	//test
+//    testCheckBox0.Init(toolBar.hWnd, L"test check box 0");
+//    testCheckBox1.Init(toolBar.hWnd, L"test check box 1");
+//    testCheckBox2.Init(toolBar.hWnd, L"test check box 2");
+////	//test end
+////
+
+	crossCheckBox	 .Init(toolBar.hWnd, L"Измерение поперечных дефектов стенки трубы");
+	longCheckBox	 .Init(toolBar.hWnd, L"Измерение продольных дефектов стенки трубы");
+	thicknessCheckBox.Init(toolBar.hWnd, L"Измерение толщины стенки трубы");
+
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	topLabelViewer.label.fontHeight = 16;
 	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &m.hwnd);
@@ -137,4 +146,13 @@ void MainWindow::operator()(TMouseWell &l)
 		);
 }
 //--------------------------------------------------------------------------------
+void MainWindow::CheckBoxStateStoreInBase()
+{
+	CBase base(ParametersBase().name());
+	if(base.IsOpen())
+	{
+		UpdateWhere<OnTheJobTable>(Singleton<OnTheJobTable>::Instance(), base).ID(1).Execute();
+	}
+}
+
 

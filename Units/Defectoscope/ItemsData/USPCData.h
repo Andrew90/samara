@@ -13,6 +13,7 @@ public:
 	bool previousStrobeBit;			///<был ли в предыдущем сборе подн€т бит зоны
 	USPC7100_ASCANDATAHEADER ascanBuffer[App::count_frames];	///<собранные кадры
 	int offsets[App::zonesCount + 2];  ///< смещение кадров по зонам
+	char commonStatus[App::zonesCount];					///< общий статус по зонам
 	void Start();///< ¬ыполнить перед началом цикла сбора кадров с платы
 	void AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames); ///<добавл€ет считанные кадры с платы в массив
 	BYTE *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
@@ -22,8 +23,7 @@ class USPCViewerData: public USPCData
 {
 public:
 	double buffer[App::count_sensors][App::zonesCount];	///<¬ычисленные данные разбитые по датчикам и зонам
-	char status[App::count_sensors][App::zonesCount];	///< статус данных по датчикам и зонам
-	char commonStatus[App::zonesCount];					///< общий статус по зонам
+	char status[App::count_sensors][App::zonesCount];	///< статус данных по датчикам и зонам	
 };
 
 class USPCViewerThicknessData: public USPCData
@@ -33,7 +33,7 @@ public:
 	double bufferMax[App::zonesCount];	///<¬ычисленные данные разбитые по датчикам и зонам
 	char statusMin[App::zonesCount];
 	char statusMax[App::zonesCount];
-	char status[App::zonesCount];	///< статус данных по датчикам и зонам
+	//char status[App::zonesCount];	///< статус данных по датчикам и зонам
 	//char commonStatus[App::zonesCount];					///< общий статус по зонам
 	//double zonesMin[App::zonesCount];	///<минимальна€ толщина в зоне
 	//double zonesMax[App::zonesCount];	///<максимальна€ толщина в зоне

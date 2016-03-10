@@ -12,6 +12,7 @@
 #include "ResultViewer.h"
 #include "MessagesInterface.h"
 
+/*
 template<int N>class TestCheckBoxX
 {
 protected:
@@ -41,6 +42,21 @@ protected:
 		return b;
 	}
 };
+*/
+
+template<class T, class Parent>struct OnTheJobCheckBox
+{
+protected:
+	void Command(TCommand &m, bool b)
+	{
+		Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<T> >().value = b;
+		Parent::CheckBoxStateStoreInBase();
+	}
+	bool Init(HWND h)
+	{		
+		return Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<T> >().value;
+	}
+};
 
 class MainWindow
 {
@@ -48,9 +64,12 @@ public:
 	HWND hWnd;
 	HWND hStatusWindow;
 	MainWindowToolBar toolBar;
-	CheckBoxWidget<TestCheckBoxX<0> > testCheckBox0;
-	CheckBoxWidget<TestCheckBoxX<1> > testCheckBox1;
-	CheckBoxWidget<TestCheckBoxX<2> > testCheckBox2;
+	//CheckBoxWidget<TestCheckBoxX<0> > testCheckBox0;
+	//CheckBoxWidget<TestCheckBoxX<1> > testCheckBox1;
+	//CheckBoxWidget<TestCheckBoxX<2> > testCheckBox2;
+	CheckBoxWidget<OnTheJobCheckBox<Cross    , MainWindow> > crossCheckBox;
+	CheckBoxWidget<OnTheJobCheckBox<Long     , MainWindow> > longCheckBox;
+	CheckBoxWidget<OnTheJobCheckBox<Thickness, MainWindow> > thicknessCheckBox;
 	TopLabelViewer topLabelViewer;
 	SelectTypeSizeList select;
 	typedef TL::MkTlst<
@@ -68,4 +87,5 @@ public:
 	void operator()(TMessage &);
 	void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
+	static void CheckBoxStateStoreInBase();
 };

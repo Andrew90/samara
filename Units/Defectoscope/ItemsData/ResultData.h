@@ -5,6 +5,6 @@ class ResultViewerData
 {
 public:
     int currentOffset;
-	int status[App::zonesCount];
+	char commonStatus[App::zonesCount];
 	ResultViewerData();
 };

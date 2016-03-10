@@ -5,6 +5,7 @@
 #include "MedianFiltre.h"
 #include "DebugMess.h"
 #include "AppBase.h"
+#include "ResultData.h"
 
 void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
 {
@@ -45,23 +46,90 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 
 #define or(_0, _1, _2) if(StatusId<_0>() == _min || StatusId<_1>() == _max) return StatusId<_2>()
 
-int StatusZoneT(int _min, int _max)
+int StatusZoneThickness(int _min, int _max)
 {
-   and(Nominal  , Nominal  , Nominal  );
+   or(DeathZone, DeathZone, DeathZone);
+   /*
    and(Nominal  , AboveNorm, AboveNorm);
+   and(Nominal  , BelowNorm, BelowNorm);
 
    and(AboveNorm, AboveNorm, AboveNorm);
+   and(AboveNorm, BelowNorm, BelowAboveNorm);
    
-   and(BelowNorm, Nominal  , BelowNorm);
    and(BelowNorm, BelowNorm, BelowNorm);
    and(BelowNorm, AboveNorm, BelowAboveNorm);
+   */
 
-   or(DeathZone, DeathZone, DeathZone);
+   if(StatusId<Nominal>() == _min)
+   {
+	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<Nominal       >();
+	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
+	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
+	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   }
+
+   if(StatusId<AboveNorm>() == _min)
+   {
+	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<AboveNorm     >();
+	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
+	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
+	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   }
+
+   if(StatusId<BelowNorm>() == _min)
+   {
+	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<BelowNorm     >();
+	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
+	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
+	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   }
 
    or(BelowNorm, BelowNorm, BelowNorm);
    or(AboveNorm, AboveNorm, AboveNorm);
+   or(Nominal  , Nominal  , Nominal);
 
-   return StatusId<Undefined>();
+   return _min;
+}
+
+int StatusZoneDefect(int _min, int _max)
+{
+	 or(DeathZone     , DeathZone     , DeathZone);
+	 or(Defect        , Defect        , Defect);
+	 or(Treshold2Class, Treshold2Class, Treshold2Class);
+	 or(Nominal       , Nominal       , Nominal);
+
+	 return _min;
+}
+
+int StatusZoneCommon(int _min, int _max)
+{
+	 or(DeathZone     , DeathZone     , DeathZone);
+
+	 if(StatusId<Treshold2Class>() == _max)
+	 {
+		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Treshold2Class              >();
+		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<Treshold2ClassAboveNorm     >();
+		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<Treshold2ClassBelowNorm     >();
+		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<Treshold2ClassBelowAboveNorm>();
+	 }
+
+	 if(StatusId<Defect>() == _max)
+	 {
+		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Defect              >();
+		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<DefectAboveNorm     >();
+		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<DefectBelowNorm     >();
+		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<DefectBelowAboveNorm>();
+	 }
+
+	 if(StatusId<Nominal>() == _max)
+	 {
+		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Nominal       >();
+		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<AboveNorm     >();
+		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<BelowNorm     >();
+		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<BelowAboveNorm>();
+	 }
+
+	 return _min;
 }
 
 #undef and
@@ -98,7 +166,6 @@ namespace
 	, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-		//ZeroMemory(d.buffer, sizeof(d.buffer));
 		T filtre(f);
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
@@ -120,6 +187,15 @@ namespace
 					}
 				}				
 			}
+		}
+		for(int i = 0; i < d.currentOffsetZones; ++i)
+		{
+			char t = d.status[0][i];
+			for(int j = 1; j < App::count_sensors; ++j)
+			{
+				t = StatusZoneDefect(d.status[j][i], t);
+			}
+			d.commonStatus[i] = t;
 		}
 	}
 
@@ -163,34 +239,54 @@ namespace
 		}
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			d.status[i] = StatusZoneT(d.statusMin[i], d.statusMax[i]);
+			d.commonStatus[i] = StatusZoneThickness(d.statusMin[i], d.statusMax[i]);
 		}
+	}
+
+	void UndefinedItem(USPCViewerData &x)
+	{
+		ZeroMemory(x.status, sizeof(x.status));
+		ZeroMemory(x.buffer, sizeof(x.buffer));
+	}
+
+	void UndefinedItem(USPCViewerThicknessData &x)
+	{
+		ZeroMemory(x.bufferMax, sizeof(x.bufferMax));
+		ZeroMemory(x.bufferMin, sizeof(x.bufferMin));
+		ZeroMemory(x.commonStatus, sizeof(x.commonStatus));
 	}
 
 	template<class O, class P>struct __recalculation__
 	{
 		void operator()(O *, P *)
 		{
-
-			MedianFiltre f[App::count_sensors];
-			if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
+			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
+			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
-				int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
-				width |= 1;
-				for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
-				ComputeData<FiltreOn>(Singleton<ItemData<O> >::Instance()
-					, f
-					, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
-					);
+				MedianFiltre f[App::count_sensors];
+				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
+				{
+					int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
+					width |= 1;
+					for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
+					ComputeData<FiltreOn>(data
+						, f
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
+						);
+				}
+				else
+				{
+					ComputeData<FiltreOff>(data
+						, f
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
+						);
+				}
 			}
 			else
 			{
-				ComputeData<FiltreOff>(Singleton<ItemData<O> >::Instance()
-					, f
-					, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
-					);
+				UndefinedItem(data);
 			}
 		}
 	};
@@ -200,36 +296,84 @@ namespace
 		typedef Thickness O;
 		void operator()(O *, P *)
 		{
-			MedianFiltre f[App::count_sensors];
-			if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
+			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
+			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
-				int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
-				width |= 1;
-				for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
-				ComputeData<FiltreOn>(Singleton<ItemData<O> >::Instance()
-					, f
-					, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
-					);
+				MedianFiltre f[App::count_sensors];
+				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
+				{
+					int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
+					width |= 1;
+					for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
+					ComputeData<FiltreOn>(Singleton<ItemData<O> >::Instance()
+						, f
+						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
+						);
+				}
+				else
+				{
+					ComputeData<FiltreOff>(Singleton<ItemData<O> >::Instance()
+						, f
+						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
+						);
+				}
 			}
 			else
 			{
-				ComputeData<FiltreOff>(Singleton<ItemData<O> >::Instance()
-					, f
-					, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
-					, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
-					);
+				UndefinedItem(data);
 			}
 		}
 	};
+
+	void CommonStatus()
+	{
+		bool crossOnJob     = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross> >().value;
+		bool longOnJob      = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long> >().value;
+		bool thicknessOnJob = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness> >().value;
+
+		char (&crossStatus)[App::zonesCount] = Singleton<ItemData<Cross> >::Instance().commonStatus;
+		char (&longStatus)[App::zonesCount] = Singleton<ItemData<Long> >::Instance().commonStatus;
+		char (&thicknessStatus)[App::zonesCount] = Singleton<ItemData<Thickness> >::Instance().commonStatus;
+
+		char (&resultStatus)[App::zonesCount] = Singleton<ResultViewerData>::Instance().commonStatus;
+		int &currentOffset = Singleton<ResultViewerData>::Instance().currentOffset;
+
+		ZeroMemory(resultStatus, sizeof(currentOffset));
+
+		currentOffset = 0;
+
+		for(int i = 0; i < App::zonesCount; ++i)
+		{
+			char thick = StatusId<Undefined>();
+			if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
+
+			char def = StatusId<Undefined>();
+			if(crossOnJob    ) def = StatusZoneDefect(crossStatus[i]    , def);
+			if(longOnJob     ) def = StatusZoneDefect(longStatus[i]     , def);
+
+			char t = StatusZoneCommon(thick, def);
+			
+			if(StatusId<Undefined>() == t) break;
+
+			resultStatus[i] = t;
+
+			++currentOffset;
+		}
+	}
+
 }
 
 void Compute::Recalculation()
 {	
 	typedef TL::MkTlst<Cross, Long, Thickness>::Result list;
 	TL::foreach<list, __recalculation__>()((TL::Factory<list> *)0, (int *)0);
+
+	CommonStatus();
+
 	app.MainWindowUpdate();
 }
 

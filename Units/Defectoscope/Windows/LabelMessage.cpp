@@ -54,6 +54,8 @@ STATUS_LABEL(DeathZone, "Мёртвая зона")
 STATUS_LABEL(Nominal, "<ff00>Норма")
 STATUS_LABEL(Defect, "<ff0000>Брак")
 STATUS_LABEL(Treshold2Class, "<ffff00>Класс 2")
+
+STATUS_LABEL(DefectAboveNorm, "")
 //STATUS_LABEL(DefectMinMax, "<ffff00>Брак плюс-минус")
 //STATUS_LABEL(DefectDifferentWall, "<ffff>Брак разностенность")
 
@@ -146,6 +148,9 @@ COLOR(Treshold2Class)
 COLOR(AboveNorm)
 COLOR(BelowNorm)
 COLOR(BelowAboveNorm)
+
+COLOR(DefectAboveNorm)
+
 //COLOR(DefectMinMax)
 //COLOR(DefectDifferentWall)
 //

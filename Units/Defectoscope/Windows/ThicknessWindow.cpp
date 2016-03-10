@@ -102,7 +102,7 @@ bool ThicknessWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 		lastZone = x;
 		if(b)
 		{	
-			char *s = StatusText(viewer.viewerData.status[x]);
+			char *s = StatusText(viewer.viewerData.commonStatus[x]);
 			double valueMin = viewer.viewerData.bufferMin[x];
 			double valueMax = viewer.viewerData.bufferMax[x];
 			wsprintf(viewer.label.buffer, L"<ff>зона %d  датчик %d  минимум %s максимум %s  %S", 1 + x, 1 + y

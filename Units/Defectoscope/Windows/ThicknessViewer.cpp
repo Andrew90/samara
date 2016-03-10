@@ -72,7 +72,7 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 	ColorBar(
 		data_
 		, color1
-		, viewerData.status[zone]
+		, viewerData.commonStatus[zone]
 		, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[zone]
 	);
 
