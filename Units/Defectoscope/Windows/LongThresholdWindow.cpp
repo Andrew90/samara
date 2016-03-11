@@ -18,7 +18,7 @@ unsigned LongThresholdWindow::operator()(TCreate &l)
 		, sizeof(brak)
 		);
 	memmove(klass2
-		, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Long> >().value
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderKlass2<Long> >().value
 		, sizeof(klass2)
 		);
 	return 0;
@@ -45,7 +45,7 @@ void LongThresholdWindow::operator()(TClose &l)
 		}
 	}
 	bool changedKlass2 = false;
-	data = table.items.get<Border2Class<Long> >().value;
+	data = table.items.get<BorderKlass2<Long> >().value;
 	for(int i = 0; i < dimention_of(brak); ++i)
 	{
 		if(data[i] != klass2[i])
@@ -72,7 +72,7 @@ void LongThresholdWindow::operator()(TClose &l)
 				if(changedKlass2)
 				{
 					memmove(
-						table.items.get<Border2Class<Long> >().value
+						table.items.get<BorderKlass2<Long> >().value
 						, klass2
 						, sizeof(klass2)
 						);
@@ -86,7 +86,7 @@ void LongThresholdWindow::operator()(TClose &l)
 					{
 						Update<ThresholdsTable> update(base);
 						if(changedDefect)  update.set<BorderDefect<Long> >(brak);
-						if(changedKlass2)  update.set<Border2Class<Long> >(klass2);
+						if(changedKlass2)  update.set<BorderKlass2<Long> >(klass2);
 						update.Where().ID(id).Execute();
 					}
 					else

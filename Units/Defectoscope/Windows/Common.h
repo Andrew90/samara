@@ -161,13 +161,18 @@ namespace Common
 		typedef typename T::__template_must_be_overridded__ noused;
 	};
 
+	template<class X>struct ColorThreshold<Clr<X> >
+	{
+		typedef Clr<X> Result;
+	};
+
 	template<template<class>class W, class X>struct ColorThreshold<W<BorderDefect<X> > >
 	{
 		typedef Defect Result;
 	};
-	template<template<class>class W, class X>struct ColorThreshold<W<Border2Class<X> > >
+	template<template<class>class W, class X>struct ColorThreshold<W<BorderKlass2<X> > >
 	{
-		typedef Treshold2Class Result;
+		typedef BorderKlass2<X> Result;
 	};
 	template<template<class>class W, class X>struct ColorThreshold<W<AboveBorder<X> > >
 	{
@@ -186,9 +191,19 @@ namespace Common
 	{
 			void operator()(O *o, P *p)
 			{
-				o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<O>::Result>().value;
+				//o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<Clr<O> >::Result>().value;
+				o->color = Singleton<ColorTable>::Instance().items.get<Clr<TL::Inner<O>::Result> >().value;
 			}
 	};
+	//template<class X, class P>struct __set_color__<Clr<X>, P>
+	//{
+	//	typedef Clr<X> O;
+	//	void operator()(O *o, P *p)
+	//	{
+	//		//o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<Clr<O> >::Result>().value;
+	//		o->color = Singleton<ColorTable>::Instance().items.get<O>().value;
+	//	}
+	//};
 	template<class O, class P>struct __set_border_color__
 	{
 		void operator()(O *o, P *p)

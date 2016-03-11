@@ -3,7 +3,8 @@
 #include "ColorLabel.h"
 
 class TopLabelViewer
-{	
+{
+public:
 	Gdiplus::Bitmap *backScreen;
 public:
 	ColorLabel label;

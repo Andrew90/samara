@@ -6,23 +6,25 @@
 #include "DebugMess.h"
 #include "AppBase.h"
 #include "ResultData.h"
-
-void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
+/*
+template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
 {
 	 if(data > brakThreshold[zone])
 	 {
-		 status = StatusId<Defect>();
+#pragma message("дописать")
+		 status = StatusId<Clr<BorderDefect<T>>>();
 	 }
 	 else  if(data > klass2Threshold[zone])
 	 {
-		 status = StatusId<Treshold2Class>();
+#pragma message("дописать")
+		 status = StatusId<Clr<BorderKlass2<T>>>();
 	 }
 	 else
 	 {
 		status = StatusId<Nominal>();
 	 }
 }
-
+ */
 void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::zonesCount]
     , double (&minThreshold)[App::zonesCount], double (&nominalTreshold)[App::zonesCount], char &status)
 {
@@ -30,11 +32,11 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 	double max = nominalTreshold[zone] + maxThreshold[zone];
 	 if(data < min)
 	 {
-		 status = StatusId<BelowNorm>();
+		 status = StatusId<Clr<LowerBorder<Thickness> >>();
 	 }
 	 else  if(data > max)
 	 {
-		 status = StatusId<AboveNorm>();
+		 status = StatusId<Clr<AboveBorder<Thickness> >>();
 	 }
 	 else
 	 {
@@ -60,74 +62,74 @@ int StatusZoneThickness(int _min, int _max)
    and(BelowNorm, AboveNorm, BelowAboveNorm);
    */
 
-   if(StatusId<Nominal>() == _min)
-   {
-	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<Nominal       >();
-	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
-	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
-	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   }
-
-   if(StatusId<AboveNorm>() == _min)
-   {
-	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<AboveNorm     >();
-	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
-	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
-	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   }
-
-   if(StatusId<BelowNorm>() == _min)
-   {
-	   if(StatusId<Nominal	     >() == _max)	return 	StatusId<BelowNorm     >();
-	   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
-	   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
-	   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   }
-
-   or(BelowNorm, BelowNorm, BelowNorm);
-   or(AboveNorm, AboveNorm, AboveNorm);
-   or(Nominal  , Nominal  , Nominal);
+   //if(StatusId<Nominal>() == _min)
+   //{
+	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<Nominal       >();
+	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
+	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
+	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   //}
+   //
+   //if(StatusId<AboveNorm>() == _min)
+   //{
+	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<AboveNorm     >();
+	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
+	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
+	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   //}
+   //
+   //if(StatusId<BelowNorm>() == _min)
+   //{
+	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<BelowNorm     >();
+	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
+	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
+	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
+   //}
+   //
+   //or(BelowNorm, BelowNorm, BelowNorm);
+   //or(AboveNorm, AboveNorm, AboveNorm);
+   //or(Nominal  , Nominal  , Nominal);
 
    return _min;
 }
 
-int StatusZoneDefect(int _min, int _max)
+template<class T>int StatusZoneDefect(int _min, int _max)
 {
-	 or(DeathZone     , DeathZone     , DeathZone);
-	 or(Defect        , Defect        , Defect);
-	 or(Treshold2Class, Treshold2Class, Treshold2Class);
-	 or(Nominal       , Nominal       , Nominal);
+	 //or(DeathZone     , DeathZone     , DeathZone);
+	 //or(Defect        , Defect        , Defect);
+	 //or(Treshold2Class, Treshold2Class, Treshold2Class);
+	 //or(Nominal       , Nominal       , Nominal);
 
 	 return _min;
 }
 
 int StatusZoneCommon(int _min, int _max)
 {
-	 or(DeathZone     , DeathZone     , DeathZone);
-
-	 if(StatusId<Treshold2Class>() == _max)
-	 {
-		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Treshold2Class              >();
-		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<Treshold2ClassAboveNorm     >();
-		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<Treshold2ClassBelowNorm     >();
-		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<Treshold2ClassBelowAboveNorm>();
-	 }
-
-	 if(StatusId<Defect>() == _max)
-	 {
-		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Defect              >();
-		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<DefectAboveNorm     >();
-		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<DefectBelowNorm     >();
-		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<DefectBelowAboveNorm>();
-	 }
-
-	 if(StatusId<Nominal>() == _max)
-	 {
-		 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Nominal       >();
-		 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<AboveNorm     >();
-		 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<BelowNorm     >();
-		 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<BelowAboveNorm>();
-	 }
+	 //or(DeathZone     , DeathZone     , DeathZone);
+	 //
+	 //if(StatusId<Treshold2Class>() == _max)
+	 //{
+	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Treshold2Class              >();
+	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<Treshold2ClassAboveNorm     >();
+	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<Treshold2ClassBelowNorm     >();
+	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<Treshold2ClassBelowAboveNorm>();
+	 //}
+	 //
+	 //if(StatusId<Defect>() == _max)
+	 //{
+	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Defect              >();
+	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<DefectAboveNorm     >();
+	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<DefectBelowNorm     >();
+	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<DefectBelowAboveNorm>();
+	 //}
+	 //
+	 //if(StatusId<Nominal>() == _max)
+	 //{
+	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Nominal       >();
+	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<AboveNorm     >();
+	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<BelowNorm     >();
+	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<BelowAboveNorm>();
+	 //}
 
 	 return _min;
 }
@@ -162,7 +164,7 @@ namespace
 			return data;
 		}
 	};
-	template<class T>void ComputeData(USPCViewerData &d, MedianFiltre (&f)[App::count_sensors]
+	template<class T, class Data>void ComputeData(USPCViewerData &d, MedianFiltre (&f)[App::count_sensors]
 	, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
@@ -183,7 +185,7 @@ namespace
 					if(t > d.buffer[channel][i])
 					{
 						d.buffer[channel][i] = t;						
-						StatusZoneDefect(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
+						StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
 					}
 				}				
 			}
@@ -193,13 +195,13 @@ namespace
 			char t = d.status[0][i];
 			for(int j = 1; j < App::count_sensors; ++j)
 			{
-				t = StatusZoneDefect(d.status[j][i], t);
+				t = StatusZoneDefect<Data>(d.status[j][i], t);
 			}
 			d.commonStatus[i] = t;
 		}
 	}
 
-	template<class T>void ComputeData(USPCViewerThicknessData &d, MedianFiltre (&f)[App::count_sensors]
+	template<class T, class Data>void ComputeData(USPCViewerThicknessData &d, MedianFiltre (&f)[App::count_sensors]
 	, double (&normThickness)[App::zonesCount], double (&minThickness)[App::zonesCount], double (&maxThickness)[App::zonesCount])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
@@ -269,18 +271,18 @@ namespace
 					int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
 					width |= 1;
 					for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
-					ComputeData<FiltreOn>(data
+					ComputeData<FiltreOn, O>(data
 						, f
 						, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderKlass2<O> >().value
 						);
 				}
 				else
 				{
-					ComputeData<FiltreOff>(data
+					ComputeData<FiltreOff, O>(data
 						, f
 						, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderKlass2<O> >().value
 						);
 				}
 			}
@@ -305,7 +307,7 @@ namespace
 					int width = Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<O> >().value;
 					width |= 1;
 					for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
-					ComputeData<FiltreOn>(Singleton<ItemData<O> >::Instance()
+					ComputeData<FiltreOn, O>(Singleton<ItemData<O> >::Instance()
 						, f
 						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
 						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
@@ -314,7 +316,7 @@ namespace
 				}
 				else
 				{
-					ComputeData<FiltreOff>(Singleton<ItemData<O> >::Instance()
+					ComputeData<FiltreOff, O>(Singleton<ItemData<O> >::Instance()
 						, f
 						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
 						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
@@ -352,8 +354,8 @@ namespace
 			if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
 
 			char def = StatusId<Undefined>();
-			if(crossOnJob    ) def = StatusZoneDefect(crossStatus[i]    , def);
-			if(longOnJob     ) def = StatusZoneDefect(longStatus[i]     , def);
+			if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
+			if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
 
 			char t = StatusZoneCommon(thick, def);
 			

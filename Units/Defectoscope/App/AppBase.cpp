@@ -79,6 +79,15 @@ const wchar_t *ParametersBase::name()
 	return path;
 }
 //-------------------------------------------------------------------------	
+void TrimTypeList(wchar_t *buf, wchar_t *s)
+{
+	wchar_t *res = buf;
+	int len = wcslen(s);
+	for(int i = 0; i < len; ++i)
+	{
+		if(isalnum(s[i])) *res++ = s[i];
+	}
+}
 
 
 

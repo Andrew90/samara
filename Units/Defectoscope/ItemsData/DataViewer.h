@@ -24,7 +24,7 @@ template<class T, int channel>struct DataViewer: DefectData
 		   Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<T> >().value
 		   , Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<T> >().value
 		   , Singleton<ThresholdsTable>::Instance().items.get<BorderDefect<T> >().value
-		   , Singleton<ThresholdsTable>::Instance().items.get<Border2Class<T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<BorderKlass2<T> >().value
 		)
 	{}
 	void Do(int zone)

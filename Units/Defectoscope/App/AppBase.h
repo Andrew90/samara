@@ -3,6 +3,8 @@
 #include "TablesDefine.h"
 #include "App.h"
 //-------------------------------------------------------------------------------------------
+void TrimTypeList(wchar_t *, wchar_t *);
+//-------------------------------------------------------------------------------------------
 DEFINE_PARAM(CurrentID, int, 1)
 
 struct CurrentParametersTable
@@ -15,17 +17,17 @@ struct CurrentParametersTable
 	const wchar_t *name(){return L"CurrentParametersTable";}
 };
 //------------------------------------------------------------------------------------------
-template<class>struct Border2Class;
+template<class>struct BorderKlass2;
 template<class>struct BorderDefect;
 
 template<class>struct AboveBorder;
 template<class>struct LowerBorder;
 template<class>struct NominalBorder;
 
-DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Long, double, App::zonesCount, 20)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::zonesCount, 20)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 30)
 
-DEFINE_ARRAY_PARAM_WAPPER(Border2Class, Cross, double, App::zonesCount, 40)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::zonesCount, 40)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 60)
 
 DEFINE_ARRAY_PARAM_WAPPER(AboveBorder  , Thickness, double, App::zonesCount, 3.0)
@@ -35,9 +37,9 @@ DEFINE_ARRAY_PARAM_WAPPER(NominalBorder, Thickness, double, App::zonesCount, 12.
 struct ThresholdsTable
 {
 	typedef TL::MkTlst<
-		Border2Class<Long>
+		BorderKlass2<Long>
 		, BorderDefect<Long>
-		, Border2Class<Cross>
+		, BorderKlass2<Cross>
 		, BorderDefect<Cross>
 		 , AboveBorder  <Thickness>
 		 , LowerBorder  <Thickness>
@@ -92,7 +94,7 @@ struct PointsOptionsTable
 DEFINE_PARAM(Undefined, int, 0xff555555)
 
 DEFINE_PARAM(Nominal       , int, 0xff00ff00)
-DEFINE_PARAM(Treshold2Class, int, 0xffffff00)
+DEFINE_PARAM(Klass2, int, 0xffffff00)
 DEFINE_PARAM(Defect        , int, 0xffff0000)
 
 DEFINE_PARAM(AboveNorm, int, 0xff0000ff)
@@ -106,28 +108,54 @@ DEFINE_PARAM(DefectBelowAboveNorm, int, 0xffff0000)
 DEFINE_PARAM(Treshold2ClassAboveNorm     , int, 0xffffff00)
 DEFINE_PARAM(Treshold2ClassBelowNorm     , int, 0xffff0000)
 DEFINE_PARAM(Treshold2ClassBelowAboveNorm, int, 0xffff0000)
+DEFINE_PARAM(DeathZone, int, 0xff333333) 
 
+template<class >struct Clr;
+DEFINE_WAPPER(Clr<BorderKlass2<Long> >    , int, 0xffffff00)
+DEFINE_WAPPER(Clr<AboveBorder<Thickness> >, int, 0xff0000ff)
+DEFINE_WAPPER(Clr<LowerBorder<Thickness> >, int, 0xffff0000)
+DEFINE_WAPPER(Clr<NominalBorder<Thickness> >, int, 0xff00ff00)
+DEFINE_WAPPER(Clr<BorderDefect<Long> >      , int, 0xffff0000)
+DEFINE_WAPPER(Clr<BorderKlass2<Cross>>      , int, 0xffffff00)
+DEFINE_WAPPER(Clr<BorderDefect<Cross>>, int, 0xffff0000)
+/*
+#define _WAPPER_WAPPER(wapper, z, wapper2, z2, type, def_val) template<> struct wapper<z>\
+{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	const wchar_t *name(){return L#wapper##L#z;}\
+	wapper() : value(def_val), default_value(def_val) {}\
+};
+*/
 
- 
-DEFINE_PARAM(DeathZone, int, 0xff333333)  
 
 struct ColorTable
 {
 	typedef TL::MkTlst<	
-		 Undefined		
-		, AboveNorm
-		, BelowNorm
-		, BelowAboveNorm
-		, Nominal
-		, Defect
-		, Treshold2Class
-		, DeathZone
-		, DefectAboveNorm     
-		, DefectBelowNorm     
-		, DefectBelowAboveNorm
-		, Treshold2ClassAboveNorm     
-		, Treshold2ClassBelowNorm     
-		, Treshold2ClassBelowAboveNorm
+		 Undefined
+		 , DeathZone
+		 , Nominal
+		////, AboveNorm
+		////, BelowNorm
+		////, BelowAboveNorm
+		////, Nominal
+		////, Defect
+		//////, BorderKlass2
+		////, DeathZone
+		//, DefectAboveNorm     
+		//, DefectBelowNorm     
+		//, DefectBelowAboveNorm
+		//, Treshold2ClassAboveNorm     
+		//, Treshold2ClassBelowNorm     
+		//, Treshold2ClassBelowAboveNorm
+		, Clr<BorderKlass2<Long> > 
+		, Clr<AboveBorder<Thickness> >
+		, Clr<LowerBorder<Thickness> >
+		, Clr<NominalBorder<Thickness> >
+		, Clr<BorderDefect<Long> >
+		, Clr<BorderKlass2<Cross>>
+		, Clr<BorderDefect<Cross>>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -140,9 +168,9 @@ template<class T>inline int StatusId()
 }
 
 template<class T>struct Stat
-	{
-		static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
-	};
+{
+	static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
+};
 //-------------------------------------------------------------------------------------- 
 DEFINE_PARAM(SupplySensorDelay, int, 150)
 DEFINE_PARAM(RemoveSensorDelay, int,  150)
@@ -378,6 +406,34 @@ struct OnTheJobTable
 	const wchar_t *name(){return L"OnTheJobTable";}
 };
 //-----------------------------------------------------------------------------------------------------------
+wchar_t *Trim(wchar_t *);
+struct TestParam0
+{
+	typedef int type_value;
+	type_value value;\
+	const type_value default_value;
+	const wchar_t *name(){return L"DefectCrossAbove";}
+	TestParam0(): value(5), default_value(5) {}
+};
+struct TestParam1
+{
+	typedef int type_value;
+	type_value value;\
+	const type_value default_value;
+	const wchar_t *name(){return L"DefectLongAbove";}
+	TestParam1(): value(5), default_value(5) {}
+};
+struct TestTable
+{
+	typedef TL::MkTlst<
+		TestParam0
+		, TestParam1
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"TestTable";}
+};
+//------------------------------------------------------------------------------------------------------------
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
@@ -392,6 +448,7 @@ struct OnTheJobTable
 		 , Descriptor1730Table
 		 , OffsetsTable
 		 , OnTheJobTable
+		 , TestTable
 	 >::Result one_row_table_list;
 
 	 typedef TL::MkTlst<

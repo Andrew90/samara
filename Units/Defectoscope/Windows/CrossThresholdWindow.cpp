@@ -18,7 +18,7 @@ unsigned CrossThresholdWindow::operator()(TCreate &l)
 		, sizeof(brak)
 		);
 	memmove(klass2
-		, Singleton<ThresholdsTable>::Instance().items.get<Border2Class<Cross> >().value
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderKlass2<Cross> >().value
 		, sizeof(klass2)
 		);
 	return 0;
@@ -45,7 +45,7 @@ void CrossThresholdWindow::operator()(TClose &l)
 		}
 	}
 	bool changedKlass2 = false;
-	data = table.items.get<Border2Class<Cross> >().value;
+	data = table.items.get<BorderKlass2<Cross> >().value;
 	for(int i = 0; i < dimention_of(brak); ++i)
 	{
 		if(data[i] != klass2[i])
@@ -72,7 +72,7 @@ void CrossThresholdWindow::operator()(TClose &l)
 				if(changedKlass2)
 				{
 					memmove(
-						table.items.get<Border2Class<Cross> >().value
+						table.items.get<BorderKlass2<Cross> >().value
 						, klass2
 						, sizeof(klass2)
 						);
@@ -86,7 +86,7 @@ void CrossThresholdWindow::operator()(TClose &l)
 					{
 						Update<ThresholdsTable> update(base);
 						if(changedDefect)  update.set<BorderDefect<Cross> >(brak);
-						if(changedKlass2)  update.set<Border2Class<Cross> >(klass2);
+						if(changedKlass2)  update.set<BorderKlass2<Cross> >(klass2);
 						update.Where().ID(id).Execute();
 					}
 					else

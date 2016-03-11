@@ -87,3 +87,16 @@ template<class T>struct ID
 		for(int i = 0; i < count; ++i) value[i] = def_val;\
 	}\
 };
+
+#define DEFINE_WAPPER(Name, type, def_val)template<>struct Name	 \
+{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	Name() : value(def_val), default_value(def_val)\
+    {\
+	 TrimTypeList(Buf(),L#Name);\
+    }\
+	static wchar_t *Buf(){static wchar_t buf[dimention_of(L#Name)]; return buf;};\
+	wchar_t *name(){return Buf();}\
+};

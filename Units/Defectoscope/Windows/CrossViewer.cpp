@@ -34,8 +34,25 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
-	char *s = StatusText(viewerData.status[y][x]);
-	wsprintf(label.buffer, L"<ff>зона %d  датчик %d   %S     ", 1 + x, 1 + y, s);
+	int color;
+	bool b;
+	char *s = StatusText(viewerData.status[y][x], color, b);
+	wchar_t buf[128];
+	if(b)
+	{
+	   wsprintf(buf, L"<ff>значение <ff0000>%s", Wchar_from<double>(viewerData.buffer[y][x])());
+	}
+	else
+	{
+		buf[0] = 0;
+	}
+	wsprintf(label.buffer, L"<ff>Поперечный зона %d  датчик %d   <%6x>%S %s"
+		, 1 + x
+		, 1 + y
+		, color
+		, s
+		, buf
+		);
 	label.Draw(g());
 
 	return x < viewerData.currentOffsetZones;

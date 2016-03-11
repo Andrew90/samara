@@ -13,56 +13,32 @@ using namespace Gdiplus;
 
 bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 {
-	/*
-	char buf[512];
-	double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
-	double x = -0.5 * dX + chart.rect.left + chart.offsetAxesLeft;
-	int leftOffs = int((double(l.x) - x) / dX);
-    dprint("leftOffs %d ", leftOffs);
-	int status =  Singleton<ThicknessViewerData>::Instance().status[leftOffs];
-	if(status)
-	{		
-		char *txt = StatusLabel(status).text;
-		if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class)// || status == PrimaryData::DefectMinMax || status == PrimaryData::DefectDifferentWall)
-		{
-			double yMin = Singleton<ThicknessViewerData>::Instance().zonesMin[leftOffs];////////////////////////////////////////////////////
-			double yMax = Singleton<ThicknessViewerData>::Instance().zonesMax[leftOffs];
-			double delta = yMax - yMin;
-			sprintf(buf, "<ff>Р—РѕРЅР° <0xff0000>%d <ff>РЎРјРµС‰РµРЅРёРµ <ff0000>%.2f <ff>Рј С‚РѕР»С‰.РјРёРЅ. <0xff0000>%0.2f <ff>С‚РѕР»С‰.РјР°РєСЃ. <0xff0000>%0.2f %s <ff>РўРѕР»С‰.РєР»Р°СЃСЃ 2 %.2f  <ff>РўРѕР»С‰.Р±СЂР°Рє %.2f%"
-				, 1 + leftOffs
-				, 0.001 * zone_length * (1 + leftOffs)
-				, yMin
-				, yMax
-				, txt
-				, Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value
-				, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value
-				);
-		}
-		else
-		{
-			sprintf(buf, "<ff>Р—РѕРЅР° <ff0000>%d  %s  "
-				, 1 + leftOffs
-				, txt
-				);
-		}
-		RECT r;
-		GetClientRect(l.hwnd, &r);
-		label.left = 40;
-		label = buf;
-		label.Draw(g());
-		return true;
-	}
-	
-	return false;
-	*/
-//////////////////////////////////test
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d        ", 1 + x);
+	chart.CoordCell(l.x, l.y, x, y);
+	int color;
+	bool b;
+	char *s = StatusText(viewerData.commonStatus[x], color, b);
+	wchar_t buf[128];
+	if(b)
+	{
+		wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
+			Wchar_from<double>(viewerData.bufferMin[x])()
+			, Wchar_from<double>(viewerData.bufferMax[x])()
+			);
+	}
+	else
+	{
+		buf[0] = 0;
+	}
+	wsprintf(label.buffer, L"<ff>Толщина зона %d  <%6x>%S %s"
+		, 1 + x
+		, color
+		, s
+		, buf
+		);
 	label.Draw(g());
 
 	return x < viewerData.currentOffsetZones;
-	//////////////////////////////////////////test
 }
 
 bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)

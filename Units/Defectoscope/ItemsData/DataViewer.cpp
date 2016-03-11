@@ -4,6 +4,7 @@
 #include "MedianFiltre.h"
 #include "AppBase.h"
 #include "Compute.h"
+#include "App.h"
 
 
 namespace
@@ -41,7 +42,8 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 			{
 				data[cnt] = s[i].hdr.G1Amp;
 				scan[cnt] = &s[i];
-				StatusZoneDefect(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
+#pragma message ("Дописать")
+				StatusZoneDefect<Cross>(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -61,8 +63,8 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 			{
 				tmp[z] = s[offs].hdr.G1Amp;
 				sk[z] = &s[offs];
-				
-				StatusZoneDefect(offs, tmp[z], zone, brackThreshold, klass2Threshold, stat[z]);
+#pragma message ("Дописать")				
+				StatusZoneDefect<Cross>(offs, tmp[z], zone, brackThreshold, klass2Threshold, stat[z]);
 				if(++z >= medianFiltreWidth) break;
 			} 
 		}
@@ -75,7 +77,8 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 			{
 				double t = s[i].hdr.G1Amp;
 				char st;
-				StatusZoneDefect(offs, t, zone, brackThreshold, klass2Threshold, st);
+#pragma message ("Дописать")
+				StatusZoneDefect<Cross>(offs, t, zone, brackThreshold, klass2Threshold, st);
 				int ind = f.index % f.width;
 				sk[ind] = &s[i];
 				stat[ind] = st;

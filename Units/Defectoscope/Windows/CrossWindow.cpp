@@ -69,14 +69,11 @@ bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	viewer.chart.CoordCell(l.x, l.y, x, y);	
-
-	bool b = x < viewer.viewerData.currentOffsetZones;
+	drawZones =	x < viewer.viewerData.currentOffsetZones;
 	lastZone = x;
-	if(b)
-	{	
-		char *s = StatusText(viewer.viewerData.status[y][x]);
-		double value = viewer.viewerData.buffer[y][x];
-		wsprintf(viewer.label.buffer, L"<ff>зона %d  датчик %d  %s  %S", 1 + x, 1 + y, Wchar_from<double, 5>(value)(), s);
+	if(drawZones)
+	{
+		viewer.Draw(l, g);
 		TL::foreach<line_list, Common::__update__>()(&viewers, this);
 	}
 	else
@@ -85,8 +82,7 @@ bool CrossWindow::DrawCursor(TMouseMove &l, VGraphics &g)
 		TL::foreach<line_list, Common::__clr__>()(&viewers, this);
 	}
 	viewer.label.Draw(g());
-	drawZones = b;
-	return b;
+	return drawZones;
 }
 //-------------------------------------------------------------------------------------
 

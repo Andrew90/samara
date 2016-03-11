@@ -8,6 +8,7 @@
 #include "ViewersMenu.hpp"
 #include "LongWindow.h"
 #include "Common.h"
+#include "LabelMessage.h"
 
 using namespace Gdiplus;
 //------------------------------------------------------------------
@@ -49,8 +50,26 @@ LongViewer::LongViewer()
 bool LongViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>зона %d  датчик %d  %x      ", 1 + x, 1 + y, viewerData.status[y][x]);
+	chart.CoordCell(l.x, l.y, x, y);
+	int color;
+	bool b;
+	char *s = StatusText(viewerData.status[y][x], color, b);
+	wchar_t buf[128];
+	if(b)
+	{
+	   wsprintf(buf, L"<ff>значение <ff0000>%s", Wchar_from<double>(viewerData.buffer[y][x])());
+	}
+	else
+	{
+		buf[0] = 0;
+	}
+	wsprintf(label.buffer, L"<ff>Продольный зона %d  датчик %d   <%6x>%S %s"
+		, 1 + x
+		, 1 + y
+		, color
+		, s
+		, buf
+		);
 	label.Draw(g());
 
 	return x < viewerData.currentOffsetZones;
@@ -160,12 +179,5 @@ void LongViewer::operator()(TRButtonDown &l)
 	PopupMenu<ContextMenuLongWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
-/*
-void LongViewer::operator()(TDestroy &m)
-{
-	delete backScreen;
-    backScreen = NULL;
-	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
-}
-*/
+
 
