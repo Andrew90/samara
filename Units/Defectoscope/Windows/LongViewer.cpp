@@ -18,22 +18,6 @@ LongViewer::LongViewer()
 	, cursor(chart)
 	, viewerData(Singleton<ItemData<Long> >::Instance())
 {
-	/*
-	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
-	chart.minAxesY = 1;
-	chart.maxAxesY = 1 + App::count_sensors;
-	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
-	cursor.SetMouseMoveHandler(this, &LongViewer::Draw);
-	label.fontHeight = 12;
-	label.top = 0;
-	chart.rect.top = 17;
-	mouseMove = true;
-	label.fontHeight = 12;
-	label.top = 0;
-
-	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &LongViewer::GetColorBar);
-	*/
 	chart.minAxesY = 1;
 	chart.maxAxesY = 1 + App::count_sensors;
 	chart.minAxesX = 0;

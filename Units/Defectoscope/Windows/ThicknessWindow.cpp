@@ -45,22 +45,22 @@ namespace Common
 	template<int N, class P>struct __in_rect__<Line<ThicknessWindow, N>, P>
 	  : __in_rect_all__<Line<ThicknessWindow, N>, P, ThicknessWindow::line_list>{};
 
-	template<template<class>class W, class P>struct __set_thresholds__<W<AboveBorder<Thickness> >, P>
+	template<template<class>class W, class P>struct __set_thresholds__<W<BorderAbove<Thickness> >, P>
 	{
-		typedef W<AboveBorder<Thickness> > O;
+		typedef W<BorderAbove<Thickness> > O;
 		void operator()(O *o, P *p)
 		{
-			o->value = Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[*p]
+			o->value = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[*p]
 				+ Singleton<ThresholdsTable>::Instance().items.get<TL::Inner<O>::Result>().value[*p];
 		}
 	};
 
-	template<template<class>class W, class P>struct __set_thresholds__<W<LowerBorder<Thickness> >, P>
+	template<template<class>class W, class P>struct __set_thresholds__<W<BorderLower<Thickness> >, P>
 	{
-		typedef W<LowerBorder<Thickness> > O;
+		typedef W<BorderLower<Thickness> > O;
 		void operator()(O *o, P *p)
 		{
-			o->value = Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[*p]
+			o->value = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[*p]
 				- Singleton<ThresholdsTable>::Instance().items.get<TL::Inner<O>::Result>().value[*p];
 		}
 	};

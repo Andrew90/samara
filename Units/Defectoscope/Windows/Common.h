@@ -174,18 +174,18 @@ namespace Common
 	{
 		typedef BorderKlass2<X> Result;
 	};
-	template<template<class>class W, class X>struct ColorThreshold<W<AboveBorder<X> > >
-	{
-		typedef AboveNorm Result;
-	};
-	template<template<class>class W, class X>struct ColorThreshold<W<LowerBorder<X> > >
-	{
-		typedef BelowNorm Result;
-	};
-	template<template<class>class W, class X>struct ColorThreshold<W<NominalBorder<X> > >
-	{
-		typedef Nominal Result;
-	};
+	//template<template<class>class W, class X>struct ColorThreshold<W<AboveBorder<X> > >
+	//{
+	//	typedef AboveNorm Result;
+	//};
+	//template<template<class>class W, class X>struct ColorThreshold<W<LowerBorder<X> > >
+	//{
+	//	typedef BelowNorm Result;
+	//};
+//	template<template<class>class W, class X>struct ColorThreshold<W<NominalBorder<X> > >
+//	{
+//		typedef Nominal Result;
+//	};
 
 	template<class O, class P>struct __set_color__
 	{

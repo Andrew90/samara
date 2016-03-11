@@ -220,16 +220,16 @@ unsigned ThicknessThresholdWindow::operator()(TCreate &l)
 	ptrAlign = &ThicknessThresholdWindow::AlignOneZone;
 
 	memmove(aboveBorder
-		, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder  <Thickness> >().value
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderAbove  <Thickness> >().value
 		, sizeof(aboveBorder)
 		);
 	memmove(lowerBorder
-		, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder  <Thickness> >().value
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderLower  <Thickness> >().value
 		, sizeof(lowerBorder)
 		);
 
 	memmove(nominalBorder
-		, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value
 		, sizeof(nominalBorder)
 		);
 
@@ -406,7 +406,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 {
 	ThresholdsTable &table = Singleton<ThresholdsTable>::Instance();
 	bool changedNominal = false;
-	double *data = table.items.get<NominalBorder<Thickness> >().value;
+	double *data = table.items.get<BorderNominal<Thickness> >().value;
 	for(int i = 0; i < dimention_of(nominalBorder); ++i)
 	{
 		if(data[i] != nominalBorder[i])
@@ -423,7 +423,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 	}
 
 	bool changedAbove = false;
-	data = table.items.get<AboveBorder  <Thickness> >().value;
+	data = table.items.get<BorderAbove  <Thickness> >().value;
 	for(int i = 0; i < dimention_of(aboveBorder); ++i)
 	{
 		if(data[i] != aboveBorder[i])
@@ -433,7 +433,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 		}
 	}
 	bool changedLower = false;
-	data = table.items.get<LowerBorder  <Thickness> >().value;
+	data = table.items.get<BorderLower  <Thickness> >().value;
 	for(int i = 0; i < dimention_of(lowerBorder); ++i)
 	{
 		if(data[i] != lowerBorder[i])
@@ -453,7 +453,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 				if(changedNominal)
 				{
 					memmove(
-						table.items.get<NominalBorder<Thickness> >().value
+						table.items.get<BorderNominal<Thickness> >().value
 						, nominalBorder
 						, sizeof(nominalBorder)
 						);
@@ -461,7 +461,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 				if(changedAbove)
 				{					
 					memmove(
-						table.items.get<AboveBorder  <Thickness> >().value
+						table.items.get<BorderAbove  <Thickness> >().value
 						, aboveBorder
 						, sizeof(aboveBorder)
 						);
@@ -469,7 +469,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 				if(changedLower)
 				{
 					memmove(
-						table.items.get<LowerBorder  <Thickness> >().value
+						table.items.get<BorderLower  <Thickness> >().value
 						, lowerBorder
 						, sizeof(lowerBorder)
 						);
@@ -482,9 +482,9 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 					if(1 == CountId<ID<ThresholdsTable> >(base, id))
 					{
 						Update<ThresholdsTable> update(base);
-						if(changedNominal)  update.set<NominalBorder<Thickness> >(nominalBorder);
-						if(changedAbove)  update.set<AboveBorder  <Thickness> >(aboveBorder);
-						if(changedLower)  update.set<LowerBorder  <Thickness> >(lowerBorder);
+						if(changedNominal)  update.set<BorderNominal<Thickness> >(nominalBorder);
+						if(changedAbove)  update.set<BorderAbove  <Thickness> >(aboveBorder);
+						if(changedLower)  update.set<BorderLower  <Thickness> >(lowerBorder);
 						update.Where().ID(id).Execute();
 					}
 					else

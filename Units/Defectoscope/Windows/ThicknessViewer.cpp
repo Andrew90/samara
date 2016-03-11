@@ -49,7 +49,7 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 		data_
 		, color1
 		, viewerData.commonStatus[zone]
-		, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<Thickness> >().value[zone]
+		, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone]
 	);
 
 	color = color1;

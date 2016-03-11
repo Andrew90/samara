@@ -52,13 +52,27 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 	return false;
 	*/
 //////////////////////////////////test
+	//int x, y;
+	//chart.CoordCell(l.x, l.y, x, y);	
+	//wsprintf(label.buffer, L"<ff>Зона %d         ", 1 + x);
+	//label.Draw(g());
+	//
+	//return x < viewerData.currentOffset;
+	//////////////////////////////////////////test
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);	
-	wsprintf(label.buffer, L"<ff>Зона %d         ", 1 + x);
+	chart.CoordCell(l.x, l.y, x, y);
+	int color;
+	bool b;
+	char *s = StatusText(viewerData.commonStatus[x], color, b);
+	
+	wsprintf(label.buffer, L"<ff>Результат зона %d <%6x>%S"
+		, 1 + x
+		, color
+		, s
+		);
 	label.Draw(g());
 
 	return x < viewerData.currentOffset;
-	//////////////////////////////////////////test
 }
 
 bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)

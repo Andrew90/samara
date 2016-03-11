@@ -61,9 +61,9 @@ template<int channel>struct DataViewer<Thickness, channel>: ThicknessData
 		: ThicknessData(
 		   Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreWidth<T> >().value
 		   , Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<T> >().value
-		   , Singleton<ThresholdsTable>::Instance().items.get<AboveBorder  <T> >().value
-		   , Singleton<ThresholdsTable>::Instance().items.get<LowerBorder  <T> >().value
-		   , Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<BorderAbove  <T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<BorderLower  <T> >().value
+		   , Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<T> >().value
 		)
 	{}
 	void Do(int zone)

@@ -20,9 +20,9 @@ struct CurrentParametersTable
 template<class>struct BorderKlass2;
 template<class>struct BorderDefect;
 
-template<class>struct AboveBorder;
-template<class>struct LowerBorder;
-template<class>struct NominalBorder;
+template<class>struct BorderAbove;
+template<class>struct BorderLower;
+template<class>struct BorderNominal;
 
 DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::zonesCount, 20)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 30)
@@ -30,9 +30,9 @@ DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 30)
 DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::zonesCount, 40)
 DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 60)
 
-DEFINE_ARRAY_PARAM_WAPPER(AboveBorder  , Thickness, double, App::zonesCount, 3.0)
-DEFINE_ARRAY_PARAM_WAPPER(LowerBorder  , Thickness, double, App::zonesCount, 2.0)
-DEFINE_ARRAY_PARAM_WAPPER(NominalBorder, Thickness, double, App::zonesCount, 12.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderAbove  , Thickness, double, App::zonesCount, 3.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderLower  , Thickness, double, App::zonesCount, 2.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderNominal, Thickness, double, App::zonesCount, 12.0)
 
 struct ThresholdsTable
 {
@@ -41,9 +41,9 @@ struct ThresholdsTable
 		, BorderDefect<Long>
 		, BorderKlass2<Cross>
 		, BorderDefect<Cross>
-		 , AboveBorder  <Thickness>
-		 , LowerBorder  <Thickness>
-		 , NominalBorder<Thickness>
+		 , BorderAbove  <Thickness>
+		 , BorderLower  <Thickness>
+		 , BorderNominal<Thickness>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -92,44 +92,33 @@ struct PointsOptionsTable
 };
 //----------------------------------------------------------------------------------
 DEFINE_PARAM(Undefined, int, 0xff555555)
-
 DEFINE_PARAM(Nominal       , int, 0xff00ff00)
-DEFINE_PARAM(Klass2, int, 0xffffff00)
 DEFINE_PARAM(Defect        , int, 0xffff0000)
-
-DEFINE_PARAM(AboveNorm, int, 0xff0000ff)
-DEFINE_PARAM(BelowNorm, int, 0xffff0000)
-DEFINE_PARAM(BelowAboveNorm, int, 0xffff00ff)
-
-DEFINE_PARAM(DefectAboveNorm     , int, 0xffff0000)
-DEFINE_PARAM(DefectBelowNorm     , int, 0xffff0000)
-DEFINE_PARAM(DefectBelowAboveNorm, int, 0xffff0000)
-
-DEFINE_PARAM(Treshold2ClassAboveNorm     , int, 0xffffff00)
-DEFINE_PARAM(Treshold2ClassBelowNorm     , int, 0xffff0000)
-DEFINE_PARAM(Treshold2ClassBelowAboveNorm, int, 0xffff0000)
 DEFINE_PARAM(DeathZone, int, 0xff333333) 
 
-template<class >struct Clr;
+template<class _0=NullType, class _1=NullType, class _2=NullType>struct Clr
+{
+	typedef typename TL::MkTlst<_0, _1, _2>::Result items_list;
+};
+
 DEFINE_WAPPER(Clr<BorderKlass2<Long> >    , int, 0xffffff00)
-DEFINE_WAPPER(Clr<AboveBorder<Thickness> >, int, 0xff0000ff)
-DEFINE_WAPPER(Clr<LowerBorder<Thickness> >, int, 0xffff0000)
-DEFINE_WAPPER(Clr<NominalBorder<Thickness> >, int, 0xff00ff00)
+DEFINE_WAPPER(Clr<BorderAbove<Thickness> >, int, 0xff0000ff)
+DEFINE_WAPPER(Clr<BorderLower<Thickness> >, int, 0xffff0000)
+DEFINE_WAPPER(Clr<BorderNominal<Thickness> >, int, 0xff00ff00)
 DEFINE_WAPPER(Clr<BorderDefect<Long> >      , int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>>      , int, 0xffffff00)
-DEFINE_WAPPER(Clr<BorderDefect<Cross>>, int, 0xffff0000)
-/*
-#define _WAPPER_WAPPER(wapper, z, wapper2, z2, type, def_val) template<> struct wapper<z>\
-{\
-	typedef type type_value;\
-	type_value value;\
-	const type_value default_value;\
-	const wchar_t *name(){return L#wapper##L#z;}\
-	wapper() : value(def_val), default_value(def_val) {}\
-};
-*/
+DEFINE_WAPPER(Clr<BorderDefect<Cross>>      , int, 0xffff0000)
 
+#define	__(a, b) a##,##b
+#define	___(a, b, c) a##,##b##,##c
 
+DEFINE_WAPPER(__(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>), int, 0xffff0000)
+
+DEFINE_WAPPER(__(Clr<BorderDefect<Cross>, BorderLower<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(___(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+
+#undef	__
+#undef	___
 struct ColorTable
 {
 	typedef TL::MkTlst<	
@@ -150,12 +139,18 @@ struct ColorTable
 		//, Treshold2ClassBelowNorm     
 		//, Treshold2ClassBelowAboveNorm
 		, Clr<BorderKlass2<Long> > 
-		, Clr<AboveBorder<Thickness> >
-		, Clr<LowerBorder<Thickness> >
-		, Clr<NominalBorder<Thickness> >
+		, Clr<BorderAbove<Thickness> >
+		, Clr<BorderLower<Thickness> >
+		, Clr<BorderNominal<Thickness> >
 		, Clr<BorderDefect<Long> >
 		, Clr<BorderKlass2<Cross>>
 		, Clr<BorderDefect<Cross>>
+
+		, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+		, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+		, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+
+
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;

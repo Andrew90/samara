@@ -32,11 +32,11 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 	double max = nominalTreshold[zone] + maxThreshold[zone];
 	 if(data < min)
 	 {
-		 status = StatusId<Clr<LowerBorder<Thickness> >>();
+		 status = StatusId<Clr<BorderLower<Thickness> >>();
 	 }
 	 else  if(data > max)
 	 {
-		 status = StatusId<Clr<AboveBorder<Thickness> >>();
+		 status = StatusId<Clr<BorderAbove<Thickness> >>();
 	 }
 	 else
 	 {
@@ -205,21 +205,14 @@ namespace
 	, double (&normThickness)[App::zonesCount], double (&minThickness)[App::zonesCount], double (&maxThickness)[App::zonesCount])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-		//ZeroMemory(d.zonesMax, sizeof(d.bufferMax));
-		//
-		//for(int i = 0; i < App::zonesCount; ++i)
-		//	d.zonesMin[i] = 1000;
+
 		T filtre(f);
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			//for(int j = 0; j < dimention_of(d.buffer); ++j)
-			//{
-				d.bufferMin[i] = 1000;
-				d.bufferMax[i] = -1;
-				//d.status[i] = StatusId<Undefined>();
-				d.statusMin[i] = StatusId<Undefined>();
-				d.statusMin[i] = StatusId<Undefined>();
-			//}
+			d.bufferMin[i] = 1000;
+			d.bufferMax[i] = -1;
+			d.statusMin[i] = StatusId<Undefined>();
+			d.statusMin[i] = StatusId<Undefined>();
 			for(int j = d.offsets[i], last = d.offsets[i + 1]; j < last; ++j)
 			{
 				WORD channel = b[j].Channel;				
@@ -309,18 +302,18 @@ namespace
 					for(int i = 0; i < dimention_of(f); ++i) f[i].Clear(width);
 					ComputeData<FiltreOn, O>(Singleton<ItemData<O> >::Instance()
 						, f
-						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderAbove<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderLower<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<O> >().value
 						);
 				}
 				else
 				{
 					ComputeData<FiltreOff, O>(Singleton<ItemData<O> >::Instance()
 						, f
-						, Singleton<ThresholdsTable>::Instance().items.get<AboveBorder<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<LowerBorder<O> >().value
-						, Singleton<ThresholdsTable>::Instance().items.get<NominalBorder<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderAbove<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderLower<O> >().value
+						, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<O> >().value
 						);
 				}
 			}
