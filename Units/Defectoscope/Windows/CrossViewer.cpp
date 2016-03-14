@@ -36,7 +36,7 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 	chart.CoordCell(l.x, l.y, x, y);
 	int color;
 	bool b;
-	char *s = StatusText(viewerData.status[y][x], color, b);
+	char *s = StatusText()(viewerData.status[y][x], color, b);
 	wchar_t buf[128];
 	if(b)
 	{

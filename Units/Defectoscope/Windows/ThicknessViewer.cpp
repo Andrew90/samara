@@ -17,7 +17,7 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 	chart.CoordCell(l.x, l.y, x, y);
 	int color;
 	bool b;
-	char *s = StatusText(viewerData.commonStatus[x], color, b);
+	char *s = StatusText()(viewerData.commonStatus[x], color, b);
 	wchar_t buf[128];
 	if(b)
 	{
@@ -45,7 +45,7 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 {
 	data_1 = viewerData.bufferMin[zone];
 	data_ =  viewerData.bufferMax[zone];
-	ColorBar(
+	ColorBar()(
 		data_
 		, color1
 		, viewerData.commonStatus[zone]

@@ -63,7 +63,7 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 	chart.CoordCell(l.x, l.y, x, y);
 	int color;
 	bool b;
-	char *s = StatusText(viewerData.commonStatus[x], color, b);
+	char *s = StatusText()(viewerData.commonStatus[x], color, b);
 	
 	wsprintf(label.buffer, L"<ff>Результат зона %d <%6x>%S"
 		, 1 + x
@@ -78,7 +78,7 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 {
 	data = 0.9;
-	ColorBar(
+	ColorBar()(
 		data
 		, color
 		, viewerData.commonStatus[zone - 1]

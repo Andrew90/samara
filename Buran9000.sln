@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "debug_panel_new", "Units\de
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Messages", "Units\DefectoscopeMessages\Messages.vcxproj", "{1905CD7B-4775-4D79-ADC9-A24266EB457F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEST_MessageText", "Units\TEST_MessageText\TEST_MessageText.vcxproj", "{65B50ED7-1579-4801-9FFC-383980D44ABF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{830F7471-9313-4AF6-AEEA-93BA5896AF45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,8 +29,15 @@ Global
 		{1905CD7B-4775-4D79-ADC9-A24266EB457F}.Debug|Win32.Build.0 = Debug|Win32
 		{1905CD7B-4775-4D79-ADC9-A24266EB457F}.Release|Win32.ActiveCfg = Release|Win32
 		{1905CD7B-4775-4D79-ADC9-A24266EB457F}.Release|Win32.Build.0 = Release|Win32
+		{65B50ED7-1579-4801-9FFC-383980D44ABF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{65B50ED7-1579-4801-9FFC-383980D44ABF}.Debug|Win32.Build.0 = Debug|Win32
+		{65B50ED7-1579-4801-9FFC-383980D44ABF}.Release|Win32.ActiveCfg = Release|Win32
+		{65B50ED7-1579-4801-9FFC-383980D44ABF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65B50ED7-1579-4801-9FFC-383980D44ABF} = {830F7471-9313-4AF6-AEEA-93BA5896AF45}
 	EndGlobalSection
 EndGlobal

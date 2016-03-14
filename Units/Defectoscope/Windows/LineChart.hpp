@@ -29,7 +29,7 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 			double valY = ((Parent::TChart *)chart)->items.get<BarSeries>().ValueY(offsetX);
 			int color;
 			bool b;
-			char *s = StatusText(dataViewer.status[offsetX], color, b);
+			char *s = StatusText()(dataViewer.status[offsetX], color, b);
 			wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d  величина %s   %S     "
 				, 1 + owner->lastZone, 1 + N, offsetX, Wchar_from<double, 5>(valY)(), s);
 			zprint("\n");

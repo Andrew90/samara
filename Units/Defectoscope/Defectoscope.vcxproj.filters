@@ -91,6 +91,9 @@
     <Filter Include="Filtre">
       <UniqueIdentifier>{f4e25430-5a7b-4f78-af80-ccf33a227b99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MessageText">
+      <UniqueIdentifier>{bfa08a7b-a7e4-4c58-ba53-623daca776db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -163,9 +166,6 @@
     </ClCompile>
     <ClCompile Include="ItemsData\ZonesData.cpp">
       <Filter>ItemsData</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\LabelMessage.cpp">
-      <Filter>Windows\MainWindow</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp">
       <Filter>Common\Graphics</Filter>
@@ -326,6 +326,9 @@
     <ClCompile Include="ItemsData\DataThicknessViewer.cpp">
       <Filter>ItemsData</Filter>
     </ClCompile>
+    <ClCompile Include="MessageText\SelectMessage.cpp">
+      <Filter>MessageText</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -435,9 +438,6 @@
     </ClInclude>
     <ClInclude Include="ItemsData\ZonesData.h">
       <Filter>ItemsData</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\LabelMessage.h">
-      <Filter>Windows\MainWindow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\BarSeries.h">
       <Filter>Common\Graphics</Filter>
@@ -630,6 +630,12 @@
     </ClInclude>
     <ClInclude Include="Windows\ThicknessWindow.h">
       <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageText\LabelMessage.h">
+      <Filter>MessageText</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageText\SelectMessage.h">
+      <Filter>MessageText</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

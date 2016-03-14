@@ -100,3 +100,6 @@ template<class T>struct ID
 	static wchar_t *Buf(){static wchar_t buf[dimention_of(L#Name)]; return buf;};\
 	wchar_t *name(){return Buf();}\
 };
+
+
+

@@ -166,10 +166,10 @@ namespace Common
 		typedef Clr<X> Result;
 	};
 
-	template<template<class>class W, class X>struct ColorThreshold<W<BorderDefect<X> > >
-	{
-		typedef Defect Result;
-	};
+	//template<template<class>class W, class X>struct ColorThreshold<W<BorderDefect<X> > >
+	//{
+	//	typedef Defect Result;
+	//};
 	template<template<class>class W, class X>struct ColorThreshold<W<BorderKlass2<X> > >
 	{
 		typedef BorderKlass2<X> Result;
