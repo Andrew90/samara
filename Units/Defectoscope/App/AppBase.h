@@ -139,14 +139,20 @@ DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderDefect<Long> >												), 
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xffff0000)
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
 DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffffff00)
+
 DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
+
 DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffff0000)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffffff00)
+
 DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
 DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffff0000)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffffff00)
+
+DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffffff00)
 DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
 DEFINE_WAPPER(JOIN4(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
@@ -165,58 +171,45 @@ DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thi
 struct ColorTable
 {
 	typedef TL::MkTlst<	
-		Clr<Undefined   >
-		, Clr<DeathZone>
-		, Clr<Nominal	>
-		
-	    , Clr<BorderKlass2<Long> > 
-	    , Clr<BorderAbove<Thickness> >
-	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-	    , Clr<BorderLower<Thickness> >
-	    , Clr<BorderNominal<Thickness> >
-	    , Clr<BorderDefect<Long> >
-	    , Clr<BorderKlass2<Cross>>
-	    , Clr<BorderDefect<Cross>>
-
-		, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-		, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-		, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-
-		, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-		, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-		, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-
-		, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-		 
-        , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-        , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-        , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-//------------------------------------
-        , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
-		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-			 
-		, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-		, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
-		, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-			 
-		, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-		 	
-        , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-        , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
-        , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-//--------------------------------------------------------------------------------------------------------
-        , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-   
-        , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-        , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-        , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-//----------------------------------------------------------
-        , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-       
-        , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-        , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-        , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+/*0*/		Clr<Undefined   >
+/*1*/		, Clr<DeathZone>
+/*2*/		, Clr<Nominal	>
+/*3*/	    , Clr<BorderKlass2<Long> > 
+/*4*/	    , Clr<BorderAbove<Thickness> >
+/*5*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+/*6*/	    , Clr<BorderLower<Thickness> >
+/*7*/	    , Clr<BorderNominal<Thickness> >
+/*8*/	    , Clr<BorderDefect<Long> >
+/*9*/	    , Clr<BorderKlass2<Cross>>
+/*10*/	    , Clr<BorderDefect<Cross>>
+/*11*/		, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+/*12*/		, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+/*13*/		, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*14*/		, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+/*15*/		, Clr<BorderDefect<Long>, BorderLower<Thickness>>
+/*16*/		, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*17*/		, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+/*18*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+/*19*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+/*20*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*21*/      , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+/*22*/		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
+/*23*/		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*24*/		, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+/*25*/		, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
+/*26*/		, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*27*/		, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+/*28*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+/*29*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
+/*30*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*31*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+/*32*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*33*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+/*34*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*35*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
+/*36*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+/*37*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+/*38*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
 //------------------------------------------------------------------------------
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;

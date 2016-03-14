@@ -6,6 +6,7 @@
 #include "DebugMess.h"
 #include "AppBase.h"
 #include "ResultData.h"
+#include "SelectMessage.h"
 /*
 template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
 {
@@ -190,13 +191,18 @@ namespace
 				}				
 			}
 		}
+		int buf[ App::count_sensors + 1];
+		buf[App::count_sensors] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			char t = d.status[0][i];
-			for(int j = 1; j < App::count_sensors; ++j)
+			//char t = d.status[0][i];
+			for(int j = 0; j < App::count_sensors; ++j)
 			{
-				t = StatusZoneDefect<Data>(d.status[j][i], t);
+				//t = StatusZoneDefect<Data>(d.status[j][i], t);
+				buf[j] = d.status[j][i];
 			}
+			int t = 0;
+		    SelectMessage(buf, t);
 			d.commonStatus[i] = t;
 		}
 	}
@@ -341,23 +347,54 @@ namespace
 
 		currentOffset = 0;
 
+		//for(int i = 0; i < App::zonesCount; ++i)
+		//{
+		//	char thick = StatusId<Clr<Undefined>>();
+		//	if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
+		//
+		//	char def = StatusId<Clr<Undefined>>();
+		//	if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
+		//	if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
+		//
+		//	char t = StatusZoneCommon(thick, def);
+		//	
+		//	if(StatusId<Clr<Undefined>>() == t) break;
+		//
+		//	resultStatus[i] = t;
+		//
+		//	++currentOffset;
+		//}
+
+		int buf[4];
+
 		for(int i = 0; i < App::zonesCount; ++i)
 		{
-			char thick = StatusId<Clr<Undefined>>();
-			if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
+			//char thick = StatusId<Clr<Undefined>>();
+			//if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
+			//
+			//char def = StatusId<Clr<Undefined>>();
+			//if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
+			//if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
+			//
+			//char t = StatusZoneCommon(thick, def);
+			//
+			//if(StatusId<Clr<Undefined>>() == t) break;
+			int k = 0;
+			memset(buf, -1, sizeof(buf));
 
-			char def = StatusId<Clr<Undefined>>();
-			if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
-			if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
-
-			char t = StatusZoneCommon(thick, def);
+			if(crossOnJob    ) buf[k++] = crossStatus[i]    ;
+			if(longOnJob     ) buf[k++] = longStatus[i]     ;
+			if(thicknessOnJob) buf[k++] = thicknessStatus[i];
 			
-			if(StatusId<Clr<Undefined>>() == t) break;
+			int t = 0;
+
+			SelectMessage(buf, t);
 
 			resultStatus[i] = t;
-
+		
 			++currentOffset;
 		}
+
 	}
 
 }

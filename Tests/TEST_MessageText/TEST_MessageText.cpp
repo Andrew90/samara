@@ -6,14 +6,16 @@
 #include "SelectMessage.h"
 #include <Windows.h>
 #include "typelist.hpp"
+#include "DebugMess.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_CTYPE, "rus");
+	dprint("\n\n\n\n");
 	//Test();
 	int x[][4] = {
-		{ 0, 12, 4, -1 }
+		{ 9, 2, 3, -1 }
 		, { 0, 0, 4, -1 }
 		, { 0, 12, 1, -1 }
 		, { 0, 3, 4, -1 }
@@ -21,10 +23,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	};
 	char *s;
 	unsigned start = GetTickCount();
-	for (int i = 0; i < dimention_of(x); ++i)
+//	for (int i = 0; i < dimention_of(x); ++i)
 	{
-		s = SelectMessage(x[i]);
-		printf("%s  \n", s);
+		int t = 10000;
+		s = SelectMessage(x[0], t);
+		printf("%s  %d\n", s, t);
 	}
 
 	

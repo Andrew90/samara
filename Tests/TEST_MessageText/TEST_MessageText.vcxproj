@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Defectoscope\MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\work\Buran9000\Units\Defectoscope\App\;D:\work\Buran9000\Units\Defectoscope\MessageText\;..\Defectoscope\MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);..\Units\Defectoscope\App\;..\..\Common\Base</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -64,6 +64,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Units\Defectoscope\App;..\..\Units\Defectoscope\MessageText;..\Defectoscope\MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);..\Units\Defectoscope\App\;..\..\Common\Base</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,10 +77,17 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\..\Units\Defectoscope\App\AppBase.h" />
+    <ClInclude Include="..\Defectoscope\MessageText\LabelMessage.h" />
+    <ClInclude Include="..\Defectoscope\MessageText\SelectMessage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\..\Units\Defectoscope\App\AppBase.cpp" />
+    <ClCompile Include="..\..\Units\Defectoscope\MessageText\SelectMessage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

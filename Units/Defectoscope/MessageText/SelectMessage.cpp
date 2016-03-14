@@ -2,6 +2,7 @@
 #include "SelectMessage.h"
 #include "AppBase.h"
 #include "LabelMessage.h"
+#include "DebugMess.h"
 
 namespace
 {
@@ -53,6 +54,7 @@ namespace
 		typedef T items_list;
 		int *id;
 		char *str;
+		int res;
 	};
 
 	template<class List, class tmp = NullType, int len = 100>struct __min_list__;
@@ -71,48 +73,60 @@ namespace
 		typedef tmp Result;
 	};
 
-	template<class O>struct __id_filtr__
+	template<class O>struct __id_skip__
 	{
 		template<class P>bool operator()(P *p)
 		{
 			return false;
 		}
 	};
-	template<>struct __id_filtr__<Clr<Undefined>>
+	template<>struct __id_skip__<Clr<Undefined>>
 	{
 		template<class P>bool operator()(P *p)
 		{
 			if (-1 == *p->id)
 			{
-				if (NULL == p->str) p->str = __status_label__<Clr<Undefined>>::text();
+				if (NULL == p->str) 
+				{
+						p->str = __status_label__<Clr<Undefined>>::text();
+						p->res = __status_label__<Clr<Undefined>>::ID;
+				}
+				return true;
 			}
-			else
-			{
-				TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, p);
-			}
-			return true;
+			return false;
 		}
 	};
-	template<>struct __id_filtr__<Clr<DeathZone>>
+	template<>struct __id_skip__<Clr<DeathZone>>
 	{
 		template<class P>bool operator()(P *p)
 		{
 			*p->id = -1;
 			p->str = __status_label__<Clr<DeathZone>>::text();
+			p->res = __status_label__<Clr<DeathZone>>::ID;
 			return true;
 		}
 	};
-	template<>struct __id_filtr__<Clr<Nominal>>
+	template<>struct __id_skip__<Clr<Nominal>>
 	{
 		template<class P>bool operator()(P *p)
 		{
 			if (NULL == p->str)
 			{
 				p->str = __status_label__<Clr<Nominal>>::text();
+				p->res = __status_label__<Clr<Nominal>>::ID;
 			}
-			if (-1 != *p->id)TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, p);
-			return true;
+			return false;
 		}
+	};
+
+	template<class O, class P>struct __type_skip__
+	{
+		typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result Result;
+	};
+
+	template<class P>struct __type_skip__<Clr<Nominal>, P>
+	{
+		typedef typename P::items_list Result;
 	};
 
 	template<class O, class P>struct __id_XXX__;
@@ -123,14 +137,20 @@ namespace
 			if (TL::IndexOf<ColorTable::items_list, O>::value == *p->id)
 			{
 				p->id = &p->id[1];
+				if (__id_skip__<O>()(p)) return false;
 
-				if (__id_filtr__<O>()(p)) return -1 != *p->id;
-
-				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
+				typedef typename __type_skip__<O, P>::Result list;
 
 				if (-1 == *p->id)
 				{
-					p->str = __status_label__<typename __min_list__<list>::Result>::text();
+					typedef __status_label__<typename __min_list__<list>::Result> type;
+					p->str = type::text();
+					p->res = type::ID;
+					//dprint("O---%s\nP---%s\nL---%s\n"
+					//	, typeid(typename O::items_list).name()
+					//	, typeid(typename P::items_list).name()
+					//	, typeid(typename list)			.name()
+					//	);
 					return false;
 				}
 				TL::find<ColorTable::items_list, __id_XXX__>()((TL::Factory<ColorTable::items_list> *)0, (__data_id__<list> *)p);
@@ -139,36 +159,14 @@ namespace
 			return true;
 		}
 	};
-
-	template<class O, class P>struct __id_XXX__
-	{
-		bool operator()(O *, P *p)
-		{
-			if (TL::IndexOf<ColorTable::items_list, O>::value == *p->id)
-			{
-				p->id = &p->id[1];
-
-				if (__id_filtr__<O>()(p)) return -1 != *p->id;
-
-				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
-
-				if (-1 == *p->id)
-				{
-					p->str = __status_label__<typename __min_list__<list>::Result>::text();
-					return false;
-				}
-				TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, (__data_id__<list> *)p);
-				return false;
-			}
-			return true;
-		}
-	};
+	template<class O, class P>struct __id_XXX__: __id__<O, P>{};
 }
 
-char *SelectMessage(int *x)
+char *SelectMessage(int *x, int &res)
 {
-	__data_id__<ColorTable::items_list> d = { x, NULL };
+	__data_id__<ColorTable::items_list> d = { x, NULL, 0 };
 	TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+	res = d.res;
 	return d.str;
 }
 

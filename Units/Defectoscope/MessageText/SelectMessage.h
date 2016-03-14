@@ -1,6 +1,5 @@
 #pragma once
  
-char *SelectMessage(int *);
+char *SelectMessage(int *, int &);
 
-//void Test();
 
