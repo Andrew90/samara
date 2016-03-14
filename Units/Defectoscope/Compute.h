@@ -16,7 +16,7 @@ template<class T>void StatusZoneDefect(int offs, double data, int zone, double (
 	 }
 	 else
 	 {
-		status = StatusId<Nominal>();
+		status = StatusId<Clr<Nominal>>();
 	 }
 }
 

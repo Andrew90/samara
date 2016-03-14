@@ -40,7 +40,7 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 	 }
 	 else
 	 {
-		status = StatusId<Nominal>();
+		status = StatusId<Clr<Nominal>>();
 	 }
 }
 
@@ -50,7 +50,7 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 
 int StatusZoneThickness(int _min, int _max)
 {
-   or(DeathZone, DeathZone, DeathZone);
+  // or(DeathZone, DeathZone, DeathZone);
    /*
    and(Nominal  , AboveNorm, AboveNorm);
    and(Nominal  , BelowNorm, BelowNorm);
@@ -174,7 +174,7 @@ namespace
 			for(int j = 0; j < dimention_of(d.buffer); ++j)
 			{
 				d.buffer[j][i] = -1;
-				d.status[j][i] = StatusId<Undefined>();
+				d.status[j][i] = StatusId<Clr<Undefined>>();
 			}
 			for(int j = d.offsets[i], last = d.offsets[i + 1]; j < last; ++j)
 			{
@@ -211,8 +211,8 @@ namespace
 		{
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
-			d.statusMin[i] = StatusId<Undefined>();
-			d.statusMin[i] = StatusId<Undefined>();
+			d.statusMin[i] = StatusId<Clr<Undefined>>();
+			d.statusMin[i] = StatusId<Clr<Undefined>>();
 			for(int j = d.offsets[i], last = d.offsets[i + 1]; j < last; ++j)
 			{
 				WORD channel = b[j].Channel;				
@@ -343,16 +343,16 @@ namespace
 
 		for(int i = 0; i < App::zonesCount; ++i)
 		{
-			char thick = StatusId<Undefined>();
+			char thick = StatusId<Clr<Undefined>>();
 			if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
 
-			char def = StatusId<Undefined>();
+			char def = StatusId<Clr<Undefined>>();
 			if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
 			if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
 
 			char t = StatusZoneCommon(thick, def);
 			
-			if(StatusId<Undefined>() == t) break;
+			if(StatusId<Clr<Undefined>>() == t) break;
 
 			resultStatus[i] = t;
 

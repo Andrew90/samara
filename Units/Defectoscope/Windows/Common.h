@@ -191,8 +191,9 @@ namespace Common
 	{
 			void operator()(O *o, P *p)
 			{
+#pragma message("дописать")
 				//o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<Clr<O> >::Result>().value;
-				o->color = Singleton<ColorTable>::Instance().items.get<Clr<TL::Inner<O>::Result> >().value;
+				o->color = 0;//Singleton<ColorTable>::Instance().items.get<Clr<TL::Inner<O>::Result> >().value;
 			}
 	};
 	//template<class X, class P>struct __set_color__<Clr<X>, P>

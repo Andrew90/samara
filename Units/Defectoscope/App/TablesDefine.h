@@ -90,6 +90,7 @@ template<class T>struct ID
 
 #define DEFINE_WAPPER(Name, type, def_val)template<>struct Name	 \
 {\
+	typedef GetItemsList<Name>::Result items_list;\
 	typedef type type_value;\
 	type_value value;\
 	const type_value default_value;\

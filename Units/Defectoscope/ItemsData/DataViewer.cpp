@@ -83,7 +83,7 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 				sk[ind] = &s[i];
 				stat[ind] = st;
 				int ret = f.Add(t);
-				if(StatusId<DeathZone>() != st)
+				if(StatusId<Clr<DeathZone>>() != st)
 				{
 					data[cnt] = f.buf[ret];
 					scan[cnt] = sk[ret];

@@ -91,26 +91,33 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Clr
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Clr;
+//{
+//	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
+//};
+
+template<class T>struct GetItemsList;
+
+template<template<class, class, class, class>class W, class _0, class _1, class _2, class _3>struct	GetItemsList<W<_0, _1, _2, _3>>
 {
-	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
+	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result Result;
 };
 
 struct Undefined{};
 struct Nominal{};
-struct DeathZone{};
+struct DeathZone{typedef NullType items_list;};
 
 DEFINE_WAPPER(Clr<Undefined>, int, 0xff555555)
-DEFINE_WAPPER(Clr<Nominal  >     , int, 0xff00ff00)
+DEFINE_WAPPER(Clr<Nominal  >, int, 0xff00ff00)
 DEFINE_WAPPER(Clr<DeathZone>, int, 0xff333333) 
 
-DEFINE_WAPPER(Clr<BorderKlass2<Long> >    , int, 0xffffff00)
-DEFINE_WAPPER(Clr<BorderAbove<Thickness> >, int, 0xff0000ff)
-DEFINE_WAPPER(Clr<BorderLower<Thickness> >, int, 0xffff0000)
-DEFINE_WAPPER(Clr<BorderNominal<Thickness> >, int, 0xff00ff00)
-DEFINE_WAPPER(Clr<BorderDefect<Long> >      , int, 0xffff0000)
-DEFINE_WAPPER(Clr<BorderKlass2<Cross>>      , int, 0xffffff00)
-DEFINE_WAPPER(Clr<BorderDefect<Cross>>      , int, 0xffff0000)
+DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
+DEFINE_WAPPER(Clr<BorderAbove<Thickness>  >, int, 0xff0000ff)
+DEFINE_WAPPER(Clr<BorderLower<Thickness>  >, int, 0xffff0000)
+DEFINE_WAPPER(Clr<BorderNominal<Thickness>>, int, 0xff00ff00)
+DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
+DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
+DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
 
 #define	JOIN2(a, b) a##,##b
 #define	JOIN3(a, b, c) a##,##b##,##c
@@ -158,18 +165,18 @@ DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thi
 struct ColorTable
 {
 	typedef TL::MkTlst<	
-		//Clr<Undefined   >
-		//, Clr<DeathZone>
-		//, Clr<Nominal	>
+		Clr<Undefined   >
+		, Clr<DeathZone>
+		, Clr<Nominal	>
 		
-		 Clr<BorderKlass2<Long> > 
-		, Clr<BorderAbove<Thickness> >
-		, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-		, Clr<BorderLower<Thickness> >
-		, Clr<BorderNominal<Thickness> >
-		, Clr<BorderDefect<Long> >
-		, Clr<BorderKlass2<Cross>>
-		, Clr<BorderDefect<Cross>>
+	    , Clr<BorderKlass2<Long> > 
+	    , Clr<BorderAbove<Thickness> >
+	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+	    , Clr<BorderLower<Thickness> >
+	    , Clr<BorderNominal<Thickness> >
+	    , Clr<BorderDefect<Long> >
+	    , Clr<BorderKlass2<Cross>>
+	    , Clr<BorderDefect<Cross>>
 
 		, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
 		, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
