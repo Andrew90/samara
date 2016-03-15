@@ -14,7 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	setlocale(LC_CTYPE, "rus");
 	dprint("\n\n\n\n");
 	//Test();
-	int x[] = { 2, 2, -1 };
+	int x[] = { 0, 5, -1 };
 		
 	char *s;
 	unsigned start = GetTickCount();

@@ -7,25 +7,7 @@
 #include "AppBase.h"
 #include "ResultData.h"
 #include "SelectMessage.h"
-/*
-template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
-{
-	 if(data > brakThreshold[zone])
-	 {
-#pragma message("дописать")
-		 status = StatusId<Clr<BorderDefect<T>>>();
-	 }
-	 else  if(data > klass2Threshold[zone])
-	 {
-#pragma message("дописать")
-		 status = StatusId<Clr<BorderKlass2<T>>>();
-	 }
-	 else
-	 {
-		status = StatusId<Nominal>();
-	 }
-}
- */
+
 void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::zonesCount]
     , double (&minThreshold)[App::zonesCount], double (&nominalTreshold)[App::zonesCount], char &status)
 {
@@ -44,99 +26,6 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 		status = StatusId<Clr<Nominal>>();
 	 }
 }
-
-#define and(_0, _1, _2) if(StatusId<_0>() == _min && StatusId<_1>() == _max) return StatusId<_2>()
-
-#define or(_0, _1, _2) if(StatusId<_0>() == _min || StatusId<_1>() == _max) return StatusId<_2>()
-
-int StatusZoneThickness(int _min, int _max)
-{
-  // or(DeathZone, DeathZone, DeathZone);
-   /*
-   and(Nominal  , AboveNorm, AboveNorm);
-   and(Nominal  , BelowNorm, BelowNorm);
-
-   and(AboveNorm, AboveNorm, AboveNorm);
-   and(AboveNorm, BelowNorm, BelowAboveNorm);
-   
-   and(BelowNorm, BelowNorm, BelowNorm);
-   and(BelowNorm, AboveNorm, BelowAboveNorm);
-   */
-
-   //if(StatusId<Nominal>() == _min)
-   //{
-	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<Nominal       >();
-	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
-	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
-	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   //}
-   //
-   //if(StatusId<AboveNorm>() == _min)
-   //{
-	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<AboveNorm     >();
-	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<AboveNorm     >();
-	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
-	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   //}
-   //
-   //if(StatusId<BelowNorm>() == _min)
-   //{
-	//   if(StatusId<Nominal	     >() == _max)	return 	StatusId<BelowNorm     >();
-	//   if(StatusId<AboveNorm	 >() == _max)	return 	StatusId<BelowAboveNorm>();
-	//   if(StatusId<BelowNorm	 >() == _max)	return 	StatusId<BelowNorm     >();
-	//   if(StatusId<BelowAboveNorm>() == _max)	return 	StatusId<BelowAboveNorm>();
-   //}
-   //
-   //or(BelowNorm, BelowNorm, BelowNorm);
-   //or(AboveNorm, AboveNorm, AboveNorm);
-   //or(Nominal  , Nominal  , Nominal);
-
-   return _min;
-}
-
-template<class T>int StatusZoneDefect(int _min, int _max)
-{
-	 //or(DeathZone     , DeathZone     , DeathZone);
-	 //or(Defect        , Defect        , Defect);
-	 //or(Treshold2Class, Treshold2Class, Treshold2Class);
-	 //or(Nominal       , Nominal       , Nominal);
-
-	 return _min;
-}
-
-int StatusZoneCommon(int _min, int _max)
-{
-	 //or(DeathZone     , DeathZone     , DeathZone);
-	 //
-	 //if(StatusId<Treshold2Class>() == _max)
-	 //{
-	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Treshold2Class              >();
-	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<Treshold2ClassAboveNorm     >();
-	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<Treshold2ClassBelowNorm     >();
-	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<Treshold2ClassBelowAboveNorm>();
-	 //}
-	 //
-	 //if(StatusId<Defect>() == _max)
-	 //{
-	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Defect              >();
-	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<DefectAboveNorm     >();
-	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<DefectBelowNorm     >();
-	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<DefectBelowAboveNorm>();
-	 //}
-	 //
-	 //if(StatusId<Nominal>() == _max)
-	 //{
-	//	 if(StatusId<Nominal	   >() == _min)	return 	StatusId<Nominal       >();
-	//	 if(StatusId<AboveNorm	   >() == _min)	return 	StatusId<AboveNorm     >();
-	//	 if(StatusId<BelowNorm	   >() == _min)	return 	StatusId<BelowNorm     >();
-	//	 if(StatusId<BelowAboveNorm>() == _min)	return 	StatusId<BelowAboveNorm>();
-	 //}
-
-	 return _min;
-}
-
-#undef and
-#undef or
 
 Compute::Compute()
 {
@@ -195,10 +84,8 @@ namespace
 		buf[App::count_sensors] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			//char t = d.status[0][i];
 			for(int j = 0; j < App::count_sensors; ++j)
 			{
-				//t = StatusZoneDefect<Data>(d.status[j][i], t);
 				buf[j] = d.status[j][i];
 			}
 			int t = 0;
@@ -238,9 +125,16 @@ namespace
 				}				
 			}
 		}
+		
+		int buf[3];
+		buf[2] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
-		{
-			d.commonStatus[i] = StatusZoneThickness(d.statusMin[i], d.statusMax[i]);
+		{			
+			buf[0] = d.statusMin[i];		
+			buf[1] = d.statusMax[i];
+			int t = 0;
+			SelectMessage(buf, t);
+			d.commonStatus[i] = t;
 		}
 	}
 
@@ -347,38 +241,14 @@ namespace
 
 		currentOffset = 0;
 
-		//for(int i = 0; i < App::zonesCount; ++i)
-		//{
-		//	char thick = StatusId<Clr<Undefined>>();
-		//	if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
-		//
-		//	char def = StatusId<Clr<Undefined>>();
-		//	if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
-		//	if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
-		//
-		//	char t = StatusZoneCommon(thick, def);
-		//	
-		//	if(StatusId<Clr<Undefined>>() == t) break;
-		//
-		//	resultStatus[i] = t;
-		//
-		//	++currentOffset;
-		//}
+		if(crossOnJob) if(currentOffset < Singleton<ItemData<Cross> >::Instance().currentOffsetZones) currentOffset = Singleton<ItemData<Cross> >::Instance().currentOffsetZones;
+		if(longOnJob) if(currentOffset < Singleton<ItemData<Long> >::Instance().currentOffsetZones) currentOffset = Singleton<ItemData<Long> >::Instance().currentOffsetZones;
+		if(thicknessOnJob) if(currentOffset < Singleton<ItemData<Thickness> >::Instance().currentOffsetZones) currentOffset = Singleton<ItemData<Thickness> >::Instance().currentOffsetZones;
 
 		int buf[4];
 
-		for(int i = 0; i < App::zonesCount; ++i)
+		for(int i = 0; i < currentOffset; ++i)
 		{
-			//char thick = StatusId<Clr<Undefined>>();
-			//if(thicknessOnJob) thick = StatusZoneThickness(thicknessStatus[i], thick);
-			//
-			//char def = StatusId<Clr<Undefined>>();
-			//if(crossOnJob    ) def = StatusZoneDefect<Cross>(crossStatus[i]    , def);
-			//if(longOnJob     ) def = StatusZoneDefect<Long>(longStatus[i]     , def);
-			//
-			//char t = StatusZoneCommon(thick, def);
-			//
-			//if(StatusId<Clr<Undefined>>() == t) break;
 			int k = 0;
 			memset(buf, -1, sizeof(buf));
 
@@ -391,12 +261,8 @@ namespace
 			SelectMessage(buf, t);
 
 			resultStatus[i] = t;
-		
-			++currentOffset;
 		}
-
 	}
-
 }
 
 void Compute::Recalculation()

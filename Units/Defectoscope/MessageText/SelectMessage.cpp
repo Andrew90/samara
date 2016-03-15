@@ -153,6 +153,11 @@ namespace
 		typedef typename P::items_list Result;
 	};
 
+	template<class P>struct __type_skip__<Clr<Undefined>, P>
+	{
+		typedef typename P::items_list Result;
+	};
+
 	template<class X, class P>struct __type_skip__<Clr<BorderDefect<X>>, P>
 	{
 		typedef typename P::items_list Result;
@@ -223,9 +228,6 @@ namespace
 		template<class P>void operator()(P *p)
 		{
 			typedef __status_label__<typename __min_list__<typename P::items_list>::Result> type;
-			dprint("zzz %s\n", typeid(type).name());
-			//p->str = type::text();
-			//p->res = type::ID;
 		   __test_undifined__<type>()(p);
 		}
 	};
@@ -246,15 +248,7 @@ namespace
 
 				if (-1 == *p->id)
 				{
-					//typedef __status_label__<typename __min_list__<list>::Result> type;
-					//p->str = type::text();
-					//p->res = type::ID;
-					//dprint("O---%s\nP---%s\nL---%s\n"
-					//	, typeid(typename O::items_list).name()
-					//	, typeid(typename P::items_list).name()
-					//	, typeid(typename list)			.name()
-					//	);
-					__result__<skip_list>()(p);
+					__result__<skip_list>()((__data_id__<list> *)p);
 					return false;
 				}
 				TL::find<ColorTable::items_list, __id_XXX__>()((TL::Factory<ColorTable::items_list> *)0, (__data_id__<list> *)p);

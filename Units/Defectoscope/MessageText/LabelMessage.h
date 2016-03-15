@@ -126,8 +126,8 @@ template<class O, class P>struct __set_color_bar__
     }\
 };
 
-COLOR_DATA(Undefined)
-COLOR_DATA(DeathZone)
+COLOR_DATA(Clr<Undefined>)
+COLOR_DATA(Clr<DeathZone>)
 
 #define TXT(a, b) a##_##b
 #define STR(a, b) a<b>
