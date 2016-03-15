@@ -55,6 +55,7 @@ namespace
 		int *id;
 		char *str;
 		int res;
+		unsigned bits;
 	};
 
 	template<class List, class tmp = NullType, int len = 100>struct __min_list__;
@@ -73,6 +74,7 @@ namespace
 		typedef tmp Result;
 	};
 
+
 	template<class O>struct __id_skip__
 	{
 		template<class P>bool operator()(P *p)
@@ -80,22 +82,22 @@ namespace
 			return false;
 		}
 	};
-	template<>struct __id_skip__<Clr<Undefined>>
-	{
-		template<class P>bool operator()(P *p)
-		{
-			if (-1 == *p->id)
-			{
-				if (NULL == p->str) 
-				{
-						p->str = __status_label__<Clr<Undefined>>::text();
-						p->res = __status_label__<Clr<Undefined>>::ID;
-				}
-				return true;
-			}
-			return false;
-		}
-	};
+	//template<>struct __id_skip__<Clr<Undefined>>
+	//{
+	//	template<class P>bool operator()(P *p)
+	//	{
+	//		if (-1 == *p->id)
+	//		{
+	//			if (NULL == p->str) 
+	//			{
+	//					p->str = __status_label__<Clr<Undefined>>::text();
+	//					p->res = __status_label__<Clr<Undefined>>::ID;
+	//			}
+	//			return true;
+	//		}
+	//		return false;
+	//	}
+	//};
 	template<>struct __id_skip__<Clr<DeathZone>>
 	{
 		template<class P>bool operator()(P *p)
@@ -119,6 +121,28 @@ namespace
 		}
 	};
 
+	typedef TL::MkTlst<
+		Clr<BorderDefect<Cross>>, Clr<BorderDefect<Long>>
+		, Clr<BorderKlass2<Cross>>, Clr<BorderKlass2<Long>>
+	>::Result skip_list;
+
+	template<class X>struct __id_skip__<Clr<BorderDefect<X>>>
+	{
+		template<class P>bool operator()(P *p)
+		{
+			p->bits |= 1 << (TL::IndexOf<skip_list, Clr<BorderDefect<X>>>::value);
+			return false;
+		}
+	};
+	template<class X>struct __id_skip__<Clr<BorderKlass2<X>>>
+	{
+		template<class P>bool operator()(P *p)
+		{
+			p->bits |= 1 << (TL::IndexOf<skip_list, Clr<BorderKlass2<X>>>::value);
+			return false;
+		}
+	};
+
 	template<class O, class P>struct __type_skip__
 	{
 		typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result Result;
@@ -128,6 +152,85 @@ namespace
 	{
 		typedef typename P::items_list Result;
 	};
+
+	template<class X, class P>struct __type_skip__<Clr<BorderDefect<X>>, P>
+	{
+		typedef typename P::items_list Result;
+	};
+
+	template<class X, class P>struct __type_skip__<Clr<BorderKlass2<X>>, P>
+	{
+		typedef typename P::items_list Result;
+	};
+
+	template<class List>struct __result__;
+	template<class List>struct __result_XXX__;
+	template<class X, class Tail>struct __result__<Tlst<Clr<BorderDefect<X>>, Tail>>
+	{
+		typedef Clr<BorderDefect<X>> O;
+		template<class P>void operator()(P *p)
+		{
+			if(p->bits & (1 << TL::IndexOf<skip_list, O>::value))
+			{
+				p->bits &= ~(1 << TL::IndexOf<skip_list, Clr<BorderKlass2<X>>>::value);
+				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
+				__result_XXX__<Tail>()((__data_id__<list> *)p);
+				return;
+			}
+			__result_XXX__<Tail>()(p);
+		}
+	};
+
+	template<class X, class Tail>struct __result__<Tlst<Clr<BorderKlass2<X>>, Tail>>
+	{
+		typedef Clr<BorderKlass2<X>> O;
+		template<class P>void operator()(P *p)
+		{
+			if(p->bits & (1 << TL::IndexOf<skip_list, O>::value))
+			{
+				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
+				__result_XXX__<Tail>()((__data_id__<list> *)p);
+				return;
+			}
+			__result_XXX__<Tail>()(p);
+		}
+	};
+
+	template<class O>struct __test_undifined__
+	{
+		template<class P>void operator()(P *p)
+		{
+		   p->str = O::text();
+		   p->res = O::ID;
+		}
+	};
+
+	template<>struct __test_undifined__<__status_label__<Clr<Undefined>>>
+	{
+		typedef __status_label__<Clr<Undefined>> O;
+		template<class P>void operator()(P *p)
+		{
+			if(0 == p->res)
+			{
+				p->str = O::text();
+				p->res = O::ID;
+			}
+		}
+	};
+
+	template<>struct __result__<NullType>
+	{
+		template<class P>void operator()(P *p)
+		{
+			typedef __status_label__<typename __min_list__<typename P::items_list>::Result> type;
+			dprint("zzz %s\n", typeid(type).name());
+			//p->str = type::text();
+			//p->res = type::ID;
+		   __test_undifined__<type>()(p);
+		}
+	};
+
+	template<class List>struct __result_XXX__: __result__<List>{}; 
 
 	template<class O, class P>struct __id_XXX__;
 	template<class O, class P>struct __id__
@@ -143,14 +246,15 @@ namespace
 
 				if (-1 == *p->id)
 				{
-					typedef __status_label__<typename __min_list__<list>::Result> type;
-					p->str = type::text();
-					p->res = type::ID;
+					//typedef __status_label__<typename __min_list__<list>::Result> type;
+					//p->str = type::text();
+					//p->res = type::ID;
 					//dprint("O---%s\nP---%s\nL---%s\n"
 					//	, typeid(typename O::items_list).name()
 					//	, typeid(typename P::items_list).name()
 					//	, typeid(typename list)			.name()
 					//	);
+					__result__<skip_list>()(p);
 					return false;
 				}
 				TL::find<ColorTable::items_list, __id_XXX__>()((TL::Factory<ColorTable::items_list> *)0, (__data_id__<list> *)p);
@@ -164,7 +268,7 @@ namespace
 
 char *SelectMessage(int *x, int &res)
 {
-	__data_id__<ColorTable::items_list> d = { x, NULL, 0 };
+	__data_id__<ColorTable::items_list> d = { x, NULL, 0, 0 };
 	TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, &d);
 	res = d.res;
 	return d.str;
