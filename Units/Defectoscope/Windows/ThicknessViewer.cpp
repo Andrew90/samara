@@ -15,30 +15,33 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
-	int color;
-	bool b;
-	char *s = StatusText()(viewerData.commonStatus[x], color, b);
-	wchar_t buf[128];
-	if(b)
+	bool drawZones =  x < viewerData.currentOffsetZones;
+	if(drawZones)
 	{
-		wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
-			Wchar_from<double>(viewerData.bufferMin[x])()
-			, Wchar_from<double>(viewerData.bufferMax[x])()
+		int color;
+		bool b;
+		char *s = StatusText()(viewerData.commonStatus[x], color, b);
+		wchar_t buf[128];
+		if(b)
+		{
+			wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
+				Wchar_from<double>(viewerData.bufferMin[x])()
+				, Wchar_from<double>(viewerData.bufferMax[x])()
+				);
+		}
+		else
+		{
+			buf[0] = 0;
+		}
+		wsprintf(label.buffer, L"<ff>Толщина зона %d  <%6x>%S %s"
+			, 1 + x
+			, color
+			, s
+			, buf
 			);
+		label.Draw(g());
 	}
-	else
-	{
-		buf[0] = 0;
-	}
-	wsprintf(label.buffer, L"<ff>Толщина зона %d  <%6x>%S %s"
-		, 1 + x
-		, color
-		, s
-		, buf
-		);
-	label.Draw(g());
-
-	return x < viewerData.currentOffsetZones;
+	return drawZones;
 }
 
 bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, double &data_1, unsigned &color1)
@@ -46,7 +49,7 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 	data_1 = viewerData.bufferMin[zone];
 	data_ =  viewerData.bufferMax[zone];
 	ColorBar()(
-		data_
+		data_1
 		, color1
 		, viewerData.commonStatus[zone]
 		, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone]

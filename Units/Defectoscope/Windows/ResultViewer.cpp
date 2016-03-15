@@ -9,58 +9,11 @@ using namespace Gdiplus;
 
 bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
-	/*
-	char buf[512];
-	double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
-	double x = -0.5 * dX + chart.rect.left + chart.offsetAxesLeft;
-	int leftOffs = int((double(l.x) - x) / dX);
-    dprint("leftOffs %d ", leftOffs);
-	int status =  Singleton<ThicknessViewerData>::Instance().status[leftOffs];
-	if(status)
-	{		
-		char *txt = StatusLabel(status).text;
-		if(status == PrimaryData::Nominal || status == PrimaryData::Defect || status == PrimaryData::Treshold2Class)// || status == PrimaryData::DefectMinMax || status == PrimaryData::DefectDifferentWall)
-		{
-			double yMin = Singleton<ThicknessViewerData>::Instance().zonesMin[leftOffs];////////////////////////////////////////////////////
-			double yMax = Singleton<ThicknessViewerData>::Instance().zonesMax[leftOffs];
-			double delta = yMax - yMin;
-			sprintf(buf, "<ff>Зона <0xff0000>%d <ff>Смещение <ff0000>%.2f <ff>м толщ.мин. <0xff0000>%0.2f <ff>толщ.макс. <0xff0000>%0.2f %s <ff>Толщ.класс 2 %.2f  <ff>Толщ.брак %.2f%"
-				, 1 + leftOffs
-				, 0.001 * zone_length * (1 + leftOffs)
-				, yMin
-				, yMax
-				, txt
-				, Singleton<ThresholdsTable>::Instance().items.get<Border2Class>().value
-				, Singleton<ThresholdsTable>::Instance().items.get<BorderDefect>().value
-				);
-		}
-		else
-		{
-			sprintf(buf, "<ff>Зона <ff0000>%d  %s  "
-				, 1 + leftOffs
-				, txt
-				);
-		}
-		RECT r;
-		GetClientRect(l.hwnd, &r);
-		label.left = 40;
-		label = buf;
-		label.Draw(g());
-		return true;
-	}
-	
-	return false;
-	*/
-//////////////////////////////////test
-	//int x, y;
-	//chart.CoordCell(l.x, l.y, x, y);	
-	//wsprintf(label.buffer, L"<ff>���� %d         ", 1 + x);
-	//label.Draw(g());
-	//
-	//return x < viewerData.currentOffset;
-	//////////////////////////////////////////test
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
+	bool drawZones =  x < viewerData.currentOffset;
+	if(drawZones)
+	{
 	int color;
 	bool b;
 	char *s = StatusText()(viewerData.commonStatus[x], color, b);
@@ -71,8 +24,8 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 		, s
 		);
 	label.Draw(g());
-
-	return x < viewerData.currentOffset;
+	}
+	return drawZones;
 }
 
 bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)

@@ -18,11 +18,11 @@ template<>struct __status_label__<NullType>
 	static char *text(){return txt;};\
 };
 
-#define WAPPER_STATUS_LABEL(O, txt)template<class X>struct __status_label__<Clr<O<X>>>\
-{\
-	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<O<X>>>::value;\
-	static char *text(){return txt;}\
-};
+//#define WAPPER_STATUS_LABEL(O, txt)template<class X>struct __status_label__<Clr<O<X>>>\
+//{\
+//	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<O<X>>>::value;\
+//	static char *text(){return txt;}\
+//};
 
 namespace
 {
@@ -37,11 +37,11 @@ namespace
 	{
 		static const bool value = true;
 	};
-	template<>struct ValueVisible<Undefined>
+	template<>struct ValueVisible<Clr<Undefined>>
 	{
 		static const bool value = false;
 	};
-	template<>struct ValueVisible<DeathZone>
+	template<>struct ValueVisible<Clr<DeathZone>>
 	{
 		static const bool value = false;
 	};
@@ -52,7 +52,6 @@ namespace
 			if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)
 			{
 				p->text = __status_label__<O>::text();
-				//p->res = __status_label__<O>::text();
 				p->color = o->value;
 				p->visibleVal = ValueVisible<O>::value;
 				return false;
@@ -66,9 +65,6 @@ STATUS_LABEL(Clr<Undefined>, "\"Результат не определён\"")
 STATUS_LABEL(Clr<DeathZone>, "\"Мёртвая зона\"")
 
 STATUS_LABEL(Clr<Nominal>, "\"Норма\"")
-
-//WAPPER_STATUS_LABEL(BorderKlass2, "\"2 класс\"")
-//WAPPER_STATUS_LABEL(BorderDefect, "\"Брак\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"Толщина выше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"Толщина меньше нормы\"")

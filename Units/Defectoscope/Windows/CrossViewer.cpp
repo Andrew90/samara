@@ -34,28 +34,31 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
-	int color;
-	bool b;
-	char *s = StatusText()(viewerData.status[y][x], color, b);
-	wchar_t buf[128];
-	if(b)
+	bool drawZones =  x < viewerData.currentOffsetZones;
+	if(drawZones)
 	{
-	   wsprintf(buf, L"<ff>значение <ff0000>%s", Wchar_from<double>(viewerData.buffer[y][x])());
+		int color;
+		bool b;
+		char *s = StatusText()(viewerData.status[y][x], color, b);
+		wchar_t buf[128];
+		if(b)
+		{
+			wsprintf(buf, L"<ff>значение <ff0000>%s", Wchar_from<double>(viewerData.buffer[y][x])());
+		}
+		else
+		{
+			buf[0] = 0;
+		}
+		wsprintf(label.buffer, L"<ff>Поперечный зона %d  датчик %d   <%6x>%S %s"
+			, 1 + x
+			, 1 + y
+			, color
+			, s
+			, buf
+			);
+		label.Draw(g());
 	}
-	else
-	{
-		buf[0] = 0;
-	}
-	wsprintf(label.buffer, L"<ff>Поперечный зона %d  датчик %d   <%6x>%S %s"
-		, 1 + x
-		, 1 + y
-		, color
-		, s
-		, buf
-		);
-	label.Draw(g());
-
-	return x < viewerData.currentOffsetZones;
+	return drawZones;
 }
 bool CrossViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {

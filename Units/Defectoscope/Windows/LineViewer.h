@@ -30,7 +30,6 @@ public:
 	void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
-	//void operator()(TDestroy &);
 };
 
 template<class T>struct Border: HBorder
