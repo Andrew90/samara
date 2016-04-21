@@ -140,4 +140,11 @@ bool USPCWindow::Destroy()
 	 return L"Настройка USPC";
  }
 
+ USPCWindow &Singleton<USPCWindow>::Instance()
+ {
+	 HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
+	 if(NULL == hh) throw L"Singleton<USPCWindow> error";
+	 return *(USPCWindow *)GetWindowLong(hh, GWL_USERDATA);
+ }
+
 

@@ -33,7 +33,7 @@ void App::Init()
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
-	HWND h = WindowTemplate(&mainWindow, L"Дефектоскоп \"Буран 9000\"", r.left, r.top, r.right, r.bottom);
+	HWND h = WindowTemplate(&mainWindow, L"ЛБТ \"Буран-5000\"", r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
 	{

@@ -229,42 +229,7 @@ struct Automat::Impl
 	 {
 		 while(true)
 		 {
-			 try
-			 {
-				 AND_Bits<TL::MkTlst<
-					 Ex<ExceptionContinueProc>
-				 >::Result>()();
-
-				  Log::Mess<LogMess::StartSycle>(0);
-
-				 AND_Bits<TL::MkTlst<
-					 On<SQ0>, On<SQ3>
-				 >::Result>()(3000);
-
-				  Log::Mess<LogMess::InfoOnWorkBitIn>(0);
-				// Sleep(5000);
-
-				  App::measurementOfRunning = true;//программа в цикле измерения
-				  Log::Mess<LogMess::InfoDataCollectionComplete>(0);
-				//  Sleep(1000);
-				  AND_Bits<TL::MkTlst<
-					 On<SQ0>, On<SQ3>
-				 >::Result>()(5000);
-
-				Log::Mess<LogMess::StopSycle>(0);
-			 }
-			 catch(ExceptionStopProc)
-			 {
-				 ResetEvent(App::ProgrammContinueEvent);
-				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
-				 Log::Mess<LogMess::InfoUserStop>(0);
-			 }
-			 catch(ExceptionTimeOutProc)
-			 {
-				 ResetEvent(App::ProgrammContinueEvent);
-				 App::measurementOfRunning = false;	//программа вышла из цикла измерения
-				 Log::Mess<LogMess::TimeoutPipe>(0);
-			 }
+			
 		 }
 	 }
 	 catch(ExceptionExitProc)

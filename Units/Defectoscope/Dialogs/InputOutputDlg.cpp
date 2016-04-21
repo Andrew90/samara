@@ -6,6 +6,8 @@
 #include "App.h"
 #include "Device1730.h"
 
+namespace
+{
 template<class O, class P>struct __set__
 {
 	typedef typename TL::Inner<O>::Result T;
@@ -95,29 +97,67 @@ struct DefaultBtn
 	}
 };
 //----------------------------------------------------------------------------
-MIN_EQUAL_VALUE(SQ0, 0 )
-MAX_EQUAL_VALUE(SQ0, 31)
-MIN_EQUAL_VALUE(SQ1, 0 )
-MAX_EQUAL_VALUE(SQ1, 31)
-MIN_EQUAL_VALUE(SQ2, 0 )
-MAX_EQUAL_VALUE(SQ2, 31)
-MIN_EQUAL_VALUE(SQ3, 0 )
-MAX_EQUAL_VALUE(SQ3, 31)
-MIN_EQUAL_VALUE(SQ4, 0 )
-MAX_EQUAL_VALUE(SQ4, 31)
+MIN_EQUAL_VALUE(iСontrolСircuits, 0)
+MIN_EQUAL_VALUE(iSycle          , 0)
+MIN_EQUAL_VALUE(iReady          , 0)
+MIN_EQUAL_VALUE(iControl        , 0)
+MIN_EQUAL_VALUE(iBase           , 0)
+MIN_EQUAL_VALUE(iReserve        , 0)
 
-PARAM_TITLE(SQ0, L"Труба на датчике SQ1(вход)")
-PARAM_TITLE(SQ1, L"Труба на датчике SQ2(выход)")
-PARAM_TITLE(SQ2, L"Установка включена")
-PARAM_TITLE(SQ3, L"SQ3");
-PARAM_TITLE(SQ4, L"SQ4");
+MAX_EQUAL_VALUE(iСontrolСircuits, 31)
+MAX_EQUAL_VALUE(iSycle          , 31)
+MAX_EQUAL_VALUE(iReady          , 31)
+MAX_EQUAL_VALUE(iControl        , 31)
+MAX_EQUAL_VALUE(iBase           , 31)
+MAX_EQUAL_VALUE(iReserve        , 31)
 
-template<>struct DlgSubItems<SQ0, unsigned >: UpDownSubItem<SQ0>{};
-template<>struct DlgSubItems<SQ1, unsigned >: UpDownSubItem<SQ1>{};
-template<>struct DlgSubItems<SQ2, unsigned >: UpDownSubItem<SQ2>{};
-template<>struct DlgSubItems<SQ3, unsigned >: UpDownSubItem<SQ3>{};
-template<>struct DlgSubItems<SQ4, unsigned >: UpDownSubItem<SQ4>{};
-//----------------------------------------------------------------------------------
+
+MIN_EQUAL_VALUE(oWork      , 0)
+MIN_EQUAL_VALUE(oToShiftThe, 0)
+MIN_EQUAL_VALUE(oResult1   , 0)
+MIN_EQUAL_VALUE(oResult2   , 0)
+MIN_EQUAL_VALUE(oPowerBM   , 0)
+MIN_EQUAL_VALUE(oReserve   , 0)
+
+MAX_EQUAL_VALUE(oWork      , 31)
+MAX_EQUAL_VALUE(oToShiftThe, 31)
+MAX_EQUAL_VALUE(oResult1   , 31)
+MAX_EQUAL_VALUE(oResult2   , 31)
+MAX_EQUAL_VALUE(oPowerBM   , 31)
+MAX_EQUAL_VALUE(oReserve   , 31)
+
+template<>struct DlgSubItems<iСontrolСircuits, unsigned >: UpDownSubItem<iСontrolСircuits>{};
+template<>struct DlgSubItems<iSycle          , unsigned >: UpDownSubItem<iSycle          >{};
+template<>struct DlgSubItems<iReady          , unsigned >: UpDownSubItem<iReady          >{};
+template<>struct DlgSubItems<iControl        , unsigned >: UpDownSubItem<iControl        >{};
+template<>struct DlgSubItems<iBase           , unsigned >: UpDownSubItem<iBase           >{};
+template<>struct DlgSubItems<iReserve        , unsigned >: UpDownSubItem<iReserve        >{};
+
+template<>struct DlgSubItems<oWork      , unsigned >: UpDownSubItem<oWork      >{};
+template<>struct DlgSubItems<oToShiftThe, unsigned >: UpDownSubItem<oToShiftThe>{};
+template<>struct DlgSubItems<oResult1   , unsigned >: UpDownSubItem<oResult1   >{};
+template<>struct DlgSubItems<oResult2   , unsigned >: UpDownSubItem<oResult2   >{};
+template<>struct DlgSubItems<oPowerBM   , unsigned >: UpDownSubItem<oPowerBM   >{};
+template<>struct DlgSubItems<oReserve   , unsigned >: UpDownSubItem<oReserve   >{};
+
+PARAM_TITLE(iСontrolСircuits, L"Цепи управления")
+PARAM_TITLE(iSycle          , L"Цикл")
+PARAM_TITLE(iReady          , L"Готовность")
+PARAM_TITLE(iControl        , L"Контроль")
+PARAM_TITLE(iBase           , L"База")
+PARAM_TITLE(iReserve        , L"Резерв")       
+
+PARAM_TITLE(oWork      , L"Работа")
+PARAM_TITLE(oToShiftThe, L"Перекладка")
+PARAM_TITLE(oResult1   , L"Результат1")
+PARAM_TITLE(oResult2   , L"Результат2")
+PARAM_TITLE(oPowerBM   , L"Питание БМ")
+PARAM_TITLE(oReserve   , L"Резерв")
+
+DO_NOT_CHECK(Descriptor1730)
+PARAM_TITLE(Descriptor1730, L"Дескриптор платы 1730")
+}
+//---------------------------   ----------------------------   ---------------------------
 void InputsDlg::Do(HWND h)
 {
 	InputBitTable t;
@@ -127,29 +167,6 @@ void InputsDlg::Do(HWND h)
 	}
 }
 //-----------------------------------------------------------------------------
-MIN_EQUAL_VALUE(Y0, 0 )
-MAX_EQUAL_VALUE(Y0, 31)
-MIN_EQUAL_VALUE(Y1, 0 )
-MAX_EQUAL_VALUE(Y1, 31)
-MIN_EQUAL_VALUE(Y2, 0 )
-MAX_EQUAL_VALUE(Y2, 31)
-MIN_EQUAL_VALUE(Y3, 0 )
-MAX_EQUAL_VALUE(Y3, 31)
-MIN_EQUAL_VALUE(Y4, 0 )
-MAX_EQUAL_VALUE(Y4, 31) 
-
-PARAM_TITLE(Y0, L"Труба на датчике Y0(вход)")
-PARAM_TITLE(Y1, L"Труба на датчике Y1(выход)")
-PARAM_TITLE(Y2, L"Установка включена")
-PARAM_TITLE(Y3, L"Y3");
-PARAM_TITLE(Y4, L"Y4");
-
-template<>struct DlgSubItems<Y0, unsigned >: UpDownSubItem<Y0>{};
-template<>struct DlgSubItems<Y1, unsigned >: UpDownSubItem<Y1>{};
-template<>struct DlgSubItems<Y2, unsigned >: UpDownSubItem<Y2>{};
-template<>struct DlgSubItems<Y3, unsigned >: UpDownSubItem<Y3>{};
-template<>struct DlgSubItems<Y4, unsigned >: UpDownSubItem<Y4>{};
-
 void OutputsDlg::Do(HWND h)
 {
 	OutputBitTable t;
@@ -159,8 +176,6 @@ void OutputsDlg::Do(HWND h)
 	}
 }
 //----------------------------------------------------------------------------
-DO_NOT_CHECK(Descriptor1730)
-PARAM_TITLE(Descriptor1730, L"Дескриптор платы 1730")
 void Descriptor1730Dlg::Do(HWND h)
 {
 	Descriptor1730Table &t = Singleton<Descriptor1730Table>::Instance();

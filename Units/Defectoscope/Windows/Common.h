@@ -2,6 +2,7 @@
 #include "DebugMess.h"
 #include "AppBase.h"
 
+
 namespace Common
 {
 	template<class O, class P>struct __create_window__

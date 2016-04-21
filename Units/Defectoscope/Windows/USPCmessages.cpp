@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "USPCmessages.h"
-//#include "USPCChartViewer.h"
-//#include "USPCBottomPanel.h"
-
 #include "USPCWindow.h"
 
 namespace

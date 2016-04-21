@@ -336,32 +336,44 @@ STR_PARAM(NameParam, 128, L"NONAME")
 	const wchar_t *name(){return L"ParametersTable";}
  };
 //--------------------------------------------------------------------------------------------------------
-DEFINE_PARAM(SQ0            , unsigned, 1 << 0)
-DEFINE_PARAM(SQ1            , unsigned, 1 << 1)
-DEFINE_PARAM(SQ2            , unsigned, 1 << 2)
-DEFINE_PARAM(SQ3            , unsigned, 1 << 3)
-DEFINE_PARAM(SQ4            , unsigned, 1 << 4)
+DEFINE_PARAM(iÑontrolÑircuits  , unsigned, 1 << 0)
+DEFINE_PARAM(iSycle            , unsigned, 1 << 1)
+DEFINE_PARAM(iReady            , unsigned, 1 << 2)
+DEFINE_PARAM(iControl          , unsigned, 1 << 3)
+DEFINE_PARAM(iBase             , unsigned, 1 << 4)
+DEFINE_PARAM(iReserve          , unsigned, 1 << 5)
 
 struct InputBitTable
  {
 	typedef TL::MkTlst<
-		SQ0, SQ1, SQ2, SQ3, SQ4
+		iÑontrolÑircuits
+		, iSycle          
+		, iReady          
+		, iControl        
+		, iBase           
+		, iReserve        
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"InputBitTable";}
  };
 
-DEFINE_PARAM(Y0            , unsigned, 1 << 0)
-DEFINE_PARAM(Y1            , unsigned, 1 << 1)
-DEFINE_PARAM(Y2            , unsigned, 1 << 2)
-DEFINE_PARAM(Y3            , unsigned, 1 << 3)
-DEFINE_PARAM(Y4            , unsigned, 1 << 4)
+DEFINE_PARAM(oWork            , unsigned, 1 << 0)
+DEFINE_PARAM(oToShiftThe      , unsigned, 1 << 1)
+DEFINE_PARAM(oResult1         , unsigned, 1 << 2)
+DEFINE_PARAM(oResult2         , unsigned, 1 << 3)
+DEFINE_PARAM(oPowerBM         , unsigned, 1 << 4)
+DEFINE_PARAM(oReserve         , unsigned, 1 << 5)
 
 struct OutputBitTable
  {
 	typedef TL::MkTlst<
-		Y0, Y1, Y2, Y3, Y4
+		oWork      
+		, oToShiftThe
+		, oResult1   
+		, oResult2   
+		, oPowerBM   
+		, oReserve   
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -535,22 +547,9 @@ struct AppBase
 
 template<class T>int CurrentId()
 {
-	 // CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
-	 // Select<CurrentParametersTable>(base).ID(1).Execute(current);
-	 // ParametersTable param;
-	 // Select<ParametersTable>(base).ID(current.items.get<CurrentID>().value).Execute(param);
 	  return Singleton<ParametersTable>::Instance().items.get<T>().value;
 }
 
-/*
-template<class T>int CountId(CBase &base, int num)
-{
-	wchar_t buf[128];
-	wsprintf(buf, L"SELECT COUNT(*) FROM ParametersTable WHERE %s=%d", T().name(), num);
-	int t = base.ConnectionSQL(buf);
-	return t;
-}
-*/
 template<class T>void UpdateId(CBase &base, int num)
 {
    CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
@@ -559,16 +558,7 @@ template<class T>void UpdateId(CBase &base, int num)
    t.items.get<T>().value = num;
    UpdateWhere<ParametersTable>(t, base).ID(current.items.get<CurrentID>().value).Execute();
 }
-/*
-template<class T>int CurrentId(CBase &base)
-{
-	  CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
-	  Select<CurrentParametersTable>(base).ID(1).Execute(current);
-	  ParametersTable param;
-	  Select<ParametersTable>(base).ID(current.items.get<CurrentID>().value).Execute(param);
-	  return param.items.get<T>().value;
-}
-*/
+
 template<class T>int CountId(CBase &base, int num)
 {
 	ADODB::_RecordsetPtr rec;
@@ -581,14 +571,7 @@ template<class T>int CountId(CBase &base, int num)
 	}
 	return i;
 }
-/*
-template<class T>void UpdateId(CBase &base, int num)
-{
-   CurrentParametersTable &current = Singleton<CurrentParametersTable>::Instance();
-   Select<CurrentParametersTable>(base).ID(1).Execute(current);
-   Update<ParametersTable>(base).set<T>(num).Where().ID(current.items.get<CurrentID>().value).Execute();
-}
-*/
+
 
 
 

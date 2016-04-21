@@ -28,3 +28,13 @@ public:
 	//static void Do(HWND);
 	//bool Destroy();
 };
+
+template<>struct Singleton<USPCWindow>
+{
+	static USPCWindow &Instance();
+	//{
+	//	  HWND hh = FindWindow(WindowClass<USPCWindow>()(), 0);
+	//	  if(NULL == hh) throw L"Singleton<USPCWindow> error";
+	//	  return *(USPCWindow *)GetWindowLong(hh, GWL_USERDATA);
+	//}
+};

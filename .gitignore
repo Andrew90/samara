@@ -35,3 +35,6 @@ ipch/
 !debug_panel_new/
 ArchiveEvent/
 enc_temp_folder/
+Units/Defectoscope/Version.h
+Units/Defectoscope/NumVerOld.txt
+Units/Defectoscope/NumVer.txt
