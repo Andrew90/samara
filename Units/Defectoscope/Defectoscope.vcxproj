@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,6 +115,7 @@
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\Automat.cpp" />
+    <ClCompile Include="Automat\AutomatAdditional.cpp" />
     <ClCompile Include="Compute.cpp" />
     <ClCompile Include="Defectoscope.cpp" />
     <ClCompile Include="Dialogs\AboutWindow.cpp">
@@ -220,6 +221,7 @@
     <ClInclude Include="App\Config.h" />
     <ClInclude Include="App\TablesDefine.h" />
     <ClInclude Include="Automat\Automat.h" />
+    <ClInclude Include="Automat\AutomatAdditional.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
     <ClInclude Include="IOports\IOportsViewer.h" />

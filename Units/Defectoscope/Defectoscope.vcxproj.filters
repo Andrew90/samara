@@ -329,6 +329,9 @@
     <ClCompile Include="MessageText\SelectMessage.cpp">
       <Filter>MessageText</Filter>
     </ClCompile>
+    <ClCompile Include="Automat\AutomatAdditional.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -636,6 +639,9 @@
     </ClInclude>
     <ClInclude Include="MessageText\SelectMessage.h">
       <Filter>MessageText</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\AutomatAdditional.h">
+      <Filter>Automat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

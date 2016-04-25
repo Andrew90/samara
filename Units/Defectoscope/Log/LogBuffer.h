@@ -17,7 +17,7 @@ public:
 #pragma warning(disable: 4101)
 	static LONG lastMessage;
 	template<LogMess::ID N>struct Filter{static const bool value = true;};
-	template<LogMess::ID N>static void Mess(typename the_index_variable_is_out_of_range_look_at_N<typename LogMess::Row<N>::type>::Result value)
+	template<LogMess::ID N>static void Mess(typename the_index_variable_is_out_of_range_look_at_N<typename LogMess::Row<N>::type>::Result value = 0)
 	{	
 		Insert(N, Convert(value), Filter<N>::value);
 	}

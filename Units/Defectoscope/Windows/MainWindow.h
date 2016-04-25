@@ -70,6 +70,7 @@ public:
 	CheckBoxWidget<OnTheJobCheckBox<Cross    , MainWindow> > crossCheckBox;
 	CheckBoxWidget<OnTheJobCheckBox<Long     , MainWindow> > longCheckBox;
 	CheckBoxWidget<OnTheJobCheckBox<Thickness, MainWindow> > thicknessCheckBox;
+	CheckBoxWidget<OnTheJobCheckBox<ViewInterrupt, MainWindow> > viewInterruptCheckBox;
 	TopLabelViewer topLabelViewer;
 	SelectTypeSizeList select;
 	typedef TL::MkTlst<

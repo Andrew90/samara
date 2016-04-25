@@ -139,7 +139,6 @@ namespace Common
 			{
 				RECT r;
 				WindowPosition::Get<T>(r);
-				//HWND h = WindowTemplate(&Singleton<T>::Instance(), T::Title(), r.left, r.top, r.right, r.bottom);
 				HWND h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(h, SW_SHOWNORMAL);
 				zprint("\n");
@@ -167,45 +166,30 @@ namespace Common
 		typedef Clr<X> Result;
 	};
 
-	//template<template<class>class W, class X>struct ColorThreshold<W<BorderDefect<X> > >
-	//{
-	//	typedef Defect Result;
-	//};
 	template<template<class>class W, class X>struct ColorThreshold<W<BorderKlass2<X> > >
 	{
 		typedef BorderKlass2<X> Result;
 	};
-	//template<template<class>class W, class X>struct ColorThreshold<W<AboveBorder<X> > >
-	//{
-	//	typedef AboveNorm Result;
-	//};
-	//template<template<class>class W, class X>struct ColorThreshold<W<LowerBorder<X> > >
-	//{
-	//	typedef BelowNorm Result;
-	//};
-//	template<template<class>class W, class X>struct ColorThreshold<W<NominalBorder<X> > >
-//	{
-//		typedef Nominal Result;
-//	};
+	
+	template<class T>struct __set_color_wapper__
+	{
+		typedef T Result;
+	};
+	template<>struct __set_color_wapper__<BorderNominal<Thickness>>
+	{
+		typedef Nominal Result;
+	};
 
 	template<class O, class P>struct __set_color__
 	{
 			void operator()(O *o, P *p)
 			{
-#pragma message("дописать")
-				//o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<Clr<O> >::Result>().value;
-				o->color = Singleton<ColorTable>::Instance().items.get<Clr<TL::Inner<O>::Result> >().value;
+				typedef typename TL::Inner<O>::Result inner;
+				typedef __set_color_wapper__<inner>::Result x;
+				o->color = Singleton<ColorTable>::Instance().items.get<Clr<x>>().value;	  
 			}
 	};
-	//template<class X, class P>struct __set_color__<Clr<X>, P>
-	//{
-	//	typedef Clr<X> O;
-	//	void operator()(O *o, P *p)
-	//	{
-	//		//o->color = Singleton<ColorTable>::Instance().items.get<typename ColorThreshold<Clr<O> >::Result>().value;
-	//		o->color = Singleton<ColorTable>::Instance().items.get<O>().value;
-	//	}
-	//};
+	
 	template<class O, class P>struct __set_border_color__
 	{
 		void operator()(O *o, P *p)

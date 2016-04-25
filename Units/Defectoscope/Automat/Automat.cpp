@@ -7,6 +7,7 @@
 #include "LogMessages.h"
 #include "LogBuffer.h"
 #include "LogMessageToTopLabel.h"
+#include "AutomatAdditional.h"
 
 struct Automat::Impl
 {
@@ -14,13 +15,16 @@ struct Automat::Impl
 	struct ExceptionStopProc{};
 	struct ExceptionTimeOutProc{};
 	struct ExceptionContinueProc{};
+	struct ExceptionСontrolСircuitsOffProc{};
+	struct ExceptionСycleOffProc{};
 	HANDLE hThread;
-	Impl() {}
-	static Automat::Impl &Instance(){static Automat::Impl x; return x;};
+	Impl() 
+	{}
+	static Impl &Instance(){static Impl x; return x;};
 	void Do();
 	static DWORD WINAPI ProcDo(LPVOID)
 	{
-		Automat::Impl::Instance().Do();
+		Impl::Instance().Do();
 		return 0;
 	}
 	void Init()
@@ -40,6 +44,7 @@ struct Automat::Impl
 	template<class>struct Off{};
 	template<class>struct Inv{};
 	template<class>struct Proc{};
+	template<class>struct Once{};
 	template<class T>struct Ex;
 
 #define EX(n)template<>struct Ex<Exception##n##Proc>\
@@ -88,7 +93,6 @@ struct Automat::Impl
 
 	 };
 
-
 	template<class List, template<class>class T>struct Filt;
 	template<class Head, class Tail, template<class>class T>struct Filt<Tlst<Head, Tail>, T>
 	{
@@ -103,11 +107,47 @@ struct Automat::Impl
 		typedef NullType Result;
 	};
 
-	template<class O, class P>struct __bits__
+	template<class O, class P>struct __bits_0__
 	{
 		void operator()(O *o, P *p)
 		{
 			*p |= o->value;
+		}
+	};
+	//template<class O, class P>struct __bits_1__
+	//{
+	//	void operator()(O *o, P *p)
+	//	{
+	//		((unsigned short *)p)[1] |= o->value;
+	//	}
+	//};
+
+	template<class List, class TList>struct __filtr__;
+	template<class Head, class Tail, class TList>struct __filtr__<Tlst<Head, Tail>, TList>
+	{
+		typedef typename TL::_if<
+			TL::TypeInList<TList, Head>::value
+			, Tlst<Head, typename __filtr__<Tail, TList>::Result>
+			, typename __filtr__<Tail, TList>::Result
+		>::Result Result;
+	};
+
+	template<class TList>struct __filtr__<NullType, TList>
+	{
+		typedef NullType Result;
+	};
+
+	template<class List, template<class, class>class b>struct __sel_bits__
+	{
+		template<class O, class P>void operator()(O *o, P *p)
+		{
+			TL::foreach<List, b>()(o, p);
+		}
+	};
+	template<template<class, class>class b>struct __sel_bits__<NullType, b>
+	{
+		template<class O, class P>void operator()(O *o, P *p)
+		{
 		}
 	};
 	
@@ -116,18 +156,54 @@ struct Automat::Impl
 		void operator()(unsigned &bits)
 		{
 			bits = 0;
-			TL::foreach<List, __bits__>()(&Singleton<InputBitTable>::Instance().items, &bits);
+			__sel_bits__<typename __filtr__<List, InputBitTable::items_list>::Result, __bits_0__>()
+				(&Singleton<InputBitTable>::Instance().items, &bits);
 		}
 	};
 	template<>struct SelectBits<NullType>
 	{
 		void operator()(unsigned &bits)
 		{
+		}
+	};
+
+	template<class List>struct BitsOut
+	{
+		void operator()(unsigned &bits)
+		{
 			bits = 0;
+			__sel_bits__<typename __filtr__<List, OutputBitTable::items_list>::Result, __bits_0__>()
+				(&Singleton<OutputBitTable>::Instance().items, &bits);
+		}
+	};
+	template<>struct BitsOut<NullType>
+	{
+		void operator()(unsigned &bits)
+		{
 		}
 	};
 
 	template<class O, class P>struct __default_do__
+	{
+		void operator()(O *, P *p)
+		{
+			O::Do(*p);
+		}
+	};
+
+	template<class List>struct DefaultDo
+	{
+		void operator()(unsigned bits)
+		{
+			TL::foreach<List, __default_do__>()((TL::Factory<List> *)0, &bits);
+		}
+	};
+	template<>struct DefaultDo<NullType>
+	{
+		void operator()(unsigned){}
+	};
+
+	template<class O, class P>struct __once_do__
 	{
 		void operator()(O *, P *)
 		{
@@ -135,65 +211,77 @@ struct Automat::Impl
 		}
 	};
 
-	template<class List>struct DefaultDo
+	template<class List>struct OnceDo
 	{
 		void operator()()
 		{
-			TL::foreach<List, __default_do__>()((Factory<List> *)0, (int *)0);
+			TL::foreach<List, __once_do__>()((TL::Factory<List> *)0, (int *)0);
 		}
 	};
-	template<>struct DefaultDo<NullType>
+	template<>struct OnceDo<NullType>
 	{
 		void operator()(){}
 	};
 
+	
 
+//Не убирать	template<class List>struct OR_Bits			   
+//Не убирать	{
+//Не убирать		unsigned operator()(unsigned delay = (unsigned)-1)
+//Не убирать		{
+//Не убирать			if((unsigned)-1 != delay) delay += GetTickCount();
+//Не убирать			unsigned bitOn = 0, bitOff = 0, bitInv = 0;
+//Не убирать			SelectBits<typename Filt<List, On>::Result>()(bitOn);
+//Не убирать			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
+//Не убирать			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
+//Не убирать
+//Не убирать			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
+//Не убирать			ArrEvents<exeption_list> arrEvents;
+//Не убирать			
+//Не убирать			while(true)
+//Не убирать			{
+//Не убирать				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
+//Не убирать				unsigned res = device1730_0.Read();
+//Не убирать				((unsigned short *)&res)[1] = device1730_1.Read();
+//Не убирать				if(WAIT_TIMEOUT == ev)
+//Не убирать				{
+//Не убирать					if(bitOn || bitOff)
+//Не убирать					{
+//Не убирать						unsigned t = res ^ bitInv;
+//Не убирать						if((t & bitOn) || (bitOff & (t ^ bitOff))) 
+//Не убирать						{
+//Не убирать								OnceDo<typename Filt<List, Once>::Result>()();
+//Не убирать								return res;
+//Не убирать						}
+//Не убирать					}
+//Не убирать					if((((unsigned short *)&res)[1]) & sycle_ts)
+//Не убирать					{
+//Не убирать						dprint("ExceptionStopProc  %x\n", sycle_ts);
+//Не убирать						throw ExceptionStopProc();
+//Не убирать					}
+//Не убирать					DefaultDo<typename Filt<List, Proc>::Result>()();
+//Не убирать					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
+//Не убирать				}
+//Не убирать				else
+//Не убирать				{
+//Не убирать					arrEvents.Throw(ev - WAIT_OBJECT_0);
+//Не убирать				}
+//Не убирать			}
+//Не убирать		}
+//Не убирать	};
 
-	template<class List>struct OR_Bits
-	{
-		unsigned operator()(unsigned delay = (unsigned)-1)
-		{
-			if((unsigned)-1 != delay) delay += GetTickCount();
-			unsigned bitOn, bitOff, bitInv;
-			SelectBits<typename Filt<List, On>::Result>()(bitOn);
-			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
-			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
-
-			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
-			ArrEvents<exeption_list> arrEvents;
-			
-			while(true)
-			{
-				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
-				if(WAIT_TIMEOUT == ev)
-				{
-					if(bitOn || bitOff)
-					{
-						unsigned res = device1730.Read();
-						unsigned t = res ^ bitInv;
-						if((t & bitOn) || (bitOff & (t ^ bitOff))) return res;
-					}
-					DefaultDo<typename Filt<List, Proc>::Result>()();
-					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
-				}
-				else
-				{
-					arrEvents.Throw(ev - WAIT_OBJECT_0);
-				}
-			}
-		}
-	};
+	
 
 	template<class List>struct AND_Bits
 	{
 		unsigned operator()(unsigned delay = (unsigned)-1)
 		{
 			if((unsigned)-1 != delay) delay += GetTickCount();
-			unsigned bitOn, bitOff, bitInv;
+			unsigned bitOn = 0, bitOff = 0, bitInv = 0;
 			SelectBits<typename Filt<List, On>::Result>()(bitOn);
 			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
-			
+
 			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
 			ArrEvents<exeption_list> arrEvents;
 
@@ -203,12 +291,16 @@ struct Automat::Impl
 				unsigned res = device1730.Read();
 				if(WAIT_TIMEOUT == ev)
 				{
-					if(bitOn)
+					if(bitOn || bitOff)
 					{						
 						unsigned t = res ^ bitInv;
-						if(bitOn == (t & (bitOn | bitOff))) return res;
-					}
-					DefaultDo<typename Filt<List, Proc>::Result>()();
+						if(bitOn == (t & (bitOn | bitOff))) 
+						{
+								OnceDo<typename Filt<List, Once>::Result>()();
+								return res;
+						}
+					}					
+					DefaultDo<typename Filt<List, Proc>::Result>()(res);
 					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
 				}
 				else
@@ -219,25 +311,157 @@ struct Automat::Impl
 			}
 		}
 	};
-};
+	template<class List>struct OUT_Bits
+	{
+		void operator()()
+		{
+			unsigned bitOn, bitOff;
+			bitOn = bitOff = 0;
+			BitsOut<typename Filt<List, On>::Result>()(bitOn);
+			BitsOut<typename Filt<List, Off>::Result>()(bitOff);
 
- void Automat::Impl::Do()
- {
-	 Log::Mess<LogMess::ProgramOpen>(0);
-	 LogMessageToTopLabel logMessageToTopLabel;
-	 try
-	 {
-		 while(true)
-		 {
-			
-		 }
-	 }
-	 catch(ExceptionExitProc)
-	 {
-		 CloseHandle(hThread);
-		 Log::Mess<LogMess::ProgramClosed>(0);
-	 }
- }
+			unsigned res = device1730.ReadOutput();
+
+            res &= ~bitOff;
+			res |= bitOn;
+
+			device1730.Write(res);
+		}
+	};
+	template<class List>struct SET_Bits
+	{
+		void operator()()
+		{
+			unsigned res =0;
+			BitsOut<typename Filt<List, On>::Result>()(res);
+
+			device1730.Write(res);
+		}
+	};
+///-----------------------------------------------------------------------------------
+	//struct ExceptionСontrolСircuitsOffProc{};
+	//struct ExceptionСycleOffProc{};
+	template<>struct Off<iСontrolСircuits>
+	{
+		static unsigned &bit;
+		static void Do(unsigned bits)
+		{
+		   if(0 == (bits & bit)) throw ExceptionСontrolСircuitsOffProc();
+		}
+	};
+	
+	template<>struct Off<iCycle>
+	{
+		static unsigned &bit;
+		static void Do(unsigned bits)
+		{
+			 if(0 == (bits & bit)) throw ExceptionСycleOffProc();
+		}
+	};
+///-----------------------------------------------------------------------------------
+};
+unsigned &Automat::Impl::Off<iСontrolСircuits>::bit = Singleton<InputBitTable>::Instance().items.get<iСontrolСircuits>().value;
+unsigned &Automat::Impl::Off<iCycle>::bit =	Singleton<InputBitTable>::Instance().items.get<iCycle>().value;
+
+#define AND_BITS(...) AND_Bits<TL::MkTlst<__VA_ARGS__>::Result>()
+#define OR_BITS(...) OR_Bits<TL::MkTlst<__VA_ARGS__>::Result>()
+
+#define OUT_BITS(...) OUT_Bits<TL::MkTlst<__VA_ARGS__>::Result>()()
+#define SET_BITS(...) SET_Bits<TL::MkTlst<__VA_ARGS__>::Result>()()
+namespace
+{
+	 bool &onTheJobCross = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross>>().value;
+	 bool &onTheJobLong = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long>>().value;
+	 bool &onTheJobThickness = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness>>().value;
+	 bool &viewInterrupt = 	Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<ViewInterrupt>>().value;
+}
+
+
+
+void Automat::Impl::Do()
+{
+	Log::Mess<LogMess::ProgramOpen>(0);
+	LogMessageToTopLabel logMessageToTopLabel;
+	try
+	{
+		while(true)
+		{
+			try
+			{
+				AND_BITS(Ex<ExceptionContinueProc>)();
+				Log::Mess<LogMess::WaitControlCircuitBitIn>();
+				AND_BITS(On<iСontrolСircuits>)(5000);
+				Log::Mess<LogMess::PowerBMOn>();
+
+				OUT_BITS(On<oPowerBM>);
+				Sleep(500);
+				//todo проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				//todo Загрузить настройки для текущего типоразмера
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+				AND_BITS(On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				SET_BITS(On<oPowerBM>);
+				//todo подготовить ультрозвуковую систему к работе
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				OUT_BITS(On<oWork>);
+				AND_BITS(On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				unsigned startTime = timeGetTime();
+				//todo сбор данных с ультрозвуковых датчиков
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				AND_BITS(On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				unsigned stopTime = timeGetTime();
+				//вычислить скорость каретки и вывод на экран
+				AutomatAdditional::ComputeSpeed(stopTime - startTime);
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				AND_BITS(Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				//todo расчёт данных, вывод на экран
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				Sleep(100);
+				OUT_BITS(Off<oWork>);
+				//Режим прерывания
+			    if(viewInterrupt)
+				{
+					ResetEvent(App::ProgrammContinueEvent);
+					Log::Mess<LogMess::ContineCycle>();
+					WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
+				}
+				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
+				OUT_BITS(On<oResult1>, On<oResult2>);
+				Sleep(500);
+				//выставить сигнал ПЕРЕКЛАДКА
+				OUT_BITS(On<oToShiftThe>);
+				//todo Записать результат контроля в базу данных
+			}
+			catch(ExceptionСontrolСircuitsOffProc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::AlarmControlCircuts>();
+				device1730.Write(0);
+				//todo остановить сбор сканов
+			}	
+			catch(ExceptionСycleOffProc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::AlarmCycle>();
+				SET_BITS(On<oPowerBM>);
+				//todo остановить сбор сканов
+			}
+			catch(ExceptionTimeOutProc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::TimeoutPipe>();	
+				SET_BITS(On<oPowerBM>);
+				//todo остановить сбор сканов
+			}
+		}
+	}
+	catch(ExceptionExitProc)
+	{
+		CloseHandle(hThread);
+		Log::Mess<LogMess::ProgramClosed>(0);
+	}
+}
 
  Automat::Automat()
 	: impl(Automat::Impl::Instance())

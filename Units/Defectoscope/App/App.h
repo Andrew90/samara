@@ -5,6 +5,7 @@ class MainWindow;
 struct Long{};
 struct Cross{};
 struct Thickness{};
+struct ViewInterrupt{};
 
 class App
 {
@@ -12,6 +13,9 @@ public:
 	static const int zonesCount = 60;
 	static const int count_sensors = 8;
 	static const int zone_length = 200;
+
+	static const int speed_bottom_label = 0;
+
 	static const int count_frames = 512 * 1024 * 1024 / sizeof(USPC7100_ASCANDATAHEADER);
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static HANDLE ProgrammExitEvent;

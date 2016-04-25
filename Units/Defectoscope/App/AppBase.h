@@ -107,66 +107,19 @@ struct Undefined{};
 struct Nominal{};
 struct DeathZone{typedef NullType items_list;};
 
+#define	JOIN2(a, b) a##,##b
 DEFINE_WAPPER(Clr<Undefined>, int, 0xff555555)
 DEFINE_WAPPER(Clr<Nominal  >, int, 0xff00ff00)
 DEFINE_WAPPER(Clr<DeathZone>, int, 0xff333333) 
-
-DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderAbove<Thickness>  >, int, 0xff0000ff)
 DEFINE_WAPPER(Clr<BorderLower<Thickness>  >, int, 0xffff0000)
-DEFINE_WAPPER(Clr<BorderNominal<Thickness>>, int, 0xff00ff00)
+DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
-
-#define	JOIN2(a, b) a##,##b
-#define	JOIN3(a, b, c) a##,##b##,##c
-#define	JOIN4(a, b, c, d) a##,##b##,##c,##d
-
-//DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>), int, 0xffff0000)
-//
-//DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderLower<Thickness>>), int, 0xffff0000)
-//DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-
 DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderAbove<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderDefect<Long> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffffff00)
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderKlass2<Cross> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000) 
-
 #undef	JOIN2
-#undef	JOIN3
-#undef	JOIN4
+
 
 struct ColorTable
 {
@@ -174,42 +127,43 @@ struct ColorTable
 /*0*/		Clr<Undefined   >
 /*1*/		, Clr<DeathZone>
 /*2*/		, Clr<Nominal	>
-/*3*/	    , Clr<BorderKlass2<Long> > 
 /*4*/	    , Clr<BorderAbove<Thickness> >
-/*5*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-/*6*/	    , Clr<BorderLower<Thickness> >
-/*7*/	    , Clr<BorderNominal<Thickness> >
-/*8*/	    , Clr<BorderDefect<Long> >
-/*9*/	    , Clr<BorderKlass2<Cross>>
-/*10*/	    , Clr<BorderDefect<Cross>>
-/*11*/		, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-/*12*/		, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-/*13*/		, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*14*/		, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-/*15*/		, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-/*16*/		, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*17*/		, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-/*18*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-/*19*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-/*20*/      , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*21*/      , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*22*/		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
-/*23*/		, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*24*/		, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-/*25*/		, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
-/*26*/		, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*27*/		, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-/*28*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*29*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
-/*30*/      , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*31*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-/*32*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*33*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-/*34*/      , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*35*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-/*36*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-/*37*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-/*38*/      , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+/*5*/	    , Clr<BorderLower<Thickness> >
+/*6*/	    , Clr<BorderKlass2<Long> > 
+/*7*/	    , Clr<BorderDefect<Long> >
+/*8*/	    , Clr<BorderKlass2<Cross>>
+/*9*/	    , Clr<BorderDefect<Cross>>
+/*10*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+
+///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+///*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+///*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+///*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
+///*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+///*18*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+///*19*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+///*20*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*21*/    , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+///*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
+///*23*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+///*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
+///*26*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+///*28*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+///*29*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
+///*30*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*31*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+///*32*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+///*33*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+///*34*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+///*35*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
+///*36*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+///*37*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+///*38*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
 //------------------------------------------------------------------------------
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -227,25 +181,25 @@ template<class T>struct Stat
 	static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
 };
 //-------------------------------------------------------------------------------------- 
-DEFINE_PARAM(SupplySensorDelay, int, 150)
-DEFINE_PARAM(RemoveSensorDelay, int,  150)
-DEFINE_PARAM(FrequencyFrames, int,  100)
+//DEFINE_PARAM(SupplySensorDelay, int, 150)
+//DEFINE_PARAM(RemoveSensorDelay, int,  150)
+//DEFINE_PARAM(FrequencyFrames, int,  100)
 
 DEFINE_PARAM(ReferenceOffset1, unsigned, 1750)
-DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
-
-DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)
-DEFINE_PARAM(ReferenceOffset4, unsigned, 3030)
+//DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
+//
+//DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)
+//DEFINE_PARAM(ReferenceOffset4, unsigned, 3030)
 struct AdditionalSettingsTable
 {
 	typedef TL::MkTlst<	
 		ReferenceOffset1
-		, ReferenceOffset2
-		, ReferenceOffset3
-		, ReferenceOffset4
-		, SupplySensorDelay
-		, RemoveSensorDelay
-		, FrequencyFrames
+		//, ReferenceOffset2
+		//, ReferenceOffset3
+		//, ReferenceOffset4
+		//, SupplySensorDelay
+		//, RemoveSensorDelay
+		//, FrequencyFrames
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -337,7 +291,7 @@ STR_PARAM(NameParam, 128, L"NONAME")
  };
 //--------------------------------------------------------------------------------------------------------
 DEFINE_PARAM(i—ontrol—ircuits  , unsigned, 1 << 0)
-DEFINE_PARAM(iSycle            , unsigned, 1 << 1)
+DEFINE_PARAM(iCycle            , unsigned, 1 << 1)
 DEFINE_PARAM(iReady            , unsigned, 1 << 2)
 DEFINE_PARAM(iControl          , unsigned, 1 << 3)
 DEFINE_PARAM(iBase             , unsigned, 1 << 4)
@@ -347,7 +301,7 @@ struct InputBitTable
  {
 	typedef TL::MkTlst<
 		i—ontrol—ircuits
-		, iSycle          
+		, iCycle          
 		, iReady          
 		, iControl        
 		, iBase           
@@ -369,7 +323,7 @@ struct OutputBitTable
  {
 	typedef TL::MkTlst<
 		oWork      
-		, oToShiftThe
+		, oToShiftThe  //ÔÂÂÍÎ‡‰Í‡
 		, oResult1   
 		, oResult2   
 		, oPowerBM   
@@ -460,6 +414,7 @@ template<class T>struct OnTheJob;
 DEFINE_PARAM_WAPPER(OnTheJob, Cross    , bool, true)
 DEFINE_PARAM_WAPPER(OnTheJob, Long     , bool, true)
 DEFINE_PARAM_WAPPER(OnTheJob, Thickness, bool, true)
+DEFINE_PARAM_WAPPER(OnTheJob, ViewInterrupt, bool, true)
 
 struct OnTheJobTable
 {
@@ -467,6 +422,7 @@ struct OnTheJobTable
 		OnTheJob<Cross    >
 		, OnTheJob<Long     >
 		, OnTheJob<Thickness>
+		, OnTheJob<ViewInterrupt>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;

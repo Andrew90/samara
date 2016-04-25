@@ -1,6 +1,93 @@
 #pragma once
 #include "AppBase.h"
 //-----------------------------------------------------------------
+	typedef TL::MkTlst<	
+/*0*/	Clr<Undefined   >
+/*1*/	, Clr<DeathZone>
+/*2*/	, Clr<Nominal	>
+/*4*/	, Clr<BorderAbove<Thickness> >
+/*5*/	, Clr<BorderLower<Thickness> >
+/*6*/	, Clr<BorderKlass2<Long> > 
+/*7*/	, Clr<BorderDefect<Long> >
+/*8*/	, Clr<BorderKlass2<Cross>>
+/*9*/	, Clr<BorderDefect<Cross>>
+
+/*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+/*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+/*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
+/*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+/*20*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*21*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+/*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
+/*23*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+/*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
+/*26*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+/*29*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
+/*30*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+/*34*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
+/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+/*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+//------------------------------------------------------------------------------
+	>::Result label_message_list;
+//-------------------------------------------------------------------
+#define	JOIN2(a, b) a##,##b
+#define	JOIN3(a, b, c) a##,##b##,##c
+#define	JOIN4(a, b, c, d) a##,##b##,##c,##d
+
+//DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderAbove<Thickness>>												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderDefect<Long> >												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffffff00)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
+
+DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffffff00)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
+
+DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffffff00)
+
+DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffffff00)
+DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN4(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xffff0000)
+DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderKlass2<Cross> >												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xffff0000)
+DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000) 
+
+#undef	JOIN2
+#undef	JOIN3
+#undef	JOIN4
+//---------------------------------------------------------------------
 template<class O>struct __status_label__
 {
 	typedef typename O::__template_must_be_overridded__ noused;
@@ -14,15 +101,9 @@ template<>struct __status_label__<NullType>
 
 #define STATUS_LABEL(O, txt)template<>struct __status_label__<O>\
 {\
-	static const int ID = TL::IndexOf<ColorTable::items_list, O>::value;\
+	static const int ID = TL::IndexOf<label_message_list, O>::value;\
 	static char *text(){return txt;};\
 };
-
-//#define WAPPER_STATUS_LABEL(O, txt)template<class X>struct __status_label__<Clr<O<X>>>\
-//{\
-//	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<O<X>>>::value;\
-//	static char *text(){return txt;}\
-//};
 
 namespace
 {
@@ -45,14 +126,20 @@ namespace
 	{
 		static const bool value = false;
 	};
+	template<class T>struct __first_color__;
+	template<class  _0, class _1, class _2, class _3>struct __first_color__<Clr<_0, _1, _2, _3>>
+	{
+		typedef Clr<_0, _1, _2, _3> O;
+		typedef typename TL::_if<(TL::Length<ColorTable::items_list>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
+	};
 	template<class O, class P>struct __select__
 	{
-		bool operator()(O *o, P *p)
+		bool operator()(O *, P *p)
 		{
-			if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)
+			if(TL::IndexOf<label_message_list, O>::value == p->id)
 			{
 				p->text = __status_label__<O>::text();
-				p->color = o->value;
+				p->color = Singleton<ColorTable>::Instance().items.get<typename __first_color__<O>::Result>().value;
 				p->visibleVal = ValueVisible<O>::value;
 				return false;
 			}
@@ -68,7 +155,6 @@ STATUS_LABEL(Clr<Nominal>, "\"Норма\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"Толщина выше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"Толщина меньше нормы\"")
-STATUS_LABEL(Clr<BorderNominal<Thickness>>, "\"Норма\"")
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__;
 
@@ -95,7 +181,7 @@ template<class O, class P>struct __set_color_bar__
 	__set_color_bar__() : color(Singleton<ColorTable>::Instance().items.get<O>().value){}
 	bool operator()(O *, P *p)
     {
-        if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)
+        if(TL::IndexOf<label_message_list, O>::value == p->id)
 		{
 		     p->color = color;
              return false;
@@ -112,7 +198,7 @@ template<class O, class P>struct __set_color_bar__
         {}\
 	bool operator()(O *, P *p)\
     {\
-        if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)\
+        if(TL::IndexOf<label_message_list, O>::value == p->id)\
 		{\
 		     p->color = color;\
 			 p->data = p->defData;\
@@ -132,25 +218,25 @@ COLOR_DATA(Clr<DeathZone>)
 
 #define STATUS_LABEL_1(a)template<>struct __status_label__<Clr<PARAM_STR##a>>\
 {\
-	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<PARAM_STR##a>>::value;\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a>>::value;\
 	static char *text(){return PARAM_TXT##a;}\
 };
 
 #define STATUS_LABEL_2(a, b)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b>>\
 {\
-	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<PARAM_STR##a, PARAM_STR##b>>::value;\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b>>::value;\
 	static char *text(){return PARAM_TXT##a##PARAM_TXT##b;}\
 };
 
 #define STATUS_LABEL_3(a, b, c)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c>>\
 {\
-	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c>>::value;\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c>>::value;\
 	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c;};\
 };
 
 #define STATUS_LABEL_4(a, b, c, d)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d>>\
 {\
-	static const int ID = TL::IndexOf<ColorTable::items_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d>>::value;\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d>>::value;\
 	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d;}\
 };
 
@@ -161,7 +247,7 @@ COLOR_DATA(Clr<DeathZone>)
 #define BorderKlass2_Long "\"продольный 2 класс\", "
 
 #define BorderLower_Thickness "\"толщина меньше нормы\", "
-#define BorderAbove_Thickness "\"толщина выше нормы\", "
+#define BorderAbove_Thickness "\"толщина больше нормы\", "
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))
@@ -233,8 +319,9 @@ struct StatusText
 	char *operator()(int id, int &color, bool &visible)
 	{
 		__data_text__ data = {id, NULL};
-		TL::find<ColorTable::items_list, __select__>()(		
-			&Singleton<ColorTable>::Instance().items
+		TL::find<label_message_list, __select__>()(		
+			//&Singleton<ColorTable>::Instance().items
+			(TL::Factory<label_message_list> *)0
 			, &data
 			);
 		color = data.color;
@@ -248,6 +335,6 @@ struct ColorBar
 	void operator()(double &data, unsigned &color, int id, double defData)
 	{
 		__data_color__ d(id, color, data, defData);
-		TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+	//	TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
 	}
 };

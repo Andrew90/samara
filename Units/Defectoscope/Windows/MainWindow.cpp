@@ -59,6 +59,7 @@ void MainWindow::operator()(TSize &m)
 	crossCheckBox	 .Size (width + 425, 5 , 400, 20);
 	longCheckBox	 .Size (width + 425, 25, 400, 20);
 	thicknessCheckBox.Size (width + 425, 45, 400, 20);
+	viewInterruptCheckBox.Size(width, 55, 400, 20);
 
 	static const int topLabelHeight = 28;
 	int y = rt.bottom - rt.top - 1;
@@ -106,6 +107,7 @@ unsigned MainWindow::operator()(TCreate &m)
 	crossCheckBox	 .Init(toolBar.hWnd, L"Измерение поперечных дефектов стенки трубы");
 	longCheckBox	 .Init(toolBar.hWnd, L"Измерение продольных дефектов стенки трубы");
 	thicknessCheckBox.Init(toolBar.hWnd, L"Измерение толщины стенки трубы");
+	viewInterruptCheckBox.Init(toolBar.hWnd, L"Прерывание на просмотр");
 
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	topLabelViewer.label.fontHeight = 16;

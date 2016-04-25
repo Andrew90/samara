@@ -360,7 +360,7 @@ template<typename SubList, typename SetDefault = NullType>class CreateDataBase
 		void operator()(O *o, P *p)
 		{
 			p->ConnectionSQL(
-			    QuerySQL_CreateTable<O, O::items_list, 4096>(o)()
+			    QuerySQL_CreateTable<O, O::items_list, 8 * 1024>(o)()
 			);
 		}
 	};

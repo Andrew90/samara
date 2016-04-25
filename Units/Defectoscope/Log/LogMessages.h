@@ -91,6 +91,13 @@ namespace LogMess
 		, ReadyBitOut        
 		, ControlBitOut      
 		, ResultBitOut   
+		, WaitControlCircuitBitIn
+		, PowerBMOn
+
+		, AlarmControlCircuts
+		, AlarmCycle
+
+		, ContineCycle
 
 		, max_row
 	};
@@ -133,6 +140,15 @@ namespace LogMess
 	MESS(AlarmExitControlCircuitBitIn , void, "Нет сигнала \"Цепи управления\""	   , red  , yellow)
 	MESS(AlarmExitWorkBitIn			  , void, "Нет сигнала \"Работа\""			   , red  , yellow)
 	MESS(AlarmExitSycleBitIn		  , void, "Нет сигнала \"Цикл\""			   , red  , yellow)
+
+	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
+
+	MESS(PowerBMOn, void, "Включено \"ПИТАНИЕ БМ\"", blue, white)
+
+	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
+	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
+
+	MESS(ContineCycle, void, "Для продолжения нажмите кнопку \"Цикл\"", blue, white)
 
 
 	MESS(InfoOnWorkBitIn                , void, "Ожидание сигнала \"Работа\""					  , blue , white)

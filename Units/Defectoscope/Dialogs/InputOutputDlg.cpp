@@ -98,14 +98,14 @@ struct DefaultBtn
 };
 //----------------------------------------------------------------------------
 MIN_EQUAL_VALUE(i—ontrol—ircuits, 0)
-MIN_EQUAL_VALUE(iSycle          , 0)
+MIN_EQUAL_VALUE(iCycle          , 0)
 MIN_EQUAL_VALUE(iReady          , 0)
 MIN_EQUAL_VALUE(iControl        , 0)
 MIN_EQUAL_VALUE(iBase           , 0)
 MIN_EQUAL_VALUE(iReserve        , 0)
 
 MAX_EQUAL_VALUE(i—ontrol—ircuits, 31)
-MAX_EQUAL_VALUE(iSycle          , 31)
+MAX_EQUAL_VALUE(iCycle          , 31)
 MAX_EQUAL_VALUE(iReady          , 31)
 MAX_EQUAL_VALUE(iControl        , 31)
 MAX_EQUAL_VALUE(iBase           , 31)
@@ -127,7 +127,7 @@ MAX_EQUAL_VALUE(oPowerBM   , 31)
 MAX_EQUAL_VALUE(oReserve   , 31)
 
 template<>struct DlgSubItems<i—ontrol—ircuits, unsigned >: UpDownSubItem<i—ontrol—ircuits>{};
-template<>struct DlgSubItems<iSycle          , unsigned >: UpDownSubItem<iSycle          >{};
+template<>struct DlgSubItems<iCycle          , unsigned >: UpDownSubItem<iCycle          >{};
 template<>struct DlgSubItems<iReady          , unsigned >: UpDownSubItem<iReady          >{};
 template<>struct DlgSubItems<iControl        , unsigned >: UpDownSubItem<iControl        >{};
 template<>struct DlgSubItems<iBase           , unsigned >: UpDownSubItem<iBase           >{};
@@ -141,7 +141,7 @@ template<>struct DlgSubItems<oPowerBM   , unsigned >: UpDownSubItem<oPowerBM   >
 template<>struct DlgSubItems<oReserve   , unsigned >: UpDownSubItem<oReserve   >{};
 
 PARAM_TITLE(i—ontrol—ircuits, L"÷ÂÔË ÛÔ‡‚ÎÂÌËˇ")
-PARAM_TITLE(iSycle          , L"÷ËÍÎ")
+PARAM_TITLE(iCycle          , L"÷ËÍÎ")
 PARAM_TITLE(iReady          , L"√ÓÚÓ‚ÌÓÒÚ¸")
 PARAM_TITLE(iControl        , L" ÓÌÚÓÎ¸")
 PARAM_TITLE(iBase           , L"¡‡Á‡")
