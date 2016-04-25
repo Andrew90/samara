@@ -82,22 +82,7 @@ namespace
 			return false;
 		}
 	};
-	//template<>struct __id_skip__<Clr<Undefined>>
-	//{
-	//	template<class P>bool operator()(P *p)
-	//	{
-	//		if (-1 == *p->id)
-	//		{
-	//			if (NULL == p->str) 
-	//			{
-	//					p->str = __status_label__<Clr<Undefined>>::text();
-	//					p->res = __status_label__<Clr<Undefined>>::ID;
-	//			}
-	//			return true;
-	//		}
-	//		return false;
-	//	}
-	//};
+	
 	template<>struct __id_skip__<Clr<DeathZone>>
 	{
 		template<class P>bool operator()(P *p)
@@ -179,6 +164,11 @@ namespace
 			{
 				p->bits &= ~(1 << TL::IndexOf<skip_list, Clr<BorderKlass2<X>>>::value);
 				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
+				//dprint(" %s\n  %s\n  %s\n"
+				//	, typeid(typename P::items_list).name()
+				//	, typeid(typename O::items_list).name()
+				//	, typeid(list).name()
+				//	);
 				__result_XXX__<Tail>()((__data_id__<list> *)p);
 				return;
 			}
@@ -239,7 +229,7 @@ namespace
 	{
 		bool operator()(O *, P *p)
 		{
-			if (TL::IndexOf<ColorTable::items_list, O>::value == *p->id)
+			if (TL::IndexOf<label_message_list, O>::value == *p->id)
 			{
 				p->id = &p->id[1];
 				if (__id_skip__<O>()(p)) return false;
@@ -251,7 +241,7 @@ namespace
 					__result__<skip_list>()((__data_id__<list> *)p);
 					return false;
 				}
-				TL::find<ColorTable::items_list, __id_XXX__>()((TL::Factory<ColorTable::items_list> *)0, (__data_id__<list> *)p);
+				TL::find<label_message_list, __id_XXX__>()((TL::Factory<label_message_list> *)0, (__data_id__<list> *)p);
 				return false;
 			}
 			return true;
@@ -262,27 +252,9 @@ namespace
 
 char *SelectMessage(int *x, int &res)
 {
-	__data_id__<ColorTable::items_list> d = { x, NULL, 0, 0 };
-	TL::find<ColorTable::items_list, __id__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+	__data_id__<label_message_list> d = { x, NULL, 0, 0 };
+	TL::find<label_message_list, __id__>()((TL::Factory<label_message_list> *)0, &d);
 	res = d.res;
 	return d.str;
 }
 
-//template<class O, class P>struct Print
-//{
-//	void operator()(O *, P *)
-//	{
-//		printf("%s\n", typeid(O).name());
-//	}
-//};
-//
-//void Test()
-//{
-//	typedef __sel_list__<ColorTable::items_list, Clr<BorderAbove<Thickness>>::items_list>::Result list;
-//	typedef __sel_list__<list, TL::MkTlst<BorderDefect<Cross>, BorderLower<Thickness>>::Result>::Result list0;
-//	TL::foreach<list0, Print>()((TL::Factory<list0> *)0, (int *)0);
-//
-//	typedef __min_list__<list0>::Result x;
-//
-//	printf("\n\n%s\n", typeid(x).name());
-//}

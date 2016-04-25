@@ -31,6 +31,7 @@ DLG(IOportsDlg)
 DLG(TestTabsDlg)
 DLG(RecalculationDlg)
 DLG(MedianFiltreDlg)
+DLG(ColorItemsDlg)
 
 #undef DLG
 

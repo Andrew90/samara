@@ -26,6 +26,7 @@ class Compute
 public:
 	Compute();
 	void Recalculation();
+	//void Test();
 };
 
 extern Compute compute;

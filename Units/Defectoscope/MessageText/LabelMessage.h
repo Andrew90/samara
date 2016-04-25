@@ -5,42 +5,42 @@
 /*0*/	Clr<Undefined   >
 /*1*/	, Clr<DeathZone>
 /*2*/	, Clr<Nominal	>
-/*4*/	, Clr<BorderAbove<Thickness> >
-/*5*/	, Clr<BorderLower<Thickness> >
+/*3*/	, Clr<BorderAbove<Thickness> >
+/*4*/	, Clr<BorderLower<Thickness> >
+/*5*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 /*6*/	, Clr<BorderKlass2<Long> > 
 /*7*/	, Clr<BorderDefect<Long> >
 /*8*/	, Clr<BorderKlass2<Cross>>
 /*9*/	, Clr<BorderDefect<Cross>>
 
-/*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-/*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-/*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-/*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-/*20*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*21*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
-/*23*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-/*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
-/*26*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*29*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
-/*30*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-/*34*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-/*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+/*10*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+/*11*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*13*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+/*14*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
+/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*16*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+/*17*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*20*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+/*21*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
+/*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*23*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+/*24*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
+/*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*26*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+/*27*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
+/*29*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*30*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*34*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
+/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
 //------------------------------------------------------------------------------
 	>::Result label_message_list;
 //-------------------------------------------------------------------

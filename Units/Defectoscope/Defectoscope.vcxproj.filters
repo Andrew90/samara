@@ -332,6 +332,9 @@
     <ClCompile Include="Automat\AutomatAdditional.cpp">
       <Filter>Automat</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\ColorItemsDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

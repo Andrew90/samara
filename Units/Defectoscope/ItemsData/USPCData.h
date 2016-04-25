@@ -32,11 +32,7 @@ public:
 	double bufferMin[App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
 	double bufferMax[App::zonesCount];	///<Вычисленные данные разбитые по датчикам и зонам
 	char statusMin[App::zonesCount];
-	char statusMax[App::zonesCount];
-	//char status[App::zonesCount];	///< статус данных по датчикам и зонам
-	//char commonStatus[App::zonesCount];					///< общий статус по зонам
-	//double zonesMin[App::zonesCount];	///<минимальная толщина в зоне
-	//double zonesMax[App::zonesCount];	///<максимальная толщина в зоне
+	char statusMax[App::zonesCount];	
 };
 
 template<class T>struct ItemData: USPCViewerData{}; 

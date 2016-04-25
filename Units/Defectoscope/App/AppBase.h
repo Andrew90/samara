@@ -117,7 +117,7 @@ DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
 #undef	JOIN2
 
 
@@ -129,11 +129,11 @@ struct ColorTable
 /*2*/		, Clr<Nominal	>
 /*4*/	    , Clr<BorderAbove<Thickness> >
 /*5*/	    , Clr<BorderLower<Thickness> >
-/*6*/	    , Clr<BorderKlass2<Long> > 
-/*7*/	    , Clr<BorderDefect<Long> >
-/*8*/	    , Clr<BorderKlass2<Cross>>
-/*9*/	    , Clr<BorderDefect<Cross>>
-/*10*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+/*6*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+/*7*/	    , Clr<BorderKlass2<Long> > 
+/*8*/	    , Clr<BorderDefect<Long> >
+/*9*/	    , Clr<BorderKlass2<Cross>>
+/*10*/	    , Clr<BorderDefect<Cross>>
 
 ///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 ///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>

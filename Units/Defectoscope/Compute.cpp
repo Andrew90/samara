@@ -7,6 +7,7 @@
 #include "AppBase.h"
 #include "ResultData.h"
 #include "SelectMessage.h"
+#include "LabelMessage.h"
 
 void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::zonesCount]
     , double (&minThreshold)[App::zonesCount], double (&nominalTreshold)[App::zonesCount], char &status)
@@ -142,6 +143,7 @@ namespace
 	{
 		ZeroMemory(x.status, sizeof(x.status));
 		ZeroMemory(x.buffer, sizeof(x.buffer));
+		x.currentOffsetZones = 0;
 	}
 
 	void UndefinedItem(USPCViewerThicknessData &x)
@@ -149,6 +151,7 @@ namespace
 		ZeroMemory(x.bufferMax, sizeof(x.bufferMax));
 		ZeroMemory(x.bufferMin, sizeof(x.bufferMin));
 		ZeroMemory(x.commonStatus, sizeof(x.commonStatus));
+		x.currentOffsetZones = 0;
 	}
 
 	template<class O, class P>struct __recalculation__
@@ -281,3 +284,20 @@ void RecalculationDlg::Do(HWND)
 {
 	compute.Recalculation();
 }
+
+/*
+void Compute::Test()
+{
+	int buf[4];
+	buf[3] = -1;
+
+	buf[2] = 10;//TL::IndexOf<label_message_list, Clr<Undefined>>::value;
+	buf[0] = 5;//TL::IndexOf<label_message_list, Clr<BorderDefect<Long>>>::value;
+	buf[1] = 2;//TL::IndexOf<label_message_list, Clr<BorderAbove<Thickness>>>::value;
+
+	int t = 0;
+
+	SelectMessage(buf, t);
+	dprint("mess %d\n", t);
+}
+*/

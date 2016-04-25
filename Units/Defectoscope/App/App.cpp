@@ -10,6 +10,7 @@
 #include "Automat.h"
 #include "USPCData.h"
 #include "ConstData.h"
+#include "Compute.h"
 
 
 extern HINSTANCE hInstance;
@@ -31,6 +32,7 @@ void App::Init()
 	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
+
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
 	HWND h = WindowTemplate(&mainWindow, L"หมา \"ม๓๐เํ-5000\"", r.left, r.top, r.right, r.bottom);

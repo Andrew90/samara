@@ -283,7 +283,6 @@ template<class Table, class T, class B>struct Insert<Table, TemplDialog<T, B> >
 	typedef TemplDialog<T, B> Z;
 	void operator()(Z &t, CBase &base)
 	{
-		zprint("   === %s\n", typeid(t).name());
 		Insert_Into<Table>(t.table, base).Execute();
 		int id = Select<Table>(base).eq_all<Table::items_list>(&t.table.items).Execute();
 		UpdateId<ID<Table> >(base, id);

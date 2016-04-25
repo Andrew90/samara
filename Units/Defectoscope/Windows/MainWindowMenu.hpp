@@ -115,7 +115,7 @@ namespace MainWindowMenu
 	struct DiscretePlate	      {};//static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};
-	struct ColorItems             {static void Do(HWND h){zprint("");}};
+	struct ColorItems             : ColorItemsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateDescriptor: Descriptor1730Dlg{};//{static void Do(HWND h){zprint("");}};
 	struct Coefficient            {static void Do(HWND h){zprint("");}};
 	//struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
