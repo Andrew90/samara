@@ -100,7 +100,6 @@
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\templates\Frame.cpp" />
-    <ClCompile Include="..\..\Common\USPC\USPCParam.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp" />
@@ -157,11 +156,6 @@
     <ClCompile Include="Windows\ThicknessWindow.cpp" />
     <ClCompile Include="Windows\ThresholdWindow.cpp" />
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
-    <ClCompile Include="Windows\USPCBottomPanel.cpp" />
-    <ClCompile Include="Windows\USPCChartViewer.cpp" />
-    <ClCompile Include="Windows\USPCmessages.cpp" />
-    <ClCompile Include="Windows\USPCWindow.cpp" />
-    <ClCompile Include="Windows\USPCWindowToolBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\1730\Device1730.h" />
@@ -196,7 +190,6 @@
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
-    <ClInclude Include="..\..\Common\USPC\USPCParam.h" />
     <ClInclude Include="..\..\Common\window_tool\Button.h" />
     <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\DlgFiles.h" />
@@ -260,13 +253,7 @@
     <ClInclude Include="Windows\ThicknessWindow.h" />
     <ClInclude Include="Windows\ThresholdWindow.h" />
     <ClInclude Include="Windows\TopLabelViewer.h" />
-    <ClInclude Include="Windows\USPCBottomPanel.h" />
-    <ClInclude Include="Windows\USPCChartViewer.h" />
-    <ClInclude Include="Windows\USPCmessages.h" />
-    <ClInclude Include="Windows\USPCpageItems.hpp" />
-    <ClInclude Include="Windows\USPCWindow.h" />
     <ClInclude Include="Windows\ViewersMenu.hpp" />
-    <ClInclude Include="Windows\USPCWindowToolBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\BottomArr.bmp" />

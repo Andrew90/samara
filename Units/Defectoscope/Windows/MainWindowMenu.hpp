@@ -2,7 +2,6 @@
 #include "config.h"
 #include "WindowsPosition.h"
 #include "Dialogs.h"
-#include "USPCWindow.h"
 #include "CrossThresholdWindow.h"
 #include "LongThresholdWindow.h"
 #include "ThicknessThresholdWindow.h"
@@ -111,7 +110,7 @@ namespace MainWindowMenu
 	struct Setting{};
 	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct AnalogPlate            : Common::OpenWindow<USPCWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct AnalogPlate            {static void Do(HWND h){zprint("");}};
 	struct DiscretePlate	      {};//static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};

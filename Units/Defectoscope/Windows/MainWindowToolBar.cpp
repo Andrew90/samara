@@ -10,7 +10,7 @@
 #include "Emptywindow.h"
 //#include "Automat.h"
 #include "MainWindow.h"
-#include "USPCWindow.h"
+//#include "USPCWindow.h"
 #include "Common.h"
 namespace 
 {
@@ -42,8 +42,6 @@ typedef TL::MkTlst<
 //----------------------------------------------------------------------------------
 void SycleMeashurement(HWND h)
 {
-  zprint("");
-  if(Common::DestroyWindow<USPCWindow>(h)) Sleep(500);
   SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------

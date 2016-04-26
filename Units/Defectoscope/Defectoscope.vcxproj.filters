@@ -73,9 +73,6 @@
     <Filter Include="Common\Device\USPC">
       <UniqueIdentifier>{b2215e62-e234-436a-b06a-0b9679101153}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows\USPCWindow">
-      <UniqueIdentifier>{d1e6fb2c-cbc1-4803-84b8-6a5c5493c224}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows\CrossWindow">
       <UniqueIdentifier>{86d36ce5-4271-4214-aa38-111e78af6d5b}</UniqueIdentifier>
     </Filter>
@@ -248,32 +245,14 @@
     <ClCompile Include="Dialogs\TestTabsDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\USPCWindow.cpp">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\USPCWindowToolBar.cpp">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp">
       <Filter>Common\window_tool</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\USPCChartViewer.cpp">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\USPCBottomPanel.cpp">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\USPC\USPCParam.cpp">
-      <Filter>Common\Device\USPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\Button.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Graphics\Gate.cpp">
       <Filter>Common\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\USPCmessages.cpp">
-      <Filter>Windows\USPCWindow</Filter>
     </ClCompile>
     <ClCompile Include="Windows\CrossWindow.cpp">
       <Filter>Windows\CrossWindow</Filter>
@@ -535,17 +514,8 @@
     <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h">
       <Filter>Common\DlgTemplates</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\USPC\USPCParam.h">
-      <Filter>Common\Device\USPC</Filter>
-    </ClInclude>
     <ClInclude Include="App\TablesDefine.h">
       <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\USPCWindow.h">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\USPCWindowToolBar.h">
-      <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\DropDownItem.h">
       <Filter>Common\window_tool</Filter>
@@ -553,26 +523,14 @@
     <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h">
       <Filter>Common\window_tool</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\USPCChartViewer.h">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h">
       <Filter>Common\window_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\USPCBottomPanel.h">
-      <Filter>Windows\USPCWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\USPCpageItems.hpp">
-      <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\Button.h">
       <Filter>Common\window_tool</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\Gate.h">
       <Filter>Common\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\USPCmessages.h">
-      <Filter>Windows\USPCWindow</Filter>
     </ClInclude>
     <ClInclude Include="Windows\CrossWindow.h">
       <Filter>Windows\CrossWindow</Filter>
