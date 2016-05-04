@@ -67,18 +67,34 @@ namespace
 				d.buffer[j][i] = -1;
 				d.status[j][i] = StatusId<Clr<Undefined>>();
 			}
-			for(int j = d.offsets[i], last = d.offsets[i + 1]; j < last; ++j)
+			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
-				WORD channel = b[j].Channel;
+				WORD channel = b[jj].Channel;
 				if(channel < App::count_sensors)
 				{
-					double t = filtre(channel, b[j].hdr.G1Amp);
-					if(t > d.buffer[channel][i])
+					//проверить смещение на соответствие каналу
+					int j = jj - d.offsSensor[channel];					
+					if(j > 0)
 					{
-						d.buffer[channel][i] = t;						
-						StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
-					}
-				}				
+						if(channel != b[j].Channel)
+						{
+							for(int k = j + 1, len = j + App::count_sensors + 2; k < len; ++k)
+							{
+								if(b[k].Channel == channel)
+								{
+									j = k;
+									break;
+								}
+							}
+						}
+						double t = filtre(channel, b[j].hdr.G1Amp);
+						if(t > d.buffer[channel][i])
+						{
+							d.buffer[channel][i] = t;						
+							StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
+						}
+					}	
+				}
 			}
 		}
 		int buf[ App::count_sensors + 1];
@@ -107,21 +123,37 @@ namespace
 			d.bufferMax[i] = -1;
 			d.statusMin[i] = StatusId<Clr<Undefined>>();
 			d.statusMin[i] = StatusId<Clr<Undefined>>();
-			for(int j = d.offsets[i], last = d.offsets[i + 1]; j < last; ++j)
+			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
-				WORD channel = b[j].Channel;				
+				WORD channel = b[jj].Channel;	
 				if(channel < App::count_sensors)
 				{
-					double t = filtre(channel, b[j].hdr.G1Amp);
-					if(t > d.bufferMax[i])
+					//проверить смещение на соответствие каналу
+					int j = jj - d.offsSensor[channel];					
+					if(j > 0)
 					{
-						d.bufferMax[i] = t;						
-						StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-					}
-					if(t < d.bufferMin[i])
-					{
-						d.bufferMin[i] = t;						
-						StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+						if(channel != b[j].Channel)
+						{
+							for(int k = j + 1, len = j + App::count_sensors + 2; k < len; ++k)
+							{
+								if(b[k].Channel == channel)
+								{
+									j = k;
+									break;
+								}
+							}
+						}
+						double t = filtre(channel, b[j].hdr.G1Amp);
+						if(t > d.bufferMax[i])
+						{
+							d.bufferMax[i] = t;						
+							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+						}
+						if(t < d.bufferMin[i])
+						{
+							d.bufferMin[i] = t;						
+							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+						}
 					}
 				}				
 			}
@@ -197,6 +229,7 @@ namespace
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
+				data.SamplesPerZone(compute.lengthTube);
 				MedianFiltre f[App::count_sensors];
 				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
 				{
@@ -266,16 +299,25 @@ namespace
 			resultStatus[i] = t;
 		}
 	}
+
 }
 
 void Compute::Recalculation()
 {	
+
 	typedef TL::MkTlst<Cross, Long, Thickness>::Result list;
+
 	TL::foreach<list, __recalculation__>()((TL::Factory<list> *)0, (int *)0);
 
 	CommonStatus();
 
 	app.MainWindowUpdate();
+}
+
+void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime)
+{
+   lengthTube = int((double)Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value 
+	   * (stopTime - startTime) /(baseTime - startTime));
 }
 
 Compute compute;

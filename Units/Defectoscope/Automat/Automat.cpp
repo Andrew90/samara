@@ -8,6 +8,8 @@
 #include "LogBuffer.h"
 #include "LogMessageToTopLabel.h"
 #include "AutomatAdditional.h"
+#include "USPC.h"
+#include "Compute.h"
 
 struct Automat::Impl
 {
@@ -17,6 +19,7 @@ struct Automat::Impl
 	struct ExceptionContinueProc{};
 	struct ExceptionСontrolСircuitsOffProc{};
 	struct ExceptionСycleOffProc{};
+	struct Exception_USPC_DO_ERROR_Proc{};
 	HANDLE hThread;
 	Impl() 
 	{}
@@ -114,13 +117,6 @@ struct Automat::Impl
 			*p |= o->value;
 		}
 	};
-	//template<class O, class P>struct __bits_1__
-	//{
-	//	void operator()(O *o, P *p)
-	//	{
-	//		((unsigned short *)p)[1] |= o->value;
-	//	}
-	//};
 
 	template<class List, class TList>struct __filtr__;
 	template<class Head, class Tail, class TList>struct __filtr__<Tlst<Head, Tail>, TList>
@@ -339,8 +335,6 @@ struct Automat::Impl
 		}
 	};
 ///-----------------------------------------------------------------------------------
-	//struct ExceptionСontrolСircuitsOffProc{};
-	//struct ExceptionСycleOffProc{};
 	template<>struct Off<iСontrolСircuits>
 	{
 		static unsigned &bit;
@@ -356,6 +350,14 @@ struct Automat::Impl
 		static void Do(unsigned bits)
 		{
 			 if(0 == (bits & bit)) throw ExceptionСycleOffProc();
+		}
+	};
+
+	struct USPC_Do
+	{
+		static void Do(unsigned)
+		{
+			if(!USPC::Do()) Exception_USPC_DO_ERROR_Proc();
 		}
 	};
 ///-----------------------------------------------------------------------------------
@@ -395,27 +397,30 @@ void Automat::Impl::Do()
 
 				OUT_BITS(On<oPowerBM>);
 				Sleep(500);
-				//todo проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
-				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				//todo Загрузить настройки для текущего типоразмера
+				//проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
+				//Загрузить настройки для текущего типоразмера
+				USPC::Open();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 				AND_BITS(On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				SET_BITS(On<oPowerBM>);
-				//todo подготовить ультрозвуковую систему к работе
+				//подготовить ультрозвуковую систему к работе
+				USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
 				AND_BITS(On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				unsigned startTime = timeGetTime();
-				//todo сбор данных с ультрозвуковых датчиков
-				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				AND_BITS(On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
-				unsigned stopTime = timeGetTime();
+				//сбор данных с ультрозвуковых датчиков
+				AND_BITS(On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
-				AutomatAdditional::ComputeSpeed(stopTime - startTime);
+				AutomatAdditional::ComputeSpeed(baseTime - startTime);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				AND_BITS(Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
-				//todo расчёт данных, вывод на экран
+				AND_BITS(Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				//расчёт данных, вывод на экран
+				unsigned stopTime = timeGetTime();
+				compute.LengthTube(startTime, baseTime, stopTime);
+				compute.Recalculation();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				Sleep(100);
 				OUT_BITS(Off<oWork>);
@@ -432,6 +437,7 @@ void Automat::Impl::Do()
 				//выставить сигнал ПЕРЕКЛАДКА
 				OUT_BITS(On<oToShiftThe>);
 				//todo Записать результат контроля в базу данных
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
 			{
@@ -448,6 +454,13 @@ void Automat::Impl::Do()
 				//todo остановить сбор сканов
 			}
 			catch(ExceptionTimeOutProc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::TimeoutPipe>();	
+				SET_BITS(On<oPowerBM>);
+				//todo остановить сбор сканов
+			}
+			catch(Exception_USPC_DO_ERROR_Proc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	

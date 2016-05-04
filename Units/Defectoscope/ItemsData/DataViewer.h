@@ -29,13 +29,23 @@ template<class T, int channel>struct DataViewer: DefectData
 	{}
 	void Do(int zone)
 	{
-	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();
-	   int start = d.offsets[zone];
-	   int stop = d.offsets[1 + zone];
-	   int offs = Singleton<OffsetsTable>::Instance().items.get<Offset<T, channel> >().value;
-	   int maxOffs = d.currentOffsetFrames;
-	   USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
-	   Set(zone, start, stop, channel, offs, maxOffs, s);
+		ItemData<T> &d = Singleton<ItemData<T> >::Instance();
+		int start = d.offsets[zone];
+		int stop = d.offsets[1 + zone];
+		int offs = Singleton<OffsetsTable>::Instance().items.get<Offset<channel> >().value;
+		int maxOffs = d.currentOffsetFrames;
+		USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
+
+		int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
+			* Singleton<OffsetsTable>::Instance().items.get<Offset<channel>>().value
+			/ App::zone_length
+			);
+		start -= samplesOffset;
+		if(start < 0) start = 0;
+		stop -= samplesOffset;
+		if(stop < 0) start = stop = 0;
+
+		Set(zone, start, stop, channel, offs, maxOffs, s);
 	}
 };
 
@@ -71,9 +81,19 @@ template<int channel>struct DataViewer<Thickness, channel>: ThicknessData
 	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();
 	   int start = d.offsets[zone];
 	   int stop = d.offsets[1 + zone];
-	   int offs = Singleton<OffsetsTable>::Instance().items.get<Offset<T, channel> >().value;
+	   int offs = Singleton<OffsetsTable>::Instance().items.get<Offset<channel> >().value;
 	   int maxOffs = d.currentOffsetFrames;
 	   USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
+
+	   int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
+			* Singleton<OffsetsTable>::Instance().items.get<Offset<channel>>().value
+			/ App::zone_length
+			);
+		start -= samplesOffset;
+		if(start < 0) start = 0;
+		stop -= samplesOffset;
+		if(stop < 0) start = stop = 0;
+
 	   Set(zone, start, stop, channel, offs, maxOffs, s);
 	}
 };

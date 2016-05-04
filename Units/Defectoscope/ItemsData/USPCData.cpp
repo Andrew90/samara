@@ -9,54 +9,82 @@
 
 #pragma comment(lib, "Winmm.lib")
 
-unsigned USPCData::previousTime;
+//unsigned USPCData::previousTime;
 
 void USPCData::Start()
 {
-	currentOffsetFrames = 0;
-	currentOffsetZones = 0;
-	previousStrobeBit = false;
+	currentOffsetFrames = 0;	
 }
 
-/**
-	* \brief Расчёт разбития по зонам входных данных с платы USPC
-	* \param currentTime - текущее время (timeGetTime())
-	* \param strobeBit - бит с платы 1730 (строб зоны)
-	* \param numberSavedFrames - количество считанных данных с плату USPC
-	* \details После вызова функции AddFrames выполнить 	(previousTime = currentTime)
-	* парраметру  previousTime присвоить текущее время в тиках
-	*/
+///**
+//	* \brief Расчёт разбития по зонам входных данных с платы USPC
+//	* \param currentTime - текущее время (timeGetTime())
+//	* \param strobeBit - бит с платы 1730 (строб зоны)
+//	* \param numberSavedFrames - количество считанных данных с плату USPC
+//	* \details После вызова функции AddFrames выполнить 	(previousTime = currentTime)
+//	* парраметру  previousTime присвоить текущее время в тиках
+//	*/
+//
+//void USPCData::AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames)
+//{
+//	if(strobeBit)
+//	{
+//		if(numberSavedFrames)
+//		{
+//			offsets[currentOffsetZones] = currentOffsetFrames + numberSavedFrames;
+//			if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
+//		}
+//		else
+//		{
+//			previousStrobeBit = true;
+//			strobeTime = currentTime; 
+//		}
+//	}
+//	else if(previousStrobeBit)
+//	{
+//		double dt = currentTime - previousTime;
+//		double dx = strobeTime -  previousTime;
+//		offsets[currentOffsetZones] = currentOffsetFrames + int(dx * numberSavedFrames / dt);
+//		if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
+//		previousStrobeBit = false;
+//	}
+//
+//	currentOffsetFrames += numberSavedFrames;
+//}
 
-void USPCData::AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames)
+UCHAR *USPCData::CurrentFrame()
 {
-	if(strobeBit)
-	{
-		if(numberSavedFrames)
-		{
-			offsets[currentOffsetZones] = currentOffsetFrames + numberSavedFrames;
-			if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
-		}
-		else
-		{
-			previousStrobeBit = true;
-			strobeTime = currentTime; 
-		}
-	}
-	else if(previousStrobeBit)
-	{
-		double dt = currentTime - previousTime;
-		double dx = strobeTime -  previousTime;
-		offsets[currentOffsetZones] = currentOffsetFrames + int(dx * numberSavedFrames / dt);
-		if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
-		previousStrobeBit = false;
-	}
-
-	currentOffsetFrames += numberSavedFrames;
+	return (UCHAR *)&ascanBuffer[currentOffsetFrames];
+}
+void USPCData::OffsetCounter(int offs)
+{
+	currentOffsetFrames += offs;
 }
 
-unsigned char *USPCData::CurrentFrame()
+namespace
 {
-	return (BYTE *)&ascanBuffer[currentOffsetFrames];
+	template<class O, class P>struct __sensors_offset_in_samples__
+	{
+		void operator()(O *o, P *p)
+		{
+			static const int i = TL::IndexOf<OffsetsTable::items_list, O>::value;
+			double t = (double)p->samplesPerZone * o->value / App::zone_length / App::count_sensors;
+			p->offsSensor[i] = int(t) * App::count_sensors;
+		}
+	};
+}
+
+void USPCData::SamplesPerZone(int tubeLength)
+{
+	samplesPerZone = (double)App::zone_length * currentOffsetFrames 
+		/ (tubeLength + Singleton<OffsetsTable>::Instance().items.get<Offset<7>>().value);
+	ZeroMemory(offsets, sizeof(offsets));
+	for(int i = 1; i < App::zonesCount; ++i)
+	{
+	   offsets[i] = int(samplesPerZone * i);
+	}
+	//смещение в отчётах датчиков на каретке
+	TL::foreach<OffsetsTable::items_list, __sensors_offset_in_samples__>()(&Singleton<OffsetsTable>::Instance().items, this);
 }
 //-----------------------------------------------------------------------------------------
 

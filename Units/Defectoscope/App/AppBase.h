@@ -346,41 +346,19 @@ struct Descriptor1730Table
  };
  //--------------------------------------------------------------------------------------------------------
 ///\brief Смещение измерительных датчиков
-template<class T, int N>struct Offset;
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 0, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 1, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 2, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 3, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 4, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 5, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 6, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Long, 7, int, 0)
-
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 0, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 1, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 2, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 3, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 4, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 5, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 6, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Cross, 7, int, 0)
-
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 0, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 1, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 2, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 3, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 4, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 5, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 6, int, 0)
-DEFINE_PARAM_WAPPER_NUM(Offset, Thickness, 7, int, 0)
+template<int N>struct Offset;
+DEFINE_PARAM_NUM(Offset, 0, int, 0)
+DEFINE_PARAM_NUM(Offset, 1, int, 50)
+DEFINE_PARAM_NUM(Offset, 2, int, 100)
+DEFINE_PARAM_NUM(Offset, 3, int, 150)
+DEFINE_PARAM_NUM(Offset, 4, int, 280)
+DEFINE_PARAM_NUM(Offset, 5, int, 330)
+DEFINE_PARAM_NUM(Offset, 6, int, 380)
+DEFINE_PARAM_NUM(Offset, 7, int, 430)
 
 struct OffsetsTable
 {
-	typedef TL::MultyListToList<TL::MkTlst<
-		TL::CreateWapperNumList<Offset, Long, 0, 7>::Result
-		, TL::CreateWapperNumList<Offset, Cross, 0, 7>::Result
-		, TL::CreateWapperNumList<Offset, Thickness, 0, 7>::Result
-	>::Result>::Result items_list;
+	typedef TL::CreateNumList<Offset, 0, 7>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
 	const wchar_t *name(){return L"OffsetsTable";}

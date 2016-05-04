@@ -24,7 +24,9 @@ void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)
 class Compute
 {
 public:
+	int lengthTube;
 	Compute();
+	void LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime);
 	void Recalculation();
 	//void Test();
 };

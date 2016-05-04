@@ -8,15 +8,16 @@ class USPCData
 public:
 	int currentOffsetFrames;   ///<  Номер последнего кадра 
 	int currentOffsetZones;	   ///< номер смещения кадра в зоне
-	unsigned strobeTime;	   ///<время последнего строба
-	static unsigned previousTime; ///<время предыдущего сбора кадров
-	bool previousStrobeBit;			///<был ли в предыдущем сборе поднят бит зоны
 	USPC7100_ASCANDATAHEADER ascanBuffer[App::count_frames];	///<собранные кадры
-	int offsets[App::zonesCount + 2];  ///< смещение кадров по зонам
+	int offsets[App::zonesCount];  ///< смещение кадров по зонам
+	int offsSensor[App::count_sensors];
 	char commonStatus[App::zonesCount];					///< общий статус по зонам
+	double samplesPerZone;
 	void Start();///< Выполнить перед началом цикла сбора кадров с платы
-	void AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames); ///<добавляет считанные кадры с платы в массив
-	BYTE *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
+	//void AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames); ///<добавляет считанные кадры с платы в массив
+	UCHAR *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
+	void OffsetCounter(int offs);
+	void SamplesPerZone(int tubeLength);
 };
 
 class USPCViewerData: public USPCData

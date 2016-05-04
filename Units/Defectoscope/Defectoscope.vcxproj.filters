@@ -314,6 +314,12 @@
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\ut_files.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\USPC.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -603,6 +609,12 @@
     </ClInclude>
     <ClInclude Include="Automat\AutomatAdditional.h">
       <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\ut_files.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\USPC.h">
+      <Filter>Common\Device\USPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

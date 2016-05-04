@@ -5,6 +5,7 @@
 #include "AppBase.h"
 #include "App.h"
 #include "MainWindow.h"
+#include "ut_files.h"
 
 namespace
 {
@@ -47,6 +48,7 @@ namespace
 
 					MainWindow *o = (MainWindow *)GetWindowLongPtr(hMain, GWLP_USERDATA);
 					o->select.AddMenuItem(buf);
+					Singleton<ParametersTable>::Instance().items.get<NameParam>().value = buf;
 				}
 				EndDialog(h, TRUE);
 			}
@@ -134,6 +136,8 @@ void AddTypeSizeDlg::Do(HWND h)
 	   >(t).Do(h, L"Добавить типоразмер")
 	   )
 	{
+		wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+		NewUSPCFile(h, s);
 	}
 }
 
@@ -146,7 +150,6 @@ void DelTypeSizeDlg::Do(HWND h)
 		, TL::MkTlst<DelOkBtn, CancelBtn>::Result
 	   >(t).Do(h, L"Удалить типоразмер")
 	   )
-	{
-	}
+	{}
 }
 

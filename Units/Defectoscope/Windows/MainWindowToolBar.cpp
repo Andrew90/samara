@@ -64,7 +64,6 @@ void TestBtn(HWND)
 //----------------------------------------------------------------------------
 void StopMeashurement(HWND h)
 {
-	 zprint("");
 	 SetEvent(App::ProgrammStopEvent);
 }
 }
