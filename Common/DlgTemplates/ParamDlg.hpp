@@ -302,7 +302,7 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 			TL::foreach<typename T::list, __ok_btn__>()(&t.items, &_data);
 			if(1 == CountId<ID<Table> >(base, id))
 			{
-				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
+				_data.update.Where().ID(id).Execute();
 			}
 			else
 			{

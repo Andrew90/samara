@@ -35,6 +35,7 @@ TresholdWindow::TresholdWindow()
 	Klass2Thresh &kt = chart.items.get<Klass2Thresh>();
 	kt.SetData(klass2, App::zonesCount, 0, 255);
 	kt.color = 0xffffff00;
+	fastOffset = false;
 }
 //--------------------------------------------------------------------------
 bool TresholdWindow::Draw(TMouseMove &l, VGraphics &g)
@@ -99,7 +100,7 @@ void TresholdWindow::operator()(TMouseWell &l)
 	mouseMove = false;
 	int d = l.delta / 120;
 	bool m = 0 == (l.flags.lButton || l.flags.rButton);
-	double incr = 0 == l.flags.rButton  ? 0.1 : 5;
+	double incr = 0 == (l.flags.rButton || fastOffset)  ? 0.1 : 5;
 	OffsetToPixel(
 		chart
 		, storedMouseMove.x
@@ -275,14 +276,16 @@ void TresholdWindow::operator()(TKeyDown &l)
 	case VK_UP:
 		mouseWheel.delta = -120;
 		mouseWheel.flags.lButton = 1;
+		mouseWheel.flags.rButton = fastOffset || 0 > GetKeyState(VK_SHIFT);
 		break;
 	case VK_DOWN:
 		mouseWheel.delta = 120;
 		mouseWheel.flags.lButton = 1;
+		mouseWheel.flags.rButton = fastOffset || 0 > GetKeyState(VK_SHIFT);
 		break;
 	default: return;
 	}
-	mouseWheel.flags.rButton = 0 > GetKeyState(VK_SHIFT);
+	
 	(*this)(mouseWheel);
 }
 //---------------------------------------------------------------------------
@@ -295,6 +298,7 @@ void TresholdWindow::AlignOneZone  (int x, double offs)
 {
 	if(borderDefectCheckBox.value)brak[x] += offs;
 	if(border2ClassCheckBox.value)klass2[x] += offs;
+	SetFocus(hWnd);
 }
 //---------------------------------------------------------------------------
 void TresholdWindow::AlignAllZones (int x, double offs)
@@ -309,12 +313,15 @@ void TresholdWindow::AlignAllZones (int x, double offs)
 		double t = klass2[x];
 		for(int i = 0; i < App::zonesCount; ++i) klass2[i] = t;
 	}
+	SetFocus(hWnd);
 }
 //------------------------------------------------------------------------------------
 void TresholdWindow::AlignThresh(int x, double offs)
 {
 	if(borderDefectCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) brak[i] += offs;
 	if(border2ClassCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) klass2[i] += offs;
+	SetFocus(hWnd);
+
 }
 //-----------------------------------------------------------------------------------------------------
 namespace

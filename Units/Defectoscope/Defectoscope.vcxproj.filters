@@ -320,6 +320,9 @@
     <ClCompile Include="..\..\Common\USPC\USPC.cpp">
       <Filter>Common\Device\USPC</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\OffsetsSensors.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

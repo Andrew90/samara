@@ -33,6 +33,8 @@ DLG(RecalculationDlg)
 DLG(MedianFiltreDlg)
 DLG(ColorItemsDlg)
 
+DLG(OffsetsSensorsDlg)
+
 #undef DLG
 
 template<class T>struct WindowPositionDlg

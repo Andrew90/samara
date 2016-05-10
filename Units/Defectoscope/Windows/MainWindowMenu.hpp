@@ -121,6 +121,7 @@ namespace MainWindowMenu
 	struct Signal                 {static void Do(HWND h){zprint("");}};
 	struct ACFBorder              {static void Do(HWND h){zprint("");}};
 	struct TestTab                : TestTabsDlg{};//{static void Do(HWND h){zprint("");}};
+	struct OffsetsSensors: OffsetsSensorsDlg{};
 	
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
@@ -133,6 +134,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Границы АЧХ", ACFBorder)
 	MENU_ITEM(L"Цвета", ColorItems)
 	MENU_ITEM(L"Тестирование окна с закладками", TestTab)
+	MENU_ITEM(L"Смещение датчиков", OffsetsSensors)
 	
 	template<>struct SubMenu<DiscretePlate>
 	{
@@ -147,8 +149,8 @@ namespace MainWindowMenu
 		typedef TL::MkTlst<
 			MenuItem<AnalogPlate>
 			, SubMenu<DiscretePlate>	
-			, MenuItem<Coefficient>
-			, MenuItem<MedianFiltre>
+			//, MenuItem<Coefficient>
+			, MenuItem<OffsetsSensors>
 			, MenuItem<Signal>
 			, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>

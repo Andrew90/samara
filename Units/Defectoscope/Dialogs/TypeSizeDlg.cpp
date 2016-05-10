@@ -38,17 +38,16 @@ namespace
 					else
 					{
 						Insert_Into<Owner::Table>(owner.table, base).Execute<Owner::Table::items_list>();
-						id = Select<Owner::Table>(base).eq<NameParam>(owner.table.items.get<NameParam>().value).Execute();				   
+						id = Select<Owner::Table>(base).eq<NameParam>(owner.table.items.get<NameParam>().value).Execute();	
+						MessageBox(h, L"Типоразмер создан", L"Сообщение!!!", MB_ICONINFORMATION);
 					}
 					CurrentParametersTable curr = Singleton<CurrentParametersTable>::Instance();
 					curr.items.get<CurrentID>().value = id;
 					UpdateWhere<CurrentParametersTable>(curr, base).ID(1).Execute();
 
 					HWND hMain = GetParent(h);
-
 					MainWindow *o = (MainWindow *)GetWindowLongPtr(hMain, GWLP_USERDATA);
 					o->select.AddMenuItem(buf);
-					Singleton<ParametersTable>::Instance().items.get<NameParam>().value = buf;
 				}
 				EndDialog(h, TRUE);
 			}
@@ -122,21 +121,24 @@ DO_NOT_CHECK(NameParam)
 PARAM_TITLE(NameParam, L"")
 template<int N>struct DlgSubItems<NameParam, Holder<N> >: EditItems<NameParam, 420>{};
 
-NO_USED_MENU_ITEM(ID<ThresholdsTable>)
-NO_USED_MENU_ITEM(ID<DeadAreaTable>)
-NO_USED_MENU_ITEM(ID<AxesTable>)
-NO_USED_MENU_ITEM(ID<MedianFiltreTable>)
+//NO_USED_MENU_ITEM(ID<ThresholdsTable>)
+//NO_USED_MENU_ITEM(ID<DeadAreaTable>)
+//NO_USED_MENU_ITEM(ID<AxesTable>)
+//NO_USED_MENU_ITEM(ID<MedianFiltreTable>)
 
 void AddTypeSizeDlg::Do(HWND h)
 {
 	ParametersTable t;
-	if(TemplDialog<
+	if(TemplDialogList<
 		ParametersTable
+		, TL::MkTlst<NameParam>::Result
 		, TL::MkTlst<AddOkBtn, CancelBtn>::Result
 	   >(t).Do(h, L"Добавить типоразмер")
 	   )
 	{
-		wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+		//memmove(&Singleton<ParametersTable>::Instance(), &t, sizeof(t));
+		wchar_t *s = t.items.get<NameParam>().value;
+		Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
 		NewUSPCFile(h, s);
 	}
 }
@@ -145,8 +147,9 @@ void DelTypeSizeDlg::Do(HWND h)
 {
 	ParametersTable t;
 	t.items.get<NameParam>().value = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-	if(TemplDialog<
+	if(TemplDialogList<
 		ParametersTable
+		, TL::MkTlst<NameParam>::Result
 		, TL::MkTlst<DelOkBtn, CancelBtn>::Result
 	   >(t).Do(h, L"Удалить типоразмер")
 	   )

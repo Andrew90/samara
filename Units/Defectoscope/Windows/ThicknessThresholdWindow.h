@@ -37,6 +37,7 @@ public:
 		void Command(TCommand &m)
 		{
 			owner.fastOffset = value;
+			SetFocus(owner.hWnd);
 		}
 		bool Init(HWND h, bool initValue){return initValue;}
 	};

@@ -22,6 +22,7 @@ ThicknessThresholdWindow::ThicknessThresholdWindow()
 	, alignThreshold(*this)
 	, offset01(*this)
 	, offset50(*this)
+	, fastOffset(false)
 	, minAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMin<Thickness> >().value)
 	, maxAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMax<Thickness> >().value)
 {
@@ -53,8 +54,8 @@ bool ThicknessThresholdWindow::Draw(TMouseMove &l, VGraphics &g)
 	wsprintf(label.buffer, L"<ff>зона <ff00>%d  <ff>\"Номинальная толщина\" <ff0000>%s  <ff>\"Верхняя граница\" <ffff00>%s  <ff>\"Нижняя граница\" <ffff00>%s     "
 	  , 1 + x
 	  , Wchar_from<double, 5>(nominal)()
-	  , Wchar_from<double, 5>(aboveBorder[x] - nominal)()
-	  , Wchar_from<double, 5>(nominal - lowerBorder[x])()
+	  , Wchar_from<double, 5>(aboveBorder[x])()
+	  , Wchar_from<double, 5>(lowerBorder[x])()
 	  );
 	label.Draw(g());
 
@@ -108,7 +109,7 @@ void ThicknessThresholdWindow::operator()(TMouseWell &l)
 	mouseMove = false;
 	int d = l.delta / 120;
 	bool m = 0 == (l.flags.lButton || l.flags.rButton);
-	double incr = 0 == l.flags.rButton  ? 0.1 : 5;
+	double incr = 0 == (l.flags.rButton || fastOffset) ? 0.1 : 0.5;
 	OffsetToPixel(
 		chart
 		, storedMouseMove.x
@@ -211,7 +212,7 @@ unsigned ThicknessThresholdWindow::operator()(TCreate &l)
 	nominalBorderCheckBox.Init(hToolBar, L"Номинальная толщина");
 
 	offset01.Init(hToolBar, L"Смещение 0.1", true, true);
-	offset50.Init(hToolBar, L"Смещение 5.0");
+	offset50.Init(hToolBar, L"Смещение 0.5");
 
 	alignOneZone.Init(hToolBar, L"Сместить зону", true, true);
 	alignAllZones.Init(hToolBar, L"Выровнять по зоне");
@@ -310,14 +311,16 @@ void ThicknessThresholdWindow::operator()(TKeyDown &l)
 	case VK_UP:
 		mouseWheel.delta = -120;
 		mouseWheel.flags.lButton = 1;
+		mouseWheel.flags.rButton = fastOffset || 0 > GetKeyState(VK_SHIFT);
 		break;
 	case VK_DOWN:
 		mouseWheel.delta = 120;
 		mouseWheel.flags.lButton = 1;
+		mouseWheel.flags.rButton = fastOffset || 0 > GetKeyState(VK_SHIFT);
 		break;
 	default: return;
 	}
-	mouseWheel.flags.rButton = 0 > GetKeyState(VK_SHIFT);
+	
 	(*this)(mouseWheel);
 }
 //---------------------------------------------------------------------------
@@ -331,6 +334,7 @@ void ThicknessThresholdWindow::AlignOneZone  (int x, double offs)
 	if(aboveBorderCheckBox  .value)aboveBorder  [x] += offs;
 	if(lowerBorderCheckBox  .value)lowerBorder  [x] += offs;
 	if(nominalBorderCheckBox.value)nominalBorder[x] += offs;
+	SetFocus(hWnd);
 }
 //---------------------------------------------------------------------------
 void ThicknessThresholdWindow::AlignAllZones (int x, double offs)
@@ -350,6 +354,7 @@ void ThicknessThresholdWindow::AlignAllZones (int x, double offs)
 		double t = nominalBorder[x];
 		for(int i = 0; i < App::zonesCount; ++i) nominalBorder[i] = t;
 	}
+	SetFocus(hWnd);
 }
 //------------------------------------------------------------------------------------
 void ThicknessThresholdWindow::AlignThresh(int x, double offs)
@@ -357,6 +362,7 @@ void ThicknessThresholdWindow::AlignThresh(int x, double offs)
 	if(aboveBorderCheckBox  .value)for(int i = 0; i < App::zonesCount; ++i) aboveBorder  [i] += offs;
 	if(lowerBorderCheckBox  .value)for(int i = 0; i < App::zonesCount; ++i) lowerBorder  [i] += offs;
 	if(nominalBorderCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) nominalBorder[i] += offs;
+	SetFocus(hWnd);
 }
 //-----------------------------------------------------------------------------------------------------
 namespace

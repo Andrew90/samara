@@ -6,6 +6,13 @@
 #include "ConstData.h"
 #include "LineChart.hpp"
 
+class XCrossViewer: public CrossViewer
+{
+public:
+	typedef CrossViewer Parent;
+	void operator()(TRButtonDown &){}
+};
+
 class CrossWindow
 {
 public:
@@ -17,7 +24,7 @@ public:
 	
 	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, 7>::Result line_list;
 	typedef TL::AppendList<
-		    TL::MkTlst<CrossViewer>::Result
+		    TL::MkTlst<XCrossViewer>::Result
 		    , line_list
 	    >::Result viewers_list;
 	TL::Factory<viewers_list> viewers;

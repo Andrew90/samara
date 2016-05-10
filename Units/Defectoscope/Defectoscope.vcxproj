@@ -126,6 +126,7 @@
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
+    <ClCompile Include="Dialogs\OffsetsSensors.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />

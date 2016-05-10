@@ -6,6 +6,13 @@
 #include "ConstData.h"
 #include "LineChart.hpp"
 
+class XLongViewer: public LongViewer
+{
+public:
+	typedef LongViewer Parent;
+	void operator()(TRButtonDown &){}
+};
+
 class LongWindow
 {
 public:
@@ -17,7 +24,7 @@ public:
 	
 	typedef TL::CreateWapperNumList<Line, LongWindow, 0, 7>::Result line_list;
 	typedef TL::AppendList<
-		    TL::MkTlst<LongViewer>::Result
+		    TL::MkTlst<XLongViewer>::Result
 		    , line_list
 	    >::Result viewers_list;
 	TL::Factory<viewers_list> viewers;
