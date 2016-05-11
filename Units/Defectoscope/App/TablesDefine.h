@@ -67,6 +67,15 @@ template<class T>struct ID
 	wapper() : value(def_val), default_value(def_val) {}\
 };
 
+#define DEFINE_PARAM_WAPPER2(wapper0, wapper1, z, type, def_val) template<> struct wapper0<wapper1<z> >\
+{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	const wchar_t *name(){return L#wapper0##L#wapper1##L#z;}\
+	wapper0() : value(def_val), default_value(def_val) {}\
+};
+
 #define DEFINE_PARAM_WAPPER_NUM(wapper, z, n, type, def_val) template<> struct wapper<z, n>\
 {\
 	typedef type type_value;\

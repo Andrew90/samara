@@ -100,6 +100,7 @@
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\templates\Frame.cpp" />
+    <ClCompile Include="..\..\Common\templates\Hash.cpp" />
     <ClCompile Include="..\..\Common\USPC\USPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\Frame.h" />
+    <ClInclude Include="..\..\Common\templates\Hash.h" />
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\USPC\USPC.h" />

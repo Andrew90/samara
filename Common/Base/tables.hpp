@@ -27,7 +27,6 @@ template<int COUNT = 128>struct Holder
 		return *this;
 	}
 	operator wchar_t *(){return buffer;}
-	//wchar_t &operator[](int i){return buffer[i];}
 };
 
 template<int COUNT = 128>struct CharHolder
@@ -48,7 +47,6 @@ template<int COUNT = 128>struct CharHolder
 		return *this;
 	}
 	operator char *(){return buffer;}
-	//char &operator[](int i){return buffer[i];}
 };
 
 template<class T>struct len
@@ -244,8 +242,13 @@ template<typename T, int COUNT>struct TArray
 
 };
 //-----------------------------------------------------------------------------------------------
-
-
+template<class T>struct IsUNIQUE
+{
+	template<class Z>static double Is(typename Z::UNIQUE * = NULL);
+	template<class Z>static char Is(...);
+	static const int value = sizeof(double) == sizeof(Is<T>());
+};
+//------------------------------------------------------------------------
 template<typename T>int CountCharts(T &)
 {
 	return 0;
@@ -277,6 +280,15 @@ template<typename TParam, typename List, int N = 4096>struct QuerySQL_CreateTabl
 		wchar_t *operator()(){return buf;}
 private:
 	    wchar_t buf[N];
+
+		template<bool b>struct __is_unique__
+		{
+			wchar_t *operator()(wchar_t *){return L"";}
+		};
+		template<>struct __is_unique__<true>
+		{
+			wchar_t *operator()(wchar_t *s){return wcscat(s, L" NOT NULL UNIQUE");}
+		};
 		
 		template<typename O, typename Str>struct init
 		{
@@ -292,6 +304,7 @@ private:
 					wcscat(str, o->name());
 					wcscat(str, L" ");
 					wcscat(str, value_type<O::type_value>::Type());
+					__is_unique__<IsUNIQUE<O>::value>()(str);
 				}
 			};
 			template<>struct type<char *>
@@ -430,7 +443,7 @@ private:
    Table &table;
    CBase &base;
    ADODB::_CommandPtr cmd;
-
+																	  
    template<typename T>struct insertX
    {
 	   template<typename T, int COUNT, typename P>void set(TArray<T, COUNT> *o, P *p)

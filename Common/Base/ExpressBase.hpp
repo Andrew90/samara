@@ -1,6 +1,7 @@
 #pragma once 
 #include "Base.hpp"
-
+//pCn->Open("Data Source='(local)';Initial Catalog='pubs';Integrated Security=SSPI", "", "", adConnectUnspecified);
+/*
 class CExpressBase: public CBase
 {
 public:
@@ -23,3 +24,4 @@ public:
 		}		
 	}
 };
+*/

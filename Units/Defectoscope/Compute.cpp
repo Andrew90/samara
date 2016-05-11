@@ -193,6 +193,7 @@ namespace
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
+				data.SamplesPerZone(compute.lengthTube);
 				MedianFiltre f[App::count_sensors];
 				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
 				{

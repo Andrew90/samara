@@ -8,6 +8,16 @@
 	const wchar_t *name(){return L#z;}\
 	z() : value(def_val), default_value(def_val) {}\
 };
+struct Unique{};
+#define DEFINE_UNIQUE_PARAM(z, type, def_val) struct z\
+{\
+	typedef Unique UNIQUE;\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	const wchar_t *name(){return L#z;}\
+	z() : value(def_val), default_value(def_val) {}\
+};
 
 template<class T>struct ID
 {
@@ -65,4 +75,13 @@ template<class T>struct ID
 	const type_value default_value;\
 	const wchar_t *name(){return L#wapper##L#z;}\
 	wapper() : value(def_val), default_value(def_val) {}\
+};
+
+#define DEFINE_PARAM_WAPPER2(wapper0, wapper1, z, type, def_val) template<> struct wapper0<wapper1<z>>\
+{\
+	typedef type type_value;\
+	type_value value;\
+	const type_value default_value;\
+	const wchar_t *name(){return L#wapper0##L#wapper1##L#z;}\
+	wapper0() : value(def_val), default_value(def_val) {}\
 };

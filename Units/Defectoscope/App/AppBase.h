@@ -206,19 +206,6 @@ struct AdditionalSettingsTable
 	const wchar_t *name(){return L"AdditionalSettingsTable";}
 };
 //--------------------------------------------------------------------------------------
-DEFINE_PARAM(ACFBorderLeft, int, 80)
-DEFINE_PARAM(ACFBorderRight, int, 160)
-struct ACFBorderTable
-{
-	typedef TL::MkTlst<
-		ACFBorderLeft
-		, ACFBorderRight
-	>::Result items_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"ACFBorderTable";}
-};
-//-----------------------------------------------------------------------------------------------------
  DEFINE_PARAM(DeadAreaMM0, int, 200)
  DEFINE_PARAM(DeadAreaMM1, int, 200)
  struct DeadAreaTable
@@ -443,7 +430,6 @@ struct TestTable
 		 , GraphicSignalOptionsTable	   
 		 , AdditionalSettingsTable
 		 , ColorTable
-		 , ACFBorderTable
 		 , InputBitTable
 		 , OutputBitTable
 		 , Descriptor1730Table

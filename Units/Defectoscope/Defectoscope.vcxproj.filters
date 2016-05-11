@@ -323,6 +323,9 @@
     <ClCompile Include="Dialogs\OffsetsSensors.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\templates\Hash.cpp">
+      <Filter>Common\templates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -618,6 +621,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\USPC\USPC.h">
       <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\templates\Hash.h">
+      <Filter>Common\templates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
