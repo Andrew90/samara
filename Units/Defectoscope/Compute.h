@@ -28,7 +28,6 @@ public:
 	Compute();
 	void LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime);
 	void Recalculation();
-	//void Test();
 };
 
 extern Compute compute;

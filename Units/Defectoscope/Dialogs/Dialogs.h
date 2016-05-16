@@ -35,6 +35,9 @@ DLG(ColorItemsDlg)
 
 DLG(OffsetsSensorsDlg)
 
+DLG(StoredDataDlg)
+DLG(LoadDataDlg)
+
 #undef DLG
 
 template<class T>struct WindowPositionDlg

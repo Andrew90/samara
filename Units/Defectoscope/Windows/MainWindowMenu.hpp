@@ -11,8 +11,8 @@ namespace MainWindowMenu
 	struct MainFile{};
 	MENU_TEXT(L"Τΰιλ", TopMenu<MainFile>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct LoadDateFile{static void Do(HWND h){zprint("");}};
-	struct SaveDateFile{static void Do(HWND h){zprint("");}};
+	struct LoadDateFile: LoadDataDlg{};//{static void Do(HWND h){zprint("");}};
+	struct SaveDateFile: StoredDataDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Compute     : RecalculationDlg{};//{static void Do(HWND h){zprint("");}};
 	struct MainExit{static void Do(HWND h){DestroyWindow(h);}};
 

@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,6 +128,7 @@
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
     <ClCompile Include="Dialogs\OffsetsSensors.cpp" />
+    <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="MessageText\SelectMessage.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Stored\Stored.cpp" />
     <ClCompile Include="Windows\Common.cpp" />
     <ClCompile Include="Windows\CrossThresholdWindow.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
@@ -240,6 +242,8 @@
     <ClInclude Include="MessageText\SelectMessage.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Stored\Stored.h" />
+    <ClInclude Include="Stored\StoredBase.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Windows\AxesDlg.hpp" />
     <ClInclude Include="Windows\Common.h" />

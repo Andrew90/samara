@@ -91,6 +91,9 @@
     <Filter Include="MessageText">
       <UniqueIdentifier>{bfa08a7b-a7e4-4c58-ba53-623daca776db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stored">
+      <UniqueIdentifier>{8bb4c39f-f7ee-4f8e-878b-1d6a86846a04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -325,6 +328,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\templates\Hash.cpp">
       <Filter>Common\templates</Filter>
+    </ClCompile>
+    <ClCompile Include="Stored\Stored.cpp">
+      <Filter>Stored</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\StoredLoadData.cpp">
+      <Filter>Windows\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -624,6 +633,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\templates\Hash.h">
       <Filter>Common\templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\Stored.h">
+      <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\StoredBase.h">
+      <Filter>Stored</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -67,6 +67,7 @@ struct OperatorsTable
 	TItems items;
 	const wchar_t *name(){return L"OperatorsTable";}
 };
+
 STR_PARAM(Customer, 128, L"something");
 struct CustomersTable
 {

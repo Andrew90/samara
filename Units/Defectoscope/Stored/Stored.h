@@ -5,4 +5,6 @@ namespace Stored
 {
 	void Do();
 	void CreateTables();
+	void DataToFile(wchar_t *path);
+	void DataFromFile(wchar_t *path);
 }

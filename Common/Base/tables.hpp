@@ -118,12 +118,7 @@ template<class T, int N>struct len<T[N]>
 	struct MSsql{};
 
 template<class Base, typename T>struct value_type;
-//{
-//	static wchar_t *Type()
-//	{		
-//		return L"varbinary";	
-//	}
-//};
+
 template<class Base, typename T, int N>struct value_type<Base, T[N]>
 {
 	static wchar_t *Type()
