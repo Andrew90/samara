@@ -2,10 +2,12 @@
 #pragma warning( disable : 4146 )
 #import "c:\program files\common files\system\ado\msado15.dll" rename("EOF", "EndOfFile")
 #import "c:\program files\common files\system\ado\msadox.dll" 
-
+namespace
+{
 static wchar_t *const udl = L"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
 static wchar_t *const mdb = L".mdb;Mode=ReadWrite;Persist Security Info=False";
 static wchar_t *const mdbRead = L".mdb;Mode=Read;Persist Security Info=False";
+}
 //------------------------------------------------------------------------------------------
 class Initialize
 {

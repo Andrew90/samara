@@ -34,7 +34,7 @@ namespace Stored
 	unsigned StoreThreshold(CBase &base, double(&data)[App::zonesCount])
 	{
 		unsigned hash = HashFAQ6((unsigned char *)data, sizeof(data));
-		unsigned id = Select<ThresholdsTable>(base).eq<Hash>(hash).Execute();
+		unsigned id = Select<StoredThresholdsTable>(base).eq<Hash>(hash).Execute();
 		if(0 == id)
 		{
 			StoredThresholdsTable table;
@@ -65,40 +65,32 @@ namespace Stored
 	void Do()
 	{
 		COleDateTime tme = COleDateTime::GetCurrentTime();
-		TubeTable tt;
+		TubesTable tt;
 
-		tt.items.get<DateTime>().value = tme;
+		tt.items.get<Date_Time>().value = tme;
 		tt.items.get<LengthTube>().value = lengthTube;
 
 		wchar_t path[1024];
 		GetModuleFileName(0, path, dimention_of(path));
-		int len = wcslen(path) - 4;
-		path[len] = 0;
-		wcscat(&path[len], L".udl");
+		PathRemoveFileSpec(path);
+		int len = wcslen(path);
 
-		CExpressBase base;
-		base.Open(path);
+		StoredBase parameters;
+		
+		CExpressBase base(
+		//CBase base(
+			parameters.name()
+			, CreateDataBase<StoredBase::type_list, SetDefault<StoredBase::type_list>, MSsql>()
+			, parameters.tables
+			);
+
 		if(base.IsOpen())
 		{
-			TL::foreach<TubeTable::items_list, __stored__>()(&tt.items, &base);
+			TL::foreach<TubesTable::items_list, __stored__>()(&tt.items, &base);
 		}
 		else
 		{
 			MessageBox(mainWindow.hWnd, L"Не могу открыть базу", L"Ошибка !!!", MB_ICONERROR);
-		}
-	}
-
-	void CreateTables()
-	{
-		wchar_t path[1024];
-		GetModuleFileName(0, path, dimention_of(path));
-		int len = wcslen(path) - 4;
-		path[len] = 0;
-		wcscat(&path[len], L".udl");
-		 CExpressBase base;
-		base.Open(path);
-		if(base.IsOpen())
-		{
 		}
 	}
 }

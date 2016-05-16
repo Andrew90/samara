@@ -2,14 +2,22 @@
 //
 
 #include "stdafx.h"
-#include "typelist.hpp"
-#include "TablesDefine.h"
-#include "tables.hpp"
-#include "App.h"
+#include "Stored.h"
+#include "Base.hpp"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Initialize initialize;
+
+	//StoredBase parameters;
+	//
+	//CExpressBase base(
+	//	parameters.name()
+	//	, CreateDataBase<StoredBase::type_list, SetDefault<StoredBase::type_list> >()
+	//	, parameters.tables
+	//	);
+
+	Stored::Do();
 	
 	getchar();
 	return 0;

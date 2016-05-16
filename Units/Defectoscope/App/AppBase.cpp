@@ -60,7 +60,7 @@ void AppBase::Init()
 	ParametersBase parameters;
 	CBase base(
 		parameters.name()
-		, CreateDataBase<ParametersBase::type_list, SetDefault<ParametersBase::type_list> >()
+		, CreateDataBase<Access, ParametersBase::type_list, SetDefault<ParametersBase::type_list> >()
 		, parameters.tables
 		);
 	if(base.IsOpen())

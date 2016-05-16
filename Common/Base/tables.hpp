@@ -114,50 +114,68 @@ template<class T, int N>struct len<T[N]>
 	};
 #pragma warning(default : 4996)
 
+	struct Access{};
+	struct MSsql{};
 
-template<typename T>struct value_type
+template<class Base, typename T>struct value_type;
+//{
+//	static wchar_t *Type()
+//	{		
+//		return L"varbinary";	
+//	}
+//};
+template<class Base, typename T, int N>struct value_type<Base, T[N]>
 {
 	static wchar_t *Type()
 	{		
 		return L"LongBinary";	
 	}
 };
-template<>struct value_type<int>
+template<typename T, int N>struct value_type<MSsql, T[N]>
+{
+	static wchar_t *buf(){static wchar_t x[16]; return x;}
+	static wchar_t *Type()
+	{		
+		wsprintf(buf(), L"varbinary(%d)", sizeof(T[N]));
+		return buf();	
+	}
+};
+template<class Base>struct value_type<Base, int>
 {
 	static wchar_t *Type()
 	{
 		return L"Integer";
 	}
 };
-template<>struct value_type<unsigned>
+template<class Base>struct value_type<Base, unsigned>
 {
 	static wchar_t *Type()
 	{
 		return L"Integer";
 	}
 };
-template<>struct value_type<double>
+template<class Base>struct value_type<Base, double>
 {
 	static wchar_t *Type()
 	{
 		return L"Double";
 	}
 };
-template<>struct value_type<float>
+template<class Base>struct value_type<Base, float>
 {
 	static wchar_t *Type()
 	{
 		return L"Single";
 	}
 };
-template<>struct value_type<char *>
+template<class Base>struct value_type<Base, char *>
 {
 	static wchar_t *Type()
 	{
 		return L"VARCHAR";
 	}
 };
-template<>struct value_type<wchar_t *>
+template<class Base>struct value_type<Base, wchar_t *>
 {
 	static wchar_t *Type()
 	{
@@ -165,7 +183,7 @@ template<>struct value_type<wchar_t *>
 	}
 };
 
-template<>struct value_type<bool>
+template<class Base>struct value_type<Base, bool>
 {
 	static wchar_t *Type()
 	{
@@ -173,7 +191,7 @@ template<>struct value_type<bool>
 	}
 };
 
-template<>struct value_type<char>
+template<class Base>struct value_type<Base, char>
 {
 	static wchar_t *Type()
 	{
@@ -181,7 +199,7 @@ template<>struct value_type<char>
 	}
 };
 
-template<>struct value_type<unsigned char>
+template<class Base>struct value_type<Base, unsigned char>
 {
 	static wchar_t *Type()
 	{
@@ -199,7 +217,7 @@ struct __value_type_holder_N
 	}
 };
 
-template<int N>struct value_type<Holder<N>>
+template<class Base, int N>struct value_type<Base, Holder<N>>
 {
 	static wchar_t *Type()
 	{
@@ -207,7 +225,7 @@ template<int N>struct value_type<Holder<N>>
 	}
 };
 
-template<>struct value_type<COleDateTime>
+template<class Base>struct value_type<Base, COleDateTime>
 {
 	static wchar_t *Type()
 	{
@@ -267,7 +285,7 @@ template<int N>int CountCharts(float (&t)[N])
 }
 //-------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996 4995)
-template<typename TParam, typename List, int N = 4096>struct QuerySQL_CreateTable
+template<class TypeBase, typename TParam, typename List, int N = 4096>struct QuerySQL_CreateTable
 {	
 		QuerySQL_CreateTable(TParam *param)
 		{
@@ -303,7 +321,7 @@ private:
 					wcscat(str, L",");
 					wcscat(str, o->name());
 					wcscat(str, L" ");
-					wcscat(str, value_type<O::type_value>::Type());
+					wcscat(str, value_type<TypeBase, O::type_value>::Type());
 					__is_unique__<IsUNIQUE<O>::value>()(str);
 				}
 			};
@@ -366,14 +384,14 @@ template<>struct SetDefaultParam<NullType>
 {
 	template<typename Tables, typename Base>void operator()(Tables *tables, Base *base){}
 };
-template<typename SubList, typename SetDefault = NullType>class CreateDataBase
+template<typename SubList, typename SetDefault = NullType, typename TypeBase = Access>class CreateDataBase
 {
 	template<typename O, typename P>struct init
 	{
 		void operator()(O *o, P *p)
 		{
 			p->ConnectionSQL(
-			    QuerySQL_CreateTable<O, O::items_list, 8 * 1024>(o)()
+			    QuerySQL_CreateTable<TypeBase, O, O::items_list, 8 * 1024>(o)()
 			);
 		}
 	};
