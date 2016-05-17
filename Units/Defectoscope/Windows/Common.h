@@ -141,7 +141,6 @@ namespace Common
 				WindowPosition::Get<T>(r);
 				HWND h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(h, SW_SHOWNORMAL);
-				zprint("\n");
 			}
 		}
 	};
@@ -214,7 +213,7 @@ namespace Common
 		typedef W<X, N> O;
 		void operator()(O *o, P *p)
 		{
-			o->dataViewer.Do(p->lastZone);
+			o->dataViewer.Do(p->lastZone, N);
 			o->chart->maxAxesX = o->dataViewer.count;
 			typedef TL::SelectWapper<typename O::TChart::items_list, Border>::Result lst;
 			TL::foreach<lst, __set_thresholds__>()(&((typename O::TChart *)o->chart)->items, &p->lastZone);

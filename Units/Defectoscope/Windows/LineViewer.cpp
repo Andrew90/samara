@@ -63,7 +63,6 @@ unsigned LineViewer::operator()(TCreate &l)
 	storedMouseMove.hwnd = l.hwnd;
 	storedMouseMove.x = 0;	
 	storedMouseMove.y = WORD(chart->rect.top + 1);
-	mouseMove = true;
 	mouseMove = false;
 	offsetX = 0;
 	return 0;
@@ -107,11 +106,4 @@ void LineViewer::operator()(TMouseWell &l)
 	}
 }
  //-----------------------------------------------------------------------------
- /*
- void LineViewer::operator()(TDestroy &)
- {
-	 delete backScreen;
-	 backScreen = NULL;
-	 SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
- }
- */
+ 

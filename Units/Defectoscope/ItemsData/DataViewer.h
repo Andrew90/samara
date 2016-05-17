@@ -3,6 +3,7 @@
 #include "AppBase.h"
 #include "DebugMess.h"
 #include "typelist.hpp"
+#include "USPCData.h"
 
 struct DataVieverConst
 {
@@ -67,7 +68,6 @@ template<class T>struct DataViewer: DefectData
 		int start = d.offsets[zone];
 		int stop = d.offsets[1 + zone];
 		int offs = OffsetChannel()(channel);
-			//Singleton<OffsetsTable>::Instance().items.get<Offset<channel> >().value;
 		int maxOffs = d.currentOffsetFrames;
 		USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
 

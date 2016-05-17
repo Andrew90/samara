@@ -42,7 +42,6 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 			{
 				data[cnt] = s[i].hdr.G1Amp;
 				scan[cnt] = &s[i];
-#pragma message ("Дописать")
 				StatusZoneDefect<Cross>(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
 				if(++cnt >= dimention_of(data)) break;
 			}

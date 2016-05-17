@@ -2,12 +2,7 @@
 #include "WindowsPosition.h"
 #include "Dialogs.h"
 #include "MenuApi.h"
-//#include "App.h"
 #include "AxesDlg.hpp"
-//#include "CrossThresholdWindow.h"
-//#include "InitToolBar.hpp"
-//#include "AxesDlg.hpp"
-//#include "App.h"
 
 #define VIEWERS_MENU(name)namespace ViewersMenu##name		\
 {															   \

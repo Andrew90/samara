@@ -53,23 +53,10 @@ template<class T>HWND WindowTemplate(
 	)
 {
 	WindowClass<T> t;
-	MyRegisterClass(Viewer<T>::Proc, t(),  CS_HREDRAW | CS_VREDRAW, styleS, styleS, backGround);
+	MyRegisterClass(Viewer<T>::Proc, t(),  CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, styleS, styleS, backGround);
 	HWND hWnd = MyCreateWindow(t(), title, self, WS_OVERLAPPEDWINDOW, NULL, x, y, width, height);
 	return hWnd;
 }
 
 void RepaintWindow(HWND h);
-/*
-template<class T>class NewWindow: public T
-{
-public:
-	typedef T Parent;
-	void operator()(TDestroy &l)
-	{
-		//SetWindowLongPtr(l.hwnd, GWLP_USERDATA, 0);
-		delete this;
-	}
-};
-*/
-
 

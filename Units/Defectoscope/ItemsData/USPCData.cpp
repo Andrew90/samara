@@ -106,13 +106,13 @@ void USPCData::SamplesPerZone(int tubeLength)
 		 b[i].hdr.G2Tof = 200 * c;
 	 }
 	  ///эмитация смещения  кадров по зонам
-	 for(int j = 0; j < 51; ++j)
+	 for(int j = 0; j < 201; ++j)
 	 {
-		 d.offsets[j] = 16000 * j;
+		 d.offsets[j] = 800 * j;
 	 }
 
-	 d.currentOffsetFrames = 16000 * 51;
-	 d.currentOffsetZones = 50;
+	 d.currentOffsetFrames = 800 * 201;
+	 d.currentOffsetZones = 200;
  }
 
  void TestUSPC::InitThickness(USPCData &d)
@@ -134,11 +134,11 @@ void USPCData::SamplesPerZone(int tubeLength)
 		 b[i].hdr.G2Tof = 200 * c;
 	 }
 	  ///эмитация смещения  кадров по зонам
-	 for(int j = 0; j < 51; ++j)
+	 for(int j = 0; j < 201; ++j)
 	 {
-		 d.offsets[j] = 16000 * j;
+		 d.offsets[j] = 800 * j;
 	 }
 
-	 d.currentOffsetFrames = 16000 * 51;
-	 d.currentOffsetZones = 50;
+	 d.currentOffsetFrames = 800 * 201;
+	 d.currentOffsetZones = 200;
  }
