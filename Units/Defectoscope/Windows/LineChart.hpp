@@ -41,4 +41,8 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		label.Draw(g());
 		return true;
 	}
+	void operator()(TRButtonDown &l)
+	{
+		zprint("\n");
+	}
 };

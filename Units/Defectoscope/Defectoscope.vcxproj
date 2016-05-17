@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,7 +139,6 @@
     <ClCompile Include="ItemsData\DataViewer.cpp" />
     <ClCompile Include="ItemsData\ResultData.cpp" />
     <ClCompile Include="ItemsData\USPCData.cpp" />
-    <ClCompile Include="ItemsData\ZonesData.cpp" />
     <ClCompile Include="Log\LogBuffer.cpp" />
     <ClCompile Include="Log\LogMessages.cpp" />
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
@@ -157,6 +156,7 @@
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
+    <ClCompile Include="Windows\ScanWindow.cpp" />
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\ThicknessWindow.cpp" />
@@ -234,7 +234,6 @@
     <ClInclude Include="ItemsData\DataViewer.h" />
     <ClInclude Include="ItemsData\ResultData.h" />
     <ClInclude Include="ItemsData\USPCData.h" />
-    <ClInclude Include="ItemsData\ZonesData.h" />
     <ClInclude Include="Log\LogBuffer.h" />
     <ClInclude Include="Log\LogMessages.h" />
     <ClInclude Include="Log\LogMessageToTopLabel.h" />
@@ -259,6 +258,7 @@
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
+    <ClInclude Include="Windows\ScanWindow.h" />
     <ClInclude Include="Windows\ThicknessThresholdWindow.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\ThicknessWindow.h" />

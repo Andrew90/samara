@@ -25,6 +25,7 @@ template<class T>struct ID
 
 #define DEFINE_PARAM_NUM(z, n, type, def_val) template<>struct z<n>\
 {\
+	static const int ID = n;\
 	typedef type type_value;\
 	type_value value;\
 	const type_value default_value;\

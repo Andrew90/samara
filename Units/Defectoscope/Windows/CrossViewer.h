@@ -35,7 +35,6 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TLButtonDown &);
 	void operator()(TRButtonDown &);
-	//void operator()(TDestroy &);
 
 	bool Draw(TMouseMove &, VGraphics &);
 	bool GetColorBar(unsigned , int , double &, unsigned &);

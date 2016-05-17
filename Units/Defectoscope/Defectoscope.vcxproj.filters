@@ -164,9 +164,6 @@
     <ClCompile Include="ItemsData\ConstData.cpp">
       <Filter>ItemsData</Filter>
     </ClCompile>
-    <ClCompile Include="ItemsData\ZonesData.cpp">
-      <Filter>ItemsData</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp">
       <Filter>Common\Graphics</Filter>
     </ClCompile>
@@ -335,6 +332,9 @@
     <ClCompile Include="Dialogs\StoredLoadData.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\ScanWindow.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -440,9 +440,6 @@
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
     <ClInclude Include="ItemsData\ConstData.h">
-      <Filter>ItemsData</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemsData\ZonesData.h">
       <Filter>ItemsData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\BarSeries.h">
@@ -639,6 +636,9 @@
     </ClInclude>
     <ClInclude Include="Stored\StoredBase.h">
       <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ScanWindow.h">
+      <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

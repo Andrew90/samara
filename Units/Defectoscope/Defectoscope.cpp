@@ -16,7 +16,7 @@
 #endif
 
 HINSTANCE hInstance;	
-wchar_t *typeWindow = L"Buran9000_Defectoscope_160120";
+wchar_t *typeWindow = L"LBT_Buran-5000_Defectoscope_160516";
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
