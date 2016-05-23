@@ -180,34 +180,6 @@ template<class Table>struct TestPassword
 	}
 };
 //-------------------------------------------------------------------
-/*
-template<class T, class I>struct __ok_btn_list__
-{
-	typedef T Table;
-	typedef I ItemList;
-};
-template<class List>struct OkBtn
-{
-	static const int width = 120;
-	static const int height = 30;
-	static const int ID = IDOK;
-	wchar_t *Title(){return L"Применить";}
-	template<class Owner>void BtnHandler(Owner &owner, HWND h)
-	{
-		if(TestPassword<Owner::Table>()(h))
-		{
-			if(__ok_table_btn__<
-				__ok_btn_list__<Owner::Table, List>
-				, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
-			>()(h, owner))  
-			{
-				EndDialog(h, TRUE);
-			}
-		}
-	}
-};
-*/
-
 template<class TableParam, class List, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialogList
 {
 	struct __command_data__

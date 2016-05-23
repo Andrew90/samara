@@ -2,6 +2,7 @@
 #include "App.h"
 #include "AppBase.h"
 
+
 ///	Хранит данные с платы USPC
 class USPCData
 {
@@ -14,7 +15,6 @@ public:
 	char commonStatus[App::zonesCount];					///< общий статус по зонам
 	double samplesPerZone;
 	void Start();///< Выполнить перед началом цикла сбора кадров с платы
-	//void AddFrames(unsigned currentTime, bool strobeBit, unsigned numberSavedFrames); ///<добавляет считанные кадры с платы в массив
 	UCHAR *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
 	void OffsetCounter(int offs);
 	void SamplesPerZone(int tubeLength);

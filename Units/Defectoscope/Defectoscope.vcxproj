@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,6 +131,8 @@
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
+    <ClCompile Include="GridData\CustomerData.cpp" />
+    <ClCompile Include="GridData\OperatorData.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />
     <ClCompile Include="IOports\IOportsViewer.cpp" />
     <ClCompile Include="IOports\IOportsWindow.cpp" />
@@ -144,17 +146,22 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="MessageText\SelectMessage.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Stored\PacketBase.cpp" />
     <ClCompile Include="Stored\Stored.cpp" />
     <ClCompile Include="Windows\Common.cpp" />
     <ClCompile Include="Windows\CrossThresholdWindow.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\CrossWindow.cpp" />
+    <ClCompile Include="Windows\CustomerWindow.cpp" />
+    <ClCompile Include="Windows\GridWindow.cpp" />
     <ClCompile Include="Windows\LineViewer.cpp" />
     <ClCompile Include="Windows\LongThresholdWindow.cpp" />
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\LongWindow.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
+    <ClCompile Include="Windows\OperatorWindow.cpp" />
+    <ClCompile Include="Windows\PacketWindow.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ScanWindow.cpp" />
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
@@ -227,6 +234,8 @@
     <ClInclude Include="Automat\AutomatAdditional.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
+    <ClInclude Include="GridData\CustomerData.h" />
+    <ClInclude Include="GridData\OperatorData.h" />
     <ClInclude Include="IOports\IOportsViewer.h" />
     <ClInclude Include="IOports\IOportsWindow.h" />
     <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
@@ -241,6 +250,7 @@
     <ClInclude Include="MessageText\SelectMessage.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Stored\PacketBase.h" />
     <ClInclude Include="Stored\Stored.h" />
     <ClInclude Include="Stored\StoredBase.h" />
     <ClInclude Include="targetver.h" />
@@ -249,6 +259,8 @@
     <ClInclude Include="Windows\CrossThresholdWindow.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
     <ClInclude Include="Windows\CrossWindow.h" />
+    <ClInclude Include="Windows\CustomerWindow.h" />
+    <ClInclude Include="Windows\GridWindow.h" />
     <ClInclude Include="Windows\LineChart.hpp" />
     <ClInclude Include="Windows\LineViewer.h" />
     <ClInclude Include="Windows\LongThresholdWindow.h" />
@@ -257,6 +269,8 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
+    <ClInclude Include="Windows\OperatorWindow.h" />
+    <ClInclude Include="Windows\PacketWindow.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ScanWindow.h" />
     <ClInclude Include="Windows\ThicknessThresholdWindow.h" />

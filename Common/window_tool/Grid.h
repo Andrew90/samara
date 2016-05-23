@@ -26,6 +26,15 @@ public:
 		TL::foreach<T, loc>()((TL::Factory<T> *)0, this);		
 	}	
 };
+
+struct HeaderData
+{
+	wchar_t *name;
+	int width;
+};
+
+void SetGridHeaderArray(HWND, HeaderData *, int);
+
 class GridNotify
 {	
 public:
@@ -35,5 +44,6 @@ public:
 	void Size(int, int, int, int);
 	void Create(TCreate &, GridHandlers *);
 	LRESULT Notify(TNotify &);
+	static unsigned OwnerNotify(TNotify &);
 };
 

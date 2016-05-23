@@ -312,35 +312,7 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 		return true;
 	}
 };
-//-------------------------------------------
-/*
-template<class Table, class List, template<class, class>class W>struct __ok_table_btn__<W<Table, List>, ParametersBase::multy_row_table_list>
-{
-	typedef typename TL::TypeToTypeLst<List, DlgItem>::Result lst;
-	template<class T>bool operator()(HWND h, T &t)
-	{
-		if(!TL::find<lst, __test__>()(&t.items, &h))return false;
-		CBase base(ParametersBase().name());
-		if(base.IsOpen())
-		{			
-			int id = CurrentId<ID<Table> >();	
-			__update_data__<Table> _data(base);			
-			TL::foreach<lst, __ok_btn__>()(&t.items, &_data);
-			if(1 == CountId<ID<Table> >(base, id))
-			{
-				_data.update.Where().ID(CurrentId<ID<Table> >()).Execute();
-			}
-			else
-			{
-				Insert<Table, T>()(t, base);
-			}
-		}
-		return true;
-	}
-};
-*/
 //-------------------------------------------------
-
 template<class O, class P>struct __init__
 {
 	void operator()(O *o, P *p)

@@ -26,6 +26,36 @@ struct StoredThresholdsTable
 	const wchar_t *name(){return L"StoredThresholdsTable";}
 };
 
+DEFINE_PARAM(Unit, unsigned, -1)
+DEFINE_PARAM(Tube, unsigned, -1)
+DEFINE_PARAM(Sensor, unsigned, -1)
+struct Data
+{
+	typedef double type_value[App::zonesCount];
+	type_value value;	
+	const wchar_t *name(){return L"Data";}
+};
+struct Status
+{
+	typedef unsigned char type_value[App::zonesCount];
+	type_value value;	
+	const wchar_t *name(){return L"Status";}
+};
+struct StoredMeshureTable
+{
+	typedef TL::MkTlst<
+		Unit
+		, Tube
+		, Sensor
+		, Data
+		, Status
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"StoredMeshureTable";}
+};
+
 DEFINE_PARAM(Date_Time, COleDateTime, 0.0)
 DEFINE_PARAM(LengthTube, int, 120)
 
@@ -36,6 +66,14 @@ DEFINE_PARAM_WAPPER2(ID, BorderDefect , Long     ,  unsigned, 0)
 DEFINE_PARAM_WAPPER2(ID, BorderNominal, Thickness, unsigned, 0)
 DEFINE_PARAM_WAPPER2(ID, BorderAbove  , Thickness, unsigned, 0)
 DEFINE_PARAM_WAPPER2(ID, BorderLower  , Thickness, unsigned, 0)
+
+STR_PARAM(Operator, 128, L"someone");
+DEFINE_PARAM_WAPPER(ID, Operator, unsigned, 0)
+STR_PARAM(Customer, 128, L"something");
+DEFINE_PARAM_WAPPER(ID, Customer, unsigned, 0)
+
+STR_PARAM(NumberPacket, 128, L"00000000");
+DEFINE_PARAM_WAPPER(ID, NumberPacket, unsigned, 0)
 
 struct TubesTable
 {
@@ -49,6 +87,8 @@ struct TubesTable
 		, ID<BorderNominal< Thickness> >
 		, ID<BorderAbove  < Thickness> >
 		, ID<BorderLower  < Thickness> >
+		, ID<Operator>
+		, ID<Customer>
 	>::Result items_list;
 	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
@@ -56,7 +96,6 @@ struct TubesTable
 	const wchar_t *name(){return L"TubeTable";}
 };
 
-STR_PARAM(Operator, 128, L"someone");
 struct OperatorsTable
 {
 	typedef TL::MkTlst<
@@ -68,7 +107,6 @@ struct OperatorsTable
 	const wchar_t *name(){return L"OperatorsTable";}
 };
 
-STR_PARAM(Customer, 128, L"something");
 struct CustomersTable
 {
 	typedef TL::MkTlst<
@@ -80,6 +118,17 @@ struct CustomersTable
 	const wchar_t *name(){return L"CustomersTable";}
 };
 
+struct NumberPacketsTable
+{
+	typedef TL::MkTlst<
+		NumberPacket
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"NumberPacketsTable";}
+};
+
 struct StoredBase
  {
 	 typedef TL::MkTlst<		
@@ -87,6 +136,8 @@ struct StoredBase
 		 , OperatorsTable
 		 , CustomersTable
 		 , StoredThresholdsTable
+		 , StoredMeshureTable
+		// , NumberPacketsTable не удалять
 	 >::Result type_list;
 	 typedef TL::Factory<type_list> TTables;
 	 TTables tables;

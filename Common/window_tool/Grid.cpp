@@ -5,6 +5,20 @@
 #include "typelist.hpp"
 
 #include "DebugMess.h"
+//-----------------------------------------------------------------------------------------
+void SetGridHeaderArray(HWND h, HeaderData *header, int count)
+{
+	LV_COLUMN lvc;
+	 lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
+	 lvc.fmt = LVCFMT_LEFT;
+	 for(int i = 0; i < count; ++i)
+	 {
+		 lvc.iSubItem = i;
+		 lvc.pszText = header[i].name;
+		 lvc.cx = header[i].width;
+		 ListView_InsertColumn(h, lvc.iSubItem, &lvc);
+	 }
+}
 //------------------------------------------------------------------------------------
 GridNotify::~GridNotify()
 {
@@ -26,8 +40,8 @@ void GridNotify::Create(TCreate &m, GridHandlers *h)
 		, 0
 		, LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_HEADERDRAGDROP 
 		);
-#if 0
-	HFONT font = CreateFont(35,0,0,90,900,TRUE,0,0,ANSI_CHARSET,0,0,0,0, L"Times New Roman"); 
+#if 1
+	HFONT font = CreateFont(25,0,0,90,900,TRUE,0,0,ANSI_CHARSET,0,0,0,0, L"Times New Roman"); 
 	SendMessage(hWnd, WM_SETFONT, (WPARAM)font, (LPARAM)0);
 #endif
     if(NULL != handlers) handlers->SetHeaderToGrid(hWnd);
@@ -76,3 +90,9 @@ LRESULT GridNotify::Notify(TNotify &m)
 	return DefWindowProc(m.hwnd, WM_NOTIFY, (WPARAM)m.idCtrl, (LPARAM)m.pnmh);
 }
 //---------------------------------------------------------------------------------------------
+unsigned GridNotify::OwnerNotify(TNotify &l)
+{
+	GridNotify *x = (GridNotify *)GetWindowLongPtr(l.pnmh->hwndFrom, GWLP_USERDATA);
+	if(0 == IsBadReadPtr(x, sizeof(x)))return x->Notify(l);
+	return 0;
+}

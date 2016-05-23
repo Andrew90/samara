@@ -12,6 +12,7 @@
 #include "MainWindow.h"
 //#include "USPCWindow.h"
 #include "Common.h"
+#include "PacketWindow.h"
 namespace 
 {
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
@@ -42,7 +43,7 @@ typedef TL::MkTlst<
 //----------------------------------------------------------------------------------
 void SycleMeashurement(HWND h)
 {
-  SetEvent(App::ProgrammContinueEvent);
+   if(PacketWindowDlg(h)) SetEvent(App::ProgrammContinueEvent);
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)

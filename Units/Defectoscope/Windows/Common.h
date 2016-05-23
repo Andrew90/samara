@@ -1,6 +1,8 @@
 #pragma once
 #include "DebugMess.h"
 #include "AppBase.h"
+#include "EmptyWindow.h"
+#include "WindowsPosition.h"
 
 
 namespace Common
@@ -142,6 +144,27 @@ namespace Common
 				HWND h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(h, SW_SHOWNORMAL);
 			}
+		}
+	};
+	
+	template<class T>struct OpenWindowBackGround
+	{
+		static HWND Do(HWND)
+		{
+			HWND h = FindWindow(WindowClass<T>()(), 0);
+			if(NULL != h)
+			{
+				SendMessage(h, WM_SYSCOMMAND, SC_RESTORE, 0);
+				SetForegroundWindow(h);
+			}
+			else
+			{
+				RECT r;
+				WindowPosition::Get<T>(r);
+				h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom, IDI_UPLOAD, (HBRUSH)COLOR_WINDOW);
+				ShowWindow(h, SW_SHOWNORMAL);				
+			}
+			return h;
 		}
 	};
 

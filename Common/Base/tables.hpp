@@ -578,6 +578,7 @@ struct SQL
 	}
 };
 
+
 template<typename Table>struct Select
 {
 	wchar_t head[4096];
@@ -598,6 +599,22 @@ template<typename Table>struct Select
 	{
         wcscat(head, O().name());
 		wcscat(head, L"=?   AND ");
+		cmd->Parameters->Append(
+			   cmd->CreateParameter( 
+			     ""
+				 , TypeToInt<O::type_value>::value
+				 , ADODB::adParamInput
+				 , len<typename O::type_value>()(p)
+				 , Tpe<O::type_value>()(p)
+				 )
+		   );
+		return *this;
+	}
+	template<typename O>Select &op(wchar_t *operand, typename O::type_value p)
+	{
+        wcscat(head, O().name());
+		wcscat(head, operand);
+		wcscat(head, L"?   AND ");
 		cmd->Parameters->Append(
 			   cmd->CreateParameter( 
 			     ""
@@ -752,7 +769,7 @@ template<typename Table>struct Select
 			while (!rec->EndOfFile) 
 			{
 				TL::foreach<Table::items_list, set_to_>()(&table.items, rec.GetInterfacePtr());
-				if(Proc<Table, Data>()(table, d)) return true;
+				if(Proc<Table, Data>()(rec->Fields->GetItem(L"ID")->GetValue(), table, d)) return true;
 				rec->MoveNext(); 
 			}
 			return true;
@@ -1101,6 +1118,49 @@ template<typename Table>struct Delete
 	{
 		typedef T Result;
 	};
+};
+
+struct CMD
+{
+	ADODB::_CommandPtr cmd;
+	CBase &base;
+	CMD(CBase &b)
+		: base(b)
+	{
+		cmd.CreateInstance(__uuidof(ADODB::Command));
+		cmd->ActiveConnection = base.conn;
+		cmd->CommandType = ADODB::adCmdText;
+	}
+	CMD &CommandText(wchar_t *txt)
+	{
+		cmd->CommandText = txt;
+		return *this;
+	}
+	template<class T>CMD &GetValue(wchar_t *nameParam, T &value)
+	{
+		_variant_t rowsAffected; 
+		ADODB::_RecordsetPtr rec = cmd->Execute( &rowsAffected, 0, ADODB::adCmdText);
+		value = rec->Fields->GetItem(nameParam)->GetValue();
+		return *this;
+	}
+	void Execute()
+	{
+		_variant_t rowsAffected; 
+		ADODB::_RecordsetPtr rec = cmd->Execute( &rowsAffected, 0, ADODB::adCmdText);
+	}
+	template<typename T>CMD &Param(T &t)
+	{       
+		cmd->Parameters->Append(
+			   cmd->CreateParameter( 
+			     ""
+				 , TypeToInt<T>::value
+				 , ADODB::adParamInput
+				 , len<T>()(t)
+				 , Tpe<T>()(t)
+				 )
+		   );
+		return *this;
+	}
 };
 
 #pragma warning( disable : 4996 )

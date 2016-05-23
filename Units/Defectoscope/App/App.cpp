@@ -12,6 +12,7 @@
 #include "ConstData.h"
 #include "Compute.h"
 #include "ut_files.h"
+#include "Automat.h"
 
 
 extern HINSTANCE hInstance;

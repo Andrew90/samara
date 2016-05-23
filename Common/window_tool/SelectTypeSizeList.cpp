@@ -11,7 +11,7 @@ namespace
 
 	template<class T, class D>struct __sel__
 	{
-		bool operator()(T &t, D &d)
+		bool operator()(unsigned, T &t, D &d)
 		{
 			ComboBox_AddString(d, t.items.get<NameParam>().value);
 			return false;

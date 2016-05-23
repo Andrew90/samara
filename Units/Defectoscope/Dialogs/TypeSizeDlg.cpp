@@ -56,7 +56,7 @@ namespace
 
 	template<class T, class D>struct  __more_than_one__
 	{
-		bool operator()(T &t, D &d)
+		bool operator()(unsigned, T &t, D &d)
 		{
 			++d;
 			return d > 1;

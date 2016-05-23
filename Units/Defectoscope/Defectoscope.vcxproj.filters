@@ -94,6 +94,12 @@
     <Filter Include="Stored">
       <UniqueIdentifier>{8bb4c39f-f7ee-4f8e-878b-1d6a86846a04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\PacketWindow">
+      <UniqueIdentifier>{cd25c411-1988-4d24-ab69-d6ccdb0e459f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridData">
+      <UniqueIdentifier>{645f41d5-8f14-4ff2-8800-6369aa484ea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -334,6 +340,27 @@
     </ClCompile>
     <ClCompile Include="Windows\ScanWindow.cpp">
       <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\PacketWindow.cpp">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Stored\PacketBase.cpp">
+      <Filter>Stored</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\GridWindow.cpp">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="GridData\OperatorData.cpp">
+      <Filter>GridData</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\OperatorWindow.cpp">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="GridData\CustomerData.cpp">
+      <Filter>GridData</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\CustomerWindow.cpp">
+      <Filter>Windows\PacketWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -639,6 +666,27 @@
     </ClInclude>
     <ClInclude Include="Windows\ScanWindow.h">
       <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\PacketWindow.h">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\PacketBase.h">
+      <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\GridWindow.h">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="GridData\OperatorData.h">
+      <Filter>GridData</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\OperatorWindow.h">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="GridData\CustomerData.h">
+      <Filter>GridData</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\CustomerWindow.h">
+      <Filter>Windows\PacketWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

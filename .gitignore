@@ -38,3 +38,6 @@ enc_temp_folder/
 Units/Defectoscope/Version.h
 Units/Defectoscope/NumVerOld.txt
 Units/Defectoscope/NumVer.txt
+Stored/
+!Units/Defectoscope/Stored/
+Tests/
