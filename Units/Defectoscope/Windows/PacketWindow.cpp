@@ -5,8 +5,6 @@
 #include "ParamDlg.h"
 #include "PacketBase.h"
 #include "Common.h"
-#include "OperatorWindow.h"
-#include "CustomerWindow.h"
 #include "PacketTemplateWindow.hpp"
 
 extern HINSTANCE hInstance;
@@ -37,6 +35,9 @@ bool PacketWindowDlg(HWND h)
 PARAM_TITLE(Operator, L"Оператор")
 CHECK_EMPTY_STRING(Operator)
 
+PARAM_TITLE(Customer, L"Заказчик")
+CHECK_EMPTY_STRING(Customer)
+
 LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(msg)
@@ -66,6 +67,7 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 				return TRUE;
 			case ID_Customer:
 				{
+					typedef PacketTemplateWindow<CustomersTable, Customer> CustomerWindow;
 					HWND hh = Common::OpenWindowBackGround<CustomerWindow>::Do(h);
 					CustomerWindow *x = (CustomerWindow *)GetWindowLongPtr(hh, GWLP_USERDATA);
 					x->hResult = e->hEditCs;

@@ -350,18 +350,6 @@
     <ClCompile Include="Windows\GridWindow.cpp">
       <Filter>Windows\PacketWindow</Filter>
     </ClCompile>
-    <ClCompile Include="GridData\OperatorData.cpp">
-      <Filter>GridData</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\OperatorWindow.cpp">
-      <Filter>Windows\PacketWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="GridData\CustomerData.cpp">
-      <Filter>GridData</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\CustomerWindow.cpp">
-      <Filter>Windows\PacketWindow</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -674,18 +662,6 @@
       <Filter>Stored</Filter>
     </ClInclude>
     <ClInclude Include="Windows\GridWindow.h">
-      <Filter>Windows\PacketWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="GridData\OperatorData.h">
-      <Filter>GridData</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\OperatorWindow.h">
-      <Filter>Windows\PacketWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="GridData\CustomerData.h">
-      <Filter>GridData</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\CustomerWindow.h">
       <Filter>Windows\PacketWindow</Filter>
     </ClInclude>
     <ClInclude Include="GridData\PacketTemplateData.hpp">

@@ -4,6 +4,9 @@
 #include "ViewersMenu.hpp"
 #include "PacketBase.h"
 #include "MessagesInterface.h"
+#include "GridWindow.h"
+#include "Grid.h"
+#include "PacketTemplateData.hpp"
 
 template<class Table, class Col>class PacketTemplateWindow
 {

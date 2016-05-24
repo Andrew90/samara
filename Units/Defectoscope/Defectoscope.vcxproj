@@ -131,8 +131,6 @@
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
-    <ClCompile Include="GridData\CustomerData.cpp" />
-    <ClCompile Include="GridData\OperatorData.cpp" />
     <ClCompile Include="IOports\IOportsDlg.cpp" />
     <ClCompile Include="IOports\IOportsViewer.cpp" />
     <ClCompile Include="IOports\IOportsWindow.cpp" />
@@ -152,7 +150,6 @@
     <ClCompile Include="Windows\CrossThresholdWindow.cpp" />
     <ClCompile Include="Windows\CrossViewer.cpp" />
     <ClCompile Include="Windows\CrossWindow.cpp" />
-    <ClCompile Include="Windows\CustomerWindow.cpp" />
     <ClCompile Include="Windows\GridWindow.cpp" />
     <ClCompile Include="Windows\LineViewer.cpp" />
     <ClCompile Include="Windows\LongThresholdWindow.cpp" />
@@ -160,7 +157,6 @@
     <ClCompile Include="Windows\LongWindow.cpp" />
     <ClCompile Include="Windows\MainWindow.cpp" />
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
-    <ClCompile Include="Windows\OperatorWindow.cpp" />
     <ClCompile Include="Windows\PacketWindow.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ScanWindow.cpp" />
@@ -234,8 +230,6 @@
     <ClInclude Include="Automat\AutomatAdditional.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
-    <ClInclude Include="GridData\CustomerData.h" />
-    <ClInclude Include="GridData\OperatorData.h" />
     <ClInclude Include="GridData\PacketTemplateData.hpp" />
     <ClInclude Include="IOports\IOportsViewer.h" />
     <ClInclude Include="IOports\IOportsWindow.h" />
@@ -260,7 +254,6 @@
     <ClInclude Include="Windows\CrossThresholdWindow.h" />
     <ClInclude Include="Windows\CrossViewer.h" />
     <ClInclude Include="Windows\CrossWindow.h" />
-    <ClInclude Include="Windows\CustomerWindow.h" />
     <ClInclude Include="Windows\GridWindow.h" />
     <ClInclude Include="Windows\LineChart.hpp" />
     <ClInclude Include="Windows\LineViewer.h" />
@@ -270,7 +263,6 @@
     <ClInclude Include="Windows\MainWindow.h" />
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
-    <ClInclude Include="Windows\OperatorWindow.h" />
     <ClInclude Include="Windows\PacketTemplateWindow.hpp" />
     <ClInclude Include="Windows\PacketWindow.h" />
     <ClInclude Include="Windows\ResultViewer.h" />

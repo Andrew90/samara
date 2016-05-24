@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "GridWindow.h"
-
+#include "TableData.h"
 #include "typelist.hpp"
 #include <strsafe.h>
-#include "OperatorData.h"
 #include "Grid.h"
 
 GridWindow::GridWindow()
