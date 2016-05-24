@@ -1,8 +1,11 @@
 #pragma once
 #include "GridWindow.h"
 #include "Grid.h"
-#include "OperatorData.h"
+//#include "OperatorData.h"
 #include "MessagesInterface.h"
+#include "StoredBase.h"
+#include "PacketTemplateData.hpp"
+
 
 class OperatorWindow
 {
@@ -26,7 +29,7 @@ private:
 public:
 	GridNotify grid;
 public:
-	OperatorData data;
+	PacketTemplateData<OperatorsTable, Operator> data;
 public:
 	HWND hWnd, hOk, hCancel, hResult;
 	wchar_t result[128];

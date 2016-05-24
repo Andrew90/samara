@@ -688,6 +688,12 @@
     <ClInclude Include="Windows\CustomerWindow.h">
       <Filter>Windows\PacketWindow</Filter>
     </ClInclude>
+    <ClInclude Include="GridData\PacketTemplateData.hpp">
+      <Filter>GridData</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\PacketTemplateWindow.hpp">
+      <Filter>Windows\PacketWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\RefreshBtn.bmp">

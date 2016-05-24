@@ -104,7 +104,7 @@ namespace
 	{
 		static const int width = 120;
 		static const int height = 30;
-		static const int ID = IDCANCEL;
+		static const int ID = IDOK;
 		wchar_t *Title(){return L"Применить";}
 		template<class Owner>void BtnHandler(Owner &o, HWND h)
 		{	
@@ -114,8 +114,8 @@ namespace
 		}
 	};
 
-	PARAM_TITLE(Customer, L"Имя")
-	DO_NOT_CHECK(Customer)
+	PARAM_TITLE(Customer, L"Заказчик")
+	CHECK_EMPTY_STRING(Customer)
 	template<int N>struct DlgSubItems<Customer, Holder<N> >: EditItems<Customer, 200>{};
 
 	template<>struct Event<TopMenu<AddItem> >	   
@@ -140,6 +140,7 @@ namespace
 			CustomerWindow *o = (CustomerWindow *)GetWindowLongPtr(h, GWLP_USERDATA);
 			if(o->data.Count() > 1)
 			{
+				o->result[0] = '\0';
 				o->data.Del(o->result);
 				UpdateRow(o->grid.hWnd);
 			}
@@ -171,7 +172,6 @@ CustomerWindow::OkBtn::OkBtn(CustomerWindow &owner)
 
 void CustomerWindow::OkBtn::Do(TCommand &l)
 {
-	zprint("\n");
 	if('\0' != owner.result[0])
 	{
 		SetWindowText(owner.hResult, owner.result); 

@@ -236,6 +236,7 @@
     <ClInclude Include="Dialogs\Dialogs.h" />
     <ClInclude Include="GridData\CustomerData.h" />
     <ClInclude Include="GridData\OperatorData.h" />
+    <ClInclude Include="GridData\PacketTemplateData.hpp" />
     <ClInclude Include="IOports\IOportsViewer.h" />
     <ClInclude Include="IOports\IOportsWindow.h" />
     <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Windows\MainWindowMenu.hpp" />
     <ClInclude Include="Windows\MainWindowToolBar.h" />
     <ClInclude Include="Windows\OperatorWindow.h" />
+    <ClInclude Include="Windows\PacketTemplateWindow.hpp" />
     <ClInclude Include="Windows\PacketWindow.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ScanWindow.h" />
