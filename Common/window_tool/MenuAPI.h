@@ -145,7 +145,7 @@ template<template<class, class>class P>struct NotNullList<NullType, P>
 };
 template<class O, class P>struct __insert_menu__
 {
-	bool operator()(O *o, P *p)
+	bool operator()(O *, P *p)
 	{	
 		Param param(CreatePopupMenu(), p->hWnd);
 		if(NotNullList<typename O::list, __insert_item_menu__>()((TL::Factory<typename O::list> *)0, &param))
@@ -163,6 +163,20 @@ template<class O, class P>struct __insert_menu__
 		p->m.wID = p->m.dwItemData & 0xffff;
 		p->m.fState = EnableMenuInit<O>()(p->hWnd);
 		InsertMenuItem(p->h, p->index++, false, &p->m);
+		return true;
+	}
+};
+template<int N, class P>struct __insert_menu__<Separator<N>, P>
+{
+	typedef Separator<N> O;
+	bool operator()(O *, P *p)
+	{	
+		p->m.fMask = MIIM_TYPE | MIIM_DATA | MIIM_ID | MIIM_STATE;
+		p->m.hSubMenu = NULL;		
+		unsigned t = p->m.fType;
+		p->m.fType = MFT_SEPARATOR;
+		InsertMenuItem(p->h, p->index++, false, &p->m);
+		p->m.fType = t;
 		return true;
 	}
 };

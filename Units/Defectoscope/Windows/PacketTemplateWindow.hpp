@@ -224,6 +224,7 @@ template<class Table, class Col>void PacketTemplateWindow<Table, Col>::RClick(in
 {
 	typedef TL::MkTlst<
 		TopMenu<AddItem<Table, Col>>
+		, Separator<0>
 		, TopMenu<DelItem<Table, Col>>
 	>::Result popup_items_list;
 	PopupMenu<popup_items_list>::Do(hWnd, hWnd);
