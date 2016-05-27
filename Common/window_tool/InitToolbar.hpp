@@ -3,7 +3,7 @@
 #include <commctrl.h>
 #include "typelist.hpp"
 #include "Resource.h"
-extern HINSTANCE hInstance;
+ 
 
 template<class T>struct __tool_btn_width__
 {
@@ -74,7 +74,7 @@ private:
 	{
 		template<class O>void Do(TBBUTTON &tbb, Self *self)
 		{
-			HBITMAP hbmp = LoadBitmap(hInstance, MAKEINTRESOURCE(O::IDB_)); 
+			HBITMAP hbmp = LoadBitmap((HINSTANCE)::GetModuleHandle(NULL), MAKEINTRESOURCE(O::IDB_)); 
 			ImageList_AddMasked(self->himl,hbmp, RGB(255,255,255));  
 			DeleteObject(hbmp);
 
@@ -111,7 +111,7 @@ public:
 		TL::foreach<list, loc>()((TL::Factory<list> *)0, this);
 		HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
 			, (UINT)tbb
-			, TL::Length<list>::value, hInstance, NULL
+			, TL::Length<list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
 			);
 		//Свяжите image list с ToolBar -ом

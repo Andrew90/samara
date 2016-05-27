@@ -1,20 +1,15 @@
 #pragma once
-//#include "D:\work\Samara\LBT_Buran-5000\Units\Defectoscope\Windows\CrossViewer.h"
-#include "CrossViewer.h"
-//#include "D:\work\Samara\LBT_Buran-5000\Common\window_tool\message.h"
-#include "message.h"
-//d:\work\Samara\LBT_Buran-5000\Viewer\Libs\Lib.h
 
-class GridChart: public CrossViewer
+class GridChart
 {
-public:
+	struct Impl;
+	Impl *pimpl;
+	GridChart();
+	~GridChart();
+public:	
+	static GridChart *Create();
+	static void Destroy(GridChart *);
+
+	void Size(HWND h, unsigned msg, unsigned resizing, unsigned short width, unsigned short height);
+	void Paint(HWND h, unsigned msg, HDC hdc);
 };
-
-
-class Lib
-{
-public:
-	Lib();
-	~Lib(void);
-};
-

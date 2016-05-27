@@ -3,13 +3,13 @@
 #include <windowsx.h>
 #include <commctrl.h>
 #include "typelist.hpp"
-extern HINSTANCE hInstance;
+ 
 //------------------------------------------------------------------------------------------------
 HWND CheckItem(int dx, int dy, HWND h, wchar_t *buttonTxt, bool value)
 {
 	HWND hWnd = CreateWindow(L"button", buttonTxt
 		,  WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX | WS_TABSTOP
-		, dx, dy, 300, 15, h, NULL, hInstance, NULL
+		, dx, dy, 300, 15, h, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 		);
 	Button_SetCheck(hWnd, value ? BST_CHECKED : BST_UNCHECKED);
 	return hWnd;
@@ -28,11 +28,11 @@ HWND UpDownItem(int x, int y, HWND h, int min_val, int max_val, int value)
                       h,            //parent window handle
                       //control's ID
                       0,
-                      hInstance,              //instance
+                      (HINSTANCE)::GetModuleHandle(NULL),              //instance
                       0);                 //user defined info
 		
     CreateUpDownControl( WS_CHILD|WS_VISIBLE|UDS_ALIGNRIGHT|UDS_SETBUDDYINT|UDS_WRAP, x + 40, y, 70, 20
-		, h, 0, hInstance, hh, min_val, max_val, value
+		, h, 0, (HINSTANCE)::GetModuleHandle(NULL), hh, min_val, max_val, value
 		);
 	return hh;
 }
@@ -41,7 +41,7 @@ void CheckItem::Init(int x, int y, HWND h)
 {
 	hwnd = CreateWindow(L"button", txt
 		,  WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX | WS_TABSTOP
-		, x, y, 300, 15, h, NULL, hInstance, NULL
+		, x, y, 300, 15, h, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 		);
 	Button_SetCheck(hwnd, value ? BST_CHECKED : BST_UNCHECKED);
 }
@@ -60,7 +60,7 @@ void UpDownTimeItem::Init(int x, int y, HWND h)
 
 	CreateWindow(L"static", txt
 		, WS_VISIBLE | WS_CHILD
-		, x + 150, y + 3, 280, 20, h, 0, hInstance, NULL
+		, x + 150, y + 3, 280, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 		);
 }
 //---------------------------------------------------------------------------
@@ -91,7 +91,7 @@ void DataTimeItem::Init(HWND h, int x, int y, COleDateTime &)
 		20,          //height
 		h,            //parent window handle
 		0,
-		hInstance,              //instance
+		(HINSTANCE)::GetModuleHandle(NULL),              //instance
 		0); 
 	SYSTEMTIME s = {};
 	  long timezone;

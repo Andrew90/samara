@@ -19,7 +19,7 @@ bool TemplDlg_Do(HWND hWnd, wchar_t *title, DLGPROC proc, LPARAM param)
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	bool result = 0 != DialogBoxIndirectParam(hInstance, &d, hWnd, proc, param);
+	bool result = 0 != DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, proc, param);
     LocalFree((HLOCAL)p);
 	return result;
 }

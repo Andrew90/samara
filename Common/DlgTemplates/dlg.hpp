@@ -12,11 +12,11 @@ template<class items_list>struct Dlg
 		{
 			o->hEdit = CreateWindow(L"edit", o->Data()
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-				, 10, dlg->dy, 280, 20, dlg->hDlg, 0, hInstance, NULL
+				, 10, dlg->dy, 280, 20, dlg->hDlg, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"static", o->Text()
 				, WS_VISIBLE | WS_CHILD
-				, 280 + 20, dlg->dy + 3, 280, 20, dlg->hDlg, 0, hInstance, NULL
+				, 280 + 20, dlg->dy + 3, 280, 20, dlg->hDlg, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			dlg->dy += 25;
 		}
@@ -47,7 +47,7 @@ template<class items_list>struct Dlg
 		wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
 		wcscpy(c, title);
 
-		DialogBoxIndirectParam(hInstance, &d, hwnd, (DLGPROC)Proc, (LPARAM)this);
+		DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hwnd, (DLGPROC)Proc, (LPARAM)this);
 		LocalFree((HLOCAL)p);
 	}
 	static LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -81,11 +81,11 @@ template<class items_list>struct Dlg
 				static const int offs = width / 2 - 100;
 				CreateWindow(L"button", L"Применить"
 					, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-					,offs, e->dy, 90, 25, h, (HMENU)IDOK, hInstance, NULL
+					,offs, e->dy, 90, 25, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 				CreateWindow(L"button", L"Отмена"
 					, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-					,offs + 100, e->dy, 90, 25, h, (HMENU)IDCANCEL, hInstance, NULL
+					,offs + 100, e->dy, 90, 25, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 				RECT r;
 				GetWindowRect(GetParent(h), &r);

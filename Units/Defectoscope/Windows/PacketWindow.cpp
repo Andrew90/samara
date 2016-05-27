@@ -7,7 +7,7 @@
 #include "Common.h"
 #include "PacketTemplateWindow.hpp"
 
-extern HINSTANCE hInstance;
+ 
 
 struct PacketWindow
 {
@@ -96,40 +96,40 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 			e->hNumber = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit"
 				, Singleton<NumberPacket>::Instance().value
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-				, 10, height += dy, edit_width, 25, h, 0, hInstance, NULL
+				, 10, height += dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			
 			CreateWindow(L"static", L"Номер пакета"
 				, WS_VISIBLE | WS_CHILD
-				, edit_width + 50, height + 3, label_width, 20, h, 0, hInstance, NULL
+				, edit_width + 50, height + 3, label_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			e->hEditOp = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit"
 				, Singleton<Operator>::Instance().value
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_READONLY
-				, 10, height += dy, edit_width, 25, h, 0, hInstance, NULL
+				, 10, height += dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"..."
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
-				,edit_width + 20, height, 25, 25, h, (HMENU)ID_Operator, hInstance, NULL
+				,edit_width + 20, height, 25, 25, h, (HMENU)ID_Operator, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"static", L"Оператор"
 				, WS_VISIBLE | WS_CHILD
-				, edit_width + 50, height + 3, label_width, 20, h, 0, hInstance, NULL
+				, edit_width + 50, height + 3, label_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			e->hEditCs = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit"
 				, Singleton<Customer>::Instance().value
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_READONLY
-				, 10, height += dy, edit_width, 25, h, 0, hInstance, NULL
+				, 10, height += dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"..."
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
-				,edit_width + 20, height, 25, 25, h, (HMENU)ID_Customer, hInstance, NULL
+				,edit_width + 20, height, 25, 25, h, (HMENU)ID_Customer, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"static", L"Заказчик"
 				, WS_VISIBLE | WS_CHILD
-				, edit_width + 50, height + 3, label_width, 20, h, 0, hInstance, NULL
+				, edit_width + 50, height + 3, label_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			static const int width = edit_width + label_width + 30;	
@@ -143,12 +143,12 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 
 			CreateWindow(L"button", L"Продолжить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
-				, 10, height, btnWidth, 30, h, (HMENU)ID_OK, hInstance, NULL
+				, 10, height, btnWidth, 30, h, (HMENU)ID_OK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
-				, 20 + btnWidth, height, btnWidth, 30, h, (HMENU)ID_CANCEL, hInstance, NULL
+				, 20 + btnWidth, height, btnWidth, 30, h, (HMENU)ID_CANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			height += 65;

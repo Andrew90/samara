@@ -3,7 +3,7 @@
 #include <comutil.h>
 #include "typelist.hpp"
 //////////////////////////////////////////////////////////////////////
-//extern HINSTANCE hInstance;
+ 
 ///////////////////////////////////////////////////////////////////////
 template<int>class ClassAssept;
 template<>class ClassAssept<TRUE>{};
@@ -19,7 +19,7 @@ template<size_t N = 128>class StrFromResource
    StrFromResource(){buf[0] = '\0';}
    wchar_t *operator[](size_t i)
    {
-      LoadString(hInstance, i, buf, N);
+      LoadString((HINSTANCE)::GetModuleHandle(NULL), i, buf, N);
       return buf;
    }
    wchar_t *value(){return buf;}

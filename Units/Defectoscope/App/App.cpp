@@ -15,7 +15,7 @@
 #include "Automat.h"
 
 
-extern HINSTANCE hInstance;
+ 
 
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;

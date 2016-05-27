@@ -76,14 +76,14 @@ template<class T>struct ColorButtonItem
 	{
 		HWND hWnd = CreateWindow(L"button", L""
 			, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-			,10, dy, 100, 30, h, (HMENU)0, hInstance, 0
+			,10, dy, 100, 30, h, (HMENU)0, (HINSTANCE)::GetModuleHandle(NULL), 0
 			);
 		__color__<T>::OldWndProc = (WNDPROC)GetWindowLong(hWnd, GWL_WNDPROC);
 		SetWindowLong(hWnd, GWL_WNDPROC, (long ) __color__<T>::Proc_);
 		SetWindowLong(hWnd, GWL_USERDATA, (long )&t);
 		CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, 100 + 20, dy + 7, dlg_width, 20, h, 0, hInstance, NULL
+			, 100 + 20, dy + 7, dlg_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		dy += 35;
 

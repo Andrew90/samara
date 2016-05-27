@@ -21,7 +21,7 @@ bool Password(int c)
 	return TL::Length<password_list>::value == index;
 }
 #endif
-extern HINSTANCE hInstance;
+ 
 PasswordDlg::PasswordDlg(const wchar_t *pass, const wchar_t *title)
 	: pass(pass), title(title)
 {}
@@ -38,7 +38,7 @@ bool PasswordDlg::Do(HWND h)
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	bool ret = 0 != DialogBoxIndirectParam(hInstance, &d, h, (DLGPROC)Proc, (LPARAM)this);
+	bool ret = 0 != DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, h, (DLGPROC)Proc, (LPARAM)this);
     LocalFree((HLOCAL)p);
 	return ret;
 #else
@@ -80,16 +80,16 @@ LRESULT CALLBACK PasswordDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPara
 			PasswordDlg *e = (PasswordDlg *)lParam;			
 			e->hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", L""
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_PASSWORD
-				,10, 20, 400, 25, h, 0, hInstance, NULL
+				,10, 20, 400, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			static const int offs = 100;			
 			CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-				,offs, 50, 110, 30, h, (HMENU)IDOK, hInstance, NULL
+				,offs, 50, 110, 30, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 120, 50, 110, 30, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 120, 50, 110, 30, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			RECT r;
 			GetWindowRect(hParent, &r);

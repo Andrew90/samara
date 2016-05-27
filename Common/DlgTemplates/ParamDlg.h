@@ -22,7 +22,7 @@ template<class O, class P>struct __make_btn__
 	{
 		CreateWindow(L"button", o->Title()
 			, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-			,p->offs, p->height, O::width, 30, p->h, (HMENU)O::ID, hInstance, NULL
+			,p->offs, p->height, O::width, 30, p->h, (HMENU)O::ID, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		p->offs += O::width + 10;
 	}

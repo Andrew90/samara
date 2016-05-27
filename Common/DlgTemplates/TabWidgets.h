@@ -222,7 +222,7 @@ public:
 		y = r.top +(r.bottom - r.top - height) / 2;
 		MoveWindow(h, x, y, width, height, FALSE);
 		hTab = CreateWindowEx(0, WC_TABCONTROL, 0,   WS_CHILD | WS_VISIBLE, 
-			0, 0, width, height - 70, h, (HMENU)NULL, hInstance, 0);
+			0, 0, width, height - 70, h, (HMENU)NULL, (HINSTANCE)::GetModuleHandle(NULL), 0);
 
 		TL::foreach<typename T::items_list, __tab_name__>()((TL::Factory<typename T::items_list> *)0, (HWND *)&hTab);
 

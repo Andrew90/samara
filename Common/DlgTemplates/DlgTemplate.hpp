@@ -41,11 +41,11 @@ template<class Items>struct DlgTemplate
                 static const int offs = 50;
 				CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-				,offs, dy - 30, 90, 25, h, (HMENU)IDOK, hInstance, NULL
+				,offs, dy - 30, 90, 25, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 				CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 100, dy - 30, 90, 25, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 100, dy - 30, 90, 25, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
                 dy += 35;
 				int x = r.left +(r.right - r.left - width) / 2;
@@ -69,7 +69,7 @@ public:
 		d.cdit = 0;
 		wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
 		wcscpy(c, title);
-		result = DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+		result = DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
 		LocalFree((HLOCAL)p);
 	}
 };

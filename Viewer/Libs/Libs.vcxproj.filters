@@ -19,6 +19,24 @@
     <Filter Include="App">
       <UniqueIdentifier>{c581ccc4-5a69-4f7d-8cb0-c69cd8f216cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{e9bec514-adf5-4ea9-920a-7c1bbe512079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ItemsData">
+      <UniqueIdentifier>{5400e3f5-3241-42ae-8441-19ac49aaa505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debug_tools">
+      <UniqueIdentifier>{b9a73b2f-4b83-46b5-bcfc-6825d2b58321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ini">
+      <UniqueIdentifier>{40f2208b-ae8b-4187-a4ac-a1ea6e155b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="window_tool">
+      <UniqueIdentifier>{e2251be4-27a2-453b-b6ed-67c4a407a6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filtre">
+      <UniqueIdentifier>{da7dde1c-1fba-44bf-980a-f1658428465b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -54,6 +72,57 @@
     <ClInclude Include="..\..\Units\Defectoscope\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\Chart.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\ColorLabel.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Units\Defectoscope\ItemsData\ConstData.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\FixedGridSeries.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\GridChart.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
+      <Filter>debug_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Units\Defectoscope\Windows\CrossWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Ini\ItemIni.h">
+      <Filter>Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Ini\WindowsPosition.h">
+      <Filter>Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\Emptywindow.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\MenuAPI.h">
+      <Filter>window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\BarSeries.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Units\Defectoscope\Windows\LineViewer.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Units\Defectoscope\ItemsData\DataViewer.h">
+      <Filter>ItemsData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Units\Defectoscope\Windows\ScanWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\Borders.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +139,57 @@
     </ClCompile>
     <ClCompile Include="..\..\Units\Defectoscope\App\AppBase.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\Chart.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\ColorLabel.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Units\Defectoscope\ItemsData\ConstData.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\FixedGridSeries.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\GridChart.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
+      <Filter>debug_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Units\Defectoscope\Windows\CrossWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Ini\ItemIni.cpp">
+      <Filter>Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp">
+      <Filter>Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp">
+      <Filter>window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Units\Defectoscope\Windows\LineViewer.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Units\Defectoscope\ItemsData\DataViewer.cpp">
+      <Filter>ItemsData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp">
+      <Filter>Filtre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Units\Defectoscope\Windows\ScanWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\Borders.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EmptyWindow.h"
-extern HINSTANCE hInstance;
+ 
 ATOM MyRegisterClass(WNDPROC WndProc
 					 , const wchar_t *windowClassName
 					 , int style
@@ -15,13 +15,13 @@ ATOM MyRegisterClass(WNDPROC WndProc
 	wcex.lpfnWndProc	= WndProc;
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
-	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(idIcon));
+	wcex.hInstance		= (HINSTANCE)::GetModuleHandle(NULL);
+	wcex.hIcon			= LoadIcon((HINSTANCE)::GetModuleHandle(NULL), MAKEINTRESOURCE(idIcon));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= backGround;
 	wcex.lpszMenuName	= NULL;
 	wcex.lpszClassName	= windowClassName;
-	wcex.hIconSm		= LoadIcon(hInstance, MAKEINTRESOURCE(idSmIcon));
+	wcex.hIconSm		= LoadIcon((HINSTANCE)::GetModuleHandle(NULL), MAKEINTRESOURCE(idSmIcon));
 	return RegisterClassEx(&wcex);
 }
 
@@ -33,19 +33,19 @@ HWND MyCreateWindow(const wchar_t *windowClass, const wchar_t *title
 					, int width, int height  
 					)
 {
-	return CreateWindowEx(WS_EX_CLIENTEDGE, windowClass, title, style, x, y, width, height, hParent, NULL, hInstance, data);   
+	return CreateWindowEx(WS_EX_CLIENTEDGE, windowClass, title, style, x, y, width, height, hParent, NULL, (HINSTANCE)::GetModuleHandle(NULL), data);   
 }
 //----------------------------------------------------------------
 HWND CreateChildWindow(HWND hParent, WNDPROC WndProc, wchar_t *classStr, void *data)
 {
 	MyRegisterClass(WndProc, classStr, CS_DBLCLKS);
-	return CreateWindowEx(WS_EX_CLIENTEDGE, classStr, L"", WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, hParent, NULL, hInstance, data);  
+	return CreateWindowEx(WS_EX_CLIENTEDGE, classStr, L"", WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, hParent, NULL, (HINSTANCE)::GetModuleHandle(NULL), data);  
 }
 //-----------------------------------------------------------------------------------------------------
 HWND CreateChildWindowBackground(HWND hParent, WNDPROC WndProc, wchar_t *classStr, void *data)
 {
 	MyRegisterClass(WndProc, classStr, CS_DBLCLKS, NULL, NULL, (HBRUSH)COLOR_WINDOW);
-	return CreateWindowEx(WS_EX_CLIENTEDGE, classStr, L"", WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, hParent, NULL, hInstance, data);  
+	return CreateWindowEx(WS_EX_CLIENTEDGE, classStr, L"", WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, hParent, NULL, (HINSTANCE)::GetModuleHandle(NULL), data);  
 }
 //----------------------------------------------------------------------------------------------------
 void RepaintWindow(HWND h)

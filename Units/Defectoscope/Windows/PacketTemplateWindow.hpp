@@ -116,13 +116,13 @@ template<class Table, class Col>unsigned PacketTemplateWindow<Table, Col>::opera
 
 	hOk = CreateWindow(L"button", L"Применить"
 					, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-					,0, 0, 0, 0, l.hwnd, NULL, hInstance, NULL
+					,0, 0, 0, 0, l.hwnd, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 	SetWindowLongPtr(hOk, GWLP_USERDATA, (LONG)&okBtn);
 
 	hCancel = CreateWindow(L"button", L"Отмена"
 					, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-					,0, 0, 0, 0, l.hwnd, NULL, hInstance, NULL
+					,0, 0, 0, 0, l.hwnd, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 	SetWindowLongPtr(hCancel, GWLP_USERDATA, (LONG)&cancelBtn);
 

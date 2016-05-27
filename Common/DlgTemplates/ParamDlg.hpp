@@ -5,7 +5,7 @@
 #include <CommCtrl.h>
 #include "tables.hpp"
 #include "DebugMess.h"
-extern HINSTANCE hInstance;
+ 
 //-----------------------------------------------------------------------
 template<class T>struct ParamTitle
 {
@@ -334,7 +334,7 @@ template<class T>struct DlgSubItems<T, bool>
 	{
 		HWND hWnd = CreateWindow(L"button", ParamTitle<T>()()
 				,  WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX | WS_TABSTOP
-				, 10, dy, dlg_width, 15, h, NULL, hInstance, NULL
+				, 10, dy, dlg_width, 15, h, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 		Button_SetCheck(hWnd, t.value ? BST_CHECKED : BST_UNCHECKED);
 		dy += 20;
@@ -356,11 +356,11 @@ template<class T, int edit_width = 140>struct EditItems
 	{
 		HWND hWnd = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", Wchar_from<typename T::type_value>(t.value)()
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-			, 10, dy, edit_width, 25, h, 0, hInstance, NULL
+			, 10, dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		HWND q = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, hInstance, NULL
+			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLong(hWnd, GWL_USERDATA, (LONG)q);
 		dy += 25;
@@ -374,11 +374,11 @@ template<class T, int edit_width = 140>struct EditReadOnlyItems
 	{
 		HWND hWnd = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", Wchar_from<typename T::type_value>(t.value)()
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_READONLY
-			, 10, dy, edit_width, 25, h, 0, hInstance, NULL
+			, 10, dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		HWND h = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, hInstance, NULL
+			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLong(hWnd, GWL_USERDATA, h);
 		dy += 25;
@@ -400,7 +400,7 @@ template<class T>struct MultyEditItems
 		static const int edit_width = 420;
 		HWND hWnd = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", ParamTitle<T>()()
 		, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_MULTILINE | ES_AUTOVSCROLL 
-			, 10, dy, edit_width, 120, h, 0, hInstance, NULL
+			, 10, dy, edit_width, 120, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		dy += 125;
 		return hWnd;
@@ -421,7 +421,7 @@ template<class T>struct DateTimeItem
 			30,          //height
 			h,            //parent window handle
 			0,
-			hInstance,              //instance
+			(HINSTANCE)::GetModuleHandle(NULL),              //instance
 			0); 
 		dy += 32;
 		return hWnd;
@@ -455,11 +455,11 @@ template<class T>struct ComboBoxSubItem
 	{
 		HWND hWnd = CreateWindow(L"COMBOBOX", NULL
 			, WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST | CBS_AUTOHSCROLL |WS_VSCROLL 
-			, 10, dy, 140, 125, h, 0, hInstance, 0
+			, 10, dy, 140, 125, h, 0, (HINSTANCE)::GetModuleHandle(NULL), 0
 			);
 		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, 140 + 20, dy + 3, dlg_width, 20, h, 0,  hInstance, NULL
+			, 140 + 20, dy + 3, dlg_width, 20, h, 0,  (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLong(hWnd, GWL_USERDATA, (LONG)hh);
 		dy += 25;		
@@ -476,11 +476,11 @@ template<class T>struct ComboEditSubItem
 		static const int width_item = 250;
 		HWND hWnd = CreateWindow(L"COMBOBOX", NULL
 			, WS_CHILD | WS_VISIBLE | CBS_SIMPLE |CBS_AUTOHSCROLL |WS_VSCROLL 
-			, 10, dy, width_item, 125, h, 0, hInstance, 0
+			, 10, dy, width_item, 125, h, 0, (HINSTANCE)::GetModuleHandle(NULL), 0
 			);
 		HWND h = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, width_item + 20, dy + 3, dlg_width, 20, h, 0,  hInstance, NULL
+			, width_item + 20, dy + 3, dlg_width, 20, h, 0,  (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLong(hWnd, GWL_USERDATA, h);
 		dy += 125;		
@@ -497,17 +497,17 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 	{
 		HWND hWnd = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", Wchar_from<typename T::type_value>(t.value)()
 			,  WS_CHILD | WS_VISIBLE// WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-			, 10, dy, edit_width, 25, h, 0, hInstance, NULL
+			, 10, dy, edit_width, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 
 		HWND hUpdown = CreateWindowEx(0, UPDOWN_CLASS, 0, 
 			UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_WRAP | WS_CHILD | WS_VISIBLE, 
 			0, 0, 0, 0,
-			h, 0, hInstance, NULL);
+			h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL);
 	    SetWindowLong(hWnd, GWL_USERDATA, (LONG)hUpdown);
 		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
-			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, hInstance, NULL
+			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLong(hUpdown, GWL_USERDATA, (LONG)hh);
 		SendMessage(hUpdown, UDM_SETBUDDY, (WPARAM)hWnd, 0);

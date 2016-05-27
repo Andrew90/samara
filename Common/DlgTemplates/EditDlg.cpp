@@ -19,7 +19,7 @@ EditDlg::EditDlg(HWND hWnd
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+	DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
     LocalFree((HLOCAL)p);
 }
 LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -52,16 +52,16 @@ LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 			EditDlg *e = (EditDlg *)lParam;			
 			e->hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-				,10, 20, 400, 25, h, 0, hInstance, NULL
+				,10, 20, 400, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			static const int offs = 100;			
 			CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-				,offs, 50, 110, 30, h, (HMENU)IDOK, hInstance, NULL
+				,offs, 50, 110, 30, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 120, 50, 110, 30, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 120, 50, 110, 30, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			RECT r;
 			GetWindowRect(hParent, &r);
@@ -99,7 +99,7 @@ EditDlgMultiLines::EditDlgMultiLines(int count, HWND hWnd
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+	DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
     LocalFree((HLOCAL)p);
 }
 //----------------------------------------------------------------------------------------------
@@ -143,11 +143,11 @@ LRESULT CALLBACK EditDlgMultiLines::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM
 			{
 				e->hEdit[i] = CreateWindow(L"edit", e->buf[i]
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-					,10, dy, 280, 20, h, 0, hInstance, NULL
+					,10, dy, 280, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 				CreateWindow(L"static", e->title_text[i]
 				, WS_VISIBLE | WS_CHILD
-					,280 + 20, dy + 3, 280, 20, h, 0, hInstance, NULL
+					,280 + 20, dy + 3, 280, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 					);
 				dy += 25;
 			}
@@ -155,11 +155,11 @@ LRESULT CALLBACK EditDlgMultiLines::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM
 			static const int offs = width / 2 - 100;
 			CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-				,offs, dy, 90, 25, h, (HMENU)IDOK, hInstance, NULL
+				,offs, dy, 90, 25, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 100, dy, 90, 25, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 100, dy, 90, 25, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			RECT r;
 			GetWindowRect(GetDesktopWindow(), &r);
@@ -187,7 +187,7 @@ EditDlgComboBox::EditDlgComboBox(HWND hWnd
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
 	wcscpy(c, title);
 
-	DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+	DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
 	LocalFree((HLOCAL)p);
 }
 wchar_t *GetText(HWND h, wchar_t *b)
@@ -240,16 +240,16 @@ LRESULT CALLBACK EditDlgComboBox::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM l
 			EditDlgComboBox *e = (EditDlgComboBox *)lParam;
 			e->hEdit = CreateWindow(L"listbox", NULL
 				,  WS_VISIBLE | WS_CHILD | LBS_NOTIFY | WS_VSCROLL | WS_BORDER
-				,10, 10, 380, 205, h, (HMENU)ID_LISTBOX, hInstance, NULL
+				,10, 10, 380, 205, h, (HMENU)ID_LISTBOX, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			static const int offs = 100;
 			CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP
-				,offs, 220, 90, 25, h, (HMENU)IDOK, hInstance, NULL
+				,offs, 220, 90, 25, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 100, 220, 90, 25, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 100, 220, 90, 25, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			RECT r;
 			GetWindowRect(hParent, &r);
@@ -280,7 +280,7 @@ UpDownDlg::UpDownDlg(HWND hWnd
 	wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
     wcscpy(c, title);
 	
-	DialogBoxIndirectParam(hInstance, &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
+	DialogBoxIndirectParam((HINSTANCE)::GetModuleHandle(NULL), &d, hWnd, (DLGPROC)Proc, (LPARAM)this);
     LocalFree((HLOCAL)p);
 }
 LRESULT CALLBACK UpDownDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -315,21 +315,21 @@ LRESULT CALLBACK UpDownDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 			e->hwndUpDown = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf
 				, //WS_BORDER | 
 				WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
-				,10, 10, 100, 25, h, 0, hInstance, NULL
+				,10, 10, 100, 25, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateUpDownControl (
 				WS_CHILD | WS_BORDER | WS_VISIBLE | 
 				UDS_WRAP | UDS_ARROWKEYS | UDS_ALIGNRIGHT | 
-				UDS_SETBUDDYINT, 0, 0, 0, 0, h, 0, hInstance,
+				UDS_SETBUDDYINT, 0, 0, 0, 0, h, 0, (HINSTANCE)::GetModuleHandle(NULL),
 				e->hwndUpDown,50, 1, e->initValue);
 			static const int offs = 10;
 			CreateWindow(L"button", L"Применить"
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP //| BS_PUSHBUTTON
-				,offs, 45, 110, 30, h, (HMENU)IDOK, hInstance, NULL
+				,offs, 45, 110, 30, h, (HMENU)IDOK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			CreateWindow(L"button", L"Отмена"
 				, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP
-				,offs + 120, 45, 110, 30, h, (HMENU)IDCANCEL, hInstance, NULL
+				,offs + 120, 45, 110, 30, h, (HMENU)IDCANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 			RECT r;
 			GetWindowRect(hParent, &r);

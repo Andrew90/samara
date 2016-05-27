@@ -206,7 +206,7 @@ public:
 			, WC_LISTVIEW, L"",
 			WS_VISIBLE | WS_CHILD | LVS_REPORT 	
 			, 0, 0, 0, 0,
-			h, NULL, hInstance, NULL
+			h, NULL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)this);
 		unsigned param = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_HEADERDRAGDROP;
