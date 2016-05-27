@@ -13,6 +13,9 @@
 //#include "USPCWindow.h"
 #include "Common.h"
 #include "PacketWindow.h"
+#include <gdiplus.h>
+#include "SaveScreenToJpeg.h"
+using namespace Gdiplus;
 namespace 
 {
 void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
@@ -56,11 +59,7 @@ void TresholdsViewBtn(HWND h)
 //-----------------------------------------------------------------------------
 void TestBtn(HWND)
 {
-	zprint("");
-	//if(automat.TestMode())
-	//{
-	//	app.mainWindow.viewers.get<ThicknessViewer>().Repaint();
-	//}
+	SaveBitmap(L"tmp.jpg", app.mainWindow.viewers.get<CrossViewer>().backScreen);
 }
 //----------------------------------------------------------------------------
 void StopMeashurement(HWND h)

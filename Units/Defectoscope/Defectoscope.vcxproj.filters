@@ -100,6 +100,9 @@
     <Filter Include="GridData">
       <UniqueIdentifier>{645f41d5-8f14-4ff2-8800-6369aa484ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\tools">
+      <UniqueIdentifier>{5284659a-f4ed-47e4-aa2c-824de540c7de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -349,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="Windows\GridWindow.cpp">
       <Filter>Windows\PacketWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp">
+      <Filter>Common\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -669,6 +675,9 @@
     </ClInclude>
     <ClInclude Include="Windows\PacketTemplateWindow.hpp">
       <Filter>Windows\PacketWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h">
+      <Filter>Common\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

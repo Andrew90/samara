@@ -38,6 +38,9 @@ CHECK_EMPTY_STRING(Operator)
 PARAM_TITLE(Customer, L"Заказчик")
 CHECK_EMPTY_STRING(Customer)
 
+template<int N>struct DlgSubItems<Operator, Holder<N> >: EditItems<Operator, 350>{};
+template<int N>struct DlgSubItems<Customer, Holder<N> >: EditItems<Customer, 350>{};
+
 LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(msg)

@@ -184,8 +184,6 @@ namespace
 		}
 	};
 
-	template<int N>struct DlgSubItems<Operator, Holder<N> >: EditItems<Operator, 300>{};
-
 	template<class Table, class Col>struct Event<TopMenu<AddItem<Table, Col>> >	   
 	{										   
 		static void Do(HWND h)				   
@@ -227,6 +225,7 @@ template<class Table, class Col>void PacketTemplateWindow<Table, Col>::RClick(in
 		, Separator<0>
 		, TopMenu<DelItem<Table, Col>>
 	>::Result popup_items_list;
+	wcsncpy(result, s, dimention_of(result));
 	PopupMenu<popup_items_list>::Do(hWnd, hWnd);
 }
 

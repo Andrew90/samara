@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common\tools;GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
     <ClCompile Include="..\..\Common\templates\Frame.cpp" />
     <ClCompile Include="..\..\Common\templates\Hash.cpp" />
+    <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
     <ClCompile Include="..\..\Common\USPC\USPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="..\..\Common\templates\Hash.h" />
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
+    <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h" />
     <ClInclude Include="..\..\Common\USPC\USPC.h" />
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\ut_files.h" />

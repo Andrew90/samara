@@ -1,6 +1,7 @@
 #pragma once
 #include "App.h"
 #include "AppBase.h"
+#include "uspc7100_exports.h"
 
 
 ///	Хранит данные с платы USPC

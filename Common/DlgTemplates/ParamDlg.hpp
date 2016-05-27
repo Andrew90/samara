@@ -243,10 +243,7 @@ template<class O, class P>struct __test__
 		return Skip<O, typename TL::Inner<O>::Result::type_value>()(o, p);
 	}
 };
-//ParametersBase::multy_row_table_list>
-//ParametersBase::one_row_table_list
 
-//, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
 template<class Table, class T>struct __ok_table_btn__
 {
 	typedef typename T::__template_must_be_overridded__ noused; 
