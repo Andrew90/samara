@@ -9,6 +9,7 @@ public:
 	static const int width = 400;
 	static const int height = 200;
 	Gdiplus::Bitmap *backScreen;
+public:
 	IOportsViewer viewer;
 public:
 	HWND hWnd;

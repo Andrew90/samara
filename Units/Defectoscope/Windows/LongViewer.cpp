@@ -21,7 +21,7 @@ LongViewer::LongViewer()
 	chart.minAxesY = 1;
 	chart.maxAxesY = 1 + App::count_sensors;
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
+	chart.maxAxesX = App::count_zones;
 	chart.rect.top = 17;
 	mouseMove = true;
 	label.fontHeight = 12;

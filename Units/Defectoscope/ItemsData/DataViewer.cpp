@@ -20,7 +20,7 @@ namespace
 	};
 }
 
-DefectData::DefectData(int &filterWidth, bool &filterOn, double (&brak)[App::zonesCount], double (&klass2)[App::zonesCount])
+DefectData::DefectData(int &filterWidth, bool &filterOn, double (&brak)[App::count_zones], double (&klass2)[App::count_zones])
 	: medianFiltreWidth(filterWidth)
 	, medianFiltreOn(filterOn)
 	, brackThreshold(brak) 

@@ -685,6 +685,9 @@
     <ClInclude Include="Automat\AppKeyHandler.h">
       <Filter>Automat</Filter>
     </ClInclude>
+    <ClInclude Include="Dialogs\InputOutputDlg.h">
+      <Filter>Windows\Dialogs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\RefreshBtn.bmp">

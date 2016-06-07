@@ -391,8 +391,10 @@ void Automat::Impl::Do()
 		{
 			try
 			{
+				App::measurementOfRunning = false;
 				ResetEvent(App::ProgrammStopEvent);
 				AND_BITS(Ex<ExceptionContinueProc>)();
+				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iСontrolСircuits>)(10000);
 				Log::Mess<LogMess::PowerBMOn>();
@@ -403,7 +405,6 @@ void Automat::Impl::Do()
 				//Загрузить настройки для текущего типоразмера
 				USPC::Open();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе

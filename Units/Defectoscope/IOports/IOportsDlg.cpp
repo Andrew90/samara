@@ -22,9 +22,13 @@ void IOportsDlg::Do(HWND h)
 	{
 		RECT r;
 		WindowPosition::Get<IOportsWindow>(r);
+		wchar_t *title = App::measurementOfRunning
+			? L"Просмотр дискретных входов-выходов"
+			: L"Управление дискретными выходами"
+		;
 		h = WindowTemplate(
-			&IOportsWindow::Instance()
-			,  L"Просмотр дискретных входов-выходов"
+			 &IOportsWindow::Instance()
+			, title
 			, r.left, r.top
 			, IOportsWindow::width, IOportsWindow::height
 			);

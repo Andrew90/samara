@@ -234,6 +234,7 @@
     <ClInclude Include="Automat\AutomatAdditional.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
+    <ClInclude Include="Dialogs\InputOutputDlg.h" />
     <ClInclude Include="GridData\PacketTemplateData.hpp" />
     <ClInclude Include="IOports\IOportsViewer.h" />
     <ClInclude Include="IOports\IOportsWindow.h" />

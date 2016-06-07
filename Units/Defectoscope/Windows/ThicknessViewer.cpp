@@ -75,7 +75,7 @@ ThicknessViewer::ThicknessViewer()
 	chart.rect.top = 17;
 	
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
+	chart.maxAxesX = App::count_zones;
 	chart.minAxesY = 0;
 
 	label.fontHeight = 12;

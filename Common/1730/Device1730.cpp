@@ -77,22 +77,28 @@ void Device1730::WriteOutput(unsigned output, unsigned maska)
 }
 #else
 #pragma message("Порт 1730 отключён")
+unsigned out = 0;
 unsigned Device1730::Read()
 {
-	return 0xaa;
+	return out;
 }
 //--------------------------------------------------------------------------
 void Device1730::Write(unsigned output)
 {
+	out = output;
 }
 //--------------------------------------------------------------------------
 unsigned Device1730::ReadOutput()
 {	
-	return 0x55;
+	return out;
 }
 //----------------------------------------------------------------------------
 void Device1730::WriteOutput(unsigned output, unsigned maska)
 {	
+	 unsigned t = out;
+	 t &= ~maska;
+	 t |= output;
+	 Write(t);
 }
 #endif
 

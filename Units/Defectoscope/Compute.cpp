@@ -9,8 +9,8 @@
 #include "SelectMessage.h"
 #include "LabelMessage.h"
 
-void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::zonesCount]
-    , double (&minThreshold)[App::zonesCount], double (&nominalTreshold)[App::zonesCount], char &status)
+void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::count_zones]
+    , double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status)
 {
 	double min = nominalTreshold[zone] - minThreshold[zone];
 	double max = nominalTreshold[zone] + maxThreshold[zone];
@@ -56,7 +56,7 @@ namespace
 		}
 	};
 	template<class T, class Data>void ComputeData(USPCViewerData &d, MedianFiltre (&f)[App::count_sensors]
-	, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount])
+	, double (&brakThreshold)[App::count_zones], double (&klass2Threshold)[App::count_zones])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
@@ -112,7 +112,7 @@ namespace
 	}
 
 	template<class T, class Data>void ComputeData(USPCViewerThicknessData &d, MedianFiltre (&f)[App::count_sensors]
-	, double (&normThickness)[App::zonesCount], double (&minThickness)[App::zonesCount], double (&maxThickness)[App::zonesCount])
+	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 
@@ -267,11 +267,11 @@ namespace
 		bool longOnJob      = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long> >().value;
 		bool thicknessOnJob = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness> >().value;
 
-		char (&crossStatus)[App::zonesCount] = Singleton<ItemData<Cross> >::Instance().commonStatus;
-		char (&longStatus)[App::zonesCount] = Singleton<ItemData<Long> >::Instance().commonStatus;
-		char (&thicknessStatus)[App::zonesCount] = Singleton<ItemData<Thickness> >::Instance().commonStatus;
+		char (&crossStatus)[App::count_zones] = Singleton<ItemData<Cross> >::Instance().commonStatus;
+		char (&longStatus)[App::count_zones] = Singleton<ItemData<Long> >::Instance().commonStatus;
+		char (&thicknessStatus)[App::count_zones] = Singleton<ItemData<Thickness> >::Instance().commonStatus;
 
-		char (&resultStatus)[App::zonesCount] = Singleton<ResultViewerData>::Instance().commonStatus;
+		char (&resultStatus)[App::count_zones] = Singleton<ResultViewerData>::Instance().commonStatus;
 		int &currentOffset = Singleton<ResultViewerData>::Instance().currentOffset;
 
 		ZeroMemory(resultStatus, sizeof(currentOffset));
@@ -291,7 +291,7 @@ namespace
 
 			if(crossOnJob    ) buf[k++] = crossStatus[i]    ;
 			if(longOnJob     ) buf[k++] = longStatus[i]     ;
-			if(thicknessOnJob) buf[k++] = thicknessStatus[i];
+			if(thicknessOnJob) buf[k  ] = thicknessStatus[i];
 			
 			int t = 0;
 

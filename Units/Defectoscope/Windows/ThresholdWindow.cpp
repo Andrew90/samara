@@ -24,16 +24,16 @@ TresholdWindow::TresholdWindow()
 	chart.minAxesY = 0;
 	chart.maxAxesY = 255;
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
+	chart.maxAxesX = App::count_zones;
 	chart.rect.top = 17;
 	mouseMove = true;
 	label.fontHeight = 12;
 	cursor.SetMouseMoveHandler(this, &TresholdWindow::Draw);	
 	BrackThresh &bt = chart.items.get<BrackThresh>();
-	bt.SetData(brak, App::zonesCount, 0, 255);
+	bt.SetData(brak, App::count_zones, 0, 255);
 	bt.color = 0xffff0000;
 	Klass2Thresh &kt = chart.items.get<Klass2Thresh>();
-	kt.SetData(klass2, App::zonesCount, 0, 255);
+	kt.SetData(klass2, App::count_zones, 0, 255);
 	kt.color = 0xffffff00;
 	fastOffset = false;
 }
@@ -306,22 +306,21 @@ void TresholdWindow::AlignAllZones (int x, double offs)
 	if(borderDefectCheckBox.value)
 	{
 		double t = brak[x];
-		for(int i = 0; i < App::zonesCount; ++i) brak[i] = t;
+		for(int i = 0; i < App::count_zones; ++i) brak[i] = t;
 	}
 	if(border2ClassCheckBox.value)
 	{
 		double t = klass2[x];
-		for(int i = 0; i < App::zonesCount; ++i) klass2[i] = t;
+		for(int i = 0; i < App::count_zones; ++i) klass2[i] = t;
 	}
 	SetFocus(hWnd);
 }
 //------------------------------------------------------------------------------------
 void TresholdWindow::AlignThresh(int x, double offs)
 {
-	if(borderDefectCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) brak[i] += offs;
-	if(border2ClassCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) klass2[i] += offs;
+	if(borderDefectCheckBox.value)for(int i = 0; i < App::count_zones; ++i) brak[i] += offs;
+	if(border2ClassCheckBox.value)for(int i = 0; i < App::count_zones; ++i) klass2[i] += offs;
 	SetFocus(hWnd);
-
 }
 //-----------------------------------------------------------------------------------------------------
 namespace

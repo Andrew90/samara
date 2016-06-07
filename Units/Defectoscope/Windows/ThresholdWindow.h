@@ -83,8 +83,8 @@ public:
 	TMouseMove storedMouseMove;
 	ColorLabel label;
 	Cursor cursor;
-	double brak[App::zonesCount];
-	double klass2[App::zonesCount];
+	double brak[App::count_zones];
+	double klass2[App::count_zones];
 public:
 	CheckBoxWidget<CbHandler> border2ClassCheckBox;
 	CheckBoxWidget<CbHandler> borderDefectCheckBox;

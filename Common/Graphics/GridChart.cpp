@@ -80,6 +80,15 @@ BottomAxesGrid::BottomAxesGrid(Chart &chart)
 }
 void BottomAxesGrid::Draw()
 {
+	int y = chart.rect.bottom - chart.offsetAxesBottom;
+	chart.g->SetClip(&Region(RectF(
+		REAL(chart.rect.left + chart.offsetAxesLeft - 3)
+		, REAL(y - 3)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) + 3)
+		, REAL(chart.rect.bottom)
+		)),
+       CombineModeReplace
+     );	
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
@@ -87,7 +96,7 @@ void BottomAxesGrid::Draw()
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	
-    int y = chart.rect.bottom - chart.offsetAxesBottom;
+   
 	chart.g->DrawLine(&pen, chart.rect.left + chart.offsetAxesLeft, y, chart.rect.right - chart.offsetAxesRight, y);
 
 	wchar_t wbuf[32];
@@ -112,7 +121,6 @@ void BottomAxesGrid::Draw()
 	minA = digit;
     chart.deltaTickX = deltaTick;
 	chart.deltaDigitX = deltaDigit;
-	//double offs = chart.offsetGridX = chart.rect.left + chart.offsetAxesLeft - minTick;
 	double offs = chart.offsetAxesLeft;
     y = chart.rect.bottom - chart.offsetAxesBottom;
     digit += deltaDigit;
@@ -130,6 +138,7 @@ void BottomAxesGrid::Draw()
         digit += deltaDigit;
     }
 	maxA = digit;
+	chart.g->SetClip(&Region());
 }
 //--------------------------------------------------------------------------
 void GridGrid::Draw()

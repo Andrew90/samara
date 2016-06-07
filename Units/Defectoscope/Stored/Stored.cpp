@@ -18,7 +18,7 @@ namespace Stored
 	ItemData<Long> &longData = Singleton<ItemData<Long>>::Instance();
 	ItemData<Thickness> &thicknessData = Singleton<ItemData<Thickness>>::Instance();
 
-	unsigned StoreThreshold(CBase &base, double(&data)[App::zonesCount])
+	unsigned StoreThreshold(CBase &base, double(&data)[App::count_zones])
 	{
 		unsigned hash = HashFAQ6((unsigned char *)data, sizeof(data));
 		unsigned id = Select<StoredThresholdsTable>(base).eq<Hash>(hash).Execute();

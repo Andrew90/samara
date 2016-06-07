@@ -9,7 +9,7 @@ DEFINE_PARAM(Hash, unsigned, -1)
 
 struct Treshold
 {
-	typedef double type_value[App::zonesCount];
+	typedef double type_value[App::count_zones];
 	type_value value;	
 	const wchar_t *name(){return L"Treshold";}
 };
@@ -31,13 +31,13 @@ DEFINE_PARAM(Tube, unsigned, -1)
 DEFINE_PARAM(Sensor, unsigned, -1)
 struct Data
 {
-	typedef double type_value[App::zonesCount];
+	typedef double type_value[App::count_zones];
 	type_value value;	
 	const wchar_t *name(){return L"Data";}
 };
 struct Status
 {
-	typedef unsigned char type_value[App::zonesCount];
+	typedef unsigned char type_value[App::count_zones];
 	type_value value;	
 	const wchar_t *name(){return L"Status";}
 };

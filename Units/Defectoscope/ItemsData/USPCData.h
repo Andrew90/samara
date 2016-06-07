@@ -11,9 +11,9 @@ public:
 	int currentOffsetFrames;   ///<  Ќомер последнего кадра 
 	int currentOffsetZones;	   ///< номер смещени€ кадра в зоне
 	USPC7100_ASCANDATAHEADER ascanBuffer[App::count_frames];	///<собранные кадры
-	int offsets[App::zonesCount];  ///< смещение кадров по зонам
+	int offsets[App::count_zones];  ///< смещение кадров по зонам
 	int offsSensor[App::count_sensors];
-	char commonStatus[App::zonesCount];					///< общий статус по зонам
+	char commonStatus[App::count_zones];					///< общий статус по зонам
 	double samplesPerZone;
 	void Start();///< ¬ыполнить перед началом цикла сбора кадров с платы
 	UCHAR *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
@@ -24,17 +24,17 @@ public:
 class USPCViewerData: public USPCData
 {
 public:
-	double buffer[App::count_sensors][App::zonesCount];	///<¬ычисленные данные разбитые по датчикам и зонам
-	char status[App::count_sensors][App::zonesCount];	///< статус данных по датчикам и зонам	
+	double buffer[App::count_sensors][App::count_zones];	///<¬ычисленные данные разбитые по датчикам и зонам
+	char status[App::count_sensors][App::count_zones];	///< статус данных по датчикам и зонам	
 };
 
 class USPCViewerThicknessData: public USPCData
 {
 public:
-	double bufferMin[App::zonesCount];	///<¬ычисленные данные разбитые по датчикам и зонам
-	double bufferMax[App::zonesCount];	///<¬ычисленные данные разбитые по датчикам и зонам
-	char statusMin[App::zonesCount];
-	char statusMax[App::zonesCount];	
+	double bufferMin[App::count_zones];	///<¬ычисленные данные разбитые по датчикам и зонам
+	double bufferMax[App::count_zones];	///<¬ычисленные данные разбитые по датчикам и зонам
+	char statusMin[App::count_zones];
+	char statusMax[App::count_zones];	
 };
 
 template<class T>struct ItemData: USPCViewerData{}; 

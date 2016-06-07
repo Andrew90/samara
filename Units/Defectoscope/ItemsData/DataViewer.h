@@ -19,9 +19,9 @@ struct DefectData
 	int zone;
 	int &medianFiltreWidth;
 	bool &medianFiltreOn;
-	double (&brackThreshold )[App::zonesCount];
-	double (&klass2Threshold)[App::zonesCount];
-	DefectData(int &, bool &, double (&)[App::zonesCount], double (&)[App::zonesCount]);
+	double (&brackThreshold )[App::count_zones];
+	double (&klass2Threshold)[App::count_zones];
+	DefectData(int &, bool &, double (&)[App::count_zones], double (&)[App::count_zones]);
 	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
 };
 
@@ -93,10 +93,10 @@ struct ThicknessData
 	int zone;
 	int &medianFiltreWidth;
 	bool &medianFiltreOn;
-	double (&aboveBorder  )[App::zonesCount];
-	double (&lowerBorder  )[App::zonesCount];
-	double (&nominalBorder)[App::zonesCount];
-	ThicknessData(int &, bool &, double (&)[App::zonesCount], double (&)[App::zonesCount], double (&)[App::zonesCount]);
+	double (&aboveBorder  )[App::count_zones];
+	double (&lowerBorder  )[App::count_zones];
+	double (&nominalBorder)[App::count_zones];
+	ThicknessData(int &, bool &, double (&)[App::count_zones], double (&)[App::count_zones], double (&)[App::count_zones]);
 	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s);
 };
 template<>struct DataViewer<Thickness>: ThicknessData

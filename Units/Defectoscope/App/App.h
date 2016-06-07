@@ -10,7 +10,7 @@ struct ViewInterrupt{};
 class App
 {
 public:
-	static const int zonesCount = 4 * 60;
+	static const int count_zones = 4 * 60;
 	static const int count_sensors = 8;
 	static const int zone_length = 50;
 

@@ -5,6 +5,7 @@
 #include "AppBase.h"
 #include "App.h"
 #include "Device1730.h"
+#include "InputOutputDlg.h"
 
 namespace
 {
@@ -139,20 +140,6 @@ template<>struct DlgSubItems<oResult1   , unsigned >: UpDownSubItem<oResult1   >
 template<>struct DlgSubItems<oResult2   , unsigned >: UpDownSubItem<oResult2   >{};
 template<>struct DlgSubItems<oPowerBM   , unsigned >: UpDownSubItem<oPowerBM   >{};
 template<>struct DlgSubItems<oReserve   , unsigned >: UpDownSubItem<oReserve   >{};
-
-PARAM_TITLE(iСontrolСircuits, L"Цепи управления")
-PARAM_TITLE(iCycle          , L"Цикл")
-PARAM_TITLE(iReady          , L"Готовность")
-PARAM_TITLE(iControl        , L"Контроль")
-PARAM_TITLE(iBase           , L"База")
-PARAM_TITLE(iReserve        , L"Резерв")       
-
-PARAM_TITLE(oWork      , L"Работа")
-PARAM_TITLE(oToShiftThe, L"Перекладка")
-PARAM_TITLE(oResult1   , L"Результат1")
-PARAM_TITLE(oResult2   , L"Результат2")
-PARAM_TITLE(oPowerBM   , L"Питание БМ")
-PARAM_TITLE(oReserve   , L"Резерв")
 
 DO_NOT_CHECK(Descriptor1730)
 PARAM_TITLE(Descriptor1730, L"Дескриптор платы 1730")

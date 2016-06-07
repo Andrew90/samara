@@ -1,7 +1,7 @@
 #pragma once
 #include "App.h"
 
-template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::zonesCount], double (&klass2Threshold)[App::zonesCount], char &status)
+template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::count_zones], double (&klass2Threshold)[App::count_zones], char &status)
 {
 	 if(data > brakThreshold[zone])
 	 {
@@ -18,8 +18,8 @@ template<class T>void StatusZoneDefect(int offs, double data, int zone, double (
 }
 
 
-void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::zonesCount]
-    , double (&minThreshold)[App::zonesCount], double (&nominalTreshold)[App::zonesCount], char &status);
+void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::count_zones]
+    , double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status);
 
 class Compute
 {

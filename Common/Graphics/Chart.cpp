@@ -264,6 +264,15 @@ BottomAxesMeters::BottomAxesMeters(Chart &chart, int zoneInMM)
 }
 void BottomAxesMeters::Draw()
 {
+	int y = chart.rect.bottom - chart.offsetAxesBottom;
+	chart.g->SetClip(&Region(RectF(
+		REAL(chart.rect.left + chart.offsetAxesLeft - 3)
+		, REAL(y - 3)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) + 3)
+		, REAL(chart.rect.bottom)
+		)),
+       CombineModeReplace
+     );	
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
@@ -271,8 +280,6 @@ void BottomAxesMeters::Draw()
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	
-    int y = chart.rect.bottom - chart.offsetAxesBottom;
-	//chart.g->DrawLine(&pen, chart.rect.left + chart.offsetAxesLeft, y, chart.rect.right - chart.offsetAxesRight, y);
 	chart.g->DrawLine(&pen, chart.offsetAxesLeft, y, chart.rect.right - chart.offsetAxesRight, y);
 
     char buf[32];
@@ -298,7 +305,6 @@ void BottomAxesMeters::Draw()
 	minA = digit;
     chart.deltaTickX = deltaTick;
 	chart.deltaDigitX = deltaDigit;
-	//double offs = chart.offsetGridX = chart.rect.left + chart.offsetAxesLeft - minTick + deltaTick;
 	double offs = chart.offsetAxesLeft;
 	deltaTickDigit = deltaTick / deltaDigit;
 	offsMin = chart.rect.left + chart.offsetAxesLeft;
@@ -320,6 +326,7 @@ void BottomAxesMeters::Draw()
         digit += deltaDigit;
     }
 	maxA = digit;
+	chart.g->SetClip(&Region());
 }
 //-----------------------------------------------------------------------------------------------------------------
 void BottomAxesMeters::OffsetToPixel(WORD &offs, int delta)

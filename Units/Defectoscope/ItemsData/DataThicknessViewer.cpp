@@ -20,9 +20,9 @@
 //}
 
 ThicknessData::ThicknessData(int &filterWidth, bool &filterOn
-	, double (&aboveBorder)[App::zonesCount]
-, double (&lowerBorder)[App::zonesCount]
-, double (&nominalBorder)[App::zonesCount]
+	, double (&aboveBorder)[App::count_zones]
+, double (&lowerBorder)[App::count_zones]
+, double (&nominalBorder)[App::count_zones]
 )
 	: medianFiltreWidth(filterWidth)
 	, medianFiltreOn(filterOn)

@@ -9,7 +9,7 @@ using namespace Gdiplus;
 FixedGridSeries::FixedGridSeries(Chart &chart) 
 	: chart(chart)
 	, sensorCount(8)
-	, countZones(App::zonesCount)
+	, countZones(App::count_zones)
 {
 
 	SetColorCellHandler(this, &FixedGridSeries::GetColorCellDefault);
@@ -36,7 +36,7 @@ void FixedGridSeries::Draw()
 	for(unsigned i = (unsigned)chart.minAxesY, len = (unsigned)chart.maxAxesY; i < len; ++i)//sensorCount; ++i)
 	{
 		x = left;
-		for(unsigned j  = 0; j < App::zonesCount && (obj->*SetColorBar)(i, j, data, color); ++j)
+		for(unsigned j  = 0; j < App::count_zones && (obj->*SetColorBar)(i, j, data, color); ++j)
 		{
 			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)dX, (REAL)chart.deltaTickY);
 			x += dX;

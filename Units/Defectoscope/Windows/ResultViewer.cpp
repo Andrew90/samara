@@ -55,7 +55,7 @@ ResultViewer::ResultViewer()
 	chart.rect.top = 17;
 	
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
+	chart.maxAxesX = App::count_zones;
 	chart.minAxesY = 0;
 
 	label.fontHeight = 12;
@@ -65,7 +65,7 @@ ResultViewer::ResultViewer()
 	chart.items.get<BarSeries>().SetColorBarHandler(this, &ResultViewer::GetColorBar);
 
 	chart.items.get<BottomAxesMeters__>().minBorder = 0;
-	chart.items.get<BottomAxesMeters__>().maxBorder = 0.001 * App::zonesCount * App::zone_length;
+	chart.items.get<BottomAxesMeters__>().maxBorder = 0.001 * App::count_zones * App::zone_length;
 }
 //----------------------------------------------------------------------------------------------------
 #pragma warning(disable : 4996)

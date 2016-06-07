@@ -24,15 +24,15 @@ template<class>struct BorderAbove;
 template<class>struct BorderLower;
 template<class>struct BorderNominal;
 
-DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::zonesCount, 20)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::zonesCount, 30)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::count_zones, 20)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::count_zones, 30)
 
-DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::zonesCount, 40)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::zonesCount, 60)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::count_zones, 40)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::count_zones, 60)
 
-DEFINE_ARRAY_PARAM_WAPPER(BorderAbove  , Thickness, double, App::zonesCount, 3.0)
-DEFINE_ARRAY_PARAM_WAPPER(BorderLower  , Thickness, double, App::zonesCount, 2.0)
-DEFINE_ARRAY_PARAM_WAPPER(BorderNominal, Thickness, double, App::zonesCount, 12.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderAbove  , Thickness, double, App::count_zones, 3.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderLower  , Thickness, double, App::count_zones, 2.0)
+DEFINE_ARRAY_PARAM_WAPPER(BorderNominal, Thickness, double, App::count_zones, 12.0)
 
 struct ThresholdsTable
 {

@@ -32,7 +32,7 @@ void USPCData::Start()
 //		if(numberSavedFrames)
 //		{
 //			offsets[currentOffsetZones] = currentOffsetFrames + numberSavedFrames;
-//			if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
+//			if(App::count_zones < currentOffsetZones) ++currentOffsetZones;
 //		}
 //		else
 //		{
@@ -45,7 +45,7 @@ void USPCData::Start()
 //		double dt = currentTime - previousTime;
 //		double dx = strobeTime -  previousTime;
 //		offsets[currentOffsetZones] = currentOffsetFrames + int(dx * numberSavedFrames / dt);
-//		if(App::zonesCount < currentOffsetZones) ++currentOffsetZones;
+//		if(App::count_zones < currentOffsetZones) ++currentOffsetZones;
 //		previousStrobeBit = false;
 //	}
 //
@@ -79,7 +79,7 @@ void USPCData::SamplesPerZone(int tubeLength)
 	samplesPerZone = (double)App::zone_length * currentOffsetFrames 
 		/ (tubeLength + Singleton<OffsetsTable>::Instance().items.get<Offset<7>>().value);
 	ZeroMemory(offsets, sizeof(offsets));
-	for(int i = 1; i < App::zonesCount; ++i)
+	for(int i = 1; i < App::count_zones; ++i)
 	{
 	   offsets[i] = int(samplesPerZone * i);
 	}

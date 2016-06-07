@@ -9,7 +9,7 @@ template<class T>struct __tool_btn_width__
 {
 	static const int value = 10;
 };
-template<int idb, void(*ptr)(HWND), class z, template<int, void(*)(HWND), class>class W>struct __tool_btn_width__<W<idb, ptr, z> > 
+template<int idb, template<int, class>class W, class Key>struct __tool_btn_width__<W<idb, Key> >
 {
 	static const int value = 71;
 };
@@ -23,15 +23,14 @@ template<>struct __tool_bar_width__<NullType>
 	static const int value = 0;
 };	
 
-//struct ToolTipDefault{static wchar_t *Do(){return L"";}};
-template<int idb, void(*ptr)(HWND), class TOOLTIP = NullType>struct ButtonToolbar
+template<int idb, class TOOLTIP>struct ButtonToolbar
 {
 	static const int IDB_ = idb;
 	static const int TBSTYLE_ = TBSTYLE_BUTTON | BTNS_SHOWTEXT;
 	typedef TOOLTIP Text;
 	static void Do(HWND h)
 	{
-		(*ptr)(h);
+		(*TOOLTIP::Click)(h);
 	}
 };
 template<int N>struct SeparatorToolbar

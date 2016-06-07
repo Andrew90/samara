@@ -27,7 +27,7 @@ ThicknessThresholdWindow::ThicknessThresholdWindow()
 	, maxAxesY(Singleton<AxesTable>::Instance().items.get<AxesYMax<Thickness> >().value)
 {
 	chart.minAxesX = 0;
-	chart.maxAxesX = App::zonesCount;
+	chart.maxAxesX = App::count_zones;
 	chart.rect.top = 17;
 	mouseMove = true;
 	label.fontHeight = 12;
@@ -37,9 +37,9 @@ ThicknessThresholdWindow::ThicknessThresholdWindow()
 	LowerThresh   &lt = chart.items.get<LowerThresh  >();
 	NominalThresh &nt = chart.items.get<NominalThresh>();
 
-	at.SetData(aboveBorder  , App::zonesCount, 0, 255);
-	lt.SetData(lowerBorder  , App::zonesCount, 0, 255);
-	nt.SetData(nominalBorder, App::zonesCount, 0, 255);
+	at.SetData(aboveBorder  , App::count_zones, 0, 255);
+	lt.SetData(lowerBorder  , App::count_zones, 0, 255);
+	nt.SetData(nominalBorder, App::count_zones, 0, 255);
 
 	at.color = 0xff0000ff;
 	lt.color = 0xffff0000;
@@ -342,26 +342,26 @@ void ThicknessThresholdWindow::AlignAllZones (int x, double offs)
 	if(aboveBorderCheckBox.value)
 	{
 		double t = aboveBorder[x];
-		for(int i = 0; i < App::zonesCount; ++i) aboveBorder[i] = t;
+		for(int i = 0; i < App::count_zones; ++i) aboveBorder[i] = t;
 	}
 	if(lowerBorderCheckBox.value)
 	{
 		double t = lowerBorder[x];
-		for(int i = 0; i < App::zonesCount; ++i) lowerBorder[i] = t;
+		for(int i = 0; i < App::count_zones; ++i) lowerBorder[i] = t;
 	}
 	if(nominalBorderCheckBox.value)
 	{
 		double t = nominalBorder[x];
-		for(int i = 0; i < App::zonesCount; ++i) nominalBorder[i] = t;
+		for(int i = 0; i < App::count_zones; ++i) nominalBorder[i] = t;
 	}
 	SetFocus(hWnd);
 }
 //------------------------------------------------------------------------------------
 void ThicknessThresholdWindow::AlignThresh(int x, double offs)
 {
-	if(aboveBorderCheckBox  .value)for(int i = 0; i < App::zonesCount; ++i) aboveBorder  [i] += offs;
-	if(lowerBorderCheckBox  .value)for(int i = 0; i < App::zonesCount; ++i) lowerBorder  [i] += offs;
-	if(nominalBorderCheckBox.value)for(int i = 0; i < App::zonesCount; ++i) nominalBorder[i] += offs;
+	if(aboveBorderCheckBox  .value)for(int i = 0; i < App::count_zones; ++i) aboveBorder  [i] += offs;
+	if(lowerBorderCheckBox  .value)for(int i = 0; i < App::count_zones; ++i) lowerBorder  [i] += offs;
+	if(nominalBorderCheckBox.value)for(int i = 0; i < App::count_zones; ++i) nominalBorder[i] += offs;
 	SetFocus(hWnd);
 }
 //-----------------------------------------------------------------------------------------------------
