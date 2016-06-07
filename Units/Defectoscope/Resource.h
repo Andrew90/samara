@@ -19,14 +19,12 @@
 #define IDB_Clamp2OnBtn                 125
 #define IDB_BITMAP1                     127
 #define IDB_CycleBtn                    127
-#define IDB_BITMAP2                     128
 #define IDB_QueryBtn                    128
 #define IDB_LeftArrow                   129
 #define IDB_RightArrow                  130
 #define IDB_UpArrow                     131
 #define IDB_DownArrow                   132
 #define IDI_LETTER                      133
-#define IDI_ICON1                       134
 #define IDI_settings                    134
 #define IDB_SensorsUnit                 135
 #define IDB_ClampBtn                    136
@@ -34,7 +32,6 @@
 #define IDB_DownArrow64                 137
 #define IDB_UpArrow64                   138
 #define IDB_LeftArrow64                 139
-#define IDB_BITMAP3                     140
 #define IDB_RightArrow64                140
 #define IDB_MashCutBtn                  214
 

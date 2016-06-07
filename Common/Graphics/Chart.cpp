@@ -5,7 +5,7 @@
 #include "DebugMess.h"
 using namespace Gdiplus;
 const int COLOR_AXES = 0xff777777;
-const int COLOR_AXES_FONT = 0xff000033;
+const int COLOR_AXES_FONT = 0xff000000;
 const int COLOR_GRID = 0xff007700;
 const int BACK_GROUND = 0xffdddddd;
 Chart::Chart(Gdiplus::Bitmap *&backScreen)
@@ -121,7 +121,7 @@ void LeftAxes::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentNear);
 	double height;
@@ -188,7 +188,7 @@ void BottomAxes::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	
@@ -267,7 +267,7 @@ void BottomAxesMeters::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	
@@ -349,7 +349,7 @@ void BottomAxesInt::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	

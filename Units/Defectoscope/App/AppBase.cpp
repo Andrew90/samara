@@ -65,6 +65,7 @@ void AppBase::Init()
 		);
 	if(base.IsOpen())
 	{
+		zprint("\n");
 		TL::foreach<ParametersBase::one_row_table_list, row_table>()((TL::Factory<ParametersBase::one_row_table_list> *)0, &base);
 
 		InitTypeSizeTables(base);

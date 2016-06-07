@@ -335,6 +335,6 @@ struct ColorBar
 	void operator()(double &data, unsigned &color, int id, double defData)
 	{
 		__data_color__ d(id, color, data, defData);
-	//	TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+		TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
 	}
 };

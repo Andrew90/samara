@@ -4,6 +4,9 @@
 #include <windows.h>
 #include <winuser.h>
 #include <stdio.h>
+#include "DebugMess.h"
+
+#include "AppKeyHandler.h"
 
 HHOOK hKeyHook;
 HWND hWnd;
@@ -21,17 +24,16 @@ __declspec(dllexport) LRESULT CALLBACK KeyEvent (
     {
 		PostMessage(hWnd, WM_GET_SCAN_CODE, 0, hooked->vkCode);
     }
-    return CallNextHookEx(hKeyHook,
-        nCode,wParam,(LPARAM)hooked);
-
+    return CallNextHookEx(hKeyHook, nCode, wParam, (LPARAM)hooked);
 }
 void MsgLoop()
 {
-    MSG message;
-    while (GetMessage(&message,NULL,0,0)) {
-        TranslateMessage( &message );
-        DispatchMessage( &message );
-    }
+	MSG msg;
+	while (GetMessage(&msg,NULL,0,0)) 
+	{
+		TranslateMessage( &msg );
+		DispatchMessage( &msg );
+	}
 }
 DWORD WINAPI KeyLogger(LPVOID lpParameter)
 {
@@ -61,5 +63,41 @@ void StartKeyHook(HWND h)
 {
 	SetHWND(h);
 	CloseHandle(CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)KeyLogger, NULL, NULL, NULL));
+}
+
+
+
+HHOOK hHook;
+
+__declspec(dllexport) LRESULT CALLBACK __KeyEvent__ (
+
+  int nCode,      // The hook code
+  WPARAM wParam,  // The window message (WM_KEYUP, WM_KEYDOWN, etc.)
+  KBDLLHOOKSTRUCT *hooked   // A pointer to a struct with information about the pressed key
+
+) {
+    if  ((nCode == HC_ACTION) &&       // HC_ACTION means we may process this event
+        ((wParam == WM_SYSKEYDOWN) ||  // Only react if either a system key ...
+        (wParam == WM_KEYDOWN)))       // ... or a normal key have been pressed.
+    {
+		//PostMessage(hWnd, WM_GET_SCAN_CODE, 0, hooked->vkCode);
+		AppKeyHandler::KeyPressed( hooked->vkCode);
+    }
+    return CallNextHookEx(hKeyHook, nCode,wParam,(LPARAM)hooked);
+}
+
+KeyHook::KeyHook()
+{
+	 hHook = SetWindowsHookEx (  // install the hook:
+        WH_KEYBOARD_LL,            // as a low level keyboard hook
+        (HOOKPROC) __KeyEvent__,       // with the KeyEvent function from this executable
+        (HINSTANCE)::GetModuleHandle(NULL),                      // and the module handle to our own executable
+        NULL                       // and finally, the hook should monitor all threads.
+    );   
+}
+
+KeyHook::~KeyHook()
+{
+	 UnhookWindowsHookEx(hHook);
 }
 

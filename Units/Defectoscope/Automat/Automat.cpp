@@ -10,6 +10,7 @@
 #include "AutomatAdditional.h"
 #include "USPC.h"
 #include "Compute.h"
+#include "AppKeyHandler.h"
 
 struct Automat::Impl
 {
@@ -390,9 +391,10 @@ void Automat::Impl::Do()
 		{
 			try
 			{
+				ResetEvent(App::ProgrammStopEvent);
 				AND_BITS(Ex<ExceptionContinueProc>)();
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
-				AND_BITS(On<iСontrolСircuits>)(5000);
+				AND_BITS(Ex<ExceptionStopProc>, On<iСontrolСircuits>)(10000);
 				Log::Mess<LogMess::PowerBMOn>();
 
 				OUT_BITS(On<oPowerBM>);
@@ -402,21 +404,21 @@ void Automat::Impl::Do()
 				USPC::Open();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-				AND_BITS(On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
 				USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
-				AND_BITS(On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
+				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультрозвуковых датчиков
-				AND_BITS(On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				AND_BITS(Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
@@ -445,6 +447,7 @@ void Automat::Impl::Do()
 				Log::Mess<LogMess::AlarmControlCircuts>();
 				device1730.Write(0);
 				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
 			}	
 			catch(ExceptionСycleOffProc)
 			{
@@ -452,6 +455,7 @@ void Automat::Impl::Do()
 				Log::Mess<LogMess::AlarmCycle>();
 				SET_BITS(On<oPowerBM>);
 				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
 			}
 			catch(ExceptionTimeOutProc)
 			{
@@ -459,6 +463,15 @@ void Automat::Impl::Do()
 				Log::Mess<LogMess::TimeoutPipe>();	
 				SET_BITS(On<oPowerBM>);
 				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
+			}
+			catch(ExceptionStopProc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::InfoUserStop>();	
+				SET_BITS(On<oPowerBM>);
+				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
@@ -466,6 +479,7 @@ void Automat::Impl::Do()
 				Log::Mess<LogMess::TimeoutPipe>();	
 				SET_BITS(On<oPowerBM>);
 				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
 			}
 		}
 	}

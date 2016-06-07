@@ -5,6 +5,7 @@
 #include "EmptyWindow.h"
 #include <CommCtrl.h>
 #include "Common.h"
+#include "AppKeyHandler.h"
 
 #include "DebugMess.h"
 namespace {
@@ -148,6 +149,11 @@ void MainWindow::operator()(TMouseWell &l)
 		);
 }
 //--------------------------------------------------------------------------------
+void MainWindow::operator()(TUser &l)
+{
+	AppKeyHandler::KeyPressed((unsigned)l.data);
+}
+//--------------------------------------------------------------------------------
 void MainWindow::CheckBoxStateStoreInBase()
 {
 	CBase base(ParametersBase().name());
@@ -156,5 +162,6 @@ void MainWindow::CheckBoxStateStoreInBase()
 		UpdateWhere<OnTheJobTable>(Singleton<OnTheJobTable>::Instance(), base).ID(1).Execute();
 	}
 }
+
 
 

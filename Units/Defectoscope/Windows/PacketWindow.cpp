@@ -145,16 +145,17 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
 				, 10, height, btnWidth, 30, h, (HMENU)ID_OK, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
+			SendMessage(h, DM_SETDEFID, ID_OK, 0);
 
 			CreateWindow(L"button", L"Отмена"
-				, WS_VISIBLE | WS_CHILD | WS_TABSTOP 
+				, WS_VISIBLE | WS_CHILD | WS_TABSTOP | BS_PUSHBUTTON
 				, 20 + btnWidth, height, btnWidth, 30, h, (HMENU)ID_CANCEL, (HINSTANCE)::GetModuleHandle(NULL), NULL
 				);
 
 			height += 65;
 			int x = r.left +(r.right - r.left - width) / 2;
 			int y = r.top +(r.bottom - r.top - height) / 2;
-			MoveWindow(h, x, y, width, height, FALSE);
+			MoveWindow(h, x, y, width, height, true);			
 		}
 		return TRUE;
 	}
@@ -169,6 +170,7 @@ bool PacketWindow::Do(HWND h)
 bool PacketWindow::OkBtn()
 {
    wchar_t buf[128];
+
    GetWindowText(hNumber, buf, 128);
    if(0 == buf[0])
    {

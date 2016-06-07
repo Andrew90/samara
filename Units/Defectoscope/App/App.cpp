@@ -13,9 +13,7 @@
 #include "Compute.h"
 #include "ut_files.h"
 #include "Automat.h"
-
-
- 
+#include "HookKey.h"
 
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
@@ -39,6 +37,7 @@ void App::Init()
 	WindowPosition::Get<MainWindow>(r);
 	HWND h = WindowTemplate(&mainWindow, L"ЛБТ \"Буран-5000\"", r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
+	StartKeyHook(h);
 	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
 	{
 		MessageBox(h, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);

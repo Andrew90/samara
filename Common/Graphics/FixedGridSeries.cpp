@@ -36,7 +36,7 @@ void FixedGridSeries::Draw()
 	for(unsigned i = (unsigned)chart.minAxesY, len = (unsigned)chart.maxAxesY; i < len; ++i)//sensorCount; ++i)
 	{
 		x = left;
-		for(unsigned j  = 0; j < 60 && (obj->*SetColorBar)(i, j, data, color); ++j)
+		for(unsigned j  = 0; j < App::zonesCount && (obj->*SetColorBar)(i, j, data, color); ++j)
 		{
 			chart.g->FillRectangle(&SolidBrush(color), (REAL)x, (REAL)y, (REAL)dX, (REAL)chart.deltaTickY);
 			x += dX;
@@ -124,7 +124,7 @@ void FixedLeftAxes::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentNear);
 	double height;
@@ -190,7 +190,7 @@ void NoOffsetLeftAxes::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentNear);
 	double height;

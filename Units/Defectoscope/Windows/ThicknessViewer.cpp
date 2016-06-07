@@ -54,7 +54,6 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 		, viewerData.commonStatus[zone]
 		, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone]
 	);
-
 	color = color1;
 	unsigned char *x = (unsigned char *) &color;
 	x[0] = unsigned char(3.0 * x[0] / 4);

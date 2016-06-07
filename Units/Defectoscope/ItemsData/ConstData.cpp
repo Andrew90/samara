@@ -2,6 +2,7 @@
 #include "ConstData.h"
 #include "AppBase.h"
 #include "App.h"
+#include "DebugMess.h"
 namespace ConstData{
 	
 	unsigned buf[TL::Length<ColorTable::items_list>::value];	

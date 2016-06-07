@@ -356,6 +356,9 @@
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp">
       <Filter>Common\tools</Filter>
     </ClCompile>
+    <ClCompile Include="Automat\AppKeyHandler.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -678,6 +681,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h">
       <Filter>Common\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\AppKeyHandler.h">
+      <Filter>Automat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

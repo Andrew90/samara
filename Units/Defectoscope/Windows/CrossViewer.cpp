@@ -28,6 +28,7 @@ CrossViewer::CrossViewer()
 	chart.items.get<FixedGridSeries>().SetColorCellHandler(this, &CrossViewer::GetColorBar);
 	cursor.SetMouseMoveHandler(this, &CrossViewer::Draw);	
 	chart.items.get<FixedGridSeries>().sensorCount = App::count_sensors;
+	zprint("\n");
 }
 //--------------------------------------------------------------------------
 bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
@@ -62,6 +63,7 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 }
 bool CrossViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
+	
 	--sensor;
 	data = viewerData.buffer[sensor][zone];
 	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
@@ -96,7 +98,7 @@ void CrossViewer::operator()(TSize &l)
 	
 	chart.rect.right = l.Width;
 	chart.rect.bottom = l.Height;
-	chart.Draw(g);
+	chart.Draw(g);	
 }
 //-----------------------------------------------------------------------
 void CrossViewer::operator()(TPaint &l)

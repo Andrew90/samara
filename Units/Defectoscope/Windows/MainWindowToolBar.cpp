@@ -14,39 +14,58 @@
 #include "Common.h"
 #include "PacketWindow.h"
 #include <gdiplus.h>
-#include "SaveScreenToJpeg.h"
+#include "AppKeyHandler.h"
+//#include "SaveScreenToJpeg.h"
 using namespace Gdiplus;
 namespace 
 {
-void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
 
-void StopMeashurement(HWND);//обработчик для кнопки "Остановка измерения"
+	template<int N>struct Key;
+#define KEY(ID, text)template<>struct Key<ID> \
+	{\
+		static void Click(HWND); \
+		static wchar_t *Text(){return text;}\
+	};
 
-void TresholdsViewBtn(HWND);
+//void SycleMeashurement(HWND);//обработчик для кнопки "Циклическое измерение"
+//
+//void StopMeashurement(HWND);//обработчик для кнопки "Остановка измерения"
+//
+//void TresholdsViewBtn(HWND);
+//
+//void TestBtn(HWND);
+//
+//#define TOOL_LIP_TEXT(name, text)struct name{static wchar_t *Text(){return text;}};
+//
+//TOOL_LIP_TEXT(ToolLipCycleBtn     , L"F4 Цикл")
+//TOOL_LIP_TEXT(ToolLipReset  	  , L"F9 Стоп")
+//TOOL_LIP_TEXT(ToolTresholdsViewBtn  , L"Просмотр")
+//TOOL_LIP_TEXT(ToolTestBtn  , L"Тест")
+//  
+//#undef TOOL_LIP_TEXT
 
-void TestBtn(HWND);
+	KEY(IDB_CycleBtn, L"F4 Цикл")
 
-#define TOOL_LIP_TEXT(name, text)struct name{static wchar_t *Text(){return text;}};
-
-TOOL_LIP_TEXT(ToolLipCycleBtn     , L"Цикл")
-TOOL_LIP_TEXT(ToolLipReset  	  , L"Стоп")
-TOOL_LIP_TEXT(ToolTresholdsViewBtn  , L"Просмотр")
-TOOL_LIP_TEXT(ToolTestBtn  , L"Тест")
-  
-#undef TOOL_LIP_TEXT
+#define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID>::Click, Key<ID> > 
 
 typedef TL::MkTlst<
   SeparatorToolbar<0>
-  , ButtonToolbar<IDB_CycleBtn, SycleMeashurement, ToolLipCycleBtn>  
-  , ButtonToolbar<IDB_Reset, StopMeashurement    , ToolLipReset>  
-  , ButtonToolbar<IDB_QueryBtn, TestBtn             , ToolTestBtn>  
+   , BUTTON_KEY(IDB_CycleBtn)
+  //, ButtonToolbar<IDB_CycleBtn, SycleMeashurement, ToolLipCycleBtn>  
+  //, ButtonToolbar<IDB_Reset, StopMeashurement    , ToolLipReset>  
+  //, ButtonToolbar<IDB_QueryBtn, TestBtn             , ToolTestBtn>  
   //, ButtonToolbar<IDB_MashBtn, TresholdsViewBtn  , ToolTresholdsViewBtn>
   , SeparatorToolbar<1>
 >::Result tool_button_list;
 //----------------------------------------------------------------------------------
-void SycleMeashurement(HWND h)
+//void SycleMeashurement(HWND h)
+	template<>void Key<IDB_CycleBtn>::Click(HWND h)
 {
-   if(PacketWindowDlg(h)) SetEvent(App::ProgrammContinueEvent);
+   if(AppKeyHandler::IsEnabledRun() && PacketWindowDlg(h)) 
+   {
+	   SetEvent(App::ProgrammContinueEvent);
+	   AppKeyHandler::Run();
+   }
 }
 //-------------------------------------------------------------------------------
 void TresholdsViewBtn(HWND h)
@@ -59,12 +78,13 @@ void TresholdsViewBtn(HWND h)
 //-----------------------------------------------------------------------------
 void TestBtn(HWND)
 {
-	SaveBitmap(L"tmp.jpg", app.mainWindow.viewers.get<CrossViewer>().backScreen);
+	//SaveBitmap(L"tmp.jpg", app.mainWindow.viewers.get<CrossViewer>().backScreen);
 }
 //----------------------------------------------------------------------------
 void StopMeashurement(HWND h)
 {
 	 SetEvent(App::ProgrammStopEvent);
+	 AppKeyHandler::Stop();
 }
 }
 //--------------------------------------------------------------------------------------------

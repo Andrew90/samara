@@ -16,7 +16,7 @@ void LeftAxesGrid::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentNear);
 	double height;
@@ -83,7 +83,7 @@ void BottomAxesGrid::Draw()
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
-	SolidBrush fontColor(chart.colorAxes);
+	SolidBrush fontColor(chart.colorFontAxes);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	

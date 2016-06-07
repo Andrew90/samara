@@ -83,8 +83,6 @@ private:
 			tbb.idCommand =  O::IDB_;				
 			tbb.fsState = TBSTATE_ENABLED;
 			tbb.fsStyle = O::TBSTYLE_;
-			//static const wchar_t *s = O::ToolLip::Do();
-			//tbb.iString = (INT_PTR)(0 == s[0] ? 0 : s);
 			tbb.iString = (INT_PTR)Text<O::Text>()();
 		}
 	};
