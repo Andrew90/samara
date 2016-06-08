@@ -5,7 +5,6 @@
 #include "Compute.h"
 #include "DataViewer.h"
 
-
 //namespace
 //{
 //	//static const int count_buffer = 3000;

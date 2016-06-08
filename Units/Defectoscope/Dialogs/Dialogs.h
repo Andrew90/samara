@@ -38,6 +38,8 @@ DLG(OffsetsSensorsDlg)
 DLG(StoredDataDlg)
 DLG(LoadDataDlg)
 
+DLG(AnalogPlateDlg)
+
 #undef DLG
 
 template<class T>struct WindowPositionDlg

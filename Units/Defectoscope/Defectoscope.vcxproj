@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\tools;GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -69,7 +69,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)GridData;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)ItemsData;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,17 +114,22 @@
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
     <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Process.cpp" />
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\AppKeyHandler.cpp" />
     <ClCompile Include="Automat\Automat.cpp" />
     <ClCompile Include="Automat\AutomatAdditional.cpp" />
-    <ClCompile Include="Compute.cpp" />
+    <ClCompile Include="Compute.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Common\tools;GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="Defectoscope.cpp" />
     <ClCompile Include="Dialogs\AboutWindow.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="Dialogs\AnalogPlateDlg.cpp" />
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp" />
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
@@ -221,6 +226,7 @@
     <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h" />
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
+    <ClInclude Include="..\..\Common\window_tool\Process.h" />
     <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />

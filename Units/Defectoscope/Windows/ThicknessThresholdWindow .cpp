@@ -263,7 +263,7 @@ void ThicknessThresholdWindow::operator()(TSize &l)
 	{
 		return;
 	}
-	MoveWindow(hToolBar, 0, 0, 0, 0, false);
+	MoveWindow(hToolBar, 0, 0, 0, 0, true);
 	chart.minAxesY = minAxesY;
 	chart.maxAxesY = maxAxesY;
 	Draw(l);
@@ -284,9 +284,9 @@ void ThicknessThresholdWindow::operator()(TSize &l)
 //------------------------------------------------------------------------------------------
 void ThicknessThresholdWindow::Draw(TSize &l)
 {
-	RECT r;
+	RECT r = {};
 	GetClientRect(hToolBar, &r);
-	if(0 > r.top)  return;
+	if(0 == r.bottom)  return;
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);  

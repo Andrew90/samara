@@ -359,6 +359,12 @@
     <ClCompile Include="Automat\AppKeyHandler.cpp">
       <Filter>Automat</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\Process.cpp">
+      <Filter>Common\window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\AnalogPlateDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -687,6 +693,9 @@
     </ClInclude>
     <ClInclude Include="Dialogs\InputOutputDlg.h">
       <Filter>Windows\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\Process.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

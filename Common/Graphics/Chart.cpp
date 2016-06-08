@@ -38,6 +38,7 @@ void OffsetAxes(int offs, int length, double min, double max, double &digit, dou
 {
 	double dLength = (double)length / offs;
 	double dValue = (max - min) / dLength;
+	if(0.0 >= dValue) dValue = 1.0;
 	double coeff = 1.0;
 	if(max == min) dValue = 1.0;
 
@@ -432,6 +433,14 @@ void BottomAxesInt::OffsetToPixel(WORD &offs, int delta)
 //----------------------------------------------------------------------------------------------------------------
 void Grid::Draw()
 {
+	chart.g->SetClip(&Region(RectF(
+		REAL(chart.rect.left + chart.offsetAxesLeft + 3)
+		, REAL(chart.rect.top + chart.offsetAxesTop + 3)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 6)
+		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 6)
+		)),
+       CombineModeReplace
+     );
 	Color color(chart.colorGrid);
 	Pen pen(color, 1);
     double offs = chart.offsetGridX;
@@ -452,6 +461,7 @@ void Grid::Draw()
 		chart.g->DrawLine(&pen, y_b, (int)offs, y_t, (int)offs);
         offs -= *deltaY;
     }
+	chart.g->SetClip(&Region());
 }
 //---------------------------------------------------------------------------------------------------------------------
 LineSeries::LineSeries(Chart &chart) : chart(chart), data(NULL), color(0xff0000ff) {}

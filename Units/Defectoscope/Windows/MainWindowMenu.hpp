@@ -110,7 +110,7 @@ namespace MainWindowMenu
 	struct Setting{};
 	MENU_TEXT(L"Установка", TopMenu<Setting>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct AnalogPlate            {static void Do(HWND h){zprint("");}};
+	struct AnalogPlate            : AnalogPlateDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlate	      {};//static void Do(HWND h){zprint("");}};
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};

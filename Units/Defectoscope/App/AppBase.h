@@ -421,6 +421,17 @@ struct TestTable
 	TItems items;
 	const wchar_t *name(){return L"TestTable";}
 };
+//-------------------------------------------------------------------------------------------
+STR_PARAM(PathUSPC, 1024, L"")
+struct PathUSPCTable
+{
+	typedef TL::MkTlst<
+		PathUSPC
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"PathUSPCTable";}
+};
 //------------------------------------------------------------------------------------------------------------
  struct ParametersBase
  {
@@ -436,6 +447,7 @@ struct TestTable
 		 , OffsetsTable
 		 , OnTheJobTable
 		 , TestTable
+		 , PathUSPCTable
 	 >::Result one_row_table_list;
 
 	 typedef TL::MkTlst<

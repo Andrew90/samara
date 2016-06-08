@@ -212,6 +212,7 @@ unsigned TresholdWindow::operator()(TCreate &l)
 //------------------------------------------------------------------------------------------
 void TresholdWindow::operator()(TSize &l)
 {
+	storedMouseMove.hwnd = l.hwnd;
 	if(l.resizing == SIZE_MINIMIZED || 0 == l.Width || 0 == l.Height) return;	
 	
 	if(NULL != backScreen)
@@ -230,7 +231,7 @@ void TresholdWindow::operator()(TSize &l)
 	{
 		return;
 	}
-	MoveWindow(hToolBar, 0, 0, 0, 0, false);
+	MoveWindow(hToolBar, 0, 0, 0, 0, true);
 	Draw(l);
 //----toolbar
 	int tool_bar_width = 320;
@@ -249,9 +250,9 @@ void TresholdWindow::operator()(TSize &l)
 //------------------------------------------------------------------------------------------
 void TresholdWindow::Draw(TSize &l)
 {
-	RECT r;
+	RECT r = {};
 	GetClientRect(hToolBar, &r);
-	if(0 > r.top)  return;
+	if(0 == r.bottom)  return;
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);  
