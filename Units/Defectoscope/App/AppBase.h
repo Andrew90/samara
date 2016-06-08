@@ -422,7 +422,7 @@ struct TestTable
 	const wchar_t *name(){return L"TestTable";}
 };
 //-------------------------------------------------------------------------------------------
-STR_PARAM(PathUSPC, 1024, L"")
+STR_PARAM(PathUSPC, 255, L"")
 struct PathUSPCTable
 {
 	typedef TL::MkTlst<

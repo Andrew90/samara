@@ -73,11 +73,11 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 	return b;
 }
 
-bool ExistCurrentUSPCFile(wchar_t (&file)[1024])
+bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 {
 	CurrentDir src;
 	wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-	wsprintf(&src.path[src.len], L"\\%s\\%s"
+	wsprintf(&src.path[src.len], L"\\%s\\%s.us"
 		, ut_files
 		, s
 		);

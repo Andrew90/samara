@@ -114,7 +114,7 @@
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
     <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
-    <ClCompile Include="..\..\Common\window_tool\Process.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ProcessRun.cpp" />
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
@@ -226,7 +226,7 @@
     <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h" />
     <ClInclude Include="..\..\Common\window_tool\Notify.h" />
     <ClInclude Include="..\..\Common\window_tool\Pass.h" />
-    <ClInclude Include="..\..\Common\window_tool\Process.h" />
+    <ClInclude Include="..\..\Common\window_tool\ProcessRun.h" />
     <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />

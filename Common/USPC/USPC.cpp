@@ -111,7 +111,7 @@ namespace USPC
 	{
 		bool res = false;
 		unsigned err = 0;
-		wchar_t path[1024];
+		wchar_t path[256];
 		if(wcscmp(currentTypeSize, lastTypeSize))
 		{
 			res = ExistCurrentUSPCFile(path);
