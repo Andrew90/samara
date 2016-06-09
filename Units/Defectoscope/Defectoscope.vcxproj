@@ -286,6 +286,10 @@
     <ClInclude Include="Windows\ViewersMenu.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Common\Resource\arrow_down.bmp" />
+    <None Include="..\..\Common\Resource\arrow_left.bmp" />
+    <None Include="..\..\Common\Resource\arrow_right.bmp" />
+    <None Include="..\..\Common\Resource\arrow_up.bmp" />
     <None Include="..\..\Common\Resource\BottomArr.bmp" />
     <None Include="..\..\Common\Resource\clamp.bmp" />
     <None Include="..\..\Common\Resource\Clamp1OnBtn.bmp" />

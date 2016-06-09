@@ -769,5 +769,17 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ReadMe.txt" />
+    <None Include="..\..\Common\Resource\arrow_down.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\arrow_up.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\arrow_right.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\arrow_left.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

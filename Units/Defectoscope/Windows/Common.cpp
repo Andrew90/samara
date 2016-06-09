@@ -5,29 +5,10 @@
 #include "LongWindow.h"
 #include "CrossWindow.h"
 
-namespace
-{
-	typedef TL::MkTlst<
-		ThicknessWindow
-		, LongWindow
-		, CrossWindow
-		, ScanWindow
-	>::Result list;
-
-	template<class List>struct __destroy_window__;
-	template<class Head, class Tail>struct __destroy_window__<Tlst<Head, Tail>>
-	{
-		void operator()()
-		{
-			Common::DestroyWindow<Head>();
-			__destroy_window__<Tail>()();
-		}
-	};
-
-	template<>struct __destroy_window__<NullType>{void operator()(){}};
-}
-
 void CloseAllWindows()
 {
-	__destroy_window__<list>()();
+	Common::DestroyWindow<ThicknessWindow>();
+	Common::DestroyWindow<LongWindow     >();
+	Common::DestroyWindow<CrossWindow    >();
+	Common::DestroyWindow<ScanWindow     >();
 }

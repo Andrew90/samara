@@ -33,13 +33,19 @@
 #define IDB_UpArrow64                   138
 #define IDB_LeftArrow64                 139
 #define IDB_RightArrow64                140
+#define IDB_arrow_down                  141
+#define IDB_BITMAP2                     142
+#define IDB_arrow_up                    142
+#define IDB_arrow_right                 143
+#define IDB_BITMAP4                     144
+#define IDB_arrow_left                  144
 #define IDB_MashCutBtn                  214
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

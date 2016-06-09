@@ -21,25 +21,32 @@ namespace
 	static void Click(HWND);\
 	static wchar_t *Text(){return text;}\
 	};
-
 	KEY(IDB_CycleBtn   , L"F4 Цикл")
 	KEY(IDB_Reset      , L"F9 Стоп")
 	KEY(IDB_QueryBtn   , L"Тест")
-
+	KEY(IDB_arrow_down , L"F5 Вниз")
+	KEY(IDB_arrow_up   , L"F6 Вверх")
+	KEY(IDB_arrow_left , L"F7 Влево")
+	KEY(IDB_arrow_right, L"F8 Вправо")
+#undef KEY
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
-
 		typedef TL::MkTlst<
 		SeparatorToolbar<0>
 		, BUTTON_KEY(IDB_CycleBtn)
 		, BUTTON_KEY(IDB_Reset)
-		, BUTTON_KEY(IDB_QueryBtn) 
+		, BUTTON_KEY(IDB_QueryBtn) 		
 		, SeparatorToolbar<1>
+		, BUTTON_KEY(IDB_arrow_down) 
+		, BUTTON_KEY(IDB_arrow_up)
+		, BUTTON_KEY(IDB_arrow_left) 
+		, BUTTON_KEY(IDB_arrow_right)
+		, SeparatorToolbar<2>
 		>::Result tool_button_list;
 #undef BUTTON_KEY
 //----------------------------------------------------------------------------------
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
-		if(AppKeyHandler::IsEnabledRun() && PacketWindowDlg(h)) 
+		if(PacketWindowDlg(h)) 
 		{
 			CloseAllWindows();
 			SetEvent(App::ProgrammContinueEvent);
@@ -49,7 +56,27 @@ namespace
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)
 	{
-		zprint("");	
+		zprint("\n");	
+	}
+//------------------------------------------------------------------------------
+	void Key<IDB_arrow_down>::Click(HWND h)
+	{
+		zprint("\n");	
+	}
+//------------------------------------------------------------------------------
+	void Key<IDB_arrow_up>::Click(HWND h)
+	{
+		zprint("\n");	
+	}
+//------------------------------------------------------------------------------
+	void Key<IDB_arrow_left>::Click(HWND h)
+	{
+		zprint("\n");	
+	}
+//------------------------------------------------------------------------------
+	void Key<IDB_arrow_right>::Click(HWND h)
+	{
+		zprint("\n");	
 	}
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)

@@ -71,6 +71,10 @@ IDB_DownArrow64         BITMAP                  "..\\..\\Common\\Resource\\Botto
 IDB_UpArrow64           BITMAP                  "..\\..\\Common\\Resource\\TopArr.bmp"
 IDB_LeftArrow64         BITMAP                  "..\\..\\Common\\Resource\\LeftArr.bmp"
 IDB_RightArrow64        BITMAP                  "..\\..\\Common\\Resource\\RightArr.bmp"
+IDB_arrow_down          BITMAP                  "..\\..\\Common\\Resource\\arrow_down.bmp"
+IDB_arrow_up            BITMAP                  "..\\..\\Common\\Resource\\arrow_up.bmp"
+IDB_arrow_right         BITMAP                  "..\\..\\Common\\Resource\\arrow_right.bmp"
+IDB_arrow_left          BITMAP                  "..\\..\\Common\\Resource\\arrow_left.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -391,9 +391,9 @@ void Automat::Impl::Do()
 		{
 			try
 			{
-				App::measurementOfRunning = false;
-				ResetEvent(App::ProgrammStopEvent);
+				App::measurementOfRunning = false;				
 				AND_BITS(Ex<ExceptionContinueProc>)();
+				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);

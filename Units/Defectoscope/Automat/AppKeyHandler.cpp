@@ -32,6 +32,10 @@ namespace AppKeyHandler
 			On<IDB_CycleBtn>
 			, On<IDB_Reset>
 			, On<IDB_QueryBtn>
+			, On<IDB_arrow_down>
+			, On<IDB_arrow_up>
+			, On<IDB_arrow_left>
+			, On<IDB_arrow_right>
 		>::Result list;
 		__btn__<list>()();
 	}
@@ -42,6 +46,10 @@ namespace AppKeyHandler
 			Off<IDB_CycleBtn>
 			, On<IDB_Reset>
 			, Off<IDB_QueryBtn>
+			, Off<IDB_arrow_down>
+			, Off<IDB_arrow_up>
+			, Off<IDB_arrow_left>
+			, Off<IDB_arrow_right>
 		>::Result list;
 		__btn__<list>()();
 	}
@@ -63,24 +71,31 @@ namespace AppKeyHandler
 			On<IDB_CycleBtn>
 			, On<IDB_Reset>
 			, On<IDB_QueryBtn>
+			, On<IDB_arrow_down>
+			, On<IDB_arrow_up>
+			, On<IDB_arrow_left>
+			, On<IDB_arrow_right>
 		>::Result list;
 		__btn__<list>()();
 	}
 
-	void VK_(unsigned id)
+	bool VK_(unsigned id)
 	{
-		//SendMessage(app.mainWindow.hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
-		//SetForegroundWindow(app.mainWindow.hWnd);
 		TCommand c = {app.mainWindow.hWnd, WM_COMMAND, id, 0, app.mainWindow.toolBar.hWnd};
 		SendMessage(MESSAGE(c));
+		return true;
 	}
 
 	void KeyPressed(unsigned key)
 	{
 		switch(key)
 		{		
-		case VK_F4:	VK_(IDB_CycleBtn); break;
+		case VK_F4:	IsEnabled(IDB_CycleBtn) && VK_(IDB_CycleBtn); break;
 		case VK_F9: VK_(IDB_Reset);break;
+		case VK_F5: IsEnabled(IDB_arrow_down) && VK_(IDB_arrow_down);break;
+		case VK_F6: IsEnabled(IDB_arrow_up) && VK_(IDB_arrow_up);break;
+		case VK_F7: IsEnabled(IDB_arrow_left) && VK_(IDB_arrow_left);break;
+		case VK_F8: IsEnabled(IDB_arrow_right) && VK_(IDB_arrow_right);break;
 		}
 	}
 }
