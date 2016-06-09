@@ -116,7 +116,7 @@ namespace Common
 		}
 	};
 
-	template<class T>bool DestroyWindow(HWND h)
+	template<class T>bool DestroyWindow()
 	{
 		HWND hh = FindWindow(WindowClass<T>()(), 0);
 		if(NULL != hh)
@@ -283,4 +283,6 @@ namespace Common
 	};
 }
 }
+
+void CloseAllWindows();
 

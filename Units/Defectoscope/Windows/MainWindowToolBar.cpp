@@ -41,6 +41,7 @@ namespace
 	{
 		if(AppKeyHandler::IsEnabledRun() && PacketWindowDlg(h)) 
 		{
+			CloseAllWindows();
 			SetEvent(App::ProgrammContinueEvent);
 			AppKeyHandler::Run();
 		}
