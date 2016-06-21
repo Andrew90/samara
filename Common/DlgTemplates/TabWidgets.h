@@ -194,7 +194,7 @@ template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkTab
 		int iPage = TabCtrl_GetCurSel(hTab);
 		if(b) currentPage = iPage;  
 		__select_page_data__ data = {iPage, b, this};
-		TL::find<typename Table::items_list, __select_page__>()((TL::Factory<typename Table::items_list> *)0, &data);
+		TL::find<typename Table::items_list, __select_page__>()(&data);
 	}
 public:
 	HWND hWnd;
@@ -230,7 +230,7 @@ public:
 		hTab = CreateWindowEx(0, WC_TABCONTROL, 0,   WS_CHILD | WS_VISIBLE, 
 			0, 0, width, height - 70, h, (HMENU)NULL, (HINSTANCE)::GetModuleHandle(NULL), 0);
 
-		TL::foreach<typename Table::items_list, __tab_name__>()((TL::Factory<typename Table::items_list> *)0, (HWND *)&hTab);
+		TL::foreach<typename Table::items_list, __tab_name__>()((HWND *)&hTab);
 
 		TL::foreach<ButtonsList, __make_btn__>()(&buttons, &__make_btn_data__(offs, height - 65, h));
 		((TabControl *)GetWindowLong(h, GWL_USERDATA))->Show(true);

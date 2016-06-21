@@ -196,7 +196,7 @@ public:
 	unsigned operator()(TNotify &m)
 	{
 		Data d(m);
-		TL::find<event_list, loc>()((TL::Factory<event_list> *)0, &d);
+		TL::find<event_list, loc>()(&d);
 		return d.result;
 	}	
 	template<class colums_name_list>HWND Init(HWND h, int countRows)

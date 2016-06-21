@@ -188,7 +188,7 @@ namespace
 
 	template<class O, class P>struct __recalculation__
 	{
-		void operator()(O *, P *)
+		void operator()()
 		{
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
@@ -225,7 +225,7 @@ namespace
 	template<class P>struct __recalculation__<Thickness, P>
 	{
 		typedef Thickness O;
-		void operator()(O *, P *)
+		void operator()()
 		{
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)

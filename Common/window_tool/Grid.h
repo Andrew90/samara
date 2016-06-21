@@ -10,7 +10,7 @@ template<class T>class SetGridHeader
 	LV_COLUMN lvc;
 	template<class O, class P>struct loc
 	{
-		void operator()(O *, P *p)
+		void operator()(P *p)
 		{
 			p->lvc.iSubItem = TL::IndexOf<T, O>::value;
 			p->lvc.pszText = header_table<O>().name();
@@ -23,7 +23,7 @@ public:
 	{
 		lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 		lvc.fmt = LVCFMT_LEFT;
-		TL::foreach<T, loc>()((TL::Factory<T> *)0, this);		
+		TL::foreach<T, loc>()(this);		
 	}	
 };
 

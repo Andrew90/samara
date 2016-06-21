@@ -67,31 +67,31 @@ struct Automat::Impl
 	 {
 		 template<class O, class P>struct loc
 		 {
-			 void operator()(O *, P *p)
+			 void operator()(P *p)
 			 {
 				 p[TL::IndexOf<list, O>::value] = Ex<O>().handle;
 			 }
 		 };
 		 template<class O, class P>struct ev
 		 {
-			 void operator()(O *, P *p)
+			 void operator()(P *p)
 			 {
 				if(TL::IndexOf<list, O>::value == *p) throw O();
 			 }
 		 };
 		 template<class P>struct ev<ExceptionContinueProc, P>
 		 {
-			 void operator()(ExceptionContinueProc *, P *){}
+			 void operator()(P *){}
 		 };
 		 HANDLE h[TL::Length<list>::value];
 		 ArrEvents()
 		 {
-			 TL::foreach<list, loc>()((TL::Factory<list> *)0, h);
+			 TL::foreach<list, loc>()(h);
 		 }
 
 		 void Throw(unsigned t)
 		 {
-			 TL::foreach<list, ev>()((TL::Factory<list> *)0, &t);
+			 TL::foreach<list, ev>()(&t);
 			 return;
 		 }
 
@@ -182,7 +182,7 @@ struct Automat::Impl
 
 	template<class O, class P>struct __default_do__
 	{
-		void operator()(O *, P *p)
+		void operator()(P *p)
 		{
 			O::Do(*p);
 		}
@@ -192,7 +192,7 @@ struct Automat::Impl
 	{
 		void operator()(unsigned bits)
 		{
-			TL::foreach<List, __default_do__>()((TL::Factory<List> *)0, &bits);
+			TL::foreach<List, __default_do__>()(&bits);
 		}
 	};
 	template<>struct DefaultDo<NullType>

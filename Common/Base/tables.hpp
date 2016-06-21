@@ -793,7 +793,7 @@ template<typename Table>struct Select
 		{
 			head[wcslen(head) - 7] = '\0';
 			wcscat(head, L" ORDER BY ");
-			TL::foreach<ORDER_BY_LIST, __order_by__>()((TL::Factory<ORDER_BY_LIST> *)0, head);
+			TL::foreach<ORDER_BY_LIST, __order_by__>()(head);
 			head[wcslen(head) - 1] = '\0';
 			cmd->CommandText = head;
 			_variant_t rowsAffected; 

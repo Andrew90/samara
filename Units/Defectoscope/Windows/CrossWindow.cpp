@@ -56,7 +56,7 @@ void CrossWindow::operator()(TCommand &l)
 void CrossWindow::operator()(TDestroy &l)
 {
 	SetWindowLongPtr(l.hwnd, GWLP_USERDATA, NULL);
-	TL::foreach<viewers_list, Common::__destroy__window__>()(&viewers, (int *)0);
+	TL::foreach<viewers_list, Common::__destroy__window__>()(&viewers);
 	delete this;
 }
 //----------------------------------------------------------------------

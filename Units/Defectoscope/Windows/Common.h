@@ -170,7 +170,7 @@ namespace Common
 
 	template<class O, class P>struct __destroy__window__
 	{
-		void operator()(O *o, P *)
+		void operator()(O *o)
 		{
 			 delete o->backScreen;
 		}

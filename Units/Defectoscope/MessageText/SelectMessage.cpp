@@ -227,7 +227,7 @@ namespace
 	template<class O, class P>struct __id_XXX__;
 	template<class O, class P>struct __id__
 	{
-		bool operator()(O *, P *p)
+		bool operator()(P *p)
 		{
 			if (TL::IndexOf<label_message_list, O>::value == *p->id)
 			{
@@ -241,7 +241,7 @@ namespace
 					__result__<skip_list>()((__data_id__<list> *)p);
 					return false;
 				}
-				TL::find<label_message_list, __id_XXX__>()((TL::Factory<label_message_list> *)0, (__data_id__<list> *)p);
+				TL::find<label_message_list, __id_XXX__>()((__data_id__<list> *)p);
 				return false;
 			}
 			return true;
@@ -253,7 +253,7 @@ namespace
 char *SelectMessage(int *x, int &res)
 {
 	__data_id__<label_message_list> d = { x, NULL, 0, 0 };
-	TL::find<label_message_list, __id__>()((TL::Factory<label_message_list> *)0, &d);
+	TL::find<label_message_list, __id__>()(&d);
 	res = d.res;
 	return d.str;
 }

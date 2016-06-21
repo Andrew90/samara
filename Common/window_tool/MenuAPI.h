@@ -52,7 +52,7 @@ public:
 	{
 		if(NULL != hWnd) DestroyMenu(GetMenu(hWnd));
 		Param param(CreateMenu(), hWnd);
-		TL::find<List, __insert_menu__>()((TL::Factory<List> *)0, &param);
+		TL::find<List, __insert_menu__>()(&param);
 		SetMenu(hWnd, param.h); 
 		DrawMenuBar(hWnd);
 		return param.h;
@@ -64,7 +64,7 @@ public:
 	template<class P>static void Do(HWND hWnd, P *data)
 	{		
 		Param param(CreatePopupMenu(), hWnd);
-		TL::find<List, __insert_menu__>()((TL::Factory<List> *)0, &param);
+		TL::find<List, __insert_menu__>()(&param);
 		HMENU hMenu = param.h;
 		POINT p;
 		GetCursorPos(&p);
@@ -145,7 +145,7 @@ template<template<class, class>class P>struct NotNullList<NullType, P>
 };
 template<class O, class P>struct __insert_menu__
 {
-	bool operator()(O *, P *p)
+	bool operator()(P *p)
 	{	
 		Param param(CreatePopupMenu(), p->hWnd);
 		if(NotNullList<typename O::list, __insert_item_menu__>()((TL::Factory<typename O::list> *)0, &param))
@@ -169,7 +169,7 @@ template<class O, class P>struct __insert_menu__
 template<int N, class P>struct __insert_menu__<Separator<N>, P>
 {
 	typedef Separator<N> O;
-	bool operator()(O *, P *p)
+	bool operator()(P *p)
 	{	
 		p->m.fMask = MIIM_TYPE | MIIM_DATA | MIIM_ID | MIIM_STATE;
 		p->m.hSubMenu = NULL;		
@@ -187,7 +187,7 @@ template<class S, class P>struct __insert_item_menu__<SubMenu<S>, P>
 	{      
 		if(ReturnItemMenu<O>()())
 		{
-			__insert_menu__<O, P>()(o, p);
+			__insert_menu__<O, P>()(p);
 			return true;
 		}
 		return false;

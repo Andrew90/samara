@@ -373,7 +373,7 @@ namespace
 
 	template<class P>struct __ret__<__x__<&ThicknessThresholdWindow::AlignOneZone>, P>
 	{
-		bool operator()(__x__<&ThicknessThresholdWindow::AlignOneZone> *, P *p)
+		bool operator()(P *p)
 		{
 			if(p->ptrAlign == &ThicknessThresholdWindow::AlignOneZone)
 			{
@@ -385,7 +385,7 @@ namespace
 	};
 	template<class P>struct __ret__<__x__<&ThicknessThresholdWindow::AlignThresh>, P>
 	{
-		bool operator()(__x__<&ThicknessThresholdWindow::AlignThresh> *, P *p)
+		bool operator()(P *p)
 		{
 			if(p->ptrAlign == &ThicknessThresholdWindow::AlignThresh)
 			{
@@ -400,7 +400,7 @@ namespace
 }
 void ThicknessThresholdWindow::AlignThreshold<&ThicknessThresholdWindow::AlignAllZones>::Command(TCommand &m)
 {
-	TL::find<lst, __ret__>()((TL::Factory<lst> *)0, &owner);
+	TL::find<lst, __ret__>()(&owner);
 	Button_SetCheck(m.hControl, BST_UNCHECKED);
 	int x, y;
 	owner.chart.CoordCell( owner.storedMouseMove.x, owner.storedMouseMove.y, x, y);

@@ -34,7 +34,7 @@ namespace USPC
 
 	template<class O, class P>struct __start__
 	{
-		bool operator()(O *, P *p)
+		bool operator()(P *p)
 		{
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
@@ -56,7 +56,7 @@ namespace USPC
 
 	template<class O, class P>struct __test__
 	{
-		bool operator()(O *, P *p)
+		bool operator()(P *p)
 		{
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
@@ -72,7 +72,7 @@ namespace USPC
 
 	template<class O, class P>struct __stop__
 	{
-		void operator()(O *, P *)
+		void operator()()
 		{
 			USPC7100_Acq_Stop(__board__<O>::value);
 		}
@@ -80,7 +80,7 @@ namespace USPC
 
 	template<class O, class P>struct __do__
 	{
-		bool operator()(O *, P *p)
+		bool operator()(P *p)
 		{
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
@@ -137,7 +137,7 @@ namespace USPC
 		if(res)
 		{
 			__test_data__ data;
-			res = TL::find<items_list, __test__>()((TL::Factory<items_list> *)0, &data);
+			res = TL::find<items_list, __test__>()(&data);
 			if(!res)
 			{
 				dprint("test board %d  status %d err %d", data.board, data.status, data.err);
@@ -159,10 +159,10 @@ namespace USPC
 	bool Start()
 	{
 		unsigned err = 0;
-		bool b = TL::find<items_list, __start__>()((TL::Factory<items_list> *)0, &err);
+		bool b = TL::find<items_list, __start__>()(&err);
 		if(!b)
 		{
-			TL::foreach<items_list, __stop__>()((TL::Factory<items_list> *)0, (int *)0);
+			TL::foreach<items_list, __stop__>()();
 		}
 		dprint("start err %x\n", err);
 		return b;
@@ -170,13 +170,13 @@ namespace USPC
 
 	void Stop()
 	{
-		TL::foreach<items_list, __stop__>()((TL::Factory<items_list> *)0, (int *)0);
+		TL::foreach<items_list, __stop__>()();
 	}
 
 	bool Do()
 	{
 		int err = 0;
-		bool b = TL::find<items_list, __do__>()((TL::Factory<items_list> *)0, &err);
+		bool b = TL::find<items_list, __do__>()(&err);
 		if(!b)
 		{
 			dprint("do err %x\n", err);

@@ -95,7 +95,7 @@ private:
 	};
 	template<class O, class P>struct loc
 	{
-		void operator()(O *, P *p)
+		void operator()(P *p)
 		{
 			Set<O::IDB_>().Do<O>(p->tbb[TL::IndexOf<list, O>::value], p);
 		};
@@ -105,7 +105,7 @@ public:
 	{
 		memset(tbb, 0, sizeof(tbb));
 		himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
-		TL::foreach<list, loc>()((TL::Factory<list> *)0, this);
+		TL::foreach<list, loc>()(this);
 		HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
 			, (UINT)tbb
 			, TL::Length<list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL

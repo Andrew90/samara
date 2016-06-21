@@ -332,7 +332,7 @@ namespace
 
 	template<class P>struct __ret__<__x__<&TresholdWindow::AlignOneZone>, P>
 	{
-		bool operator()(__x__<&TresholdWindow::AlignOneZone> *, P *p)
+		bool operator()(P *p)
 		{
 			if(p->ptrAlign == &TresholdWindow::AlignOneZone)
 			{
@@ -344,7 +344,7 @@ namespace
 	};
 	template<class P>struct __ret__<__x__<&TresholdWindow::AlignThresh>, P>
 	{
-		bool operator()(__x__<&TresholdWindow::AlignThresh> *, P *p)
+		bool operator()(P *p)
 		{
 			if(p->ptrAlign == &TresholdWindow::AlignThresh)
 			{
@@ -359,7 +359,7 @@ namespace
 }
 void TresholdWindow::AlignThreshold<&TresholdWindow::AlignAllZones>::Command(TCommand &m)
 {
-	TL::find<lst, __ret__>()((TL::Factory<lst> *)0, &owner);
+	TL::find<lst, __ret__>()(&owner);
 	Button_SetCheck(m.hControl, BST_UNCHECKED);
 	int x, y;
 	owner.chart.CoordCell( owner.storedMouseMove.x, owner.storedMouseMove.y, x, y);

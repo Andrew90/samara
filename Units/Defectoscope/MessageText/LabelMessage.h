@@ -134,7 +134,7 @@ namespace
 	};
 	template<class O, class P>struct __select__
 	{
-		bool operator()(O *, P *p)
+		bool operator()(P *p)
 		{
 			if(TL::IndexOf<label_message_list, O>::value == p->id)
 			{
@@ -179,7 +179,7 @@ template<class O, class P>struct __set_color_bar__
 {
 	int &color;
 	__set_color_bar__() : color(Singleton<ColorTable>::Instance().items.get<O>().value){}
-	bool operator()(O *, P *p)
+	bool operator()(P *p)
     {
         if(TL::IndexOf<label_message_list, O>::value == p->id)
 		{
@@ -196,7 +196,7 @@ template<class O, class P>struct __set_color_bar__
 	__set_color_bar__() \
         : color(Singleton<ColorTable>::Instance().items.get<O>().value)\
         {}\
-	bool operator()(O *, P *p)\
+	bool operator()(P *p)\
     {\
         if(TL::IndexOf<label_message_list, O>::value == p->id)\
 		{\
@@ -319,11 +319,7 @@ struct StatusText
 	char *operator()(int id, int &color, bool &visible)
 	{
 		__data_text__ data = {id, NULL};
-		TL::find<label_message_list, __select__>()(		
-			//&Singleton<ColorTable>::Instance().items
-			(TL::Factory<label_message_list> *)0
-			, &data
-			);
+		TL::find<label_message_list, __select__>()(&data);
 		color = data.color;
 		visible = data.visibleVal;
 		return data.text;
@@ -335,6 +331,6 @@ struct ColorBar
 	void operator()(double &data, unsigned &color, int id, double defData)
 	{
 		__data_color__ d(id, color, data, defData);
-		TL::find<ColorTable::items_list, __set_color_bar__>()((TL::Factory<ColorTable::items_list> *)0, &d);
+		TL::find<ColorTable::items_list, __set_color_bar__>()(&d);
 	}
 };
