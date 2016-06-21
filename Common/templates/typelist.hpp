@@ -150,7 +150,7 @@ namespace TL
 		}
 		void operator()()
 		{
-			Proc<Head, int>()();
+			Proc<Head, int>()(NULL, NULL);
 			foreach<Tail, Proc>()();
 		}	
 	};
@@ -170,7 +170,7 @@ namespace TL
 		}
 		void operator()()
 		{
-			Proc<Head, int>()();
+			Proc<Head, int>()(NULL, NULL);
 		}	
 	};
 //-------------------------------------------------------------------------------------------------------------
@@ -194,7 +194,7 @@ namespace TL
 		}
 		bool operator()()
 		{
-			if(Proc<Head, int>()())return find<Tail, Proc>()();
+			if(Proc<Head, int>()(NULL, NULL))return find<Tail, Proc>()();
 			return false;
 		}	
 	};
@@ -214,7 +214,7 @@ namespace TL
 		}
 		bool operator()()
 		{
-			return Proc<Head, int>()();
+			return Proc<Head, int>()(NULL, NULL);
 		}	
 	};
 //-------------------------------------------------------------------------------------------------------------

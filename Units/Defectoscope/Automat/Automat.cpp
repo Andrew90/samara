@@ -212,7 +212,7 @@ struct Automat::Impl
 	{
 		void operator()()
 		{
-			TL::foreach<List, __once_do__>()((TL::Factory<List> *)0, (int *)0);
+			TL::foreach<List, __once_do__>()();
 		}
 	};
 	template<>struct OnceDo<NullType>

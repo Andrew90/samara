@@ -305,13 +305,8 @@ namespace
 
 void Compute::Recalculation()
 {	
-
-	typedef TL::MkTlst<Cross, Long, Thickness>::Result list;
-
-	TL::foreach<list, __recalculation__>()((TL::Factory<list> *)0, (int *)0);
-
+	TL::foreach<TL::MkTlst<Cross, Long, Thickness>::Result, __recalculation__>()();
 	CommonStatus();
-
 	app.MainWindowUpdate();
 }
 
