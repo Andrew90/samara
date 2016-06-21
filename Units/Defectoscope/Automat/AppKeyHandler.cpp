@@ -1,7 +1,6 @@
 #include "stdafx.h"
-#include "Resource.h"
+#include "AppKeyHandler.h"
 #include "App.h"
-#include "typelist.hpp"
 #include "MainWindow.h"
 #include "DebugMess.h"
 
@@ -23,79 +22,119 @@ namespace AppKeyHandler
 
 	bool IsEnabled(int id)
 	{
-		return 0 != SendMessage(app.mainWindow.toolBar.hWnd, TB_ISBUTTONENABLED, id, 0);//MAKELONG(enable, 0));
+		return 0 != SendMessage(app.mainWindow.toolBar.hWnd, TB_ISBUTTONENABLED, id, 0);
 	}
 
-	void Init()
+	template<class List, template<int>class W>struct __all_button_xx__;
+	template<class Head, class Tail, template<int>class W>struct __all_button_xx__<Tlst<Head, Tail>, W>
 	{
-		typedef TL::MkTlst<
-			On<IDB_CycleBtn>
-			, On<IDB_Reset>
-			, On<IDB_QueryBtn>
-			, On<IDB_arrow_down>
-			, On<IDB_arrow_up>
-			, On<IDB_arrow_left>
-			, On<IDB_arrow_right>
-		>::Result list;
-		__btn__<list>()();
+		typedef typename Tlst<W<Head::value>, typename __all_button_xx__<Tail, W>::Result> Result;
+	};
+	template<template<int>class W>struct __all_button_xx__<NullType, W>
+	{
+		typedef NullType Result;
+	};
+
+
+	template<class List, class T>struct InList;
+	template<class Head, class Tail, class T>struct InList<Tlst<Head, Tail>, T>
+	{
+		static const bool value = false;
+	};
+	template<class Tail, class T>struct InList<Tlst<T, Tail>, T>
+	{
+		static const bool value = true;
+	};
+	template<class T>struct InList<NullType, T>
+	{
+		static const bool value = false;
+	};
+
+	template<class List, class SubList, template<int>class on, template<int>class off>struct __all_button_OnOff__;
+	template<class Head, class Tail, class SubList, template<int>class on, template<int>class off>struct __all_button_OnOff__<Tlst<Head, Tail>, SubList, on, off>
+	{
+		typedef typename Tlst<
+			typename TL::_if< InList<SubList, Head>::value
+			  , on<Head::value>
+			  , off<Head::value>
+			>::Result
+			, typename __all_button_OnOff__<Tail, SubList, on, off>::Result
+		> Result;
+	};
+	template<class SubList, template<int>class on, template<int>class off>struct __all_button_OnOff__<NullType, SubList, on, off>
+	{
+		typedef NullType Result;
+	};
+
+	void Init()
+	{		
+		__btn__<__all_button_xx__<button_list, On>::Result>()();
 	}
 
 	void Run()
-	{
-		typedef TL::MkTlst<
-			Off<IDB_CycleBtn>
-			, On<IDB_Reset>
-			, Off<IDB_QueryBtn>
-			, Off<IDB_arrow_down>
-			, Off<IDB_arrow_up>
-			, Off<IDB_arrow_left>
-			, Off<IDB_arrow_right>
-		>::Result list;
-		__btn__<list>()();
-	}
-	bool IsEnabledRun()
 	{		
-		return IsEnabled(IDB_CycleBtn);
+		__btn__<
+			__all_button_OnOff__<
+			  button_list
+			  , TL::MkTlst<TL::IntToType<IDB_Reset>>::Result
+			  , On, Off
+			>::Result
+		>()();
 	}
+	
 	void Continue()
 	{
 		typedef TL::MkTlst<
 			On<IDB_CycleBtn>
-			, On<IDB_Reset>
 		>::Result list;
 		__btn__<list>()();
 	}
 	void Stop()
 	{
-		typedef TL::MkTlst<
-			On<IDB_CycleBtn>
-			, On<IDB_Reset>
-			, On<IDB_QueryBtn>
-			, On<IDB_arrow_down>
-			, On<IDB_arrow_up>
-			, On<IDB_arrow_left>
-			, On<IDB_arrow_right>
-		>::Result list;
-		__btn__<list>()();
+		__btn__<__all_button_xx__<button_list, On>::Result>()();
 	}
 
-	bool VK_(unsigned id)
+	void VK_(unsigned id)
 	{
 		TCommand c = {app.mainWindow.hWnd, WM_COMMAND, id, 0, app.mainWindow.toolBar.hWnd};
 		SendMessage(MESSAGE(c));
-		return true;
 	}
+
+	template<int id>struct __is_key__{static const unsigned value = 0;};
+
+	template<>struct __is_key__<IDB_CycleBtn   >{static const unsigned value = VK_F4;};
+	template<>struct __is_key__<IDB_Reset      >{static const unsigned value = VK_F9;};
+	template<>struct __is_key__<IDB_arrow_down >{static const unsigned value = VK_F5;};
+	template<>struct __is_key__<IDB_arrow_up   >{static const unsigned value = VK_F6;};
+	template<>struct __is_key__<IDB_arrow_left >{static const unsigned value = VK_F7;};
+	template<>struct __is_key__<IDB_arrow_right>{static const unsigned value = VK_F8;};
+
+	template<unsigned id, unsigned key>struct __sub_test_key__
+	{
+		bool operator()(unsigned k)
+		{
+			if(key == k)
+			{
+				if(IsEnabled(id))VK_(id);
+				return false;
+			}
+			return true;
+		}
+	};
+	template<unsigned id>struct __sub_test_key__<id, 0>
+	{
+		bool operator()(unsigned k){return true;}
+	};
+	template<class O, class P>struct __test_key__
+	{
+		bool operator()(P *p)
+		{
+			return __sub_test_key__<O::value, __is_key__<O::value>::value>()(*p);
+		}
+	};
 
 	void KeyPressed(unsigned key)
 	{
-		switch(key)
-		{		
-		case VK_F4:	IsEnabled(IDB_CycleBtn) && VK_(IDB_CycleBtn); break;
-		case VK_F9: VK_(IDB_Reset);break;
-		case VK_F5: IsEnabled(IDB_arrow_down) && VK_(IDB_arrow_down);break;
-		case VK_F6: IsEnabled(IDB_arrow_up) && VK_(IDB_arrow_up);break;
-		case VK_F7: IsEnabled(IDB_arrow_left) && VK_(IDB_arrow_left);break;
-		case VK_F8: IsEnabled(IDB_arrow_right) && VK_(IDB_arrow_right);break;
-		}
+		TL::find<button_list, __test_key__>()(&key);
 	}
 }

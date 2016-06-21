@@ -32,7 +32,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		SetForegroundWindow(h);
 		return 0;
 	}
-	//::hInstance = hInstance;
 	INITCOMMONCONTROLSEX iccx;
 	iccx.dwSize=sizeof(INITCOMMONCONTROLSEX);
 	iccx.dwICC=0;
@@ -44,7 +43,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //--------------------------------------------------------------------
 	Initialize initialize;
 	
-	//App app;
 	app.Init();
 
 #ifdef THREAD_PRIORITY

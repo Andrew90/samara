@@ -379,8 +379,6 @@ namespace
 	 bool &viewInterrupt = 	Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<ViewInterrupt>>().value;
 }
 
-
-
 void Automat::Impl::Do()
 {
 	Log::Mess<LogMess::ProgramOpen>(0);

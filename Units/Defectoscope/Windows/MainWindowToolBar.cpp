@@ -44,13 +44,19 @@ namespace
 		>::Result tool_button_list;
 #undef BUTTON_KEY
 //----------------------------------------------------------------------------------
+	static bool closed_packet_dialog = true;
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
-		if(PacketWindowDlg(h)) 
+		if(closed_packet_dialog)
 		{
-			CloseAllWindows();
-			SetEvent(App::ProgrammContinueEvent);
-			AppKeyHandler::Run();
+			closed_packet_dialog = false;
+			if(PacketWindowDlg(h)) 
+			{
+				CloseAllWindows();
+				SetEvent(App::ProgrammContinueEvent);
+				AppKeyHandler::Run();
+			}
+			closed_packet_dialog = true;
 		}
 	}
 //-------------------------------------------------------------------------------

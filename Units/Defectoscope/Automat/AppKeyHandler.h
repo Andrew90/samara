@@ -1,4 +1,6 @@
 #pragma once
+#include "resource.h"
+#include "typelist.hpp"
 
 namespace AppKeyHandler
 {
@@ -8,4 +10,14 @@ namespace AppKeyHandler
 	void Stop();
 
 	void KeyPressed(unsigned );
+
+	typedef TL::MkTlst<
+		TL::IntToType<IDB_CycleBtn>
+		, TL::IntToType<IDB_Reset>
+		, TL::IntToType<IDB_QueryBtn>
+		, TL::IntToType<IDB_arrow_down>
+		, TL::IntToType<IDB_arrow_up>
+		, TL::IntToType<IDB_arrow_left>
+		, TL::IntToType<IDB_arrow_right>
+	>::Result button_list;
 }

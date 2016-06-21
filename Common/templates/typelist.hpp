@@ -138,6 +138,21 @@ namespace TL
 			Proc<Head, P>()(o, p);
 			foreach<Tail, Proc>()(o, p);
 		}
+		template<class P>void operator()(P *p)
+		{
+			Proc<Head, P>()(p);
+			foreach<Tail, Proc>()(p);
+		}	
+		void operator()(Tlst<Head, Tail> *o)
+		{
+			Proc<Head, int>()(o);
+			foreach<Tail, Proc>()(o);
+		}
+		void operator()()
+		{
+			Proc<Head, int>()();
+			foreach<Tail, Proc>()();
+		}	
 	};
 	template<class Head, template<class, class>class Proc>struct foreach<Tlst<Head, NullType>, Proc>
 	{
@@ -145,6 +160,18 @@ namespace TL
 		{
 			Proc<Head, P>()(o, p);
 		}
+		void operator()(Tlst<Head, NullType> *o)
+		{
+			Proc<Head, int>()(o);
+		}
+		template<class P>void operator()(P *p)
+		{
+		    Proc<Head, P>()(p);
+		}
+		void operator()()
+		{
+			Proc<Head, int>()();
+		}	
 	};
 //-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find;
@@ -155,6 +182,21 @@ namespace TL
 			if(Proc<Head, P>()(o, p))return find<Tail, Proc>()(o, p);
 			return false;
 		}
+		template<class P>bool operator()(P *p)
+		{
+			if(Proc<Head, P>()(p))return find<Tail, Proc>()(p);
+			return false;
+		}	
+		bool operator()(Tlst<Head, Tail> *o)
+		{
+			if(Proc<Head, int>()(o))return find<Tail, Proc>()(o);
+			return false;
+		}
+		bool operator()()
+		{
+			if(Proc<Head, int>()())return find<Tail, Proc>()();
+			return false;
+		}	
 	};
 	template<class Head, template<class, class>class Proc>struct find<Tlst<Head, NullType>, Proc>
 	{
@@ -162,6 +204,18 @@ namespace TL
 		{
 			return Proc<Head, P>()(o, p);
 		}
+		bool operator()(Tlst<Head, NullType> *o)
+		{
+			return Proc<Head, int>()(o);
+		}
+		template<class P>bool operator()(P *p)
+		{
+			return Proc<Head, P>()(p);
+		}
+		bool operator()()
+		{
+			return Proc<Head, int>()();
+		}	
 	};
 //-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find_ret;
