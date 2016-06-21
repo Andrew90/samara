@@ -4,7 +4,7 @@
 #include "DebugMess.h"
 #include "ParamDlg.h"
 
-template<class Table, class List>class TabPage
+template<class BaseParam, class TableParam, class List>class TabPage
 {
 	List &owner;
 	HWND hTab;
@@ -30,7 +30,9 @@ template<class Table, class List>class TabPage
 		int &height;
 		__table_data__(HWND h, int &width, int &height): h(h), width(width), height(height){}
 	};
-	typedef Table TableParam;
+public:
+	typedef BaseParam Base;
+	typedef TableParam Table;
 public:
 	typedef typename TL::TypeToTypeLst<typename Table::items_list, DlgItem>::Result list;
 	TL::Factory<list> items;
@@ -60,7 +62,8 @@ public:
 //--------------------------------------------------------------------------------------------------------
 #pragma warning(disable: 4355)
 
-template<class Table>struct TestPassword;
+//template<class Base, class Table>struct TestPassword;
+template<class Base, class Table>struct TestPassword{bool operator()(HWND){return true;}};
 
 struct OkTabBtn
 {
@@ -69,24 +72,25 @@ struct OkTabBtn
 	static const int ID = IDOK;
 	HWND hWnd;
 	wchar_t *Title(){return L"Применить";}
-	template<class T>struct Inner;
-	template<class A, class B, template<class, class>class C>struct Inner<C<A, B> >
-	{
-		typedef A Result;
-	};
+	//template<class T>struct Inner;
+	//template<class A, class B, template<class, class>class C>struct Inner<C<A, B> >
+	//{
+	//	typedef A Result;
+	//};
 	template<class O, class P>struct loc
 	{
 		bool operator()(O *o, P *p)
 		{
 			if(p->currentPage == TL::IndexOf<typename P::list, O>::value)
 			{
-				typedef  typename Inner<O>::Result Table;
+				typedef typename O::Table Table;
+				typedef typename O::Base Base;
 				zprint("\ncurrent page %d \n%s\n%s\n", p->currentPage, typeid(Table).name(), typeid(p->items.get<O>()).name());
 				
 				if(TestPassword<Table>()(p->hWnd))
 				{
-					if(__ok_table_btn__<Table
-						, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Table>::Result
+					if(__ok_table_btn__<Base, Table
+						, typename TL::SubListFromMultyList<Base::multy_type_list, Table>::Result
 					>()(p->hWnd, p->items.get<O>()))
 					{
 						EndDialog(p->hWnd, TRUE);
@@ -103,7 +107,7 @@ struct OkTabBtn
 	}
 };
 
-template<class T, class ButtonsList = TL::MkTlst<OkTabBtn, CancelBtn>::Result>class TabControl
+template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkTabBtn, CancelBtn>::Result>class TabControl
 {
 	struct __command_data__
 	{
@@ -154,12 +158,13 @@ template<class T, class ButtonsList = TL::MkTlst<OkTabBtn, CancelBtn>::Result>cl
 			ti.mask = TCIF_TEXT;
 			ti.pszText = ParamTitle<O>()();
 			ti.cchTextMax = wcslen(ti.pszText);
-			int iid = TL::IndexOf<typename T::items_list, O>::value;
+			int iid = TL::IndexOf<typename Table::items_list, O>::value;
 			int res = SendMessage(*hTab, TCM_INSERTITEM, iid, (LPARAM)&ti);
 		}
 	};
 	struct __select_page_data__
 	{
+		typedef BaseParam Base;
 		int id;
 		bool show;
 		TabControl *self;
@@ -175,9 +180,9 @@ template<class T, class ButtonsList = TL::MkTlst<OkTabBtn, CancelBtn>::Result>cl
 	{
 		bool operator()(O *, P *p)
 		{
-			if(p->id == TL::IndexOf<typename T::items_list, O>::value)
+			if(p->id == TL::IndexOf<typename Table::items_list, O>::value)
 			{
-				p->self->items.get<TabPage<O, TabControl> >().Show(p->show);
+				p->self->items.get<TabPage<typename P::Base, O, TabControl> >().Show(p->show);
 				return false;
 			}
 			return true;
@@ -195,13 +200,14 @@ public:
 	HWND hWnd;
 	HWND hTab;
 	HWND hParent;
-	typedef T Table;
-	T &data;
+	typedef BaseParam Base;
+	typedef TableParam Table;
+	Table &data;
 	int x, y, width, height;
 	int currentPage;
-	typedef typename TL::TypeToTypeLstParam1<typename Table::items_list, TabPage, TabControl>::Result list;
+	typedef typename TL::TypeToTypeLstParam2_xx<typename Table::items_list, TabPage, Base, TabControl>::Result list;
 	TL::Factory<list> items;
-	TabControl(HWND hwnd, T &t, int w, int h)
+	TabControl(HWND hwnd, Table &t, int w, int h)
 		: hParent(hwnd)
 		, data(t)
 		, items(*this)
@@ -224,7 +230,7 @@ public:
 		hTab = CreateWindowEx(0, WC_TABCONTROL, 0,   WS_CHILD | WS_VISIBLE, 
 			0, 0, width, height - 70, h, (HMENU)NULL, (HINSTANCE)::GetModuleHandle(NULL), 0);
 
-		TL::foreach<typename T::items_list, __tab_name__>()((TL::Factory<typename T::items_list> *)0, (HWND *)&hTab);
+		TL::foreach<typename Table::items_list, __tab_name__>()((TL::Factory<typename Table::items_list> *)0, (HWND *)&hTab);
 
 		TL::foreach<ButtonsList, __make_btn__>()(&buttons, &__make_btn_data__(offs, height - 65, h));
 		((TabControl *)GetWindowLong(h, GWL_USERDATA))->Show(true);

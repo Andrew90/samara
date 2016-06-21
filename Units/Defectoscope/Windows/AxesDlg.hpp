@@ -30,7 +30,7 @@ template<class T>struct AxesYDlg
 {
 	static void Do(HWND h)
 	{
-		if(TemplDialogList<AxesTable
+		if(TemplDialogList<ParametersBase, AxesTable
 			, TL::SelectT<typename AxesTable::items_list
 			   , T>::Result>(Singleton<AxesTable>::Instance()).Do(h, L"Îñü Y"))
 		{

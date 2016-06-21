@@ -33,7 +33,7 @@ void AnalogPlateDlg::Do(HWND h)
 	
 	MessageBox(h, L"Программа \"USPC\" не запущена, возможно необходимо настроить путь запуска программы", L"Ошибка!!!", MB_ICONERROR);
 
-	if(TemplDialog<PathUSPCTable>(Singleton<PathUSPCTable>::Instance()).Do(h, L"Путь запуска программы \"USPC\""))
+	if(TemplDialog<ParametersBase, PathUSPCTable>(Singleton<PathUSPCTable>::Instance()).Do(h, L"Путь запуска программы \"USPC\""))
 	{
 	}
 }

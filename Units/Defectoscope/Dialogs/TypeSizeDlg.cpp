@@ -17,7 +17,7 @@ namespace
 		wchar_t *Title(){return L"Применить";}
 		template<class Owner>void BtnHandler(Owner &owner, HWND h)
 		{
-			if(TestPassword<Owner::Table>()(h))
+			if(TestPassword<Owner::Base, Owner::Table>()(h))
 			{
 				wchar_t buf[128];
 				GetWindowText(owner.items.get<DlgItem<NameParam> >().hWnd, buf, dimention_of(buf));
@@ -26,7 +26,7 @@ namespace
 					MessageBox(h, L"Введите название типоразмера", L"Ошибка!!!", MB_ICONERROR);
 					return;
 				}
-				CBase base(ParametersBase().name());
+				CBase base(Owner::Base().name());
 				if(base.IsOpen())
 				{
 					owner.table.items.get<NameParam>().value = buf;
@@ -71,7 +71,7 @@ namespace
 		wchar_t *Title(){return L"Применить";}
 		template<class Owner>void BtnHandler(Owner &owner, HWND h)
 		{
-			if(TestPassword<Owner::Table>()(h))
+			if(TestPassword<Owner::Base, Owner::Table>()(h))
 			{
 				wchar_t buf[128];
 				GetWindowText(owner.items.get<DlgItem<NameParam> >().hWnd, buf, dimention_of(buf));
@@ -80,7 +80,7 @@ namespace
 					MessageBox(h, L"Введите название типоразмера", L"Ошибка!!!", MB_ICONERROR);
 					return;
 				}
-				CBase base(ParametersBase().name());
+				CBase base(Owner::Base().name());
 				if(base.IsOpen())
 				{
 					int countItems = 0;
@@ -130,7 +130,8 @@ void AddTypeSizeDlg::Do(HWND h)
 {
 	ParametersTable t;
 	if(TemplDialogList<
-		ParametersTable
+		ParametersBase
+		, ParametersTable
 		, TL::MkTlst<NameParam>::Result
 		, TL::MkTlst<AddOkBtn, CancelBtn>::Result
 	   >(t).Do(h, L"Добавить типоразмер")
@@ -148,7 +149,8 @@ void DelTypeSizeDlg::Do(HWND h)
 	ParametersTable t;
 	t.items.get<NameParam>().value = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
 	if(TemplDialogList<
-		ParametersTable
+		ParametersBase
+		, ParametersTable
 		, TL::MkTlst<NameParam>::Result
 		, TL::MkTlst<DelOkBtn, CancelBtn>::Result
 	   >(t).Do(h, L"Удалить типоразмер")

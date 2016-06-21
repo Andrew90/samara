@@ -189,7 +189,7 @@ namespace
 		static void Do(HWND h)				   
 		{									   			
 			Table ot;
-			if(TemplDialog<Table, TL::MkTlst<__OkBtn, CancelBtn>::Result>(ot).Do(h, L"Добавить"))
+			if(TemplDialog<ParametersBase, Table, TL::MkTlst<__OkBtn, CancelBtn>::Result>(ot).Do(h, L"Добавить"))
 			{
 				PacketTemplateWindow<Table, Col> *w = (PacketTemplateWindow<Table, Col> *)GetWindowLongPtr(h, GWLP_USERDATA);
 				w->data.Add(ot.items.get<Col>().value);

@@ -454,7 +454,7 @@ void ThicknessThresholdWindow::operator()(TClose &l)
 		int ret = MessageBox(l.hwnd, L"Данные были изменены!\nСохранить?", L"Cообщение", MB_ICONQUESTION | MB_YESNOCANCEL);
 		if(IDYES == ret)
 		{
-			if(TestPassword<ThresholdsTable>()(l.hwnd))
+			if(TestPassword<ParametersBase, ThresholdsTable>()(l.hwnd))
 			{
 				if(changedNominal)
 				{

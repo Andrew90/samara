@@ -84,6 +84,6 @@ MAX_EQUAL_VALUE(DeadAreaMM1, 500)
 
 void TestTabsDlg::Do(HWND h)
 {
-	Tabs t;
-	TabControl<Tabs>(h, t, 400, 230).Do(L"Tab");
+	//Tabs t;
+	//TabControl<ParametersBase, Tabs>(h, t, 400, 230).Do(L"Tab");
 }

@@ -34,7 +34,7 @@ PARAM_TITLE(Offset<7>, L"Датчик 8")
 
 void OffsetsSensorsDlg::Do(HWND h)
 {
-	if(TemplDialog<OffsetsTable>(Singleton<OffsetsTable>::Instance()).Do(h, L"Смещения датчиков"))
+	if(TemplDialog<ParametersBase, OffsetsTable>(Singleton<OffsetsTable>::Instance()).Do(h, L"Смещения датчиков"))
 	{
 	}
 }

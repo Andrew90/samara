@@ -143,9 +143,9 @@ struct DefaultBtn
 	template<class Owner>void BtnHandler(Owner &o, HWND h)
 	{
 		dprint(__FUNCTION__"test");
-		if(TestPassword<Owner::Table>()(h))
+		if(TestPassword<Owner::Base, Owner::Table>()(h))
 		{
-			CBase base(ParametersBase().name());
+			CBase base(Owner::Base().name());
 			if(base.IsOpen())
 			{
 				ColorTable color;
@@ -161,7 +161,7 @@ void ColorItemsDlg::Do(HWND h)
 {
 	ColorTable color;
 	CopyFactory::Do(color.items, Singleton<ColorTable>::Instance().items);
-	if(TemplDialog<ColorTable
+	if(TemplDialog<ParametersBase, ColorTable
 		 , TL::MkTlst<OkBtn, CancelBtn, DefaultBtn>::Result>(color).Do(h, L"Цвета"))
 	{
 		CopyFactory::Do(Singleton<ColorTable>::Instance().items, color.items);

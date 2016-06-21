@@ -22,7 +22,7 @@ PARAM_TITLE(MedianFiltreOn<Thickness>, L"Подключение медианного фильтра толщины"
 
 void MedianFiltreDlg::Do(HWND h)
 {
-	if(TemplDialog<MedianFiltreTable>(Singleton<MedianFiltreTable>::Instance()).Do(h, L"Медианный фильтр"))
+	if(TemplDialog<ParametersBase, MedianFiltreTable>(Singleton<MedianFiltreTable>::Instance()).Do(h, L"Медианный фильтр"))
 	{
 	}
 }

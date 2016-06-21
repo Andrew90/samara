@@ -15,7 +15,7 @@ PARAM_TITLE(DeadAreaMM1, L"Конец трубы")
 
 void DeadZonesDlg::Do(HWND h)
 {
-	if(TemplDialog<DeadAreaTable>(Singleton<DeadAreaTable>::Instance()).Do(h, L"Мёртвые зоны"))
+	if(TemplDialog<ParametersBase, DeadAreaTable>(Singleton<DeadAreaTable>::Instance()).Do(h, L"Мёртвые зоны"))
 	{
 	}
 }

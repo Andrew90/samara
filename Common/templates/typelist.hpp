@@ -406,6 +406,16 @@ namespace TL
 	{
 		typedef Tlst<Wapper<Head, Param, Param1>, NullType> Result;
 	};
+	//----------------------------------------------------------------------------------------------------
+	template<typename List, template<typename,typename,typename>class Wapper, class Param, class Param1>struct TypeToTypeLstParam2_xx;
+	template<typename Head, typename Tail, template<typename,typename,typename>class Wapper, class Param, class Param1>struct TypeToTypeLstParam2_xx<Tlst<Head, Tail>, Wapper, Param, Param1>
+	{
+		typedef Tlst<Wapper<Param, Head, Param1>, typename TypeToTypeLstParam2_xx<Tail, Wapper, Param, Param1>::Result> Result;
+	};
+	template<typename Head, template<typename,typename,typename>class Wapper, class Param, class Param1>struct TypeToTypeLstParam2_xx<Tlst<Head, NullType>, Wapper, Param, Param1>
+	{
+		typedef Tlst<Wapper<Param, Head, Param1>, NullType> Result;
+	};
 	//------------------------------------------------------------------------------------------------------------------------------------------------
 	template<class List, class P, class R>class ArrayFunc
 	{

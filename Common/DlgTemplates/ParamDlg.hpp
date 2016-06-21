@@ -244,17 +244,17 @@ template<class O, class P>struct __test__
 	}
 };
 
-template<class Table, class T>struct __ok_table_btn__
+template<class Base, class Table, class T>struct __ok_table_btn__
 {
 	typedef typename T::__template_must_be_overridded__ noused; 
 };
 
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::one_row_table_list>
+template<class Base, class Table>struct __ok_table_btn__<Base, Table, ParametersBase::one_row_table_list>
 {
 	template<class T>bool operator()(HWND h, T &t)
 	{
 		if(!TL::find<T::list, __test__>()(&t.items, &h))return false;
-		CBase base(ParametersBase().name());
+		CBase base(Base().name());
 		if(base.IsOpen())
 		{
 			__update_data__<Table> _data(base);
@@ -264,21 +264,21 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::one_row_tabl
 		return true;
 	}
 };
-template<class , class>class TemplDialog;
+template<class, class, class>class TemplDialog;
 
 
-template<class Table, class T>struct Insert
+//template<class Base, class Table, class T>struct Insert
+//{
+//	void operator()(T &z, CBase &base)
+//	{
+//		zprint("   Дописать %s\n", typeid(z).name());
+//	}
+//};
+
+template<class Base, class Table, class B>struct Insert//<TemplDialog<Base, Table, B> >
 {
-	void operator()(T &z, CBase &base)
-	{
-		zprint("   Дописать %s\n", typeid(z).name());
-	}
-};
-
-template<class Table, class T, class B>struct Insert<Table, TemplDialog<T, B> >
-{
-	typedef TemplDialog<T, B> Z;
-	void operator()(Z &t, CBase &base)
+	//typedef TemplDialog<Base, Table, B> Z;
+	template<class Z>void operator()(Z &t, CBase &base)
 	{
 		Insert_Into<Table>(t.table, base).Execute();
 		int id = Select<Table>(base).eq_all<Table::items_list>(&t.table.items).Execute();
@@ -286,12 +286,12 @@ template<class Table, class T, class B>struct Insert<Table, TemplDialog<T, B> >
 	}
 };
 
-template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_table_list>
+template<class Base, class Table>struct __ok_table_btn__<Base, Table, typename Base::multy_row_table_list>
 {
 	template<class T>bool operator()(HWND h, T &t)
 	{
 		if(!TL::find<typename T::list, __test__>()(&t.items, &h))return false;
-		CBase base(ParametersBase().name());
+		CBase base(Base().name());
 		if(base.IsOpen())
 		{
 			int id = CurrentId<ID<Table> >();	
@@ -303,7 +303,7 @@ template<class Table>struct __ok_table_btn__<Table, ParametersBase::multy_row_ta
 			}
 			else
 			{
-				Insert<Table, T>()(t, base);
+				Insert<Base, Table, T>()(t, base);
 			}
 		}
 		return true;

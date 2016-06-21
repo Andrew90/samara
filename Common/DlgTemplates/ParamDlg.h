@@ -35,7 +35,7 @@ template<class O, class P>struct TemplDialogCtlColorEdit
 		return true;
 	}
 };
-template<class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialog
+template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialog
 {
 	struct __command_data__
 	{
@@ -121,6 +121,7 @@ template<class TableParam, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Res
 	}
 protected:
 public:
+	typedef BaseParam Base;
 	typedef TableParam Table;
 	Table &table;	
 	typedef typename TL::TypeToTypeLst<typename Table::items_list, DlgItem>::Result list;
@@ -134,7 +135,7 @@ public:
 	}
 };
 
-template<class Table>struct TestPassword;
+template<class, class Table>struct TestPassword;
 
 struct OkBtn
 {
@@ -144,11 +145,11 @@ struct OkBtn
 	wchar_t *Title(){return L"Применить";}
 	template<class Owner>void BtnHandler(Owner &owner, HWND h)
 	{
-		if(TestPassword<Owner::Table>()(h))
+		if(TestPassword<Owner::Base, Owner::Table>()(h))
 		{
 			if(__ok_table_btn__<
-				Owner::Table
-				, typename TL::SubListFromMultyList<ParametersBase::multy_type_list, Owner::Table>::Result
+				Owner::Base, Owner::Table
+				, typename TL::SubListFromMultyList<typename Owner::Base::multy_type_list, Owner::Table>::Result
 			>()(h, owner))  
 			{
 				EndDialog(h, TRUE);
@@ -169,7 +170,9 @@ struct CancelBtn
 	}
 };
 
-template<class Table>struct TestPassword
+//template<class Base, class Table>struct TestPassword{bool operator()(HWND){return true;}};
+
+template<class Table>struct TestPassword<ParametersBase, Table>
 {
 	bool operator()(HWND h)
 	{
@@ -180,7 +183,7 @@ template<class Table>struct TestPassword
 	}
 };
 //-------------------------------------------------------------------
-template<class TableParam, class List, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialogList
+template<class BaseParam, class TableParam, class List, class ButtonsList = TL::MkTlst<OkBtn, CancelBtn>::Result>class TemplDialogList
 {
 	struct __command_data__
 	{
@@ -266,6 +269,7 @@ template<class TableParam, class List, class ButtonsList = TL::MkTlst<OkBtn, Can
 	}
 protected:
 public:
+	typedef BaseParam Base;
 	typedef TableParam Table;
 	Table &table;	
 	typedef typename TL::TypeToTypeLst<List, DlgItem>::Result list;

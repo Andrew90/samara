@@ -47,7 +47,7 @@ struct putsDlg_OkBtn
 	wchar_t *Title(){return L"Применить";}
 	template<class Owner>void BtnHandler(Owner &owner, HWND h)
 	{
-		if(TestPassword<Owner::Table>()(h))
+		if(TestPassword<Owner::Base, Owner::Table>()(h))
 		{
 			if(!TL::find<Owner::list, __test__>()(&owner.items, &h))return;
 			__data__<Owner::list> d;
@@ -64,7 +64,7 @@ struct putsDlg_OkBtn
 					}
 				}
 			}
-			CBase base(ParametersBase().name());
+			CBase base(Owner::Base().name());
 			if(base.IsOpen())
 			{
 				CopyFactory::Do(Singleton<Owner::Table>::Instance().items, owner.table.items);
@@ -86,7 +86,7 @@ struct DefaultBtn
 	{
 		if(TestPassword<Owner::Table>()(h))
 		{
-			CBase base(ParametersBase().name());
+			CBase base(Owner::Base().name());
 			if(base.IsOpen())
 			{
 				Owner::Table t;
@@ -149,7 +149,7 @@ void InputsDlg::Do(HWND h)
 {
 	InputBitTable t;
 	TL::foreach<InputBitTable::items_list, __compress_bits__>()(&t.items, &Singleton<InputBitTable>::Instance().items);
-	if(TemplDialog<InputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Смещения бит входного порта"))
+	if(TemplDialog<ParametersBase, InputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Смещения бит входного порта"))
 	{
 	}
 }
@@ -158,7 +158,7 @@ void OutputsDlg::Do(HWND h)
 {
 	OutputBitTable t;
 	TL::foreach<OutputBitTable::items_list, __compress_bits__>()(&t.items, &Singleton<OutputBitTable>::Instance().items);
-	if(TemplDialog<OutputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Смещения бит выходного порта"))
+	if(TemplDialog<ParametersBase, OutputBitTable, TL::MkTlst<putsDlg_OkBtn, CancelBtn>::Result>(t).Do(h, L"Смещения бит выходного порта"))
 	{
 	}
 }
@@ -166,7 +166,7 @@ void OutputsDlg::Do(HWND h)
 void Descriptor1730Dlg::Do(HWND h)
 {
 	Descriptor1730Table &t = Singleton<Descriptor1730Table>::Instance();
-	if(TemplDialog<Descriptor1730Table>(t).Do(h, L"Дескриптор платы 1730"))
+	if(TemplDialog<ParametersBase, Descriptor1730Table>(t).Do(h, L"Дескриптор платы 1730"))
 	{
 		device1730.Destroy();
 		Sleep(500);
