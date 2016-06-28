@@ -15,7 +15,7 @@ namespace Protocols
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProtocolForm());
+            Application.Run(new MainForm());
         }
     }
 }

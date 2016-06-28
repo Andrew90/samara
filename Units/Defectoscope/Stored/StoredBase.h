@@ -67,13 +67,45 @@ DEFINE_PARAM_WAPPER2(ID, BorderNominal, Thickness, unsigned, 0)
 DEFINE_PARAM_WAPPER2(ID, BorderAbove  , Thickness, unsigned, 0)
 DEFINE_PARAM_WAPPER2(ID, BorderLower  , Thickness, unsigned, 0)
 
-STR_PARAM(Operator, 128, L"someone");
+STR_PARAM(Operator, 128, L"Оператор");
 DEFINE_PARAM_WAPPER(ID, Operator, unsigned, 0)
-STR_PARAM(Customer, 128, L"something");
-DEFINE_PARAM_WAPPER(ID, Customer, unsigned, 0)
 
-STR_PARAM(NumberPacket, 128, L"00000000");
-DEFINE_PARAM_WAPPER(ID, NumberPacket, unsigned, 0)
+struct OperatorsTable
+{
+	typedef TL::MkTlst<
+		Operator
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"OperatorsTable";}
+};
+
+STR_PARAM(Alloy, 32, L"Сплав");
+STR_PARAM(DeliveryStatus, 32, L"Состояние поставки");
+STR_PARAM(NormativeDocument, 64, L"Нормативный документ")
+STR_PARAM(Gang, 32, L"Смена");
+STR_PARAM(ProductCodeNumber, 32, L"Шифр изделия");
+STR_PARAM(NumberPacket, 16, L"00000");
+STR_PARAM(Standart, 32, L"№СОП");
+
+struct ProtocolsTable
+{
+	typedef TL::MkTlst<
+		Alloy					//Сплав
+		, DeliveryStatus		//Состояние поставки
+		, NormativeDocument		//Нормативный документ
+		, Gang					//Смена
+		, ProductCodeNumber		//Шифр изделия
+		, NumberPacket			//Номер партии
+		, Standart				//№СОП
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"ProtocolsTable";}
+};
+
+DEFINE_PARAM_WAPPER(ID, ProtocolsTable, unsigned, 0)
 
 struct TubesTable
 {
@@ -88,45 +120,12 @@ struct TubesTable
 		, ID<BorderAbove  < Thickness> >
 		, ID<BorderLower  < Thickness> >
 		, ID<Operator>
-		, ID<Customer>
+		, ID<ProtocolsTable>
 	>::Result items_list;
 	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
-	const wchar_t *name(){return L"TubeTable";}
-};
-
-struct OperatorsTable
-{
-	typedef TL::MkTlst<
-		Operator
-	>::Result items_list;
-	typedef NullType unique_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"OperatorsTable";}
-};
-
-struct CustomersTable
-{
-	typedef TL::MkTlst<
-		Customer
-	>::Result items_list;
-	typedef NullType unique_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"CustomersTable";}
-};
-
-struct NumberPacketsTable
-{
-	typedef TL::MkTlst<
-		NumberPacket
-	>::Result items_list;
-	typedef NullType unique_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"NumberPacketsTable";}
+	const wchar_t *name(){return L"TubesTable";}
 };
 
 struct StoredBase
@@ -134,10 +133,9 @@ struct StoredBase
 	 typedef TL::MkTlst<		
 		 TubesTable
 		 , OperatorsTable
-		 , CustomersTable
 		 , StoredThresholdsTable
 		 , StoredMeshureTable
-		// , NumberPacketsTable не удалять
+		 , ProtocolsTable
 	 >::Result type_list;
 	 typedef TL::Factory<type_list> TTables;
 	 TTables tables;

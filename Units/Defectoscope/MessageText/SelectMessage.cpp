@@ -163,12 +163,7 @@ namespace
 			if(p->bits & (1 << TL::IndexOf<skip_list, O>::value))
 			{
 				p->bits &= ~(1 << TL::IndexOf<skip_list, Clr<BorderKlass2<X>>>::value);
-				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;
-				//dprint(" %s\n  %s\n  %s\n"
-				//	, typeid(typename P::items_list).name()
-				//	, typeid(typename O::items_list).name()
-				//	, typeid(list).name()
-				//	);
+				typedef typename __sel_list__<typename P::items_list, typename O::items_list>::Result list;				
 				__result_XXX__<Tail>()((__data_id__<list> *)p);
 				return;
 			}

@@ -9,12 +9,76 @@ const wchar_t *PacketBase::name()
 	return path;
 }
 
-void PacketBase::Restore(wchar_t *op_, wchar_t *cs_, wchar_t *num_)
+namespace
+{
+	template<class O, class P>struct __restore__
+	{
+		void operator()(O *o, P *)
+		{
+			Singleton<O>::Instance().value = o->value;
+		}
+	};
+
+	template<class T>struct Table{typedef typename T::__template_must_be_overridded__ noused;};
+#define TABLE(n)template<>struct Table<n>{typedef n##sTable Result;};
+	TABLE(Operator)
+	TABLE(Alloy)
+	TABLE(DeliveryStatus)
+	TABLE(NormativeDocument)
+	TABLE(Gang)
+#undef TABLE
+
+	template<class X, class P>struct __restore__<ID<X>, P>
+	{
+		typedef ID<X> O;
+		void operator()(O *o, P *base)
+		{
+			typedef typename Table<X>::Result T;
+			T t;
+			Select<T>(*base).ID(o->value).Execute(t);
+			Singleton<X>::Instance().value = t.items.get<X>().value;
+		}
+	};
+	template<class P>struct __restore__<CurrentPacketTable, P>
+	{
+		void operator()(CurrentPacketTable *, P *){}
+	};
+
+	template<class O, class P>struct __save__
+	{
+		void operator()(P *p)
+		{
+			p->set<O>(Singleton<O>::Instance().value);
+		}
+	};
+	template<class X, class P>struct __save__<ID<X>, P>
+	{
+		void operator()(P *p)
+		{
+			typedef typename Table<X>::Result T;
+			T t;
+			t.items.get<X>().value = Singleton<X>::Instance().value;
+			unsigned id = Select<T>(p->base).eq<X>(t.items.get<X>().value).Execute();
+			if(0 == id)
+			{
+				Insert_Into<T>(t, p->base).Execute();
+				id = Select<T>(p->base).eq<X>(t.items.get<X>().value).Execute();
+			}
+			p->set<ID<X>>(id);
+		}
+	};
+	template<class P>struct __save__<CurrentPacketTable, P>
+	{
+		void operator()(P *p){}
+	};
+}
+
+void PacketBase::Restore()
 {
 	PacketBase parameters;
 	CBase base(
 		parameters.name()
-		, CreateDataBase<PacketBase::type_list, SetDefault<PacketBase::type_list> >()
+		, CreateDataBase<type_list, SetDefault<type_list> >()
 		, parameters.tables
 		);
 	if(base.IsOpen())
@@ -22,21 +86,11 @@ void PacketBase::Restore(wchar_t *op_, wchar_t *cs_, wchar_t *num_)
 		CurrentPacketTable current;
 		Select<CurrentPacketTable>(base).ID(1).Execute(current);
 
-		OperatorsTable op;
-		Select<OperatorsTable>(base).ID(current.items.get<ID<Operator>>().value).Execute(op);
-		wcscpy(op_, op.items.get<Operator>().value);
-
-		CustomersTable cs;
-		Select<CustomersTable>(base).ID(current.items.get<ID<Customer>>().value).Execute(cs);
-		wcscpy(cs_, cs.items.get<Customer>().value);
-
-		NumberPacketsTable num;
-		Select<NumberPacketsTable>(base).ID(1).Execute(num);
-		wcscpy(num_, num.items.get<NumberPacket>().value);
+		TL::foreach<CurrentPacketTable::items_list, __restore__>()(&current.items, &base);
 	}
 }
 
-void PacketBase::Save(wchar_t *op_, wchar_t *cs_, wchar_t *num_)
+void PacketBase::Save()
 {
 	PacketBase parameters;
 	CBase base(
@@ -46,29 +100,9 @@ void PacketBase::Save(wchar_t *op_, wchar_t *cs_, wchar_t *num_)
 		);
 	if(base.IsOpen())
 	{
-		OperatorsTable op;
-		op.items.get<Operator>().value = op_;
-		unsigned idOp = Select<OperatorsTable>(base).eq<Operator>(op.items.get<Operator>().value).Execute();
-		if(0 == idOp)
-		{
-			Insert_Into<OperatorsTable>(op, base).Execute();
-			idOp = Select<OperatorsTable>(base).eq<Operator>(op.items.get<Operator>().value).Execute();
-		}
-
-		CustomersTable cs;
-		cs.items.get<Customer>().value = cs_;
-		unsigned idCs = Select<CustomersTable>(base).eq<Customer>(cs.items.get<Customer>().value).Execute();
-		if(0 == idCs)
-		{
-			Insert_Into<CustomersTable>(cs, base).Execute();
-			idCs = Select<CustomersTable>(base).eq<Customer>(cs.items.get<Customer>().value).Execute();
-		}
-
-		NumberPacket::type_value numPcketValue;
-		numPcketValue = num_;
-		Update<NumberPacketsTable>(base).set<NumberPacket>(numPcketValue).Where().ID(1).Execute();
-
-		Update<CurrentPacketTable>(base).set<ID<Operator>>(idOp).set<ID<Customer>>(idCs).Where().ID(1).Execute();
+		Update<CurrentPacketTable> update(base);
+		TL::foreach<CurrentPacketTable::items_list, __save__>()(&update);
+		update.Where().ID(1).Execute();
 	}
 }
 

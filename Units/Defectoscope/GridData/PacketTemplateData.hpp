@@ -94,12 +94,6 @@ template<class Table, class Col>unsigned PacketTemplateData<Table, Col>::Count()
 	return data.size();
 }
 
-namespace
-{
-    HEADER_TABLE(Customer, 600, Заказчик);
-	HEADER_TABLE(Operator, 600, Оператор);	
-}
-
 template<class Table, class Col>void PacketTemplateData<Table, Col>::Header(HWND h)
 {
 	 SetGridHeader<typename Table::items_list> _(h);	

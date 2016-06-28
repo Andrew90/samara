@@ -365,6 +365,9 @@
     <ClCompile Include="..\..\Common\window_tool\ProcessRun.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
+    <ClCompile Include="Stored\ProtocolTable.cpp">
+      <Filter>Stored</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -696,6 +699,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\ProcessRun.h">
       <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\ProtocolTable.h">
+      <Filter>Stored</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

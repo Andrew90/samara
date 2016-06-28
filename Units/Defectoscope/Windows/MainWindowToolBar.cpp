@@ -11,6 +11,7 @@
 #include "PacketWindow.h"
 #include <gdiplus.h>
 #include "AppKeyHandler.h"
+#include "Stored.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -72,7 +73,10 @@ namespace
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)
 	{
-		zprint("\n");	
+		zprint("\n");
+//test
+		Stored::Do();
+//test
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_left>::Click(HWND h)

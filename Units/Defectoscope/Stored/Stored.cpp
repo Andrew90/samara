@@ -8,6 +8,7 @@
 #include "App.h"
 #include "MainWindow.h"
 #include "USPCData.h"
+#include "ProtocolTable.h"
 
 namespace Stored
 {
@@ -177,7 +178,8 @@ namespace Stored
 		
 		CExpressBase base(
 			parameters.name()
-			, CreateDataBase<StoredBase::type_list, SetDefault<StoredBase::type_list>, MSsql>()
+			//, CreateDataBase<StoredBase::type_list, SetDefault<StoredBase::type_list>, MSsql>()
+			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
 			, parameters.tables
 			);
 
@@ -187,7 +189,7 @@ namespace Stored
 			tt.items.get<Date_Time>().value = tme;
 			tt.items.get<LengthTube>().value = lengthTube;
 			tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
-			tt.items.get<ID<Customer>>().value = __get_id__<CustomersTable, Customer>()(base, Singleton<Customer>::Instance());
+			tt.items.get<ID<ProtocolsTable>>().value = GetProtocolID(base);
 			TL::foreach<TubesTable::items_list, __stored__>()(&tt.items, &base);
 			Insert_Into<TubesTable>(tt, base).Execute();
 			unsigned id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
@@ -231,7 +233,7 @@ template<class Table, class Data>struct __list__
 		return false;
 	}
 };
-
+#if 0
 void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 {
 	path = path_;
@@ -247,14 +249,22 @@ void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 			).GetValue(L"TME", tme);
 		Select<TubesTable>(b).op<Date_Time>(L"<", tme).ExecuteLoop<__list__>(*this);
 
-		unsigned id = 0;
-		CMD(b).CommandText(
-			L"SELECT ID FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time=?"
-			).Param(tme).GetValue(L"ID", id);
+		//unsigned id = 0;
+		//CMD(b).CommandText(
+		//	L"SELECT ID FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time=?"
+		//	).Param(tme).GetValue(L"ID", id);
+		//
+		//CMD(b).CommandText(
+		//	L"DELETE FROM [StoredBase].[dbo].[StoredMeshureTable] WHERE Tube<?"
+		//	).Param(id).Execute();
 
 		CMD(b).CommandText(
-			L"DELETE FROM [StoredBase].[dbo].[StoredMeshureTable] WHERE Tube<?"
-			).Param(id).Execute();
+			L"DELETE FROM [StoredBase].[dbo].[StoredMeshureTable] WHERE Tube IN(SELECT ID FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time<?)"
+			).Param(tme).Execute();
+
+		CMD(b).CommandText(
+			L"DELETE FROM [StoredBase].[dbo].[ProtocolsTable] WHERE ID IN(SELECT IDProtocolsTable FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time<?)"
+			).Param(tme).Execute();
 
 		CMD(b).CommandText(
 			L"DELETE FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time<?"
@@ -272,4 +282,54 @@ void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 		CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubeTable]").GetValue(L"C", count);
 	}
 }
+#else	
+#pragma message("ѕроверить удаление при заполнении базы данных")
+void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
+{
+	path = path_;
+	offsPath= offsPath_;
+	base = &b;
+	if(count > 10000)
+	{
+		COleDateTime tme;
+		CMD(b).CommandText(
+			L"SELECT max([Date_Time]) as TME FROM [StoredBase].[dbo].[TubeTable]"\
+			L"WHERE [Date_Time] "\
+			L"IN (SELECT TOP(100)[Date_Time] FROM [StoredBase].[dbo].[TubeTable] ORDER BY [Date_Time] ASC)"
+			).GetValue(L"TME", tme);
+		Select<TubesTable>(b).op<Date_Time>(L"<", tme).ExecuteLoop<__list__>(*this);
+
+		CMD(b).CommandText(
+			L"DELETE FROM [StoredBase].[dbo].[TubeTable] WHERE Date_Time<?"
+			).Param(tme).Execute();
+
+		CMD(b).CommandText(
+			L"DELETE a"\
+			L" FROM [StoredBase].[dbo].[StoredMeshureTable] AS a"\
+			L" LEFT JOIN [StoredBase].[dbo].[TubeTable] AS b"\
+			L" ON a.Tube = b.ID"\
+			L" WHERE b.ID IS NULL"
+			).Execute();
+
+		CMD(b).CommandText(
+			L"DELETE a"\
+			L" FROM [StoredBase].[dbo].[ProtocolsTable] AS a"\
+			L" LEFT JOIN [StoredBase].[dbo].[TubesTable] AS b"\
+			L" ON a.ID = b.IDProtocolsTable"\
+			L" WHERE b.IDProtocolsTable IS NULL"
+			).Execute();
+
+		CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
+		return;
+	}
+	if(count > 0)
+	{
+		++count;
+	}
+	else
+	{
+		CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
+	}
+}
+#endif
 }

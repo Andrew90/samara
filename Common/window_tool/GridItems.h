@@ -7,7 +7,7 @@
 template<class T>struct header_table;
 #define HEADER_TABLE(T, width_, txt)template<>struct header_table<T>\
 {\
-	LPWSTR name(){return L###txt;}\
+	LPWSTR name(){return txt;}\
 	static const int width = width_;\
 };
 //-----------------------------------------------------------------

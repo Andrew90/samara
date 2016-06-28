@@ -117,19 +117,7 @@ public:
 		return hToolBar;
 	}	
 };
-/*
-struct ToolTipDefault{static wchar_t *Do(){return L"";}};
-template<int idb, void(*ptr)(HWND), class TOOLTIP = ToolTipDefault>struct ButtonToolbar
-{
-	static const int IDB_ = idb;
-	static const int TBSTYLE_ = TBSTYLE_BUTTON | BTNS_SHOWTEXT;
-	typedef TOOLTIP ToolLip;
-	static void Do(HWND h)
-	{
-		(*ptr)(h);
-	}
-};
-*/
+
 template<class T>struct __button_tool_bar__
 {
 	static const int IDB_ = T::IDB_;
