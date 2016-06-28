@@ -1,5 +1,5 @@
 #pragma once
-#include "Notify.h"
+//#include "Notify.h"
 #include "CommCtrl.h"
 #include "typelist.hpp"
 #include <strsafe.h>
@@ -99,7 +99,7 @@ template<class T>class GridEventHandler: NotifyHandler
 
 	template<class O, class P>struct loc
 	{
-		bool operator()(O *o, P *p)
+		bool operator()(P *p)
 		{
 			if(O::mess == p->mess.pnmh->code)
 			{
@@ -113,7 +113,7 @@ template<class T>class GridEventHandler: NotifyHandler
 	template<class P>struct loc<TCellColor, P>
 	{
 		typedef TCellColor O;
-		bool operator()(O *o, P *p)
+		bool operator()(P *p)
 		{
 			if(O::mess == p->mess.pnmh->code)
 			{				
@@ -139,7 +139,7 @@ template<class T>class GridEventHandler: NotifyHandler
 	template<class P>struct loc<TCellData, P>
 	{
 		typedef TCellData O;
-		bool operator()(O *o, P *p)
+		bool operator()(P *p)
 		{			
 			if(O::mess == p->mess.pnmh->code)
 			{

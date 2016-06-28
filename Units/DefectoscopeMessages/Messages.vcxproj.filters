@@ -84,9 +84,6 @@
     <ClCompile Include="..\..\Common\window_tool\GridItems.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\window_tool\HookKey.cpp">
-      <Filter>Common\window_tool</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
@@ -153,9 +150,6 @@
       <Filter>Common\window_tool</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\GridNotify.hpp">
-      <Filter>Common\window_tool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\window_tool\HookKey.h">
       <Filter>Common\window_tool</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\InitToolbar.hpp">

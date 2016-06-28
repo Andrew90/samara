@@ -22,7 +22,8 @@ void MainWindow::operator()(TSize &m)
 //------------------------------------------------------------------------
 void MainWindow::operator()(TCommand &m)
 {
-	GetMenuToolBarEvent(m);
+	//GetMenuToolBarEvent(m);
+	EventDo(m);
 }
 //-------------------------------------------------------------------------------------------
 unsigned MainWindow::operator()(TNotify &m)

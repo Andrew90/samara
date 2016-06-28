@@ -85,7 +85,6 @@
     <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Grid.cpp" />
     <ClCompile Include="..\..\Common\window_tool\GridItems.cpp" />
-    <ClCompile Include="..\..\Common\window_tool\HookKey.cpp" />
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
     <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
@@ -119,7 +118,6 @@
     <ClInclude Include="..\..\Common\window_tool\Grid.h" />
     <ClInclude Include="..\..\Common\window_tool\GridItems.h" />
     <ClInclude Include="..\..\Common\window_tool\GridNotify.hpp" />
-    <ClInclude Include="..\..\Common\window_tool\HookKey.h" />
     <ClInclude Include="..\..\Common\window_tool\InitToolbar.hpp" />
     <ClInclude Include="..\..\Common\window_tool\InRect.h" />
     <ClInclude Include="..\..\Common\window_tool\MenuAPI.h" />
