@@ -88,7 +88,7 @@
               <Width>1.10417in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.27083in</Width>
+              <Width>1.60417in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -170,7 +170,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>8.27х11.69</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1341,7 +1341,7 @@
         <Top>0.33in</Top>
         <Left>0.50708in</Left>
         <Height>2.16146in</Height>
-        <Width>8.33333in</Width>
+        <Width>7.66667in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1368,7 +1368,7 @@
         <Top>2.62167in</Top>
         <Left>0.50708in</Left>
         <Height>0.25in</Height>
-        <Width>8.33333in</Width>
+        <Width>7.66667in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -1393,7 +1393,7 @@
               <Width>2.48264in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.27083in</Width>
+              <Width>1.60417in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1676,7 +1676,7 @@
         <Top>2.99667in</Top>
         <Left>0.50708in</Left>
         <Height>0.5in</Height>
-        <Width>8.33333in</Width>
+        <Width>7.66667in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -1688,7 +1688,7 @@
     <Height>11.69in</Height>
     <Style />
   </Body>
-  <Width>9.84042in</Width>
+  <Width>8.2675in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
