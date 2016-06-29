@@ -3,8 +3,50 @@
 #include "USPCData.h"
 #include "AppBase.h"
 #include "ut_files.h"
-#include "DebugMess.h"				
+#include "DebugMess.h"		
+#include "Config.h"
+#ifndef DEBUG_ITEMS
 #pragma comment(lib, "..\\..\\Common\\USPC\\USPC7100.lib")
+#else
+ULONG WINAPI USPC7100_Acq_Start
+    (
+    INT Board,                              // [in]
+    INT NumberOfScansToAcquire              // [in]
+	){return 1;}
+ULONG WINAPI USPC7100_Open
+    (
+    INT boot                                // [in]
+	){return 1;}
+ULONG WINAPI USPC7100_Load
+    (
+    INT Board,                              // [in]
+    INT Test,                               // [in]
+    LPCSTR file                             // [in]
+	){return 1;}
+ULONG WINAPI USPC7100_Close(void){return 1;}
+ULONG WINAPI USPC7100_Acq_Stop
+    (
+    INT Board                               // [in]
+	){return 1;}
+ULONG WINAPI USPC7100_Acq_Get_Status
+    (
+    INT Board,                              // [in]
+    ULONG *Status,                          // [out]
+    ULONG *NumberOfScansAcquired,           // [out]
+    ULONG *NumberOfScansRead,               // [out]
+    ULONG *BufferSize,                      // [out]
+    ULONG *BlocSize                         // [out]
+	){return 1;}
+ULONG WINAPI USPC7100_Acq_Read
+    (
+    INT Board,                              // [in]
+    INT NumberOfScansToRead,                // [in]
+    INT TimeOut,                            // [in]
+    ULONG *NumberRead,                      // [out]
+    ULONG *ScansBacklog,                    // [out]
+    UCHAR *pData                            // [out]
+	){return 1;}
+#endif
 
 namespace USPC
 {
