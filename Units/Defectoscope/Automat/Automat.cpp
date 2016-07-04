@@ -21,6 +21,7 @@ struct Automat::Impl
 	struct ExceptionСontrolСircuitsOffProc{};
 	struct ExceptionСycleOffProc{};
 	struct Exception_USPC_DO_ERROR_Proc{};
+	struct Exception_USPC_ERROR_Proc{};
 	HANDLE hThread;
 	Impl() 
 	{}
@@ -401,7 +402,7 @@ void Automat::Impl::Do()
 				Sleep(500);
 				//проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
 				//Загрузить настройки для текущего типоразмера
-				USPC::Open();
+				if(USPC::Open()) throw Exception_USPC_ERROR_Proc();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				SET_BITS(On<oPowerBM>);
@@ -418,6 +419,8 @@ void Automat::Impl::Do()
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				//Остановить плату USPC
+				USPC::Stop();
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
@@ -476,6 +479,14 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
+				SET_BITS(On<oPowerBM>);
+				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
+			}
+			catch(Exception_USPC_ERROR_Proc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::AlarmUSPC>();	
 				SET_BITS(On<oPowerBM>);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
