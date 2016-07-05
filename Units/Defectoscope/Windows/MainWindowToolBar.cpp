@@ -12,6 +12,7 @@
 #include <gdiplus.h>
 #include "AppKeyHandler.h"
 #include "Stored.h"
+#include "LogUSPCWindow.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -69,6 +70,13 @@ namespace
 	void Key<IDB_arrow_down>::Click(HWND h)
 	{
 		zprint("\n");	
+		//-test
+	//	RECT r;
+	//WindowPosition::Get<LogUSPCWindow>(r);
+	//HWND hh = WindowTemplate(&Singleton<LogUSPCWindow>::Instance(), L"События USPC", r.left, r.top, r.right, r.bottom);
+	//ShowWindow(hh, SW_SHOWNORMAL);
+		LogUSPCWindow::Open();
+		//test
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)

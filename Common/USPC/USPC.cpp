@@ -167,7 +167,7 @@ namespace USPC
 		{
 			err = USPC7100_Open(2);
 			dprint("USPC7100_Open err %x\n", err);
-			if(err)
+			if(!err)
 			{
 				char b[1024];
 				wcstombs(b, path, wcslen(path) + 1); 

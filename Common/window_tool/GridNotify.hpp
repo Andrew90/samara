@@ -23,10 +23,12 @@ struct TCellData
 {
 	static const unsigned mess = LVN_GETDISPINFO;
 	int col, row;
-	wchar_t data[1024];
+	HWND h;
+	wchar_t data[128];
 	TCellData(TNotify &m)
 		: col(((LV_DISPINFO *)m.pnmh)->item.iSubItem)
 		, row(((LV_DISPINFO *)m.pnmh)->item.iItem)
+		, h(m.hwnd)
 	{
 		data[0] = 0;
 	}

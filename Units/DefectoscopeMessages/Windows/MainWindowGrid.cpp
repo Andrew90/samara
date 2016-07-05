@@ -51,7 +51,6 @@ void MainWindowGrid::Handlers::operator()(TCellData &l)
 					l.data[0] = '0';
 					l.data[1] = '\0';
 				}
-			//	dprint("row %d", l.row);
 			}
 			break;
 		case 1:
@@ -67,7 +66,6 @@ void MainWindowGrid::Handlers::operator()(TCellData &l)
 //--------------------------------------------------------------------
 void MainWindowGrid::Handlers::operator()(TCellColor &l)
 {	
-	//if(l.row % 2 == 0) l.bkColor = 0xff; else l.bkColor = 0xff00;
 	Log::TData *d = NULL;
 	if(Log::IsRow(l.row, d))
 	{

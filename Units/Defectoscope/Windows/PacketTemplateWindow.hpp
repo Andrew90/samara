@@ -131,8 +131,8 @@ template<class Table, class Col>unsigned PacketTemplateWindow<Table, Col>::opera
 
 template<class Table, class Col>void PacketTemplateWindow<Table, Col>::operator()(TDestroy &l)
 {
-	delete this;
 	SetWindowLongPtr(l.hwnd, GWLP_USERDATA, NULL);
+	delete this;	
 }
 
 template<class Table, class Col>unsigned PacketTemplateWindow<Table, Col>::operator()(TNotify &l)

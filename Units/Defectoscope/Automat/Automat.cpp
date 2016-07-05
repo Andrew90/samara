@@ -11,6 +11,8 @@
 #include "USPC.h"
 #include "Compute.h"
 #include "AppKeyHandler.h"
+#include "MainWindow.h"
+#include "LogUSPCWindow.h"
 
 struct Automat::Impl
 {
@@ -490,6 +492,13 @@ void Automat::Impl::Do()
 				SET_BITS(On<oPowerBM>);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
+				int ret = MessageBox(
+					app.mainWindow.hWnd
+					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля", MB_ICONEXCLAMATION | MB_YESNOCANCEL);
+				if(IDYES == ret)
+				{
+					LogUSPCWindow::Open();
+				}
 			}
 		}
 	}

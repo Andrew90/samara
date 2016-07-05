@@ -125,7 +125,8 @@ namespace LogMess
 	MESS(ProgramOpen		          , void  , "Программа открыта"              , black, white)
 							          
 	MESS(TimeoutPipe		          , void  , "Превышенно время ожидания", red  , yellow)
-	MESS(AlarmUSPC                    , void  , "Авария!!! Плата ультрозвукового контроля не исправна", red, yellow)
+	//MESS(AlarmUSPC                    , void  , "Авария!!! Плата ультрозвукового контроля не исправна", red, yellow)
+	MESS(AlarmUSPC                    , void  , "Авария!!! Платы ультразвукового контроля", red, yellow)
 							          
 	MESS(AutomatMode		          , void  , "Режим \"Автоматический\""		, blue , white)
 	MESS(SingleMode			          , void  , "Режим \"Одиночное измерение\""	, blue , white)

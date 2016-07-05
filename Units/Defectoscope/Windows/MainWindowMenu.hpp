@@ -5,6 +5,7 @@
 #include "CrossThresholdWindow.h"
 #include "LongThresholdWindow.h"
 #include "ThicknessThresholdWindow.h"
+#include "Common.h"
 
 namespace MainWindowMenu
 {
