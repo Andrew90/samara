@@ -494,7 +494,8 @@ void Automat::Impl::Do()
 				AppKeyHandler::Stop();
 				int ret = MessageBox(
 					app.mainWindow.hWnd
-					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля", MB_ICONEXCLAMATION | MB_YESNOCANCEL);
+					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
+					, MB_ICONEXCLAMATION | MB_YESNOCANCEL);
 				if(IDYES == ret)
 				{
 					LogUSPCWindow::Open();
