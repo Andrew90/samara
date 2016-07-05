@@ -32,14 +32,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		SetForegroundWindow(h);
 		return 0;
 	}
-	INITCOMMONCONTROLSEX iccx;
-	iccx.dwSize=sizeof(INITCOMMONCONTROLSEX);
-	iccx.dwICC=0;
-	InitCommonControlsEx(&iccx);
+	INITCOMMONCONTROLSEX *iccx = new INITCOMMONCONTROLSEX;
+	iccx->dwSize=sizeof(INITCOMMONCONTROLSEX);
+	iccx->dwICC=0;
+	InitCommonControlsEx(iccx);
 
 	ULONG_PTR gdiplusToken; 
-	Gdiplus::GdiplusStartupInput gdiplusStartupInput;    
-	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	Gdiplus::GdiplusStartupInput *gdiplusStartupInput = new Gdiplus::GdiplusStartupInput;    
+	GdiplusStartup(&gdiplusToken, gdiplusStartupInput, NULL);
 //--------------------------------------------------------------------
 	Initialize initialize;
 	
