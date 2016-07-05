@@ -3,17 +3,18 @@
 
 RegistryPathLogFile::RegistryPathLogFile()
 {
-	RegOpenKeyEx (HKEY_CURRENT_USER, 
-	L"Software\\Microsoft\\AuthCookies\\Live\\Default\\DIDC",NULL,KEY_READ,&hKey);
+	RegOpenKeyEx (HKEY_LOCAL_MACHINE, 
+	L"SOFTWARE\\Wow6432Node\\USPC7100\\Paths",NULL,KEY_READ,&hKey);
 	DWORD size = 1024;
 	RegQueryValueEx(
 		hKey,
-		L"URL",
+		L"Applications",
 		NULL,
 		NULL,
 		(LPBYTE)buffer,
 		&size
 		);
+	wcscat(buffer, L"USPC7100log.txt");
 }
 RegistryPathLogFile::~RegistryPathLogFile()
 {
