@@ -7,7 +7,6 @@ class LogUSPCWindowGrid
 public :
 	struct Handlers
 	{
-		LogUSPCWindow *owner;
 		void operator()(TCellData &);
 		void operator()(TCellColor &);
 	};

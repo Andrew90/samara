@@ -26,36 +26,6 @@ struct StoredThresholdsTable
 	const wchar_t *name(){return L"StoredThresholdsTable";}
 };
 
-DEFINE_PARAM(Unit, unsigned, -1)
-DEFINE_PARAM(Tube, unsigned, -1)
-DEFINE_PARAM(Sensor, unsigned, -1)
-struct Data
-{
-	typedef double type_value[App::count_zones];
-	type_value value;	
-	const wchar_t *name(){return L"Data";}
-};
-struct Status
-{
-	typedef unsigned char type_value[App::count_zones];
-	type_value value;	
-	const wchar_t *name(){return L"Status";}
-};
-struct StoredMeshureTable
-{
-	typedef TL::MkTlst<
-		Unit
-		, Tube
-		, Sensor
-		, Data
-		, Status
-	>::Result items_list;
-	typedef NullType unique_list;
-	typedef TL::Factory<items_list> TItems;
-	TItems items;
-	const wchar_t *name(){return L"StoredMeshureTable";}
-};
-
 DEFINE_PARAM(Date_Time, COleDateTime, 0.0)
 DEFINE_PARAM(LengthTube, int, 120)
 
@@ -106,12 +76,34 @@ struct ProtocolsTable
 };
 
 DEFINE_PARAM_WAPPER(ID, ProtocolsTable, unsigned, 0)
+struct StoredMeshureTable;
+DEFINE_PARAM_WAPPER(ID, StoredMeshureTable, unsigned, 0)
 
 struct TubesTable
 {
 	typedef TL::MkTlst<
-		Date_Time
-		, LengthTube
+		Date_Time		
+		, ID<Operator>
+		, ID<ProtocolsTable>
+		, ID<StoredMeshureTable>
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"TubesTable";}
+};
+
+DEFINE_PARAM(Tube, unsigned, -1)
+struct Status
+{
+	typedef unsigned char type_value[App::count_zones];
+	type_value value;	
+	const wchar_t *name(){return L"Status";}
+};
+struct StoredMeshureTable
+{
+	typedef TL::MkTlst<
+	    LengthTube
 		, ID<BorderKlass2 < Cross    > >
 		, ID<BorderDefect < Cross    > >
 		, ID<BorderKlass2 < Long     > >	
@@ -119,13 +111,12 @@ struct TubesTable
 		, ID<BorderNominal< Thickness> >
 		, ID<BorderAbove  < Thickness> >
 		, ID<BorderLower  < Thickness> >
-		, ID<Operator>
-		, ID<ProtocolsTable>
+		, Status
 	>::Result items_list;
 	typedef NullType unique_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
-	const wchar_t *name(){return L"TubesTable";}
+	const wchar_t *name(){return L"StoredMeshureTable";}
 };
 
 struct StoredBase

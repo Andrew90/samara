@@ -97,47 +97,65 @@ namespace Stored
 		}
 	};
 
-	typedef TL::MkTlst<Cross, Long, Thickness>::Result __type_id__;
+	//typedef TL::MkTlst<Cross, Long, Thickness>::Result __type_id__;
 
-	template<class T>struct StoredData
+	//template<class T>struct StoredData
+	//{
+	//	void operator()(CBase &base, unsigned tubeId)
+	//	{
+	//		StoredMeshureTable t;
+	//		t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
+	//		t.items.get<Tube>().value = tubeId;
+	//		ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
+	//		for(int i = 0; i < App::count_sensors; ++i)
+	//		{
+	//			t.items.get<Sensor>().value = i;
+	//			memmove(t.items.get<Data>().value, unit.buffer[i], sizeof(t.items.get<Data>().value));
+	//			memmove(t.items.get<Status>().value, unit.status[i], sizeof(t.items.get<Status>().value));
+	//			Insert_Into<StoredMeshureTable>(t, base).Execute();
+	//		}
+	//	}
+	//};
+	//
+	//template<>struct StoredData<Thickness>
+	//{
+	//	typedef Thickness T;
+	//	void operator()(CBase &base, unsigned tubeId)
+	//	{			
+	//		StoredMeshureTable t;
+	//		t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
+	//		t.items.get<Tube>().value = tubeId;
+	//		ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
+	//
+	//		t.items.get<Sensor>().value = 0;
+	//		memmove(t.items.get<Data>().value, unit.bufferMin, sizeof(t.items.get<Data>().value));
+	//		memmove(t.items.get<Status>().value, unit.statusMin, sizeof(t.items.get<Status>().value));
+	//		Insert_Into<StoredMeshureTable>(t, base).Execute();
+	//
+	//		t.items.get<Sensor>().value = 1;
+	//		memmove(t.items.get<Data>().value, unit.bufferMax, sizeof(t.items.get<Data>().value));
+	//		memmove(t.items.get<Status>().value, unit.statusMax, sizeof(t.items.get<Status>().value));
+	//		Insert_Into<StoredMeshureTable>(t, base).Execute();
+	//	}
+	//};
+
+	unsigned StoredStatus(CBase &base)
 	{
-		void operator()(CBase &base, unsigned tubeId)
-		{
-			StoredMeshureTable t;
-			t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
-			t.items.get<Tube>().value = tubeId;
-			ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
-			for(int i = 0; i < App::count_sensors; ++i)
-			{
-				t.items.get<Sensor>().value = i;
-				memmove(t.items.get<Data>().value, unit.buffer[i], sizeof(t.items.get<Data>().value));
-				memmove(t.items.get<Status>().value, unit.status[i], sizeof(t.items.get<Status>().value));
-				Insert_Into<StoredMeshureTable>(t, base).Execute();
-			}
-		}
-	};
+		StoredMeshureTable t;
+		t.items.get<LengthTube>().value = lengthTube;
 
-	template<>struct StoredData<Thickness>
-	{
-		typedef Thickness T;
-		void operator()(CBase &base, unsigned tubeId)
-		{			
-			StoredMeshureTable t;
-			t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
-			t.items.get<Tube>().value = tubeId;
-			ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
+		TL::foreach<StoredMeshureTable::items_list, __stored__>()(&t.items, &base);
 
-			t.items.get<Sensor>().value = 0;
-			memmove(t.items.get<Data>().value, unit.bufferMin, sizeof(t.items.get<Data>().value));
-			memmove(t.items.get<Status>().value, unit.statusMin, sizeof(t.items.get<Status>().value));
-			Insert_Into<StoredMeshureTable>(t, base).Execute();
+		ResultViewerData &unit = Singleton<ResultViewerData>::Instance();
+		memmove(t.items.get<Status>().value, unit.commonStatus, sizeof(t.items.get<Status>().value));
 
-			t.items.get<Sensor>().value = 1;
-			memmove(t.items.get<Data>().value, unit.bufferMax, sizeof(t.items.get<Data>().value));
-			memmove(t.items.get<Status>().value, unit.statusMax, sizeof(t.items.get<Status>().value));
-			Insert_Into<StoredMeshureTable>(t, base).Execute();
-		}
-	};
+		Insert_Into<StoredMeshureTable>(t, base).Execute();
+        unsigned id = 0;
+		CMD(base).CommandText(
+			L"SELECT max([ID]) as ID_LAST FROM [StoredBase].[dbo].[StoredMeshureTable]"
+			).GetValue(L"ID_LAST", id);
+		return id;
+	}
 
 	struct DeleteLast
 	{
@@ -187,19 +205,22 @@ namespace Stored
 		{
 			TubesTable tt;
 			tt.items.get<Date_Time>().value = tme;
-			tt.items.get<LengthTube>().value = lengthTube;
+		//	tt.items.get<LengthTube>().value = lengthTube;
 			tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
 			tt.items.get<ID<ProtocolsTable>>().value = GetProtocolID(base);
-			TL::foreach<TubesTable::items_list, __stored__>()(&tt.items, &base);
-			Insert_Into<TubesTable>(tt, base).Execute();
-			unsigned id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
+		//	TL::foreach<TubesTable::items_list, __stored__>()(&tt.items, &base);
 
-			if(0 != id)
-			{
-				StoredData<Cross>()(base, id);
-				StoredData<Long>()(base, id);
-				StoredData<Thickness>()(base, id);
-			}
+			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
+
+			Insert_Into<TubesTable>(tt, base).Execute();
+		//	unsigned id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
+
+			//if(0 != id)
+			//{
+			//	//StoredData<Cross>()(base, id);
+			//	//StoredData<Long>()(base, id);
+			//	//StoredData<Thickness>()(base, id);
+			//}
 		}
 		else
 		{
@@ -307,7 +328,7 @@ void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 			L"DELETE a"\
 			L" FROM [StoredBase].[dbo].[StoredMeshureTable] AS a"\
 			L" LEFT JOIN [StoredBase].[dbo].[TubeTable] AS b"\
-			L" ON a.Tube = b.ID"\
+			L" ON a.ID = b.IDStoredMeshureTable"\
 			L" WHERE b.ID IS NULL"
 			).Execute();
 
