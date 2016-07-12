@@ -13,6 +13,7 @@
 #include "AppKeyHandler.h"
 #include "MainWindow.h"
 #include "LogUSPCWindow.h"
+#include "Stored.h"
 
 struct Automat::Impl
 {
@@ -446,6 +447,7 @@ void Automat::Impl::Do()
 				//выставить сигнал ПЕРЕКЛАДКА
 				OUT_BITS(On<oToShiftThe>);
 				//todo Записать результат контроля в базу данных
+				Stored::Do();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)

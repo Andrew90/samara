@@ -122,7 +122,7 @@ namespace
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
 			d.statusMin[i] = StatusId<Clr<Undefined>>();
-			d.statusMin[i] = StatusId<Clr<Undefined>>();
+			d.statusMax[i] = StatusId<Clr<Undefined>>();
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
 				WORD channel = b[jj].Channel;	

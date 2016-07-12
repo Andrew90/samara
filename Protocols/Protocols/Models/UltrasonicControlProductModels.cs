@@ -10,6 +10,7 @@ namespace Protocols.Models
          public int      ID               { get; set; }
          public DateTime TteTme           { get; set; }
          public int      Count            { get; set; }
+         public string Operator { get; set; }
     }
 
     public class UltrasonicControlProductModels
@@ -24,5 +25,15 @@ namespace Protocols.Models
         public string   Standart         { get; set; }
         public int      Count            { get; set; }
         public DateTime TteTme           { get; set; }
+        public string   Operator         { get; set; }
+    }
+
+    public class TubesPacketResult
+    {
+        public int NumTube      { get; set; }
+        public int    Length    { get; set; }
+        public string Long      { get; set; }
+        public string Cross     { get; set; }
+        public string Thickness { get; set; }
     }
 }
