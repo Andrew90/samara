@@ -397,6 +397,9 @@ void Automat::Impl::Do()
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
+
+				OUT_BITS(Off<oPowerBM>);
+
 				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);
 				Log::Mess<LogMess::PowerBMOn>();
 

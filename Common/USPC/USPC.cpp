@@ -154,15 +154,16 @@ namespace USPC
 		bool res = false;
 		unsigned err = 0;
 		wchar_t path[256];
-		if(wcscmp(currentTypeSize, lastTypeSize))
-		{
-			res = ExistCurrentUSPCFile(path);
-			if(res)wcscpy(lastTypeSize, currentTypeSize);
-		}
-		else
-		{
-			res = true;
-		}
+		//if(wcscmp(currentTypeSize, lastTypeSize))
+		//{
+		//	res = ExistCurrentUSPCFile(path);
+		//	if(res)wcscpy(lastTypeSize, currentTypeSize);
+		//}
+		//else
+		//{
+		//	res = true;
+		//}
+		res = ExistCurrentUSPCFile(path);
 		if(res)
 		{
 			err = USPC7100_Open(2);
