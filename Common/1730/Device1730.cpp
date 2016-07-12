@@ -14,6 +14,7 @@ Device1730::Device1730()
 	InitializeCriticalSection(&cs);
 }
 //------------------------------------------------------------------------------
+#ifndef DEBUG_ITEMS
 bool Device1730::Init(int deviceDescription)
 {
 	ErrorCode        ret = Success;
@@ -54,6 +55,15 @@ void Device1730::Destroy()
 		instantDiCtrl = NULL;
 	}
 }
+#else
+bool Device1730::Init(int deviceDescription)
+{
+	return true;
+}
+//-------------------------------------------------------------------------
+void Device1730::Destroy()
+{}
+#endif
 //--------------------------------------------------------------------------
 bool Device1730::IsOpen()
 {

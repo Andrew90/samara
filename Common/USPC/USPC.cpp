@@ -46,6 +46,9 @@ ULONG WINAPI USPC7100_Acq_Read
     ULONG *ScansBacklog,                    // [out]
     UCHAR *pData                            // [out]
 	){return 1;}
+ULONG WINAPI USPC7100_Acq_Config(int Board, ULONG AcqMode
+			, ULONG StartMode, ULONG AcqCondition[8], int PrePostScans
+			, int FrequencyDivider, ULONG BufferSize, int * Unused, ULONG * SimplificationParam){return 1;}
 #endif
 
 namespace USPC
