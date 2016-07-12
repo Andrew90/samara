@@ -80,8 +80,35 @@ namespace USPC
 		{
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
+				int id = __board__<O>::value;
+				unsigned err = USPC7100_Acq_Start(id, -1);
+				dprint("USPC7100_Acq_Start %d  err %x\n", id, err);
+				*p = err;
+				return 0 == err;
+			}
+			return true;
+		}
+	};
+
+	template<class O, class P>struct __config__
+	{
+		bool operator()(P *p)
+		{
+			/*
+			ULONG WINAPI USPC7100_Acq_Config(int Board, ULONG AcqMode
+			, ULONG StartMode, ULONG AcqCondition[8], int PrePostScans
+			, int FrequencyDivider, ULONG BufferSize, int * Unused, ULONG * SimplificationParam)
+			*/
+			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
+			{
+				int id = __board__<O>::value;
 				Singleton<ItemData<O> >::Instance().Start();
-				unsigned err = USPC7100_Acq_Start(__board__<O>::value, -1);
+				ULONG conditions[8] = {};
+				int fluidity = 64;
+				unsigned err = USPC7100_Acq_Config(id, 0x1000, 1, conditions, 0, 1
+					, 1024 * 64, &fluidity, NULL 
+					);
+				dprint("USPC7100_Acq_Config %d  err %x\n", id, err);
 				*p = err;
 				return 0 == err;
 			}
@@ -130,8 +157,9 @@ namespace USPC
 				ULONG numberRead;
 				ULONG scansBacklog;
 				UCHAR *pData = item.CurrentFrame();
+				int id = __board__<O>::value;
 				unsigned err = USPC7100_Acq_Read(
-					__board__<O>::value
+					id
 					, -1
 					, 0
 					, &numberRead
@@ -143,6 +171,7 @@ namespace USPC
 					item.OffsetCounter(numberRead);
 				}
 				*p = err;
+				dprint("USPC7100_Acq_Read %d count %d  err %x\n", id, numberRead, err);
 				return 0 == err;
 			}
 			return true;
@@ -202,7 +231,8 @@ namespace USPC
 	bool Start()
 	{
 		unsigned err = 0;
-		bool b = TL::find<items_list, __start__>()(&err);
+		bool b = TL::find<items_list, __config__>()(&err);
+		if(b)b = TL::find<items_list, __start__>()(&err);
 		if(!b)
 		{
 			TL::foreach<items_list, __stop__>()();
@@ -220,10 +250,10 @@ namespace USPC
 	{
 		int err = 0;
 		bool b = TL::find<items_list, __do__>()(&err);
-		if(!b)
-		{
-			dprint("do err %x\n", err);
-		}
+		//if(!b)
+		//{
+		//	dprint("do err %x\n", err);
+		//}
 		return b;
 	}
 }

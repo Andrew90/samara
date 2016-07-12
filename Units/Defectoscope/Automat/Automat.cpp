@@ -14,6 +14,7 @@
 #include "MainWindow.h"
 #include "LogUSPCWindow.h"
 #include "Stored.h"
+#include "RestartService.h"
 
 struct Automat::Impl
 {
@@ -25,6 +26,7 @@ struct Automat::Impl
 	struct ExceptionСycleOffProc{};
 	struct Exception_USPC_DO_ERROR_Proc{};
 	struct Exception_USPC_ERROR_Proc{};
+	struct Exception_USPC_RestartService_ERROR_Proc{};
 	HANDLE hThread;
 	Impl() 
 	{}
@@ -387,42 +389,53 @@ void Automat::Impl::Do()
 {
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
+	////-----------------------------test
+//	AutomatAdditional::ComputeSpeed(1000);
+	///------------------------------test---------------
 	try
 	{
 		while(true)
 		{
 			try
 			{
-				App::measurementOfRunning = false;				
-				AND_BITS(Ex<ExceptionContinueProc>)();
+				App::measurementOfRunning = false;	
+
+				//OUT_BITS(Off<oPowerBM>);
+				device1730.Write(0);
+				Sleep(500);
+
+				AND_BITS(Ex<ExceptionContinueProc>)(); //кнопка начала измерений
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
-
-				OUT_BITS(Off<oPowerBM>);
 
 				AND_BITS(Ex<ExceptionStopProc>, On<iСontrolСircuits>)(10000);
 				Log::Mess<LogMess::PowerBMOn>();
 
 				OUT_BITS(On<oPowerBM>);
-				Sleep(500);
+				Sleep(2000);
+
+				if(!RestartService()) throw Exception_USPC_RestartService_ERROR_Proc();
+
 				//проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
 				//Загрузить настройки для текущего типоразмера
-				if(USPC::Open()) throw Exception_USPC_ERROR_Proc();
+				if(!USPC::Open()) throw Exception_USPC_ERROR_Proc();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
-				SET_BITS(On<oPowerBM>);
+				//TODO ВОССТАНОВИТЬ Log::Mess<LogMess::WaitCycleReady>();
+				//TODO ВОССТАНОВИТЬ AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);				
 				//подготовить ультрозвуковую систему к работе
 				USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
 				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);
 				unsigned startTime = timeGetTime();
-				//сбор данных с ультрозвуковых датчиков
+				//сбор данных с ультразвуковых датчиков
+				Log::Mess<LogMess::InfoDataCollection>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
+				dprint("baseTime %d    startTime %d  baseTime - startTime %d", baseTime, startTime, baseTime - startTime);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				//Остановить плату USPC
@@ -462,7 +475,7 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmCycle>();
-				SET_BITS(On<oPowerBM>);
+				device1730.Write(0);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
 			}
@@ -471,6 +484,7 @@ void Automat::Impl::Do()
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
 				SET_BITS(On<oPowerBM>);
+				device1730.Write(0);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
 			}
@@ -478,7 +492,7 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
-				SET_BITS(On<oPowerBM>);
+				device1730.Write(0);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
 			}
@@ -486,7 +500,7 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
-				SET_BITS(On<oPowerBM>);
+				device1730.Write(0);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
 			}
@@ -494,7 +508,7 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmUSPC>();	
-				SET_BITS(On<oPowerBM>);
+				device1730.Write(0);
 				//todo остановить сбор сканов
 				AppKeyHandler::Stop();
 				int ret = MessageBox(
@@ -506,6 +520,14 @@ void Automat::Impl::Do()
 					LogUSPCWindow::Open();
 				}
 			}
+			catch(Exception_USPC_RestartService_ERROR_Proc)
+			{
+				ResetEvent(App::ProgrammContinueEvent);
+				Log::Mess<LogMess::AlarmRestartServiceError>();
+				device1730.Write(0);
+				//todo остановить сбор сканов
+				AppKeyHandler::Stop();
+			}
 		}
 	}
 	catch(ExceptionExitProc)
@@ -513,6 +535,7 @@ void Automat::Impl::Do()
 		CloseHandle(hThread);
 		Log::Mess<LogMess::ProgramClosed>(0);
 	}
+	device1730.Write(0);
 }
 
  Automat::Automat()

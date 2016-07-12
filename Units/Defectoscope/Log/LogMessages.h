@@ -41,6 +41,7 @@ namespace LogMess
 
 		, TimeoutPipe
 		, AlarmUSPC
+		, AlarmRestartServiceError
 		, AutomatMode
 		, SingleMode
 
@@ -72,6 +73,7 @@ namespace LogMess
 		, InfoOffSQ3BitIn 
 		, InfoUserStop
 		, InfoDataCollectionComplete
+		, InfoDataCollection
 		//, Info
 
 		, SQ1BitIn           
@@ -94,6 +96,7 @@ namespace LogMess
 		, ResultBitOut   
 		, WaitControlCircuitBitIn
 		, PowerBMOn
+		, WaitCycleReady
 
 		, AlarmControlCircuts
 		, AlarmCycle
@@ -127,6 +130,8 @@ namespace LogMess
 	MESS(TimeoutPipe		          , void  , "Превышенно время ожидания", red  , yellow)
 	//MESS(AlarmUSPC                    , void  , "Авария!!! Плата ультрозвукового контроля не исправна", red, yellow)
 	MESS(AlarmUSPC                    , void  , "Авария!!! Платы ультразвукового контроля", red, yellow)
+
+	MESS(AlarmRestartServiceError     , void  , "Авария!!! Сервис \"USPS7100WinService\" не перезапускается", red, yellow)
 							          
 	MESS(AutomatMode		          , void  , "Режим \"Автоматический\""		, blue , white)
 	MESS(SingleMode			          , void  , "Режим \"Одиночное измерение\""	, blue , white)
@@ -147,6 +152,7 @@ namespace LogMess
 	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
 
 	MESS(PowerBMOn, void, "Включено \"ПИТАНИЕ БМ\"", blue, white)
+	MESS(WaitCycleReady, void, "Ожидание входных сигналов: \"Цикл\" и \"Готовность\"", blue, white)
 
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
@@ -172,6 +178,7 @@ namespace LogMess
 	MESS(InfoUserStop					, void, "Оператор вышел из цикла сбора данных"			  , red  , yellow)
 
 	MESS(InfoDataCollectionComplete		, void, "Сбор данных закончен"                           , green, white);
+	MESS(InfoDataCollection     		, void, "Сбор данных"                           , blue, white);
 
 	MESS(SQ1BitIn             , bool, "SQ1BitIn            ", white, black)
 	MESS(SQ3BitIn             , bool, "SQ3BitIn            ", white, black)

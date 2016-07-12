@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Registry.h"
 
+#pragma warning(disable: 4996)
 RegistryPathLogFile::RegistryPathLogFile()
 {
 	RegOpenKeyEx (HKEY_LOCAL_MACHINE, 

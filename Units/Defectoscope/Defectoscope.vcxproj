@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\Defectoscope;$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..Common\Communication;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\Defectoscope;$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,6 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp" />
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp" />
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
@@ -99,6 +101,13 @@
     <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp" />
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
     <ClCompile Include="..\..\Common\templates\Frame.cpp" />
     <ClCompile Include="..\..\Common\templates\Hash.cpp" />
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
@@ -123,6 +132,7 @@
     <ClCompile Include="Automat\AppKeyHandler.cpp" />
     <ClCompile Include="Automat\Automat.cpp" />
     <ClCompile Include="Automat\AutomatAdditional.cpp" />
+    <ClCompile Include="Automat\RestartService.cpp" />
     <ClCompile Include="Compute.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Common\tools;GridData;$(ProjectDir)ItemsData;Stored;MessageText;..\..\Common\Filtre;..\..\Common\USPC;Automat;..\Defectoscope\Log;..\..\Common\ArchiveEvents;IOports;Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base\</AdditionalIncludeDirectories>
@@ -185,6 +195,9 @@
     <ClInclude Include="..\..\Common\Base\ExpressBase.hpp" />
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
     <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
+    <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp" />
+    <ClInclude Include="..\..\Common\Communication\ServerHandler.h" />
+    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h" />
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
     <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp" />
     <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h" />
@@ -207,6 +220,13 @@
     <ClInclude Include="..\..\Common\Graphics\StepSeries.h" />
     <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h" />
     <ClInclude Include="..\..\Common\templates\Frame.h" />
     <ClInclude Include="..\..\Common\templates\Hash.h" />
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
@@ -245,6 +265,7 @@
     <ClInclude Include="Automat\AppKeyHandler.h" />
     <ClInclude Include="Automat\Automat.h" />
     <ClInclude Include="Automat\AutomatAdditional.h" />
+    <ClInclude Include="Automat\RestartService.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
     <ClInclude Include="Dialogs\InputOutputDlg.h" />

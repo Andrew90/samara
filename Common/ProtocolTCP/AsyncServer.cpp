@@ -1,10 +1,12 @@
 #include "StdAfx.h"
 #include "AsyncServer.h"
-#include <winsock2.h>
+//#include <winsock2.h>
 #include "Frame.h"
 #include "NetFrame.h"
-#include "ServerHandler.h"
+#include "..\ServerHandler.h"
 #include "DebugMess.h"
+//D:\projects\USPCSamara\Common\ProtocolTCP\AsyncServer.cpp
+//D:\projects\USPCSamara\Common\Communication\ServerHandler.h
 
 namespace
 {

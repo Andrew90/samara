@@ -185,7 +185,7 @@ template<class T>struct Stat
 //DEFINE_PARAM(RemoveSensorDelay, int,  150)
 //DEFINE_PARAM(FrequencyFrames, int,  100)
 
-DEFINE_PARAM(ReferenceOffset1, unsigned, 1750)
+DEFINE_PARAM(ReferenceOffset1, unsigned, 5000)
 //DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
 //
 //DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)
@@ -321,7 +321,7 @@ struct OutputBitTable
 	const wchar_t *name(){return L"OutputBitTable";}
  };
 
- DEFINE_PARAM(Descriptor1730, unsigned, 1)
+ DEFINE_PARAM(Descriptor1730, unsigned, 0)
 struct Descriptor1730Table
  {
 	typedef TL::MkTlst<

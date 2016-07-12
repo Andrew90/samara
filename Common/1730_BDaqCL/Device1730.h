@@ -1,10 +1,10 @@
 #pragma once
-#include "Inc/bdaqctrl.h" 
+#include "Inc/BDaqCL.h" 
 class Device1730
 {
 	static const int startPoint = 0;
-	Automation::BDaq::InstantDoCtrl *instantDoCtrl;
-	Automation::BDaq::InstantDiCtrl *instantDiCtrl;
+	Automation::BDaq::BDaqDevice *device;
+	Automation::BDaq::BDaqDio    *dio;
 	CRITICAL_SECTION cs;
 	bool isOpen;	
 public:	

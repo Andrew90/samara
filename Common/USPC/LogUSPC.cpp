@@ -2,12 +2,18 @@
 #include "LogUSPC.h"
 #include <stdio.h>
 #include "Registry.h"
+#include "DebugMess.h"
 //wchar_t *path = L"D:\\Shared\\USPC7100log.txt";
 void LogUSPC::Clear()
 {
 	RegistryPathLogFile t;
 	wchar_t *path = t();
-	DeleteFile(path);
+	int fSuccess = DeleteFile(path);
+	if (!fSuccess) 
+    {
+        // Handle the error.
+       dprint("DeleteFile failed (%d)\n", GetLastError());
+    }
 }
 void LogUSPC::Open()
 {

@@ -106,6 +106,18 @@
     <Filter Include="Windows\LogUSPCWindow">
       <UniqueIdentifier>{8257a6d3-825d-4ce4-9da2-439e34d9e5c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Service">
+      <UniqueIdentifier>{32e9d3e8-0fe1-48be-8f54-91bc353262b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Service\ProtocolTCP">
+      <UniqueIdentifier>{e655b1d8-e9cc-49d4-9dd9-c355564b8d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Service\Communication">
+      <UniqueIdentifier>{6dec173f-b092-474c-b8c7-d92a0c2c2a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Service\Communication\ServiceProtocol">
+      <UniqueIdentifier>{660ccb06-79b5-41ef-ba48-2209066b4689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -382,6 +394,36 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\USPC\Registry.cpp">
       <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat\RestartService.cpp">
+      <Filter>Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp">
+      <Filter>Common\Service\Communication\ServiceProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp">
+      <Filter>Common\Service\Communication\ServiceProtocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -732,6 +774,39 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\USPC\Registry.h">
       <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat\RestartService.h">
+      <Filter>Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h">
+      <Filter>Common\Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp">
+      <Filter>Common\Service\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h">
+      <Filter>Common\Service\Communication\ServiceProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\ServerHandler.h">
+      <Filter>Common\Service\Communication</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
