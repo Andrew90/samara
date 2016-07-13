@@ -174,7 +174,10 @@ namespace USPC
 					item.OffsetCounter(numberRead);
 				}
 				*p = err;
+				if(err || numberRead > 0)
+				{
 				dprint("USPC7100_Acq_Read %d count %d  err %x\n", id, numberRead, err);
+				}
 				return 0 == err;
 			}
 			return true;
@@ -252,11 +255,7 @@ namespace USPC
 	bool Do()
 	{
 		int err = 0;
-		bool b = TL::find<items_list, __do__>()(&err);
-		//if(!b)
-		//{
-		//	dprint("do err %x\n", err);
-		//}
+		bool b = TL::find<items_list, __do__>()(&err);		
 		return b;
 	}
 }

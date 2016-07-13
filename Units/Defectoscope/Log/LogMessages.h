@@ -96,7 +96,9 @@ namespace LogMess
 		, ResultBitOut   
 		, WaitControlCircuitBitIn
 		, PowerBMOn
-		, WaitCycleReady
+		, WaitCycle
+		, WaitReady
+		, WaitControl
 
 		, AlarmControlCircuts
 		, AlarmCycle
@@ -152,7 +154,9 @@ namespace LogMess
 	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
 
 	MESS(PowerBMOn, void, "Включено \"ПИТАНИЕ БМ\"", blue, white)
-	MESS(WaitCycleReady, void, "Ожидание входных сигналов: \"Цикл\" и \"Готовность\"", blue, white)
+	MESS(WaitCycle, void, "Ожидание входного сигнала \"Цикл\" и \"Готовность\"", blue, white)
+	MESS(WaitReady, void, "Ожидание входного сигнала \"Готовность\"", blue, white)
+	MESS(WaitControl, void, "Ожидание входного сигнала \"Контроль\"", blue, white) 
 
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
