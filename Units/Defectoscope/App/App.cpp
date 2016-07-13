@@ -48,15 +48,15 @@ void App::Init()
 	}
 	
 	automat.Init();
-///--------------------------test
-	zprint("---------------------\n");
-	unsigned start = GetTickCount();
-	 TestUSPC test;
-	 test.Init(Singleton<ItemData<Long> >::Instance());
-	 test.Init(Singleton<ItemData<Cross> >::Instance());
-	 test.InitThickness(Singleton<ItemData<Thickness> >::Instance());
-	 zprint("  Stop time %d\n", GetTickCount() - start);
-///-------------------------------test------------------------------
+/////--------------------------test
+//	zprint("---------------------\n");
+//	unsigned start = GetTickCount();
+//	 TestUSPC test;
+//	 test.Init(Singleton<ItemData<Long> >::Instance());
+//	 test.Init(Singleton<ItemData<Cross> >::Instance());
+//	 test.InitThickness(Singleton<ItemData<Thickness> >::Instance());
+//	 zprint("  Stop time %d\n", GetTickCount() - start);
+/////-------------------------------test------------------------------
 }
 
 void App::Destroy()

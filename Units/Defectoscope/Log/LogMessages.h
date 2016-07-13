@@ -74,6 +74,7 @@ namespace LogMess
 		, InfoUserStop
 		, InfoDataCollectionComplete
 		, InfoDataCollection
+		, InfoBase
 		//, Info
 
 		, SQ1BitIn           
@@ -183,6 +184,7 @@ namespace LogMess
 
 	MESS(InfoDataCollectionComplete		, void, "—бор данных закончен"                           , green, white);
 	MESS(InfoDataCollection     		, void, "—бор данных"                           , blue, white);
+	MESS(InfoBase, void, "—работал датчик \"Ѕаза\"", blue, white);
 
 	MESS(SQ1BitIn             , bool, "SQ1BitIn            ", white, black)
 	MESS(SQ3BitIn             , bool, "SQ3BitIn            ", white, black)

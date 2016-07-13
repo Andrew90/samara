@@ -1,11 +1,16 @@
 #pragma once
 #include "uspc7100_exports.h"
+#include "typelist.hpp"
 class MainWindow;
 
 struct Long{};
 struct Cross{};
 struct Thickness{};
 struct ViewInterrupt{};
+namespace USPC
+{
+	typedef TL::MkTlst<Thickness, Long, Cross>::Result items_list;
+}
 
 class App
 {

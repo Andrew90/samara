@@ -305,15 +305,16 @@ namespace
 
 void Compute::Recalculation()
 {	
-	TL::foreach<TL::MkTlst<Cross, Long, Thickness>::Result, __recalculation__>()();
+	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus();
 	app.MainWindowUpdate();
 }
 
 void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime)
 {
-   lengthTube = int((double)Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value 
-	   * (stopTime - startTime) /(baseTime - startTime));
+   double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
+   lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
+   dprint("length tube %d  base_offset %f\n", lengthTube, offs);
 }
 
 Compute compute;

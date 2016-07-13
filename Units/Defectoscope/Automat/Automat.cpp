@@ -434,6 +434,8 @@ void Automat::Impl::Do()
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
+				AND_BITS(Ex<ExceptionStopProc>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				Log::Mess<LogMess::InfoBase>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
@@ -445,23 +447,23 @@ void Automat::Impl::Do()
 				USPC::Stop();
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
-						compute.LengthTube(startTime, baseTime, stopTime);
-						compute.Recalculation();
+				compute.LengthTube(startTime, baseTime, stopTime);
+				compute.Recalculation();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-						Sleep(100);
-						OUT_BITS(Off<oWork>);
-						//Режим прерывания
-			    		if(viewInterrupt)
-						{
-							ResetEvent(App::ProgrammContinueEvent);
-							Log::Mess<LogMess::ContineCycle>();
-							WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
-						}
-						//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
-						OUT_BITS(On<oResult1>, On<oResult2>);
-						Sleep(500);
+				Sleep(100);
+				OUT_BITS(Off<oWork>);
+				//Режим прерывания
+			    if(viewInterrupt)
+				{
+					ResetEvent(App::ProgrammContinueEvent);
+					Log::Mess<LogMess::ContineCycle>();
+					WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
+				}
+				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
+				OUT_BITS(On<oResult1>, On<oResult2>);
+				Sleep(500);
 				//выставить сигнал ПЕРЕКЛАДКА
-						OUT_BITS(On<oToShiftThe>);
+				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
 				Stored::Do();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

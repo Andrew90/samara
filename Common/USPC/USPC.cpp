@@ -61,7 +61,7 @@ namespace USPC
 
 	bool open = false;
 
-	typedef TL::MkTlst<Thickness, Long, Cross>::Result items_list;
+//	typedef TL::MkTlst<Thickness, Long, Cross>::Result items_list;
 
 	template<class T>struct __board__;
 	template<>struct __board__<Thickness>
@@ -174,10 +174,10 @@ namespace USPC
 					item.OffsetCounter(numberRead);
 				}
 				*p = err;
-				if(err || numberRead > 0)
-				{
-				dprint("USPC7100_Acq_Read %d count %d  err %x\n", id, numberRead, err);
-				}
+				//if(err || numberRead > 0)
+				//{
+				//dprint("USPC7100_Acq_Read %d count %d  err %x\n", id, numberRead, err);
+				//}
 				return 0 == err;
 			}
 			return true;
@@ -255,7 +255,8 @@ namespace USPC
 	bool Do()
 	{
 		int err = 0;
-		bool b = TL::find<items_list, __do__>()(&err);		
+		bool b = TL::find<items_list, __do__>()(&err);	
+		if(err) dprint("USPC7100_Acq_Read err %x\n", err);
 		return b;
 	}
 }
