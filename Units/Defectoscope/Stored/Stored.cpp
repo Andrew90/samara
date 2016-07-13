@@ -49,6 +49,13 @@ namespace Stored
 			 fwrite(thicknessData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), thicknessData.currentOffsetFrames, f);
 
 			 fclose(f);
+			 int t = sizeof(USPC7100_ASCANDATAHEADER) + (
+				 crossData.currentOffsetFrames
+				 + longData.currentOffsetFrames
+				 + thicknessData.currentOffsetFrames
+				 );
+			 dprint("**data stored**  length tube %d bytes stored %d\n", compute.lengthTube, t
+				 );
 		 }
 	}
 
