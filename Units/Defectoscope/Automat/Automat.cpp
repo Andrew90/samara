@@ -400,7 +400,6 @@ void Automat::Impl::Do()
 			{
 				App::measurementOfRunning = false;	
 
-				//OUT_BITS(Off<oPowerBM>);
 				device1730.Write(0);
 				Sleep(500);
 
@@ -466,56 +465,39 @@ void Automat::Impl::Do()
 				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
 				Stored::Do();
+				Sleep(3000);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmControlCircuts>();
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}	
 			catch(ExceptionСycleOffProc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmCycle>();
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}
 			catch(ExceptionTimeOutProc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
-				SET_BITS(On<oPowerBM>);
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}
 			catch(ExceptionStopProc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_ERROR_Proc)
 			{
 				ResetEvent(App::ProgrammContinueEvent);
-				Log::Mess<LogMess::AlarmUSPC>();	
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
+				Log::Mess<LogMess::AlarmUSPC>();
+				USPC::Stop();
 				int ret = MessageBox(
 					app.mainWindow.hWnd
 					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
@@ -529,10 +511,9 @@ void Automat::Impl::Do()
 			{
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmRestartServiceError>();
-				device1730.Write(0);
-				//todo остановить сбор сканов
-				AppKeyHandler::Stop();
 			}
+			USPC::Stop();
+			AppKeyHandler::Stop();
 		}
 	}
 	catch(ExceptionExitProc)

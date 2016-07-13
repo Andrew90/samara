@@ -38,9 +38,6 @@ void TestUSPC()
 
 	UCHAR *pData = (UCHAR *)data;
 
-	//err = USPC7100_Acq_Clear(id);
-	//printf("USPC7100_Acq_Clear %x\n", err);
-
 	for(int i = 0; i < 100; ++i)
 	{
 		err = USPC7100_Acq_Read(
@@ -70,8 +67,6 @@ void TestUSPC()
 			}
 			printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
 			Sleep(200);
-			//err = USPC7100_Acq_Clear(id);
-	        //printf("USPC7100_Acq_Clear %x\n", err);
 			break;
 		}		
 	}

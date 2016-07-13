@@ -84,6 +84,7 @@ namespace USPC
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
 				int id = __board__<O>::value;
+				Sleep(30);
 				unsigned err = USPC7100_Acq_Start(id, -1);
 				dprint("USPC7100_Acq_Start %d  err %x\n", id, err);
 				*p = err;
@@ -108,6 +109,7 @@ namespace USPC
 				Singleton<ItemData<O> >::Instance().Start();
 				ULONG conditions[8] = {};
 				int fluidity = 64;
+				Sleep(30);
 				unsigned err = USPC7100_Acq_Config(id, 0x1000, 1, conditions, 0, 1
 					, 1024 * 64, &fluidity, NULL 
 					);
@@ -134,6 +136,7 @@ namespace USPC
 			{
 				Singleton<ItemData<O> >::Instance().Start();
 				ULONG numberOfScansAcquired, numberOfScansRead, bufferSize, scanSize;
+				Sleep(30);
 				p->err =  USPC7100_Acq_Get_Status(__board__<O>::value, &p->status, &numberOfScansAcquired, &numberOfScansRead, &bufferSize, &scanSize);
 				p->board = __board__<O>::value;
 				return 0 == p->err;
@@ -146,7 +149,21 @@ namespace USPC
 	{
 		void operator()()
 		{
+			Sleep(30);
 			USPC7100_Acq_Stop(__board__<O>::value);
+		}
+	};
+
+	template<class T, int MAX>struct __delay__
+	{
+		static unsigned Do()
+		{
+			static unsigned value;
+			if(++value > MAX)
+			{
+				value = 0;
+			}
+			return value;
 		}
 	};
 
@@ -154,8 +171,9 @@ namespace USPC
 	{
 		bool operator()(P *p)
 		{
+			if(__delay__<O, 10>::Do()) return true;///< выполнятся будет примерно через каждые 50 мск
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
-			{
+			{				
 				ItemData<O> &item = Singleton<ItemData<O> >::Instance();
 				ULONG numberRead;
 				ULONG scansBacklog;
@@ -207,6 +225,7 @@ namespace USPC
 			{
 				char b[1024];
 				wcstombs(b, path, wcslen(path) + 1); 
+				Sleep(100);
 				err = USPC7100_Load(-1, -1, b);
 				dprint("USPC7100_Load err %x\n", err);
 			}
