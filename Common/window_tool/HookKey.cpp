@@ -7,9 +7,15 @@
 #include "DebugMess.h"
 
 #include "AppKeyHandler.h"
+#include "message.h"
 
 HHOOK hKeyHook;
 HWND hWnd;
+
+void UserMessage(void *value)
+{
+	AppKeyHandler::KeyPressed((unsigned)value);
+}
  
 __declspec(dllexport) LRESULT CALLBACK KeyEvent (
 
@@ -22,7 +28,8 @@ __declspec(dllexport) LRESULT CALLBACK KeyEvent (
         ((wParam == WM_SYSKEYDOWN) ||  // Only react if either a system key ...
         (wParam == WM_KEYDOWN)))       // ... or a normal key have been pressed.
     {
-		PostMessage(hWnd, WM_GET_SCAN_CODE, 0, hooked->vkCode);
+		//PostMessage(hWnd, WM_GET_SCAN_CODE, 0, hooked->vkCode);
+		PostMessage(hWnd, WM_USER, (WPARAM)UserMessage, hooked->vkCode);
     }
     return CallNextHookEx(hKeyHook, nCode, wParam, (LPARAM)hooked);
 }
@@ -64,8 +71,6 @@ void StartKeyHook(HWND h)
 	SetHWND(h);
 	CloseHandle(CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)KeyLogger, NULL, NULL, NULL));
 }
-
-
 
 HHOOK hHook;
 

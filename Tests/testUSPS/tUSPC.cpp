@@ -5,56 +5,12 @@
 #pragma comment(lib, "..\\..\\Common\\USPC\\USPC7100.lib")
 
 
-USPC7100_ASCANDATAHEADER data[1024];
+USPC7100_ASCANDATAHEADER data0[1024];
+USPC7100_ASCANDATAHEADER data1[1024];
+USPC7100_ASCANDATAHEADER data2[1024];
 
-void TestUSPC()
+void Print(int id, USPC7100_ASCANDATAHEADER *d)
 {
-	int id = 0;
-	unsigned err = 0;
-	err = USPC7100_Open(2);
-	printf("USPC7100_Open %x\n", err);
-	err = USPC7100_Load(-1, -1, "2.us");
-	printf("USPC7100_Load %x\n", err);
-
-	ULONG numberOfScansAcquired, numberOfScansRead, bufferSize, scanSize;
-	ULONG status;
-	err =  USPC7100_Acq_Get_Status(id, &status, &numberOfScansAcquired, &numberOfScansRead, &bufferSize, &scanSize);
-	printf("USPC7100_Acq_Get_Status %x\n", err);
-
-    ULONG conditions[8] = {};
-	int fluidity = 64;
-	err = USPC7100_Acq_Config(id, 0x1000, 1, conditions, 0, 1
-		, 1024 * 64, &fluidity, NULL 
-		);
-	printf("USPC7100_Acq_Config %x\n", err);
-
-    err = USPC7100_Acq_Start(id, -1);
-	printf("USPC7100_Acq_Start %x\n", err);
-
-	Sleep(1000);
-
-	ULONG numberRead;
-	ULONG scansBacklog;
-
-	UCHAR *pData = (UCHAR *)data;
-
-	for(int i = 0; i < 100; ++i)
-	{
-		err = USPC7100_Acq_Read(
-					id
-					, -1
-					, 0
-					, &numberRead
-					, &scansBacklog
-					, pData
-					);
-		printf("USPC7100_Acq_Read %x\n", err);
-		printf("numberRead %d\n", numberRead);
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-		for(int j = 0; j < (int)numberRead; ++j)
-		{
-			USPC7100_ASCANDATAHEADER *d = &data[j];
-			if(d->Channel != 1) continue;
 			printf("ScanCounter %d Channel %d count %d time %d\n", 
 				d->hdr.ScanCounter
 				, d->hdr.Channel
@@ -66,14 +22,94 @@ void TestUSPC()
 				printf("%d ", d->Point[i]);
 			}
 			printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
-			Sleep(200);
-			break;
-		}		
+}
+
+void TestUSPC()
+{
+	unsigned err = 0;
+	err = USPC7100_Open(2);
+	printf("USPC7100_Open %x\n", err);
+	err = USPC7100_Load(-1, -1, "2.us");
+	printf("USPC7100_Load %x\n", err);
+
+	for(int id0 = 0; id0 < 3; ++id0)
+	{
+	ULONG numberOfScansAcquired, numberOfScansRead, bufferSize, scanSize;
+	ULONG status;
+	err =  USPC7100_Acq_Get_Status(id0, &status, &numberOfScansAcquired, &numberOfScansRead, &bufferSize, &scanSize);
+	printf("USPC7100_Acq_Get_Status %x\n", err);
 	}
 
-	err = USPC7100_Acq_Stop(id);
-	printf("USPC7100_Acq_Stop %x\n", err);
+	for(int id0 = 0; id0 < 3; ++id0)
+	{
+    ULONG conditions[8] = {};
+	int fluidity = 64;
+	err = USPC7100_Acq_Config(id0, 0x1000, 1, conditions, 0, 1
+		, 1024 * 64, &fluidity, NULL 
+		);
+	printf("USPC7100_Acq_Config %x\n", err);
+	}
+for(int id0 = 0; id0 < 3; ++id0)
+{
+    err = USPC7100_Acq_Start(id0, -1);
+	printf("USPC7100_Acq_Start %x\n", err);
+}
+	Sleep(1000);
 
+	ULONG numberRead;
+	ULONG scansBacklog;
+
+	UCHAR *pData = (UCHAR *)data0;
+
+	for(int i = 0; i < 100; ++i)
+	{
+		err = USPC7100_Acq_Read(
+					0
+					, -1
+					, 0
+					, &numberRead
+					, &scansBacklog
+					, (UCHAR *)data0
+					);
+		printf("USPC7100_Acq_Read 0 %x\n", err);
+		printf("numberRead %d\n", numberRead);
+
+		err = USPC7100_Acq_Read(
+					1
+					, -1
+					, 0
+					, &numberRead
+					, &scansBacklog
+					, (UCHAR *)data1
+					);
+		printf("USPC7100_Acq_Read 1 %x\n", err);
+		printf("numberRead %d\n", numberRead);
+
+		err = USPC7100_Acq_Read(
+					2
+					, -1
+					, 0
+					, &numberRead
+					, &scansBacklog
+					, (UCHAR *)data2
+					);
+		printf("USPC7100_Acq_Read 2 %x\n", err);
+		printf("numberRead %d\n", numberRead);
+
+        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+		 Print(0, data0);
+		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+		 Print(1, data1);
+		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+		 Print(2, data2);
+		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+	}
+
+	for(int id0 = 0; id0 < 3; ++id0)
+	{
+	err = USPC7100_Acq_Stop(id0);
+	printf("USPC7100_Acq_Stop %x\n", err);
+	}
 	err = USPC7100_Close();
 	printf("USPC7100_Close %x\n", err);
 }

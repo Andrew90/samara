@@ -385,12 +385,18 @@ namespace
 	 bool &viewInterrupt = 	Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<ViewInterrupt>>().value;
 }
 
+void LogUSPCWindow_Open(void *)
+{
+	LogUSPCWindow::Open();
+}
+
 void Automat::Impl::Do()
 {
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	////-----------------------------test
-//	AutomatAdditional::ComputeSpeed(1000);
+//	LogUSPCWindow::Open();
+	
 	///------------------------------test---------------
 	try
 	{
@@ -504,7 +510,7 @@ void Automat::Impl::Do()
 					, MB_ICONEXCLAMATION | MB_YESNOCANCEL);
 				if(IDYES == ret)
 				{
-					LogUSPCWindow::Open();
+					PostMessage(app.mainWindow.hWnd, WM_USER, (WPARAM)LogUSPCWindow_Open, 0);
 				}
 			}
 			catch(Exception_USPC_RestartService_ERROR_Proc)

@@ -3,23 +3,33 @@
 #include <stdio.h>
 #include "Registry.h"
 #include "DebugMess.h"
-//wchar_t *path = L"D:\\Shared\\USPC7100log.txt";
+
+#include "Config.h"
+#ifdef DEBUG_ITEMS
+wchar_t *path = L"D:\\Shared\\USPC7100log.txt";
+#endif
 void LogUSPC::Clear()
 {
+#ifndef DEBUG_ITEMS
 	RegistryPathLogFile t;
 	wchar_t *path = t();
-	int fSuccess = DeleteFile(path);
-	if (!fSuccess) 
-    {
-        // Handle the error.
-       dprint("DeleteFile failed (%d)\n", GetLastError());
-    }
+#endif
+	//int fSuccess = DeleteFile(path);
+	//if (!fSuccess) 
+    //{
+    //    // Handle the error.
+    //   dprint("DeleteFile failed (%d)\n", GetLastError());
+    //}
+	FILE *f;
+	if(!_wfopen_s(&f, path, L"wt"))fclose(f);
 }
 void LogUSPC::Open()
 {
 	offs = 0;
+#ifndef DEBUG_ITEMS
 	RegistryPathLogFile t;
 	wchar_t *path = t();
+#endif
 	FILE *f;
 	if(!_wfopen_s(&f, path, L"r"))
 	{
@@ -31,7 +41,7 @@ void LogUSPC::Open()
 			if(' ' == buffer[k][0])continue;
 			++i;
 		}
-		for(;i < 128; ++i) buffer[i][0] = '\0';
+		for(int k = i;k < 128; ++k) buffer[k][0] = '\0';
 		if(i > 128) offs = i % 128;
 		fclose(f);
 	}
