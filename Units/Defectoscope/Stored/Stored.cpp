@@ -33,10 +33,14 @@ namespace Stored
 		}
 		return id;
 	}
-
+	void __Store__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
+	{
+		for(int i = 0; i < count; ++i)
+	    	fwrite(&d[i], sizeof(USPC7100_ASCANDATAHEADER), 1, f);
+	}
 	void DataToFile(wchar_t *path)
 	{
-		 FILE *f = _wfopen(path, L"w");
+		 FILE *f = _wfopen(path, L"wb");
 		 if(NULL != f)
 		 {
 			 fwrite(&crossData.currentOffsetFrames, sizeof(int), 1, f);
@@ -44,12 +48,12 @@ namespace Stored
 		     fwrite(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fwrite(&compute.lengthTube, sizeof(int), 1, f);
 
-			 fwrite(crossData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), crossData.currentOffsetFrames, f);
-			 fwrite(longData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), longData.currentOffsetFrames, f);
-			 fwrite(thicknessData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), thicknessData.currentOffsetFrames, f);
+			 __Store__(crossData.ascanBuffer    , crossData.currentOffsetFrames, f);
+			 __Store__(longData.ascanBuffer     , longData.currentOffsetFrames, f);
+			 __Store__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
 
 			 fclose(f);
-			 int t = sizeof(USPC7100_ASCANDATAHEADER) + (
+			 int t = sizeof(USPC7100_ASCANDATAHEADER) * (
 				 crossData.currentOffsetFrames
 				 + longData.currentOffsetFrames
 				 + thicknessData.currentOffsetFrames
@@ -59,9 +63,15 @@ namespace Stored
 		 }
 	}
 
+	void __Load__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
+	{
+		for(int i = 0; i < count; ++i)
+	    	fread(&d[i], sizeof(USPC7100_ASCANDATAHEADER), 1, f);
+	}
+
 	void DataFromFile(wchar_t *path)
 	{
-		 FILE *f = _wfopen(path, L"r");
+		 FILE *f = _wfopen(path, L"rb");
 		 if(NULL != f)
 		 {
 			 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
@@ -69,9 +79,9 @@ namespace Stored
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fread(&compute.lengthTube, sizeof(int), 1, f);
 
-			 fread(crossData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), crossData.currentOffsetFrames, f);
-			 fread(longData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), longData.currentOffsetFrames, f);
-			 fread(thicknessData.ascanBuffer, sizeof(USPC7100_ASCANDATAHEADER), thicknessData.currentOffsetFrames, f);
+			 __Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
+			 __Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
+			 __Load__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
 
 			 fclose(f);
 		 }

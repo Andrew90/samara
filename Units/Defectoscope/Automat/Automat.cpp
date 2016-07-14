@@ -426,52 +426,83 @@ void Automat::Impl::Do()
 				//Загрузить настройки для текущего типоразмера
 				if(!USPC::Open()) throw Exception_USPC_ERROR_Proc();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				Log::Mess<LogMess::WaitCycle>();
-				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
-				Log::Mess<LogMess::WaitReady>();
-				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
+				//TODO TEST Log::Mess<LogMess::WaitCycle>();
+				//TODO TEST AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
+				//TODO TEST Log::Mess<LogMess::WaitReady>();
+				//TODO TEST AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 				//подготовить ультрозвуковую систему к работе
 				USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				OUT_BITS(On<oWork>);
-				Log::Mess<LogMess::WaitControl>();
-				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(25 * 1000);
+				//TODO TEST OUT_BITS(On<oWork>);
+				//TODO TEST Log::Mess<LogMess::WaitControl>();
+				//TODO TEST AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(25 * 1000);
 				unsigned startTime = timeGetTime();
-				//сбор данных с ультразвуковых датчиков
-				Log::Mess<LogMess::InfoDataCollection>();
-				AND_BITS(Ex<ExceptionStopProc>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				//TODO TEST //сбор данных с ультразвуковых датчиков
+				//TODO TEST Log::Mess<LogMess::InfoDataCollection>();
+				//TODO TEST AND_BITS(Ex<ExceptionStopProc>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+
+				int test_counter = 0;
+                
+				while(timeGetTime() - startTime < 45 * 100) //test
+				{
+					USPC_Do::Do(0);
+					Sleep(5);
+					if(++test_counter > 200)
+					{
+						dprint("tme %d",  timeGetTime() - startTime);
+						test_counter = 0;
+					}
+				}
+
+				dprint("\nLog::Mess<LogMess::InfoBase>();\n");
+				
 				Log::Mess<LogMess::InfoBase>();
-				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				//TODO TEST AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
+
+				while(timeGetTime() - startTime < 60 * 100) //test
+				{
+					USPC_Do::Do(0);
+					Sleep(5);
+					if(++test_counter > 200)
+					{
+						dprint("tme %d",  timeGetTime() - startTime);
+						test_counter = 0;
+					}
+				}
+
+
 				//вычислить скорость каретки и вывод на экран
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
 				dprint("baseTime %d    startTime %d  baseTime - startTime %d", baseTime, startTime, baseTime - startTime);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				//TODO TEST РАЗОБРАТЬСЯ AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				//Остановить плату USPC
 				USPC::Stop();
+				device1730.Write(0);
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
 				compute.Recalculation();
+				
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				Sleep(100);
-				OUT_BITS(Off<oWork>);
-				//Режим прерывания
-			    if(viewInterrupt)
-				{
-					ResetEvent(App::ProgrammContinueEvent);
-					Log::Mess<LogMess::ContineCycle>();
-					WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
-				}
-				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
-				OUT_BITS(On<oResult1>, On<oResult2>);
-				Sleep(500);
-				//выставить сигнал ПЕРЕКЛАДКА
-				OUT_BITS(On<oToShiftThe>);
-				//Записать результат контроля в базу данных
-				Stored::Do();
-				Sleep(3000);
+				//TODO TEST Sleep(100);
+				//TODO TEST OUT_BITS(Off<oWork>);
+				//TODO TEST //Режим прерывания
+			    //TODO TEST if(viewInterrupt)
+				//TODO TEST {
+				//TODO TEST 	ResetEvent(App::ProgrammContinueEvent);
+				//TODO TEST 	Log::Mess<LogMess::ContineCycle>();
+				//TODO TEST 	WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
+				//TODO TEST }
+				//TODO TEST //todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
+				//TODO TEST OUT_BITS(On<oResult1>, On<oResult2>);
+				//TODO TEST Sleep(500);
+				//TODO TEST //выставить сигнал ПЕРЕКЛАДКА
+				//TODO TEST OUT_BITS(On<oToShiftThe>);
+				//TODO TEST //Записать результат контроля в базу данных
+				//TODO TEST Stored::Do();
+				//TODO TEST Sleep(3000);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
@@ -504,6 +535,7 @@ void Automat::Impl::Do()
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::AlarmUSPC>();
 				USPC::Stop();
+				device1730.Write(0);
 				int ret = MessageBox(
 					app.mainWindow.hWnd
 					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
@@ -520,6 +552,8 @@ void Automat::Impl::Do()
 			}
 			USPC::Stop();
 			AppKeyHandler::Stop();
+			dprint("DATA COMPLITE ******************************\n");
+			//Sleep(3600 * 1000); //todo test
 		}
 	}
 	catch(ExceptionExitProc)

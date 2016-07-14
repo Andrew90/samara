@@ -63,48 +63,30 @@ for(int id0 = 0; id0 < 3; ++id0)
 
 	for(int i = 0; i < 100; ++i)
 	{
+		for(int id = 0; id < 3; ++id)
+		{
+			Sleep(50);
 		err = USPC7100_Acq_Read(
-					0
+					id
 					, -1
 					, 0
 					, &numberRead
 					, &scansBacklog
 					, (UCHAR *)data0
 					);
-		printf("USPC7100_Acq_Read 0 %x\n", err);
+		printf("USPC7100_Acq_Read %d %x\n", id, err);
 		printf("numberRead %d\n", numberRead);
-
-		err = USPC7100_Acq_Read(
-					1
-					, -1
-					, 0
-					, &numberRead
-					, &scansBacklog
-					, (UCHAR *)data1
-					);
-		printf("USPC7100_Acq_Read 1 %x\n", err);
-		printf("numberRead %d\n", numberRead);
-
-		err = USPC7100_Acq_Read(
-					2
-					, -1
-					, 0
-					, &numberRead
-					, &scansBacklog
-					, (UCHAR *)data2
-					);
-		printf("USPC7100_Acq_Read 2 %x\n", err);
-		printf("numberRead %d\n", numberRead);
-
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-		 Print(0, data0);
-		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
-		 Print(1, data1);
-		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
-		 Print(2, data2);
-		printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+		}
+#if 0
+        //printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+		// Print(0, data0);
+		//printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+		// Print(1, data1);
+		//printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+		// Print(2, data2);
+		//printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
 	}
-
+#endif
 	for(int id0 = 0; id0 < 3; ++id0)
 	{
 	err = USPC7100_Acq_Stop(id0);
