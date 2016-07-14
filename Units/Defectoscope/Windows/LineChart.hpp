@@ -51,12 +51,16 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 	}
 	void operator()(TRButtonDown &l)
 	{
+		int x = offsetX;
+		x -= Singleton<ItemData<T>>::Instance().offsSensor[N];
+		if(x < 0) return;
 		Singleton<ScanWindow>::Instance().Open(
 			1 + owner->lastZone
 			, 1 + N
 			, offsetX
 			, Title<typename T::sub_type>()()
-			, dataViewer.scan[offsetX]->Point
+			, dataViewer.scan[x]->Point
+			, dataViewer.scan[x]->DataSize
 			);
 	}
 };

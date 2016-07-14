@@ -50,6 +50,8 @@ void ScanWindow::operator()(TSize &l)
 
 		chart.rect.right = l.Width;
 		chart.rect.bottom = l.Height;
+
+		chart.items.get<LineSeries>().SetData(data, maxX, 0, maxX - 1);
 		chart.Draw(g);
 	}
 	void ScanWindow::operator()(TPaint &l)
@@ -124,9 +126,10 @@ void ScanWindow::operator()(TSize &l)
 		}
 	}
 
-	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, unsigned char(&d)[512])
+	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, unsigned char(&d)[512], int countSamples)
 	{
 		 for(int i = 0; i < 512; ++i)  data[i] = d[i];
+		 maxX = countSamples > 0 ? countSamples : 512;
 		 wchar_t buf[1024];
 		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, zone_, sensor_, offset_);
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);

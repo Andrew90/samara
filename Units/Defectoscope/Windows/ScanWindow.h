@@ -17,6 +17,7 @@ public:
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
 	int offset;
+	int maxX;
 	double data[512];
 	TMouseMove storedMouseMove;
 	ColorLabel label;
@@ -33,6 +34,6 @@ public:
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
 
-	void Open(int zone, int sensor, int offset_, wchar_t *mess, unsigned char(&)[512]);
+	void Open(int zone, int sensor, int offset_, wchar_t *mess, unsigned char(&)[512], int countSamples);
 	bool CursorDraw(TMouseMove &, VGraphics &);
 };

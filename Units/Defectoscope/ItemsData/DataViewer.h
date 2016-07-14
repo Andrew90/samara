@@ -67,17 +67,17 @@ template<class T>struct DataViewer: DefectData
 		ItemData<T> &d = Singleton<ItemData<T> >::Instance();
 		int start = d.offsets[zone];
 		int stop = d.offsets[1 + zone];
-		int offs = OffsetChannel()(channel);
+		int offs = 0;//OffsetChannel()(channel);
 		int maxOffs = d.currentOffsetFrames;
 		USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
 
-		int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
-			* offs
-			/ App::zone_length
-			);
-		start -= samplesOffset;
+		//int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
+		//	* offs
+		//	/ App::zone_length
+		//	);
+		start -= d.offsSensor[channel];//samplesOffset;
 		if(start < 0) start = 0;
-		stop -= samplesOffset;
+		stop -= d.offsSensor[channel];//samplesOffset;
 		if(stop < 0) start = stop = 0;
 
 		Set(zone, start, stop, channel, offs, maxOffs, s);

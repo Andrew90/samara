@@ -69,7 +69,9 @@ namespace
 		{
 			static const int i = TL::IndexOf<OffsetsTable::items_list, O>::value;
 			double t = (double)p->samplesPerZone * o->value / App::zone_length / App::count_sensors;
-			p->offsSensor[i] = int(t) * App::count_sensors;
+			p->offsSensor[i] = int(t);
+			p->offsSensor[i] /= App::count_sensors;
+			p->offsSensor[i] *= App::count_sensors;
 		}
 	};
 }
@@ -86,6 +88,11 @@ void USPCData::SamplesPerZone(int tubeLength)
 	//смещение в отчётах датчиков на каретке
 	TL::foreach<OffsetsTable::items_list, __sensors_offset_in_samples__>()(&Singleton<OffsetsTable>::Instance().items, this);
 	currentOffsetZones = int((double)tubeLength / App::zone_length);
+	for(int i = 1; i < App::count_zones; ++i)
+	{
+		offsets[i] /= App::count_sensors;
+		offsets[i] *= App::count_sensors;
+	}
 }
 //-----------------------------------------------------------------------------------------
 

@@ -49,6 +49,17 @@ ULONG WINAPI USPC7100_Acq_Read
 ULONG WINAPI USPC7100_Acq_Config(int Board, ULONG AcqMode
 			, ULONG StartMode, ULONG AcqCondition[8], int PrePostScans
 			, int FrequencyDivider, ULONG BufferSize, int * Unused, ULONG * SimplificationParam){return 1;}
+ULONG WINAPI USPC7100_Read
+    (
+    INT Board,                              // [in]
+    INT Test,                               // [in]
+    INT Unit,                               // [in]
+    LPCSTR strParam,                        // [in]
+    double *dblValue,                       // [out]
+    double *dblArrayValue1,                 // [out]
+    double *dblArrayValue2,                 // [out]
+    LPSTR StringValue                       // [out]
+	){return 1;}
 #endif
 
 namespace USPC
