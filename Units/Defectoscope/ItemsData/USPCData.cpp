@@ -85,6 +85,7 @@ void USPCData::SamplesPerZone(int tubeLength)
 	}
 	//смещение в отчётах датчиков на каретке
 	TL::foreach<OffsetsTable::items_list, __sensors_offset_in_samples__>()(&Singleton<OffsetsTable>::Instance().items, this);
+	currentOffsetZones = int((double)tubeLength / App::zone_length);
 }
 //-----------------------------------------------------------------------------------------
 
