@@ -35,6 +35,7 @@ public:
 	double bufferMax[App::count_zones];	///<Вычисленные данные разбитые по датчикам и зонам
 	char statusMin[App::count_zones];
 	char statusMax[App::count_zones];	
+	double scope_velocity[App::count_sensors];
 };
 
 template<class T>struct ItemData: USPCViewerData{}; 

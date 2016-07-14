@@ -128,18 +128,39 @@ namespace USPC
 		__test_data__(): status(0), err(0), board(-1){}
 	};
 
+	template<class T>struct __read_param__{template<class P>int operator()(P *){return 0;}};
+	///< Для толщиномера необходима скорость звука в среде
+	template<>struct __read_param__<Thickness>
+	{
+		typedef Thickness O;
+		template<class P>int operator()(P *p)
+		{
+			int id = __board__<O>::value;
+			ItemData<O> &data = Singleton<ItemData<Thickness> >::Instance();
+			int err = 0;
+			for(int i = 0; i < dimention_of(data.scope_velocity)&&(!err); ++i)
+			{
+				err = USPC7100_Read(id, i, 400, (LPCSTR)"scope_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
+			}
+			return err;
+		}
+	};
+
 	template<class O, class P>struct __test__
 	{
 		bool operator()(P *p)
 		{
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
+				int id = __board__<O>::value;
 				Singleton<ItemData<O> >::Instance().Start();
 				ULONG numberOfScansAcquired, numberOfScansRead, bufferSize, scanSize;
 				Sleep(30);
-				p->err =  USPC7100_Acq_Get_Status(__board__<O>::value, &p->status, &numberOfScansAcquired, &numberOfScansRead, &bufferSize, &scanSize);
-				p->board = __board__<O>::value;
-				return 0 == p->err;
+				int err =  USPC7100_Acq_Get_Status(id, &p->status, &numberOfScansAcquired, &numberOfScansRead, &bufferSize, &scanSize);
+				if(!err) err = __read_param__<O>()(p);
+				p->board = id;
+				p->err = err;
+				return 0 == err;
 			}
 			return true;
 		}

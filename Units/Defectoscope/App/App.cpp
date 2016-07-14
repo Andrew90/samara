@@ -62,7 +62,7 @@ void App::Init()
 void App::Destroy()
 {
 	SetEvent(ProgrammExitEvent);
-	Sleep(1000);
+	Sleep(2000);
 }
 
 void App::MainWindowTopLabel(wchar_t *txt)

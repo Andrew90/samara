@@ -346,7 +346,7 @@ struct Automat::Impl
 	{
 		void operator()()
 		{
-			unsigned res =0;
+			unsigned res = 0;
 			BitsOut<typename Filt<List, On>::Result>()(res);
 
 			device1730.Write(res);
@@ -445,6 +445,7 @@ void Automat::Impl::Do()
 				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 				Log::Mess<LogMess::WaitReady>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
+				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
 				USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
