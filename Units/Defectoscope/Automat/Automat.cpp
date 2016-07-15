@@ -447,7 +447,7 @@ void Automat::Impl::Do()
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
-				USPC::Start();
+				//USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
 				Log::Mess<LogMess::WaitControl>();
@@ -455,6 +455,7 @@ void Automat::Impl::Do()
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
+				USPC::Start();
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 /*
 				int test_counter = 0;
@@ -520,7 +521,7 @@ void Automat::Impl::Do()
 				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
 				Stored::Do();
-				Sleep(3000);
+			//	Sleep(3000);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
@@ -546,6 +547,8 @@ void Automat::Impl::Do()
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
 				device1730.Write(0);
+				//	AppKeyHandler::Stop();
+		//	ResetEvent(App::ProgrammContinueEvent);
 			}
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
@@ -574,9 +577,9 @@ void Automat::Impl::Do()
 				Log::Mess<LogMess::AlarmRestartServiceError>();
 				device1730.Write(0);
 			}
-			USPC::Stop();
-			AppKeyHandler::Stop();
-			ResetEvent(App::ProgrammContinueEvent);
+			//USPC::Stop();
+		//	AppKeyHandler::Stop();
+		//	ResetEvent(App::ProgrammContinueEvent);
 			dprint("DATA COMPLITE ******************************\n");
 		}
 	}

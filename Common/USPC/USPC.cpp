@@ -95,7 +95,7 @@ namespace USPC
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
 				int id = __board__<O>::value;
-				Sleep(30);
+			//	Sleep(30);
 				unsigned err = USPC7100_Acq_Start(id, -1);
 				dprint("USPC7100_Acq_Start %d  err %x\n", id, err);
 				*p = err;
@@ -120,7 +120,7 @@ namespace USPC
 				Singleton<ItemData<O> >::Instance().Start();
 				ULONG conditions[8] = {};
 				int fluidity = 64;
-				Sleep(30);
+				//Sleep(30);
 				unsigned err = USPC7100_Acq_Config(id, 0x1000, 1, conditions, 0, 1
 					, 1024 * 64, &fluidity, NULL 
 					);
