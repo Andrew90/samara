@@ -60,6 +60,7 @@ ULONG WINAPI USPC7100_Read
     double *dblArrayValue2,                 // [out]
     LPSTR StringValue                       // [out]
 	){return 1;}
+ULONG WINAPI USPC7100_Acq_Clear(int){return 1;}
 #endif
 
 namespace USPC

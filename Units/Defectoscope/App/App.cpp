@@ -19,6 +19,7 @@
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
 HANDLE App::ProgrammStopEvent;
+//HANDLE App::ProgrammTestRunEvent;
 bool App::measurementOfRunning = false;
 
 //---------------------------------------------------------------
@@ -33,6 +34,7 @@ void App::Init()
 	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
+	//App::ProgrammTestRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
 	LogUSPC::Clear();
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
@@ -48,15 +50,6 @@ void App::Init()
 	}
 	
 	automat.Init();
-/////--------------------------test
-//	zprint("---------------------\n");
-//	unsigned start = GetTickCount();
-//	 TestUSPC test;
-//	 test.Init(Singleton<ItemData<Long> >::Instance());
-//	 test.Init(Singleton<ItemData<Cross> >::Instance());
-//	 test.InitThickness(Singleton<ItemData<Thickness> >::Instance());
-//	 zprint("  Stop time %d\n", GetTickCount() - start);
-/////-------------------------------test------------------------------
 }
 
 void App::Destroy()

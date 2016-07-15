@@ -64,7 +64,9 @@ namespace
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)
 	{
-		zprint("\n");	
+		zprint("\n");
+		//SetEvent(App::ProgrammTestRunEvent);
+		AppKeyHandler::Run();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)

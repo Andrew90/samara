@@ -12,3 +12,6 @@ public:
 };
 
 extern Automat automat;
+
+bool USPC_Test();
+

@@ -17,16 +17,7 @@
 #include "RestartService.h"
 
 struct Automat::Impl
-{
-	struct ExceptionExitProc{};
-	struct ExceptionStopProc{};
-	struct ExceptionTimeOutProc{};
-	struct ExceptionContinueProc{};
-	struct ExceptionСontrolСircuitsOffProc{};
-	struct ExceptionСycleOffProc{};
-	struct Exception_USPC_DO_ERROR_Proc{};
-	struct Exception_USPC_ERROR_Proc{};
-	struct Exception_USPC_RestartService_ERROR_Proc{};
+{	
 	HANDLE hThread;
 	Impl() 
 	{}
@@ -49,6 +40,20 @@ struct Automat::Impl
 	{
 		while(ResumeThread(hThread));
 	}
+};
+namespace
+{
+	struct ExceptionExitProc{};
+	struct ExceptionStopProc{};
+	struct ExceptionTimeOutProc{};
+	struct ExceptionContinueProc{};
+	struct ExceptionСontrolСircuitsOffProc{};
+	struct ExceptionСycleOffProc{};
+	struct Exception_USPC_DO_ERROR_Proc{};
+	struct Exception_USPC_ERROR_Proc{};
+	struct Exception_USPC_RestartService_ERROR_Proc{};
+
+	//struct ExceptionTestRunProc{};
 
 	template<class>struct On{};
 	template<class>struct Off{};
@@ -66,6 +71,7 @@ struct Automat::Impl
 	EX(Exit)
 	EX(Stop)
 	EX(Continue)
+	//EX(TestRun)
 
 #undef EX
 
@@ -380,8 +386,10 @@ struct Automat::Impl
 	};
 ///-----------------------------------------------------------------------------------
 };
-unsigned &Automat::Impl::Off<iСontrolСircuits>::bit = Singleton<InputBitTable>::Instance().items.get<iСontrolСircuits>().value;
-unsigned &Automat::Impl::Off<iCycle>::bit =	Singleton<InputBitTable>::Instance().items.get<iCycle>().value;
+namespace
+{
+unsigned &Off<iСontrolСircuits>::bit = Singleton<InputBitTable>::Instance().items.get<iСontrolСircuits>().value;
+unsigned &Off<iCycle>::bit =	Singleton<InputBitTable>::Instance().items.get<iCycle>().value;
 
 #define AND_BITS(...) AND_Bits<TL::MkTlst<__VA_ARGS__>::Result>()
 #define OR_BITS(...) OR_Bits<TL::MkTlst<__VA_ARGS__>::Result>()
@@ -390,8 +398,6 @@ unsigned &Automat::Impl::Off<iCycle>::bit =	Singleton<InputBitTable>::Instance()
 #define SET_BITS(...) SET_Bits<TL::MkTlst<__VA_ARGS__>::Result>()()
 
 #define TEST_OUT_BITS(...)Test_OutBits<TL::MkTlst<__VA_ARGS__>::Result>()()
-namespace
-{
 	 bool &onTheJobCross = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross>>().value;
 	 bool &onTheJobLong = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long>>().value;
 	 bool &onTheJobThickness = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness>>().value;
@@ -407,10 +413,6 @@ void Automat::Impl::Do()
 {
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
-	////-----------------------------test
-//	LogUSPCWindow::Open();
-	
-	///------------------------------test---------------
 	try
 	{
 		while(true)
@@ -599,3 +601,164 @@ void Automat::Init()
 {
 	impl.Init();
 }
+
+//--------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+bool USPC_Test_BOOL = true;
+DWORD WINAPI Test_USPC(LPVOID)
+{
+	try
+	{				
+		App::measurementOfRunning = true;
+
+		Log::Mess<LogMess::PowerBMOn>();
+
+		if(TEST_OUT_BITS(Off<oPowerBM>))
+		{
+			USPC::Close();
+			OUT_BITS(On<oPowerBM>);
+			Sleep(2000);
+			if(!RestartService()) throw Exception_USPC_RestartService_ERROR_Proc();
+			//проверить состояние трёх ультрозвуковых плат и мультиплексоров(через задержку)
+			//Загрузить настройки для текущего типоразмера
+			if(!USPC::Open()) throw Exception_USPC_ERROR_Proc();
+		}
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~				
+		SET_BITS(On<oPowerBM>);
+		//подготовить ультрозвуковую систему к работе
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		unsigned startTime = timeGetTime();
+		//сбор данных с ультразвуковых датчиков
+		Log::Mess<LogMess::InfoDataCollection>();
+		USPC::Start();
+
+		int test_counter = 0;				
+
+		for(int i = 0; i < 200; ++i) 
+		{
+			switch(WaitForSingleObject(App::ProgrammStopEvent, 50))
+			{
+			case WAIT_TIMEOUT:
+				{
+					USPC_Do::Do(0);
+					if(++test_counter >= 20)
+					{
+						dprint("tme %d",  timeGetTime() - startTime);
+						test_counter = 0;
+					}
+				}
+				break;
+			case WAIT_OBJECT_0:
+				{
+					throw ExceptionStopProc();
+				}
+				break;
+			}					
+		}
+
+		unsigned baseTime = timeGetTime();
+
+		for(int i = 0; i < 100; ++i) 
+		{
+			switch(WaitForSingleObject(App::ProgrammStopEvent, 50))
+			{
+			case WAIT_TIMEOUT:
+				{
+					USPC_Do::Do(0);
+					if(++test_counter >= 20)
+					{
+						dprint("tme %d",  timeGetTime() - startTime);
+						test_counter = 0;
+					}
+				}
+				break;
+			case WAIT_OBJECT_0:
+				{
+					throw ExceptionStopProc();
+				}
+				break;
+			}					
+		}
+		//вычислить скорость каретки и вывод на экран
+		AutomatAdditional::ComputeSpeed(baseTime - startTime);
+		dprint("baseTime %d    startTime %d  baseTime - startTime %d", baseTime, startTime, baseTime - startTime);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//Остановить плату USPC
+		USPC::Stop();
+		unsigned stopTime = timeGetTime();
+		compute.LengthTube(startTime, baseTime, stopTime);
+		compute.Recalculation();
+		device1730.Write(0);
+		AppKeyHandler::Stop();
+	}
+	catch(ExceptionСontrolСircuitsOffProc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::AlarmControlCircuts>();
+		device1730.Write(0);
+	}	
+	catch(ExceptionСycleOffProc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::AlarmCycle>();
+		device1730.Write(0);
+	}
+	catch(ExceptionTimeOutProc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::TimeoutPipe>();
+		device1730.Write(0);
+	}
+	catch(ExceptionStopProc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::InfoUserStop>();	
+		device1730.Write(0);
+	}
+	catch(Exception_USPC_DO_ERROR_Proc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::TimeoutPipe>();	
+		device1730.Write(0);
+	}
+	catch(Exception_USPC_ERROR_Proc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::AlarmUSPC>();
+		USPC::Stop();
+		device1730.Write(0);
+		int ret = MessageBox(
+			app.mainWindow.hWnd
+			, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
+			, MB_ICONEXCLAMATION | MB_YESNOCANCEL);
+		if(IDYES == ret)
+		{
+			PostMessage(app.mainWindow.hWnd, WM_USER, (WPARAM)LogUSPCWindow_Open, 0);
+		}
+	}
+	catch(Exception_USPC_RestartService_ERROR_Proc)
+	{
+		ResetEvent(App::ProgrammContinueEvent);
+		Log::Mess<LogMess::AlarmRestartServiceError>();
+		device1730.Write(0);
+	}		
+	catch(ExceptionExitProc)
+	{
+		Log::Mess<LogMess::ProgramClosed>(0);
+	}
+	App::measurementOfRunning = false;
+	USPC_Test_BOOL = false;
+	return 0;
+}
+//-------------------------------------------------------------------------
+bool USPC_Test()
+{
+	if(USPC_Test_BOOL)
+	{
+		USPC_Test_BOOL = false;
+		QueueUserWorkItem(Test_USPC, NULL, WT_EXECUTELONGFUNCTION);
+		return true;
+	}
+	return false;
+}
+
