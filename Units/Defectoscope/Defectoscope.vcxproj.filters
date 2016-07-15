@@ -425,6 +425,9 @@
     <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp">
       <Filter>Common\Service\Communication\ServiceProtocol</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\ScanWindowToolBar.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -807,6 +810,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Communication\ServerHandler.h">
       <Filter>Common\Service\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ScanWindowToolBar.h">
+      <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

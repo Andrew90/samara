@@ -747,7 +747,7 @@ DWORD WINAPI Test_USPC(LPVOID)
 		Log::Mess<LogMess::ProgramClosed>(0);
 	}
 	App::measurementOfRunning = false;
-	USPC_Test_BOOL = false;
+	USPC_Test_BOOL = true;
 	return 0;
 }
 //-------------------------------------------------------------------------

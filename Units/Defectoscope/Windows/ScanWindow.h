@@ -3,6 +3,7 @@
 #include "Chart.h"
 #include "Chart.hpp"
 #include "ColorLabel.h"
+#include "ScanWindowToolBar.h"
 
 class ScanWindow
 {
@@ -16,6 +17,7 @@ public:
 	HWND hWnd;
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
+	ScanWindowToolBar toolBar;
 	int offset;
 	int maxX, maxY;
 	double data[512];

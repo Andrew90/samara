@@ -182,6 +182,7 @@
     <ClCompile Include="Windows\PacketWindow.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />
     <ClCompile Include="Windows\ScanWindow.cpp" />
+    <ClCompile Include="Windows\ScanWindowToolBar.cpp" />
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
     <ClCompile Include="Windows\ThicknessWindow.cpp" />
@@ -310,6 +311,7 @@
     <ClInclude Include="Windows\PacketWindow.h" />
     <ClInclude Include="Windows\ResultViewer.h" />
     <ClInclude Include="Windows\ScanWindow.h" />
+    <ClInclude Include="Windows\ScanWindowToolBar.h" />
     <ClInclude Include="Windows\ThicknessThresholdWindow.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\ThicknessWindow.h" />
