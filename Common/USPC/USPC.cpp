@@ -105,6 +105,20 @@ namespace USPC
 		}
 	};
 
+	template<class O, class P>struct __clear__
+	{
+		bool operator()(P *p)
+		{
+			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
+			{
+				unsigned err = USPC7100_Acq_Clear(__board__<O>::value);
+				*p = err;
+				return 0 == err;
+			}
+			return true;
+		}
+	};
+
 	template<class O, class P>struct __config__
 	{
 		bool operator()(P *p)
@@ -289,6 +303,7 @@ namespace USPC
 	bool Start()
 	{
 		unsigned err = 0;
+		//bool b = TL::find<items_list, __clear__>()(&err);
 		bool b = TL::find<items_list, __config__>()(&err);
 		if(b)b = TL::find<items_list, __start__>()(&err);
 		if(!b)
@@ -301,7 +316,9 @@ namespace USPC
 
 	void Stop()
 	{
+		unsigned err = 0;
 		TL::foreach<items_list, __stop__>()();
+		TL::find<items_list, __clear__>()(&err);
 	}
 
 	bool Do()

@@ -14,7 +14,7 @@ bool RestartService()
 	char status[128];
 	status[0] = '\0';
 
-	StopProtocol::Client::Do(getHostByName((wchar_t *)hostName), 8989);
+	if(!StopProtocol::Client::Do(getHostByName((wchar_t *)hostName), 8989))return false;
 	Sleep(1500);
 	for(int i = 0; i < 10; ++i)
 	{

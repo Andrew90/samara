@@ -60,7 +60,7 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		x -= data.offsSensor[N];
 		dprint("2offs %d sensor %d, offset sens %d\n", x, N, data.offsSensor[N]);
 		x += offsetX * App::count_sensors + N;
-		dprint("G1Amp %d\n", data.ascanBuffer[x].hdr.G1Amp);
+		dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
 		dprint("3offs %d offsetX %d channel %d  ----\n", x, offsetX, data.ascanBuffer[x].Channel);
 		
 		if(x < 0) return;
