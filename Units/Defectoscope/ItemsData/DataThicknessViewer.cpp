@@ -5,19 +5,6 @@
 #include "Compute.h"
 #include "DataViewer.h"
 
-//namespace
-//{
-//	//static const int count_buffer = 3000;
-//	//struct PTR
-//	//{
-//	//	USPC7100_ASCANDATAHEADER *data[count_buffer];
-//	//};
-//	//struct Data
-//	//{
-//	//	double data[count_buffer];
-//	//};
-//}
-
 ThicknessData::ThicknessData(int &filterWidth, bool &filterOn
 	, double (&aboveBorder)[App::count_zones]
 , double (&lowerBorder)[App::count_zones]
@@ -43,8 +30,8 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = s[i].hdr.G1Amp;
-				scan[cnt] = &s[i];
+				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * 4600;
+			//	scan[cnt] = &s[i];
 				StatusZoneThickness(offs, data[cnt], zone
 					, aboveBorder  
 					, lowerBorder  
@@ -67,7 +54,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[offs].Channel)
 			{
-				tmp[z] = s[offs].hdr.G1Amp;
+				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * 4600;
 				sk[z] = &s[offs];
 				
 				StatusZoneThickness(offs, tmp[z], zone
@@ -85,7 +72,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[i].Channel)
 			{
-				double t = s[i].hdr.G1Amp;
+				double t = 2.5e-6 * s[i].hdr.G1Tof * 4600;
 				char st;
 				StatusZoneThickness(offs, t, zone
 					, aboveBorder  
@@ -99,13 +86,13 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				if(StatusId<Clr<DeathZone>>() != st)
 				{
 					data[cnt] = f.buf[ret];
-					scan[cnt] = sk[ret];
+		//			scan[cnt] = sk[ret];
 					status[cnt] = stat[ret];
 				}
 				else
 				{
 					data[cnt] = t;
-					scan[cnt] = &s[i];
+				//	scan[cnt] = &s[i];
 					status[cnt] = st;
 				}
 				if(++cnt >= dimention_of(data)) break;

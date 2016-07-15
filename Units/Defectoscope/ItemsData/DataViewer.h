@@ -13,7 +13,7 @@ struct DataVieverConst
 struct DefectData
 {
 	double data[DataVieverConst::buf_size];
-	USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
+	//USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
 	char status[DataVieverConst::buf_size];
 	int count;
 	int zone;
@@ -87,7 +87,7 @@ template<class T>struct DataViewer: DefectData
 struct ThicknessData
 {
 	double data[DataVieverConst::buf_size];
-	USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
+	//USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
 	char status[DataVieverConst::buf_size];
 	int count;
 	int zone;
@@ -116,17 +116,17 @@ template<>struct DataViewer<Thickness>: ThicknessData
 	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();
 	   int start = d.offsets[zone];
 	   int stop = d.offsets[1 + zone];
-	   int offs = OffsetChannel()(channel);
+	   int offs = 0;//OffsetChannel()(channel);
 	   int maxOffs = d.currentOffsetFrames;
 	   USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
 
-	   int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
-			* offs 
-			/ App::zone_length
-			);
-		start -= samplesOffset;
+	  //t samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
+		//	* offs 
+		//	/ App::zone_length
+		////	);
+		start -= d.offsSensor[channel];
 		if(start < 0) start = 0;
-		stop -= samplesOffset;
+		stop -= d.offsSensor[channel];
 		if(stop < 0) start = stop = 0;
 
 	   Set(zone, start, stop, channel, offs, maxOffs, s);

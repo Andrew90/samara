@@ -96,57 +96,57 @@ void USPCData::SamplesPerZone(int tubeLength)
 }
 //-----------------------------------------------------------------------------------------
 
- void TestUSPC::Init(USPCData &d)
- {
-	 ///эмитация считанных данных
-	 int xx[8] = {};
-	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-	 int i = 0;
-	 for(; i < App::count_frames; ++i)
-	 {
-		 int c = i % App::count_sensors;
-		 b[i].Channel = c;
-		 ++c;
-		 b[i].hdr.G1Amp = xx[c - 1] / 2000 * (1 +c)/c;//10 * c + (rand() & 0xF);
-		 ++xx[c- 1];
-		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
-		 b[i].hdr.G1Tof = 100 * c;
-		 b[i].hdr.G2Tof = 200 * c;
-	 }
-	  ///эмитация смещения  кадров по зонам
-	 for(int j = 0; j < 201; ++j)
-	 {
-		 d.offsets[j] = 800 * j;
-	 }
+// void TestUSPC::Init(USPCData &d)
+// {
+//	 ///эмитация считанных данных
+//	 int xx[8] = {};
+//	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
+//	 int i = 0;
+//	 for(; i < App::count_frames; ++i)
+//	 {
+//		 int c = i % App::count_sensors;
+//		 b[i].Channel = c;
+//		 ++c;
+//		 b[i].hdr.G1Amp = xx[c - 1] / 2000 * (1 +c)/c;//10 * c + (rand() & 0xF);
+//		 ++xx[c- 1];
+//		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
+//		 b[i].hdr.G1Tof = 100 * c;
+//		 b[i].hdr.G2Tof = 200 * c;
+//	 }
+//	  ///эмитация смещения  кадров по зонам
+//	 for(int j = 0; j < 201; ++j)
+//	 {
+//		 d.offsets[j] = 800 * j;
+//	 }
+//
+//	 d.currentOffsetFrames = 800 * 201;
+//	 d.currentOffsetZones = 200;
+// }
 
-	 d.currentOffsetFrames = 800 * 201;
-	 d.currentOffsetZones = 200;
- }
-
- void TestUSPC::InitThickness(USPCData &d)
- {
-	 ///эмитация считанных данных
-	 int xx[8] = {};
-	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-	 int i = 0;
-	 double dw = M_PI / App::count_frames;
-	 for(; i < App::count_frames; ++i)
-	 {
-		 int c = i % App::count_sensors;
-		 b[i].Channel = c;
-		 ++c;
-		 b[i].hdr.G1Amp = (DWORD)(12 + 4.5 * sin(dw * i * c));
-		 ++xx[c - 1];
-		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
-		 b[i].hdr.G1Tof = 100 * c;
-		 b[i].hdr.G2Tof = 200 * c;
-	 }
-	  ///эмитация смещения  кадров по зонам
-	 for(int j = 0; j < 201; ++j)
-	 {
-		 d.offsets[j] = 800 * j;
-	 }
-
-	 d.currentOffsetFrames = 800 * 201;
-	 d.currentOffsetZones = 200;
- }
+ //void TestUSPC::InitThickness(USPCData &d)
+ //{
+//	 ///эмитация считанных данных
+//	 int xx[8] = {};
+//	 USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
+//	 int i = 0;
+//	 double dw = M_PI / App::count_frames;
+//	 for(; i < App::count_frames; ++i)
+//	 {
+//		 int c = i % App::count_sensors;
+//		 b[i].Channel = c;
+//		 ++c;
+//		 b[i].hdr.G1Amp = (DWORD)(12 + 4.5 * sin(dw * i * c));
+//		 ++xx[c - 1];
+//		 b[i].hdr.G2Amp = 8 * c + (rand() & 0xF);
+//		 b[i].hdr.G1Tof = 100 * c;
+//		 b[i].hdr.G2Tof = 200 * c;
+//	 }
+//	  ///эмитация смещения  кадров по зонам
+//	 for(int j = 0; j < 201; ++j)
+//	 {
+//		 d.offsets[j] = 800 * j;
+//	 }
+ //
+//	 d.currentOffsetFrames = 800 * 201;
+//	 d.currentOffsetZones = 200;
+ //}

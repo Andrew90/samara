@@ -115,7 +115,6 @@ namespace
 	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-
 		T filtre(f);
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
@@ -143,7 +142,9 @@ namespace
 								}
 							}
 						}
-						double t = filtre(channel, b[j].hdr.G1Amp);
+						//2.5e-6 * s[offs].hdr.G1Tof * 4600
+						double val = 2.5e-6 * b[j].hdr.G1Tof * 4600;
+						double t = filtre(channel, val);
 						if(t > d.bufferMax[i])
 						{
 							d.bufferMax[i] = t;						

@@ -49,18 +49,29 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		label.Draw(g());
 		return true;
 	}
+
 	void operator()(TRButtonDown &l)
 	{
-		int x = offsetX;
-		x -= Singleton<ItemData<T>>::Instance().offsSensor[N];
+		ItemData<typename T::sub_type> &data = Singleton<ItemData<typename T::sub_type>>::Instance();
+		int x = data.offsets[owner->lastZone];
+		dprint("1offs %d first zone %d last zone %d\n", x
+			, data.offsets[owner->lastZone] -  data.offsSensor[N]
+		, data.offsets[owner->lastZone + 1] -  data.offsSensor[N]);
+		x -= data.offsSensor[N];
+		dprint("2offs %d sensor %d, offset sens %d\n", x, N, data.offsSensor[N]);
+		x += offsetX * App::count_sensors + N;
+		dprint("G1Amp %d\n", data.ascanBuffer[x].hdr.G1Amp);
+		dprint("3offs %d offsetX %d channel %d  ----\n", x, offsetX, data.ascanBuffer[x].Channel);
+		
 		if(x < 0) return;
 		Singleton<ScanWindow>::Instance().Open(
 			1 + owner->lastZone
 			, 1 + N
 			, offsetX
 			, Title<typename T::sub_type>()()
-			, dataViewer.scan[x]->Point
-			, dataViewer.scan[x]->DataSize
+			, data.ascanBuffer[x].Point
+			, data.ascanBuffer[x].DataSize
+			, 100
 			);
 	}
 };

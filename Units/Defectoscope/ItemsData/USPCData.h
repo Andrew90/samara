@@ -38,13 +38,15 @@ public:
 	double scope_velocity[App::count_sensors];
 };
 
-template<class T>struct ItemData: USPCViewerData{}; 
+template<class T>struct ItemData;
+template<>struct ItemData<Cross>: USPCViewerData{}; 
+template<>struct ItemData<Long>: USPCViewerData{};
 
 template<>struct ItemData<Thickness>: USPCViewerThicknessData{};
 
 /// тестирование и эмуляция
-struct TestUSPC
-{
-	void Init(USPCData &);
-	void InitThickness(USPCData &);
-};
+//struct TestUSPC
+//{
+//	void Init(USPCData &);
+//	void InitThickness(USPCData &);
+//};
