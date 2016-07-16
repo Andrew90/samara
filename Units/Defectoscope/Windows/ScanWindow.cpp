@@ -59,6 +59,7 @@ void ScanWindow::operator()(TSize &l)
 		chart.maxAxesY = maxY;
 		chart.items.get<LineSeries>().SetData(data, maxX, 0, maxX - 1);
 		chart.Draw(g);
+		label.Draw(g);
 	}
 	void ScanWindow::operator()(TPaint &l)
 	{
@@ -144,10 +145,12 @@ void ScanWindow::operator()(TSize &l)
 		 maxY = 100;
 		 wchar_t buf[1024];
 		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, 1 + zone_, 1 + sensor_, offset_);
-
+		 g1Tof = uspc->hdr.G1Tof;
+		 g1Amp = uspc->hdr.G1Amp;
+		 wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
 		 if(NULL != h)
-		 {
+		 {			
 			 RepaintWindow(h);
 			 SetWindowText(h, buf);
 			 SendMessage(h, WM_SYSCOMMAND, SC_RESTORE, 0);
@@ -159,13 +162,16 @@ void ScanWindow::operator()(TSize &l)
 			 WindowPosition::Get<ScanWindow>(r);
 			 HWND h = WindowTemplate(this, buf, r.left, r.top, r.right, r.bottom);
 			 ShowWindow(h, SW_SHOWNORMAL);
-		 }
+		 }		 
 	}
 
 	bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)	  
 	{			
-		wsprintf(label.buffer, L"<ff>смещение %d  величина %S  ", offset, Wchar_from<double, 5>(data[offset])());
-		label.Draw(g());
+		//wsprintf(label.buffer, L"<ff>смещение %d  величина %S  ", offset, Wchar_from<double, 5>(data[offset])());
+		// wsprintf(label.buffer, L"<ff>G1Tof %d  g1Amp %d", g1Tof, g1Amp);
+		//chart.Draw(g());
+		//label.Draw(g());
+		RepaintWindow(l.hwnd);
 		return true;
 	}
 

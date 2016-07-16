@@ -141,6 +141,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dialogs;..\..\Common\DlgTemplates;..\..\Common\1730;ItemsData;..\..\Common\Graphics;..\..\Common\Ini;..\..\Common\window_tool;Windows;..\..\Common\Ini;..\..\Common\templates;..\..\Common\debug_tools;$(ProjectDir);App\;..\..\Common\Base;</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Dialogs\AnalogPlateDlg.cpp" />
+    <ClCompile Include="Dialogs\BaseLengthDlg.cpp" />
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp" />
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />

@@ -33,6 +33,7 @@ public:
 	static bool measurementOfRunning;									
 public:
 	MainWindow &mainWindow;
+	static const int &lengthCaretka;
 public:
 	App();
 	void Init();

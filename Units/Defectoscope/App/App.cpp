@@ -21,7 +21,8 @@ HANDLE App::ProgrammContinueEvent;
 HANDLE App::ProgrammStopEvent;
 //HANDLE App::ProgrammTestRunEvent;
 bool App::measurementOfRunning = false;
-
+int __lengthCaretka = 430;
+const int &App::lengthCaretka = __lengthCaretka;
 //---------------------------------------------------------------
 App::App()	
 	: mainWindow(Singleton<MainWindow>::Instance())

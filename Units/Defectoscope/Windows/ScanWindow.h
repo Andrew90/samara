@@ -22,6 +22,8 @@ public:
 	ScanWindowToolBar toolBar;
 	int offset, zone, sensor, offsetInZone;
 	int maxX, maxY;
+	int g1Tof;
+    int g1Amp;
 	double data[512];
 	TMouseMove storedMouseMove;
 	ColorLabel label;
