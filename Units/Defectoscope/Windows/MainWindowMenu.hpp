@@ -38,9 +38,9 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 	struct ThicknessTreshold {};
-	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
+	//struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
 	//struct AllowableThickness{static void Do(HWND h){zprint("");}};
-	struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
+	//struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
 	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
 	struct MainDeleteTypeSize: DelTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
@@ -68,9 +68,9 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Поперечные пороги", CrossThresholdWindow__)
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
-	MENU_ITEM(L"Мёртвые зоны", DeadZones)
+	//MENU_ITEM(L"Мёртвые зоны", DeadZones)
 	//MENU_ITEM(L"Допустимая толщина", AllowableThickness)
-	MENU_ITEM(L"Скорость вращения", RotationalSpeed)
+	//MENU_ITEM(L"Скорость вращения", RotationalSpeed)
 	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
 	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
 
@@ -80,10 +80,10 @@ namespace MainWindowMenu
 	{
 		typedef TL::MkTlst<
 		     SubMenu<ThicknessTreshold>
-			, MenuItem<DeadZones>
+			//, MenuItem<DeadZones>
 			//, MenuItem<AllowableThickness>
 			, MenuItem<MedianFiltre>
-			, MenuItem<RotationalSpeed>
+			//, MenuItem<RotationalSpeed>
 			, Separator<0>
 			, MenuItem<MainCreateTypesize>
 			, MenuItem<MainDeleteTypeSize>
@@ -121,8 +121,9 @@ namespace MainWindowMenu
 	//struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
 	struct ACFBorder              {static void Do(HWND h){zprint("");}};
-	struct TestTab                : TestTabsDlg{};//{static void Do(HWND h){zprint("");}};
+	//struct TestTab                : TestTabsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct OffsetsSensors: OffsetsSensorsDlg{};
+	struct BaseLength : BaseLengthDlg{};
 	
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
@@ -134,8 +135,9 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Параметры сигнала", Signal)
 	MENU_ITEM(L"Границы АЧХ", ACFBorder)
 	MENU_ITEM(L"Цвета", ColorItems)
-	MENU_ITEM(L"Тестирование окна с закладками", TestTab)
+	//MENU_ITEM(L"Тестирование окна с закладками", TestTab)
 	MENU_ITEM(L"Смещение датчиков", OffsetsSensors)
+	MENU_ITEM(L"Базовое расстояние", BaseLength)
 	
 	template<>struct SubMenu<DiscretePlate>
 	{
@@ -152,10 +154,11 @@ namespace MainWindowMenu
 			, SubMenu<DiscretePlate>	
 			//, MenuItem<Coefficient>
 			, MenuItem<OffsetsSensors>
+			, MenuItem<BaseLength>
 			, MenuItem<Signal>
 			, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>
-			, MenuItem<TestTab>
+			//, MenuItem<TestTab>
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------

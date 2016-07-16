@@ -71,7 +71,7 @@ void MainWindow::operator()(TSize &m)
 	__move_window_data__ data = {y, r.right, t};
 	
 	TL::foreach<viewers_list, __move_window__>()(&viewers, &data);
-	topLabelViewer.SetMessage(L"<ff>Test <ff00>message <ff0000>TopLabel");
+	//topLabelViewer.SetMessage(L"<ff>Test <ff00>message <ff0000>TopLabel");
 }
 //------------------------------------------------------------------------
 void MainWindow::operator()(TCommand &m)

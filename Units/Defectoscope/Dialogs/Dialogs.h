@@ -39,6 +39,7 @@ DLG(StoredDataDlg)
 DLG(LoadDataDlg)
 
 DLG(AnalogPlateDlg)
+DLG(BaseLengthDlg)
 
 #undef DLG
 

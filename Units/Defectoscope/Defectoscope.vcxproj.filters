@@ -425,6 +425,9 @@
     <ClCompile Include="Windows\ScanWindowToolBar.cpp">
       <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\BaseLengthDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

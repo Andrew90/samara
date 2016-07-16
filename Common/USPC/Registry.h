@@ -10,3 +10,14 @@ public:
 	~RegistryPathLogFile();
 	wchar_t *operator()();
 };
+
+class RegistryPathUTFile
+{
+	HKEY hKey;
+	wchar_t buffer[1024];
+public:
+	RegistryPathUTFile();
+	~RegistryPathUTFile();
+	wchar_t *operator()();
+};
+

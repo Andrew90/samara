@@ -354,11 +354,11 @@ struct OffsetsTable
 template<class T>struct AxesYMin;
 template<class T>struct AxesYMax;
 DEFINE_PARAM_WAPPER(AxesYMin, Long, double, 0)
-DEFINE_PARAM_WAPPER(AxesYMax, Long, double, 150)
+DEFINE_PARAM_WAPPER(AxesYMax, Long, double, 100)
 DEFINE_PARAM_WAPPER(AxesYMin, Cross, double, 0)
-DEFINE_PARAM_WAPPER(AxesYMax, Cross, double, 150)
+DEFINE_PARAM_WAPPER(AxesYMax, Cross, double, 100)
 DEFINE_PARAM_WAPPER(AxesYMin, Thickness, double, 0)
-DEFINE_PARAM_WAPPER(AxesYMax, Thickness, double, 15)
+DEFINE_PARAM_WAPPER(AxesYMax, Thickness, double, 25)
 
 struct AxesTable
 {
