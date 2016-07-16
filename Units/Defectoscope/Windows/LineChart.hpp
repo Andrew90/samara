@@ -52,26 +52,58 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 
 	void operator()(TRButtonDown &l)
 	{
-		ItemData<typename T::sub_type> &data = Singleton<ItemData<typename T::sub_type>>::Instance();
-		int x = data.offsets[owner->lastZone];
+		//ItemData<typename T::sub_type> &data = Singleton<ItemData<typename T::sub_type>>::Instance();
+		//int x = data.offsets[owner->lastZone];
+		//dprint("1offs %d first zone %d last zone %d\n", x
+		//	, data.offsets[owner->lastZone] -  data.offsSensor[N]
+		//, data.offsets[owner->lastZone + 1] -  data.offsSensor[N]);
+		//x -= data.offsSensor[N];
+		//dprint("2offs %d sensor %d, offset sens %d\n", x, N, data.offsSensor[N]);
+		//x += offsetX * App::count_sensors + N;
+		//dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
+		//dprint("3offs %d offsetX %d channel %d  ----\n", x, offsetX, data.ascanBuffer[x].Channel);
+		//
+		//if(x < 0) return;
+		//Singleton<ScanWindow>::Instance().Open(
+		//	1 + owner->lastZone
+		//	, 1 + N
+		//	, offsetX
+		//	, Title<typename T::sub_type>()()
+		//	, data.ascanBuffer[x].Point
+		//	, data.ascanBuffer[x].DataSize
+		//	, 100
+		//	);
+		Scan<typename T::sub_type>::Do(owner->lastZone, N, offsetX, (void(*)())Scan<typename T::sub_type>::Do);
+	}
+};
+
+//USPCData
+template<class T> struct Scan
+{
+	static void Do(int zone, int sens, int offs, void(*ptr)())
+	{
+		ItemData<T> &data = Singleton<ItemData<T>>::Instance();
+		int x = data.offsets[zone];
 		dprint("1offs %d first zone %d last zone %d\n", x
-			, data.offsets[owner->lastZone] -  data.offsSensor[N]
-		, data.offsets[owner->lastZone + 1] -  data.offsSensor[N]);
-		x -= data.offsSensor[N];
-		dprint("2offs %d sensor %d, offset sens %d\n", x, N, data.offsSensor[N]);
-		x += offsetX * App::count_sensors + N;
+			, data.offsets[zone] -  data.offsSensor[sens]
+		, data.offsets[zone + 1] -  data.offsSensor[sens]);
+		x -= data.offsSensor[sens];
+		dprint("2offs %d sensor %d, offset sens %d\n", x, sens, data.offsSensor[sens]);
+		x += offs * App::count_sensors + sens;
 		dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
-		dprint("3offs %d offsetX %d channel %d  ----\n", x, offsetX, data.ascanBuffer[x].Channel);
+		dprint("3offs %d offsetX %d channel %d  ----\n", x, offs, data.ascanBuffer[x].Channel);
 		
 		if(x < 0) return;
 		Singleton<ScanWindow>::Instance().Open(
-			1 + owner->lastZone
-			, 1 + N
-			, offsetX
-			, Title<typename T::sub_type>()()
-			, data.ascanBuffer[x].Point
-			, data.ascanBuffer[x].DataSize
-			, 100
+			zone
+			, sens
+			, offs
+			, Title<T>()()
+			, &data.ascanBuffer[x]
+			//, data.ascanBuffer[x].Point
+			//, data.ascanBuffer[x].DataSize
+			//, 100
+			, ptr
 			);
 	}
 };

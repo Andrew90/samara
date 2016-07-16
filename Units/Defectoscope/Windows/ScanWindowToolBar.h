@@ -1,8 +1,8 @@
 #pragma once
 class ScanWindowToolBar
 {
-public:
+public:	
 	HWND hWnd;
 	HWND Init(HWND);
-	void Size();
+	void Size();	
 };

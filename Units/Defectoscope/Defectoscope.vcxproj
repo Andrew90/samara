@@ -108,7 +108,6 @@
     <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp" />
     <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp" />
     <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
-    <ClCompile Include="..\..\Common\templates\Frame.cpp" />
     <ClCompile Include="..\..\Common\templates\Hash.cpp" />
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
     <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp" />
@@ -228,7 +227,6 @@
     <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h" />
     <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h" />
     <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h" />
-    <ClInclude Include="..\..\Common\templates\Frame.h" />
     <ClInclude Include="..\..\Common\templates\Hash.h" />
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />

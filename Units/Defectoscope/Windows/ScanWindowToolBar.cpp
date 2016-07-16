@@ -3,6 +3,7 @@
 #include "../Resource.h"
 #include "InitToolBar.hpp"
 #include "DebugMess.h"
+#include "ScanWindow.h"
 
 namespace
 {
@@ -13,45 +14,53 @@ namespace
 	static void Click(HWND);\
 	static wchar_t *Text(){return text;}\
 	};
-	KEY(IDB_arrow_down , L"+ Датчик")
-	KEY(IDB_arrow_up   , L"- Датчик")
-	KEY(IDB_arrow_left , L"- Зона")
-	KEY(IDB_arrow_right, L"+ Зона")
+	KEY(IDB_DownArrow , L"- Датчик")
+	KEY(IDB_UpArrow   , L"+ Датчик")
+	KEY(IDB_LeftArrow , L"- Смещение")
+	KEY(IDB_RightArrow, L"+ Смещение")
 #undef KEY
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
 		typedef TL::MkTlst<
 		SeparatorToolbar<0>
-		, BUTTON_KEY(IDB_arrow_down) 
-		, BUTTON_KEY(IDB_arrow_up)
-		, BUTTON_KEY(IDB_arrow_left) 
-		, BUTTON_KEY(IDB_arrow_right)
+		, BUTTON_KEY(IDB_DownArrow) 
+		, BUTTON_KEY(IDB_UpArrow)
+		, BUTTON_KEY(IDB_LeftArrow) 
+		, BUTTON_KEY(IDB_RightArrow)
 		, SeparatorToolbar<2>
 		>::Result tool_button_list;
 #undef BUTTON_KEY
-	void Key<IDB_arrow_down>::Click(HWND h)
+	void Key<IDB_DownArrow>::Click(HWND h)
 	{
 		zprint("\n");	
+		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
+		w->SensMinus();
 	}
 //------------------------------------------------------------------------------
-	void Key<IDB_arrow_up>::Click(HWND h)
+	void Key<IDB_UpArrow>::Click(HWND h)
 	{
 		zprint("\n");
+		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
+		w->SensPlus();
 	}
 //------------------------------------------------------------------------------
-	void Key<IDB_arrow_left>::Click(HWND h)
+	void Key<IDB_LeftArrow>::Click(HWND h)
 	{
-		zprint("\n");	
+		zprint("\n");
+		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
+		w->OffsMinus();
 	}
 //------------------------------------------------------------------------------
-	void Key<IDB_arrow_right>::Click(HWND h)
+	void Key<IDB_RightArrow>::Click(HWND h)
 	{
-		zprint("\n");	
+		zprint("\n");
+		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
+		w->OffsPlus();
 	}
 }
 
 HWND ScanWindowToolBar::Init(HWND h)
 {
-	return hWnd = InitToolbar<tool_button_list>()(h);
+	return hWnd = InitToolbar<tool_button_list, 16>()(h);
 }
 void ScanWindowToolBar::Size()
 {

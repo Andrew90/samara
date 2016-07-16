@@ -4,9 +4,11 @@
 #include "Chart.hpp"
 #include "ColorLabel.h"
 #include "ScanWindowToolBar.h"
+#include "USPCData.h"
 
 class ScanWindow
 {
+	void (*ptrScan)(int, int, int, void(*)());
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
@@ -18,7 +20,7 @@ public:
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
 	ScanWindowToolBar toolBar;
-	int offset;
+	int offset, zone, sensor, offsetInZone;
 	int maxX, maxY;
 	double data[512];
 	TMouseMove storedMouseMove;
@@ -36,6 +38,11 @@ public:
 	void operator()(TLButtonDown &);
 	void operator()(TLButtonDbClk &);
 
-	void Open(int zone, int sensor, int offset_, wchar_t *mess, unsigned char(&)[512], int countSamples, int maxY);
+	void Open(int zone, int sensor, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *data/*, unsigned char(&)[512], int countSamples, int maxY*/, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);
+
+	void SensPlus();
+	void SensMinus();
+	void OffsPlus();
+	void OffsMinus();
 };

@@ -15,10 +15,10 @@ ScanWindow::ScanWindow()
 	chart.maxAxesX = 512;
 
 	chart.items.get<LineSeries>().data = data;
-	chart.rect.top = 17;
+	//chart.rect.top = 17;
 
 	label.fontHeight = 12;
-	label.top = 0;
+	//label.top = 0;
 	cursor.SetMouseMoveHandler(this, &ScanWindow::CursorDraw);
 }
 void ScanWindow::operator()(TSize &l)
@@ -42,12 +42,18 @@ void ScanWindow::operator()(TSize &l)
 		{
 			return;
 		}
+		toolBar.Size();
+		RECT r = {};
+		GetClientRect(toolBar.hWnd, &r);
+	    if(0 == r.bottom)  return;
+
 		Graphics g(backScreen);
 		SolidBrush solidBrush(Color(0xffaaaaaa));
-		g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
-		g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
-
-
+		//g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
+		//g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
+		g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);
+		label.top = r.bottom;
+		chart.rect.top = r.bottom + 20;
 		chart.rect.right = l.Width;
 		chart.rect.bottom = l.Height;
 		chart.maxAxesY = maxY;
@@ -84,6 +90,7 @@ void ScanWindow::operator()(TSize &l)
 		mouseMove = false;
 		offset = 0;
 		Menu<ViewersMenuScanWindow::MainMenu>().Init(l.hwnd);
+		toolBar.Init(l.hwnd);
 		return 0;
 	}
 	void ScanWindow::operator()(TMouseWell &l)
@@ -126,13 +133,18 @@ void ScanWindow::operator()(TSize &l)
 		}
 	}
 
-	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, unsigned char(&d)[512], int countSamples, int mY)
+	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc/*, unsigned char(&d)[512], int countSamples, int mY*/, void(*ptr)())
 	{
-		 for(int i = 0; i < 512; ++i)  data[i] = d[i];
-		 maxX = countSamples > 0 ? countSamples : 512;
-		 maxY = mY;
+		zone = zone_;
+		sensor = sensor_;
+		offsetInZone = offset_;
+		ptrScan = (void(*)(int, int, int, void(*)()))ptr;
+		for(int i = 0; i < 512; ++i)  data[i] = uspc->Point[i];
+		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
+		 maxY = 100;
 		 wchar_t buf[1024];
-		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, zone_, sensor_, offset_);
+		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, 1 + zone_, 1 + sensor_, offset_);
+
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
 		 if(NULL != h)
 		 {
@@ -155,5 +167,29 @@ void ScanWindow::operator()(TSize &l)
 		wsprintf(label.buffer, L"<ff>смещение %d  величина %S  ", offset, Wchar_from<double, 5>(data[offset])());
 		label.Draw(g());
 		return true;
+	}
+
+	void ScanWindow::SensPlus() 
+	{
+		++sensor;
+		sensor %= App::count_sensors;
+		(*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+	}
+	void ScanWindow::SensMinus()
+	{
+		--sensor;
+		sensor = (unsigned)sensor % App::count_sensors;
+		(*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+	}
+	void ScanWindow::OffsPlus()	
+	{
+       ++offsetInZone;
+	   (*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+	}
+	void ScanWindow::OffsMinus()
+	{
+		--offsetInZone;
+		if(0 > offsetInZone) offsetInZone = 0;
+	   (*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
 	}
 

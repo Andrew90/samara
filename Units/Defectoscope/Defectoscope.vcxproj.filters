@@ -293,9 +293,6 @@
     <ClCompile Include="Compute.cpp">
       <Filter>Compute</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\templates\Frame.cpp">
-      <Filter>Common\templates</Filter>
-    </ClCompile>
     <ClCompile Include="ItemsData\DataViewer.cpp">
       <Filter>ItemsData</Filter>
     </ClCompile>
@@ -663,9 +660,6 @@
     </ClInclude>
     <ClInclude Include="Compute.h">
       <Filter>Compute</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\templates\Frame.h">
-      <Filter>Common\templates</Filter>
     </ClInclude>
     <ClInclude Include="ItemsData\DataViewer.h">
       <Filter>ItemsData</Filter>
