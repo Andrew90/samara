@@ -13,6 +13,7 @@
 #include "AppKeyHandler.h"
 #include "Stored.h"
 #include "LogUSPCWindow.h"
+#include "Automat.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -66,7 +67,7 @@ namespace
 	{
 		zprint("\n");
 		//SetEvent(App::ProgrammTestRunEvent);
-		AppKeyHandler::Run();
+		if(USPC_Test())AppKeyHandler::Run();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)
