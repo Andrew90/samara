@@ -75,9 +75,9 @@ template<class T>struct DataViewer: DefectData
 		//	* offs
 		//	/ App::zone_length
 		//	);
-		start -= d.offsSensor[channel];//samplesOffset;
+		start += d.offsSensor[channel];//samplesOffset;
 		if(start < 0) start = 0;
-		stop -= d.offsSensor[channel];//samplesOffset;
+		stop += d.offsSensor[channel];//samplesOffset;
 		if(stop < 0) start = stop = 0;
 
 		Set(zone, start, stop, channel, offs, maxOffs, s);
@@ -124,9 +124,9 @@ template<>struct DataViewer<Thickness>: ThicknessData
 		//	* offs 
 		//	/ App::zone_length
 		////	);
-		start -= d.offsSensor[channel];
+		start += d.offsSensor[channel];
 		if(start < 0) start = 0;
-		stop -= d.offsSensor[channel];
+		stop += d.offsSensor[channel];
 		if(stop < 0) start = stop = 0;
 
 	   Set(zone, start, stop, channel, offs, maxOffs, s);

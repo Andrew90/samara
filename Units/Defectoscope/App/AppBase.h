@@ -185,7 +185,7 @@ template<class T>struct Stat
 //DEFINE_PARAM(RemoveSensorDelay, int,  150)
 //DEFINE_PARAM(FrequencyFrames, int,  100)
 
-DEFINE_PARAM(ReferenceOffset1, unsigned, 5000)
+DEFINE_PARAM(ReferenceOffset1, unsigned, 4835)
 //DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
 //
 //DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)

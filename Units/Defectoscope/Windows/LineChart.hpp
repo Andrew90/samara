@@ -85,9 +85,9 @@ template<class T> struct Scan
 		ItemData<T> &data = Singleton<ItemData<T>>::Instance();
 		int x = data.offsets[zone];
 		dprint("1offs %d first zone %d last zone %d\n", x
-			, data.offsets[zone] -  data.offsSensor[sens]
-		, data.offsets[zone + 1] -  data.offsSensor[sens]);
-		x -= data.offsSensor[sens];
+			, data.offsets[zone] +  data.offsSensor[sens]
+		, data.offsets[zone + 1] +  data.offsSensor[sens]);
+		x += data.offsSensor[sens];
 		dprint("2offs %d sensor %d, offset sens %d\n", x, sens, data.offsSensor[sens]);
 		x += offs * App::count_sensors + sens;
 		dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);

@@ -73,7 +73,7 @@ namespace
 				if(channel < App::count_sensors)
 				{
 					//проверить смещение на соответствие каналу
-					int j = jj - d.offsSensor[channel];					
+					int j = jj + d.offsSensor[channel];					
 					if(j > 0)
 					{
 						if(channel != b[j].Channel)
@@ -128,7 +128,7 @@ namespace
 				if(channel < App::count_sensors)
 				{
 					//проверить смещение на соответствие каналу
-					int j = jj - d.offsSensor[channel];					
+					int j = jj + d.offsSensor[channel];					
 					if(j > 0)
 					{
 						if(channel != b[j].Channel)
@@ -315,6 +315,7 @@ void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTim
 {
    double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
    lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
+   lengthTube -= App::lengthCaretka;
    dprint("length tube %d  base_offset %f\n", lengthTube, offs);
 }
 
