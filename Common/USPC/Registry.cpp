@@ -15,6 +15,7 @@ RegistryPathLogFile::RegistryPathLogFile()
 		(LPBYTE)buffer,
 		&size
 		);
+	buffer[size] = '\0';
 	wcscat(buffer, L"USPC7100log.txt");
 }
 RegistryPathLogFile::~RegistryPathLogFile()
@@ -33,12 +34,13 @@ RegistryPathUTFile::RegistryPathUTFile()
 	DWORD size = 1024;
 	RegQueryValueEx(
 		hKey,
-		L"Applications",
+		L"UT",
 		NULL,
 		NULL,
 		(LPBYTE)buffer,
 		&size
 		);
+	buffer[size] = '\0';
 }
 RegistryPathUTFile::~RegistryPathUTFile()
 {
