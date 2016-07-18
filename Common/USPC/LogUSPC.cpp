@@ -31,14 +31,16 @@ void LogUSPC::Open()
 	wchar_t *path = t();
 #endif
 	FILE *f;
+	char b[128];
 	if(!_wfopen_s(&f, path, L"r"))
 	{
 		int i = 0;
 		while(true)
 		{
 			int k = i % 128;
-			if(!fgets(buffer[k], 128, f))break;
-			if(' ' == buffer[k][0])continue;
+			if(!fgets(b, 128, f))break;
+			if(' ' == b[0])continue;
+			strcpy(buffer[k], b);
 			++i;
 		}
 		for(int k = i;k < 128; ++k) buffer[k][0] = '\0';

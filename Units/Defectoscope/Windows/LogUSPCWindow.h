@@ -10,7 +10,6 @@ class LogUSPCWindow
 public:
 	LogUSPC data;
 public:
-	static const int IDT_TIMER1 = 999;
 	HWND hWnd;
 	LogUSPCWindow();
 	void operator()(TSize &);

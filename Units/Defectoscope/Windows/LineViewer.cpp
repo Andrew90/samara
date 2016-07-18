@@ -74,7 +74,7 @@ void LineViewer::operator()(TMouseWell &l)
 	if(l.delta > 0) offsetX -= 1; else if(l.delta < 0)offsetX += 1;
 	double dX = (chart->rect.right - chart->rect.left - chart->offsetAxesLeft - chart->offsetAxesRight)
 		/(chart->maxAxesX - chart->minAxesX);
-	storedMouseMove.x = (WORD)(chart->rect.left + chart->offsetAxesLeft + dX * offsetX);
+	storedMouseMove.x = (WORD)(chart->rect.left + chart->offsetAxesLeft + dX * offsetX + dX / 2);
 	cursor->VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 }
 //--------------------------------------------------------------------------

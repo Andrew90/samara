@@ -186,6 +186,15 @@ BottomAxes::BottomAxes(Chart &chart)
 }
 void BottomAxes::Draw()
 {
+	 int y = chart.rect.bottom - chart.offsetAxesBottom;
+	chart.g->SetClip(&Region(RectF(
+		REAL(chart.rect.left + chart.offsetAxesLeft - 3)
+		, REAL(y - 3)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) + 3)
+		, REAL(chart.rect.bottom)
+		)),
+       CombineModeReplace
+     );	
 	Font font(L"Arial", (REAL)chart.fontHeight, FontStyleBold);
 	Color color(chart.colorAxes);
 	Pen pen(color, 2);
@@ -193,7 +202,7 @@ void BottomAxes::Draw()
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	double height;	
-    int y = chart.rect.bottom - chart.offsetAxesBottom;
+    //int y = chart.rect.bottom - chart.offsetAxesBottom;
 	chart.g->DrawLine(&pen, chart.rect.left + chart.offsetAxesLeft, y, chart.rect.right - chart.offsetAxesRight, y);
 
     char buf[32];
@@ -240,6 +249,7 @@ void BottomAxes::Draw()
         digit += deltaDigit;
     }
 	maxA = digit;
+	chart.g->SetClip(&Region());
 }
 //-----------------------------------------------------------------------------------------------------------------
 void BottomAxes::OffsetToPixel(WORD &offs, int delta)
@@ -623,7 +633,7 @@ bool Chart::AxesValues(int x, int y, double &dx, double &dy)
 		dy = (rect.bottom - offsetAxesBottom - y) * dY + minAxesY;
 		dy = floor(dy);
 		double dX = (maxAxesX - minAxesX) / (rect.right - rect.left - offsetAxesLeft - offsetAxesRight);
-		dx = (x - rect.left - offsetAxesLeft) * dX + minAxesX;
+		dx = (x - rect.left - offsetAxesLeft) * dX + minAxesX + dX / 2;
 		return true;
 	}
 	return false;
@@ -692,8 +702,8 @@ int Chart::BetweenLeftRight(int x)
  {
 	double left = rect.left + offsetAxesLeft;
 	double bottom = rect.bottom - offsetAxesBottom;
-	double dx = deltaDigitX > 1 ? deltaDigitX : 1;
-	double dy = deltaDigitY > 1 ? deltaDigitY : 1;
+	double dx = deltaDigitX;// > 1 ? deltaDigitX : 1;
+	double dy = deltaDigitY;// > 1 ? deltaDigitY : 1;
 	x = int((mX - left) / deltaTickX * dx);
 	y = int((bottom - mY) / deltaTickY * dy);
  }

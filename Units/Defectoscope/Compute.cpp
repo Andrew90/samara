@@ -9,23 +9,28 @@
 #include "SelectMessage.h"
 #include "LabelMessage.h"
 
-void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::count_zones]
-    , double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status)
+void StatusZoneThickness(int offs, double &data, int zone, double (&maxThreshold)[App::count_zones]
+, double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status)
 {
 	double min = nominalTreshold[zone] - minThreshold[zone];
 	double max = nominalTreshold[zone] + maxThreshold[zone];
-	 if(data < min)
-	 {
-		 status = StatusId<Clr<BorderLower<Thickness> >>();
-	 }
-	 else  if(data > max)
-	 {
-		 status = StatusId<Clr<BorderAbove<Thickness> >>();
-	 }
-	 else
-	 {
+	if(0.0 == data)
+	{
+		status = StatusId<Clr<Undefined>>();
+		data = nominalTreshold[zone];
+	}
+	else if(data < min)
+	{
+		status = StatusId<Clr<BorderLower<Thickness> >>();
+	}
+	else  if(data > max)
+	{
+		status = StatusId<Clr<BorderAbove<Thickness> >>();
+	}
+	else
+	{
 		status = StatusId<Clr<Nominal>>();
-	 }
+	}
 }
 
 Compute::Compute()
@@ -142,7 +147,7 @@ namespace
 								}
 							}
 						}
-						//2.5e-6 * s[offs].hdr.G1Tof * 4600
+						if(0 == b[j].hdr.G1Tof) continue;
 						double val = 2.5e-6 * b[j].hdr.G1Tof * 4600;
 						double t = filtre(channel, val);
 						if(t > d.bufferMax[i])
