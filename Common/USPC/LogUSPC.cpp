@@ -8,6 +8,7 @@
 #ifdef DEBUG_ITEMS
 wchar_t *path = L"D:\\Shared\\USPC7100log.txt";
 #endif
+#pragma warning(disable : 4996)
 void LogUSPC::Clear()
 {
 #ifndef DEBUG_ITEMS
@@ -20,8 +21,10 @@ void LogUSPC::Clear()
     //    // Handle the error.
     //   dprint("DeleteFile failed (%d)\n", GetLastError());
     //}
-	FILE *f;
-	if(!_wfopen_s(&f, path, L"wt"))fclose(f);
+	//FILE *f;
+	//if(!_wfopen_s(&f, path, L"wt"))fclose(f);
+	FILE *f = _wfopen(path, L"wt");
+	if(f)fclose(f);
 }
 void LogUSPC::Open()
 {
@@ -30,9 +33,9 @@ void LogUSPC::Open()
 	RegistryPathLogFile t;
 	wchar_t *path = t();
 #endif
-	FILE *f;
 	char b[128];
-	if(!_wfopen_s(&f, path, L"r"))
+	FILE *f = _wfopen(path, L"r");
+	if(f)
 	{
 		int i = 0;
 		while(true)
