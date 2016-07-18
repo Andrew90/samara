@@ -89,6 +89,7 @@ bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 	//	, ut_files
 	//	, s
 	//	);
+	......................................................
 	RegistryPathUTFile appPath;
 	wchar_t src[256];
 	wsprintf(src, L"%s\\%s.us", appPath(), file);
