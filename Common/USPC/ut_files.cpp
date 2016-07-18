@@ -84,15 +84,14 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 {
 	//CurrentDir src;
-	//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+	wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
 	//wsprintf(&src.path[src.len], L"\\%s\\%s.us"
 	//	, ut_files
 	//	, s
 	//	);
-	......................................................
 	RegistryPathUTFile appPath;
 	wchar_t src[256];
-	wsprintf(src, L"%s\\%s.us", appPath(), file);
+	wsprintf(src, L"%s\\%s.us", appPath(), s);
 	bool b = 0 != PathFileExists(src);
 	if(b)
 	{
