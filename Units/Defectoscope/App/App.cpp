@@ -36,7 +36,7 @@ void App::Init()
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
 	//App::ProgrammTestRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
-//	LogUSPC::Clear();
+	LogUSPC::Clear();
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
 	HWND h = WindowTemplate(&mainWindow, L"หมา \"ม๓๐เํ-5000\"", r.left, r.top, r.right, r.bottom);
