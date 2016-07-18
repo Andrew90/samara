@@ -7,7 +7,6 @@ using namespace Gdiplus;
 
 ScanWindow::ScanWindow()
 	: chart(backScreen)
-	//, cursor(chart)		
 {
 	chart.minAxesY = 0;
 	chart.maxAxesY = 255;
@@ -15,11 +14,8 @@ ScanWindow::ScanWindow()
 	chart.maxAxesX = 512;
 
 	chart.items.get<LineSeries>().data = data;
-	//chart.rect.top = 17;
 
 	label.fontHeight = 12;
-	//label.top = 0;
-	//cursor.SetMouseMoveHandler(this, &ScanWindow::CursorDraw);
 }
 void ScanWindow::operator()(TSize &l)
 {
@@ -49,8 +45,6 @@ void ScanWindow::operator()(TSize &l)
 
 		Graphics g(backScreen);
 		SolidBrush solidBrush(Color(0xffaaaaaa));
-		//g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
-		//g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
 		g.FillRectangle(&solidBrush, 0, r.bottom, l.Width, 20);
 		label.top = r.bottom;
 		chart.rect.top = r.bottom + 20;
@@ -69,7 +63,6 @@ void ScanWindow::operator()(TSize &l)
 		{		
 			Graphics g(hdc);		
 			g.DrawCachedBitmap(&CachedBitmap(backScreen, &g), 0, 0);
-		//	cursor.VerticalCursor(storedMouseMove, PaintGraphics(g));
 		}
 		EndPaint(l.hwnd, &p);
 	}
@@ -94,47 +87,13 @@ void ScanWindow::operator()(TSize &l)
 		toolBar.Init(l.hwnd);
 		return 0;
 	}
-	//void ScanWindow::operator()(TMouseWell &l)
-	//{
-	//	mouseMove = false;
-	//	if(l.delta > 0) offset -= 1; else if(l.delta < 0)offset += 1;
-	//	if(offset < 0) offset = 0;
-	//	else if(offset >= dimention_of(data)) offset = dimention_of(data) - 1;
-	//	double dX = (chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight)
-	//		/(chart.maxAxesX - chart.minAxesX);
-	//	storedMouseMove.x = (WORD)(chart.rect.left + chart.offsetAxesLeft + dX * offset);
-	//	cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	//}
-
-	//void ScanWindow::operator()(TMouseMove &l)
-	//{	 
-	//	if(mouseMove)
-	//	{
-	//		if(cursor.VerticalCursor(l, HDCGraphics(l.hwnd, backScreen)))
-	//		{
-	//			storedMouseMove = l;
-	//			int y;
-	//			chart.CoordCell(l.x, l.y, offset, y);	 
-	//		}
-	//	}
-	//}
-
+	
 	void ScanWindow::operator()(TLButtonDown &l)
 	{
 		mouseMove = false;
 	}
 
-	//void ScanWindow::operator()(TLButtonDbClk &l)
-	//{
-	//	mouseMove = true;
-	//	if(cursor.VerticalCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
-	//	{
-	//		int y;
-	//		chart.CoordCell(l.x, l.y, offset, y);	
-	//	}
-	//}
-
-	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc/*, unsigned char(&d)[512], int countSamples, int mY*/, void(*ptr)())
+	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc, void(*ptr)())
 	{
 		zone = zone_;
 		sensor = sensor_;
@@ -167,10 +126,6 @@ void ScanWindow::operator()(TSize &l)
 
 	bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)	  
 	{			
-		//wsprintf(label.buffer, L"<ff>смещение %d  величина %S  ", offset, Wchar_from<double, 5>(data[offset])());
-		// wsprintf(label.buffer, L"<ff>G1Tof %d  g1Amp %d", g1Tof, g1Amp);
-		//chart.Draw(g());
-		//label.Draw(g());
 		RepaintWindow(l.hwnd);
 		return true;
 	}
@@ -195,7 +150,6 @@ void ScanWindow::operator()(TSize &l)
 	void ScanWindow::OffsMinus()
 	{
 		--offsetInZone;
-		//if(0 > offsetInZone) offsetInZone = 0;
 	   (*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
 	}
 

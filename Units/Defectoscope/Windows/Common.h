@@ -127,6 +127,8 @@ namespace Common
 		return false;
 	}
 
+	template<class T>struct SetParamOpenWindow;
+
 	template<class T>struct OpenWindow
 	{
 		static void Do(HWND)
@@ -141,9 +143,10 @@ namespace Common
 			{
 				RECT r;
 				WindowPosition::Get<T>(r);
-				HWND h = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
-				ShowWindow(h, SW_SHOWNORMAL);
+				hh = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
+				ShowWindow(hh, SW_SHOWNORMAL);
 			}
+			SetParamOpenWindow<T>()(hh);
 		}
 	};
 	
@@ -285,4 +288,48 @@ namespace Common
 }
 
 void CloseAllWindows();
+
+template<class T>class NoSubMenu: public T
+{
+	public:
+	typedef T Parent;
+	void operator()(TRButtonDown &){}
+};
+
+
+
+//template<class T>struct SetParamOpenWindow
+//{
+//	void operator()(HWND h)
+//	{
+//	}
+//};
+class ThicknessWindow;
+class CrossWindow;
+class LongWindow;
+namespace Common
+{
+
+template<>struct SetParamOpenWindow<ThicknessWindow>
+{
+	void operator()(HWND);
+};
+
+template<class T>struct SetParamOpenWindow
+{
+	void operator()(HWND h){}
+};
+
+template<class T>struct __SetParamOpenWindow__
+{
+	void operator()(HWND h)
+	{
+		//typedef T::x = a;
+	}
+};
+
+template<>struct SetParamOpenWindow<CrossWindow>: public __SetParamOpenWindow__<CrossWindow>{};
+template<>struct SetParamOpenWindow<LongWindow>: public __SetParamOpenWindow__<LongWindow>{};
+}
+
 

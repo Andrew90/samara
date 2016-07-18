@@ -7,12 +7,12 @@
 #include "AppBase.h"
 #include "ThicknessViewer.h"
 
-class XThicknessViewer: public ThicknessViewer
-{
-public:
-	typedef ThicknessViewer Parent;
-	void operator()(TRButtonDown &){}
-};
+//class XThicknessViewer: public ThicknessViewer
+//{
+//public:
+//	typedef ThicknessViewer Parent;
+//	void operator()(TRButtonDown &){}
+//};
 
 class ThicknessWindow
 {
@@ -26,7 +26,7 @@ public:
 	
 	typedef TL::CreateWapperNumList<Line, ThicknessWindow, 0, 7>::Result line_list;
 	typedef TL::AppendList<
-		    TL::MkTlst<XThicknessViewer>::Result
+		    TL::MkTlst<NoSubMenu<ThicknessViewer>>::Result
 		    , line_list
 	    >::Result viewers_list;
 	TL::Factory<viewers_list> viewers;

@@ -12,3 +12,10 @@ void CloseAllWindows()
 	Common::DestroyWindow<CrossWindow    >();
 	Common::DestroyWindow<ScanWindow     >();
 }
+
+namespace Common
+{
+	void SetParamOpenWindow<ThicknessWindow>::operator()(HWND h)
+	{
+	}
+}
