@@ -27,7 +27,7 @@ public:
 	double data[512];
 	TMouseMove storedMouseMove;
 	ColorLabel label;
-	Cursor cursor;
+//	Cursor cursor;
 	bool mouseMove;
 	ScanWindow();
 	void operator()(TSize &);
@@ -35,10 +35,10 @@ public:
 	void operator()(TCommand &);
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
-	void operator()(TMouseWell &);
-	void operator()(TMouseMove &);
+	//void operator()(TMouseWell &);
+	//void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
-	void operator()(TLButtonDbClk &);
+	//void operator()(TLButtonDbClk &);
 
 	void Open(int zone, int sensor, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *data/*, unsigned char(&)[512], int countSamples, int maxY*/, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);

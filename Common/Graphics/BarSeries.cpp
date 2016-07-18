@@ -15,12 +15,12 @@ void BarSeries::Draw()
 		REAL(chart.rect.left + chart.offsetAxesLeft)// + 3)
 		, REAL(chart.rect.top + chart.offsetAxesTop)// + 3)
 		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft))// - 6)
-		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop))// - 6)
+		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 1)
 		)),
        CombineModeReplace
      );	
 	double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
-	double x = chart.rect.left + chart.offsetAxesLeft - dX;// / 2;
+	double x = chart.rect.left + chart.offsetAxesLeft;// + dX / 2;
 	double dY = (double)(chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
 	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	unsigned color;

@@ -77,12 +77,29 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 	}
 };
 
-//USPCData
 template<class T> struct Scan
 {
 	static void Do(int zone, int sens, int offs, void(*ptr)())
 	{
 		ItemData<T> &data = Singleton<ItemData<T>>::Instance();
+		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
+		if(of < offs)
+		{
+			++zone;
+			offs = 0;
+		}
+		if(offs < 0)
+		{
+			--zone;
+			if(zone >= 0)
+			{
+				 offs = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
+			}
+			else
+			{
+				offs = zone = 0;
+			}
+		}
 		int x = data.offsets[zone];
 		dprint("1offs %d first zone %d last zone %d\n", x
 			, data.offsets[zone] +  data.offsSensor[sens]

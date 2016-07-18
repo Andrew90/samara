@@ -93,6 +93,7 @@ namespace
 	void Key<IDB_arrow_left>::Click(HWND h)
 	{
 		zprint("\n");	
+		LogUSPCWindow::Open();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_right>::Click(HWND h)

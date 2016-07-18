@@ -18,7 +18,7 @@ template<class T>void StatusZoneDefect(int offs, double data, int zone, double (
 }
 
 
-void StatusZoneThickness(int offs, double data, int zone, double (&maxThreshold)[App::count_zones]
+void StatusZoneThickness(int offs, double &data, int zone, double (&maxThreshold)[App::count_zones]
     , double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status);
 
 class Compute

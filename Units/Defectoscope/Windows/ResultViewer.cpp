@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ResultViewer.h"
+#include <math.h>  
 #include <stdio.h>
 #include "EmptyWindow.h"
 #include "LabelMessage.h"
@@ -9,8 +10,17 @@ using namespace Gdiplus;
 
 bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
-	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);
+	int left = chart.rect.left + chart.offsetAxesLeft;
+	int right = chart.rect.right - chart.offsetAxesRight;
+	int t = right - left;
+	if(0 == t) return false;
+	double dX = (double)t / App::count_zones;
+	double dM = (double)t / (0.001 * App::count_zones * App::zone_length);
+	int x = int((l.x - left) / dX);
+	double m = (double)(l.x - left) / dM;
+	m /= 0.05;
+	m= ceil(m);
+	m *= 0.05;
 	bool drawZones =  x < viewerData.currentOffset;
 	if(drawZones)
 	{
@@ -18,7 +28,8 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 	bool b;
 	char *s = StatusText()(viewerData.commonStatus[x], color, b);
 	
-	wsprintf(label.buffer, L"<ff>Результат зона %d <%6x>%S"
+	wsprintf(label.buffer, L"<ff>Результат смещение %s м. зона %d <%6x>%S"
+		, Wchar_from<double, 3>(m)()
 		, 1 + x
 		, color
 		, s
@@ -34,11 +45,11 @@ bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 	ColorBar()(
 		data
 		, color
-		, viewerData.commonStatus[zone - 1]
+		, viewerData.commonStatus[zone]
 	    , data
 		);
 
-	return zone <= viewerData.currentOffset;
+	return zone < viewerData.currentOffset;
 }
 //-----------------------------------------------------------------------------
 ResultViewer::ResultViewer()

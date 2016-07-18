@@ -23,16 +23,18 @@
 /*17*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
 /*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
 /*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+
 /*20*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*21*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
-/*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*21*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>>
+/*22*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
 /*23*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-/*24*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
-/*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*24*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>>
+/*25*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
 /*26*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
 /*27*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
-/*29*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*28*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
+/*29*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+
 /*30*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
 /*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
 /*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
@@ -61,20 +63,20 @@ DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thi
 DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffffff00)
 
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderKlass2<Cross>>											), int, 0xffff0000)
 
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>					), int, 0xffff0000)
 
 DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffffff00)
 
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderKlass2<Long>>												), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>						), int, 0xffff0000)
 
 DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffffff00)
 
 DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffffff00)
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 						), int, 0xffff0000)
+DEFINE_WAPPER(JOIN4(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>), int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xffff0000)
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xffff0000)
@@ -181,9 +183,27 @@ template<class O, class P>struct __set_color_bar__
 	__set_color_bar__() : color(Singleton<ColorTable>::Instance().items.get<O>().value){}
 	bool operator()(P *p)
     {
-        if(TL::IndexOf<label_message_list, O>::value == p->id)
+		if(TL::IndexOf<ColorTable::items_list, O>::value == p->id)
 		{
 		     p->color = color;
+             return false;
+		}
+		return true;
+    }
+};
+
+template<class T>struct GetFirst;
+template<template<class, class, class, class>class X, class A, class B, class C, class D>struct GetFirst<X<A, B, C, D> >
+{
+	typedef X<A, NullType, NullType, NullType> Result;
+};
+template<class O, class P>struct __set_color_bar_next__
+{
+	bool operator()(P *p)
+    {
+		if(TL::IndexOf<label_message_list, O>::value == p->id)
+		{
+			p->color = Singleton<ColorTable>::Instance().items.get<typename GetFirst<O>::Result>().value;
              return false;
 		}
 		return true;
@@ -272,18 +292,18 @@ STATUS_LABEL_3((BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickn
 STATUS_LABEL_4((BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
 //---------------------------------------------------------------------------
 STATUS_LABEL_2((BorderKlass2, Cross), (BorderAbove, Thickness))
-STATUS_LABEL_2((BorderKlass2, Cross), (BorderLower, Thickness))
-STATUS_LABEL_3((BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_2((BorderLower, Thickness), (BorderKlass2, Cross))
+STATUS_LABEL_3( (BorderLower, Thickness), (BorderAbove, Thickness),(BorderKlass2, Cross))
 				
 STATUS_LABEL_2((BorderKlass2, Long), (BorderAbove, Thickness))
-STATUS_LABEL_2((BorderKlass2, Long), (BorderLower, Thickness))
-STATUS_LABEL_3((BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_2((BorderLower, Thickness), (BorderKlass2, Long))
+STATUS_LABEL_3((BorderLower, Thickness), (BorderAbove, Thickness), (BorderKlass2, Long))
 			
 STATUS_LABEL_2((BorderKlass2, Cross), (BorderKlass2, Long))
 				
 STATUS_LABEL_3((BorderKlass2, Cross), (BorderKlass2, Long), (BorderAbove, Thickness))
-STATUS_LABEL_3((BorderKlass2, Cross), (BorderKlass2, Long), (BorderLower, Thickness))
-STATUS_LABEL_4((BorderKlass2, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_3((BorderLower, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
+STATUS_LABEL_4((BorderLower, Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
 //--------------------
 STATUS_LABEL_2((BorderDefect, Cross), (BorderKlass2, Long))
 				
@@ -331,6 +351,9 @@ struct ColorBar
 	void operator()(double &data, unsigned &color, int id, double defData)
 	{
 		__data_color__ d(id, color, data, defData);
-		TL::find<ColorTable::items_list, __set_color_bar__>()(&d);
+		if(TL::find<ColorTable::items_list, __set_color_bar__>()(&d))
+		{
+			TL::find<label_message_list, __set_color_bar_next__>()(&d);
+		}
 	}
 };
