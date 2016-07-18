@@ -13,6 +13,7 @@ namespace AppKeyHandler
 
 	typedef TL::MkTlst<
 		TL::IntToType<IDB_CycleBtn>
+		, TL::IntToType<IDB_Continue>
 		, TL::IntToType<IDB_Reset>
 		, TL::IntToType<IDB_QueryBtn>
 		, TL::IntToType<IDB_arrow_down>

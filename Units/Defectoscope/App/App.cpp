@@ -19,6 +19,7 @@
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
 HANDLE App::ProgrammStopEvent;
+HANDLE App::ProgrammRunEvent;
 //HANDLE App::ProgrammTestRunEvent;
 bool App::measurementOfRunning = false;
 int __lengthCaretka = 430;
@@ -35,7 +36,7 @@ void App::Init()
 	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
-	//App::ProgrammTestRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
+	App::ProgrammRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
 	LogUSPC::Clear();
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
@@ -55,6 +56,7 @@ void App::Init()
 
 void App::Destroy()
 {
+	device1730.Write(0);
 	SetEvent(ProgrammExitEvent);
 	Sleep(2000);
 }

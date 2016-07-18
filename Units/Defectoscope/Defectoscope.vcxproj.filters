@@ -895,5 +895,11 @@
     <None Include="..\..\Common\Resource\arrow_left.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\common\resource\bitmap3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\continue.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -47,6 +47,7 @@ namespace
 	struct ExceptionStopProc{};
 	struct ExceptionTimeOutProc{};
 	struct ExceptionContinueProc{};
+	struct ExceptionRunProc{};
 	struct ExceptionСontrolСircuitsOffProc{};
 	struct ExceptionСycleOffProc{};
 	struct Exception_USPC_DO_ERROR_Proc{};
@@ -71,6 +72,7 @@ namespace
 	EX(Exit)
 	EX(Stop)
 	EX(Continue)
+	EX(Run)
 	//EX(TestRun)
 
 #undef EX
@@ -84,16 +86,28 @@ namespace
 				 p[TL::IndexOf<list, O>::value] = Ex<O>().handle;
 			 }
 		 };
+		 
 		 template<class O, class P>struct ev
 		 {
-			 void operator()(P *p)
+			 bool operator()(P *p)
 			 {
 				if(TL::IndexOf<list, O>::value == *p) throw O();
+				return true;
+			 }
+		 };
+		 template<class P>struct ev<ExceptionRunProc, P>
+		 {
+			 bool operator()(P *p)
+			 {
+				 return TL::IndexOf<list, O>::value != *p;
 			 }
 		 };
 		 template<class P>struct ev<ExceptionContinueProc, P>
 		 {
-			 void operator()(P *){}
+			 bool operator()(P *p)
+			 {
+				 return TL::IndexOf<list, O>::value != *p;
+			 }
 		 };
 		 HANDLE h[TL::Length<list>::value];
 		 ArrEvents()
@@ -101,10 +115,10 @@ namespace
 			 TL::foreach<list, loc>()(h);
 		 }
 
-		 void Throw(unsigned t)
+		 int Throw(unsigned t)
 		 {
-			 TL::foreach<list, ev>()(&t);
-			 return;
+			 TL::find<list, ev>()(&t);
+			 return t;
 		 }
 
 	 };
@@ -325,8 +339,7 @@ namespace
 				}
 				else
 				{
-					arrEvents.Throw(ev - WAIT_OBJECT_0);
-					return res;
+					return arrEvents.Throw(ev - WAIT_OBJECT_0);
 				}
 			}
 		}
@@ -413,18 +426,19 @@ void Automat::Impl::Do()
 {
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
+	AppKeyHandler::Init();
 	try
 	{
 		while(true)
 		{
 			try
 			{
+Start:
 				App::measurementOfRunning = false;	
 
-				//device1730.Write(0);
 				Sleep(500);
 
-				AND_BITS(Ex<ExceptionContinueProc>)(); //кнопка начала измерений
+				AND_BITS(Ex<ExceptionRunProc>)(); //кнопка начала измерений
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
@@ -480,6 +494,7 @@ void Automat::Impl::Do()
 			    if(viewInterrupt)
 				{
 					ResetEvent(App::ProgrammContinueEvent);
+					ResetEvent(App::ProgrammRunEvent);
 					if(compute.tubeResult)
 					{
 						Log::Mess<LogMess::ContineCycleOk>();
@@ -489,7 +504,8 @@ void Automat::Impl::Do()
 						Log::Mess<LogMess::ContineCycleBrak>();
 					}
 					AppKeyHandler::Continue();
-					WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
+					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
+					if(0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)) goto Start;					
 				}
 				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
 				//OUT_BITS(On<oResult1>, On<oResult2>);

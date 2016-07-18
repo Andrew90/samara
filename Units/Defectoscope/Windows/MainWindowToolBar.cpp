@@ -31,11 +31,13 @@ namespace
 	KEY(IDB_arrow_up   , L"F6 Вверх")
 	KEY(IDB_arrow_left , L"F7 Влево")
 	KEY(IDB_arrow_right, L"F8 Вправо")
+	KEY(IDB_Continue, L"F11 Продолжить")
 #undef KEY
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
 		typedef TL::MkTlst<
 		SeparatorToolbar<0>
 		, BUTTON_KEY(IDB_CycleBtn)
+		, BUTTON_KEY(IDB_Continue)
 		, BUTTON_KEY(IDB_Reset)
 		, BUTTON_KEY(IDB_QueryBtn) 		
 		, SeparatorToolbar<1>
@@ -56,11 +58,17 @@ namespace
 			if(PacketWindowDlg(h)) 
 			{
 				CloseAllWindows();
-				SetEvent(App::ProgrammContinueEvent);
+				SetEvent(App::ProgrammRunEvent);
 				AppKeyHandler::Run();
 			}
 			closed_packet_dialog = true;
 		}
+	}
+	void Key<IDB_Continue>::Click(HWND h)
+	{
+		zprint("\n");
+		SetEvent(App::ProgrammContinueEvent);
+		AppKeyHandler::Run();
 	}
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)

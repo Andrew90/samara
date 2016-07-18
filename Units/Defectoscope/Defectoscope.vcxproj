@@ -323,10 +323,12 @@
     <None Include="..\..\Common\Resource\arrow_left.bmp" />
     <None Include="..\..\Common\Resource\arrow_right.bmp" />
     <None Include="..\..\Common\Resource\arrow_up.bmp" />
+    <None Include="..\..\common\resource\bitmap3.bmp" />
     <None Include="..\..\Common\Resource\BottomArr.bmp" />
     <None Include="..\..\Common\Resource\clamp.bmp" />
     <None Include="..\..\Common\Resource\Clamp1OnBtn.bmp" />
     <None Include="..\..\Common\Resource\Clamp2OnBtn.bmp" />
+    <None Include="..\..\Common\Resource\continue.bmp" />
     <None Include="..\..\Common\Resource\CycleBtn.bmp" />
     <None Include="..\..\Common\Resource\DownArrow.bmp" />
     <None Include="..\..\Common\Resource\ExitTubeBtn.bmp" />

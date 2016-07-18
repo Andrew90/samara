@@ -29,6 +29,7 @@ public:
 	static HANDLE ProgrammExitEvent;
 	static HANDLE ProgrammContinueEvent;
 	static HANDLE ProgrammStopEvent;
+	static HANDLE ProgrammRunEvent;
 	static bool measurementOfRunning;									
 public:
 	MainWindow &mainWindow;
