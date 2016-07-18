@@ -17,7 +17,7 @@ void StatusZoneThickness(int offs, double &data, int zone, double (&maxThreshold
 	if(0.0 == data)
 	{
 		status = StatusId<Clr<Undefined>>();
-		data = nominalTreshold[zone];
+		//data = min;
 	}
 	else if(data < min)
 	{
@@ -147,18 +147,18 @@ namespace
 								}
 							}
 						}
-						if(0 == b[j].hdr.G1Tof) continue;
+						//if(0 == b[j].hdr.G1Tof) continue;
 						double val = 2.5e-6 * b[j].hdr.G1Tof * 4600;
 						double t = filtre(channel, val);
 						if(t > d.bufferMax[i])
-						{
-							d.bufferMax[i] = t;						
+						{													
 							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+							d.bufferMax[i] = t;
 						}
-						if(t < d.bufferMin[i])
+						if(0.0 != t &&  t < d.bufferMin[i])
 						{
-							d.bufferMin[i] = t;						
-							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+							d.bufferMin[i] = t;	
+							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
 						}
 					}
 				}				
