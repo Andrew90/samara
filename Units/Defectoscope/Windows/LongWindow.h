@@ -7,13 +7,6 @@
 #include "LineChart.hpp"
 #include "Common.h"
 
-//class XLongViewer: public LongViewer
-//{
-//public:
-//	typedef LongViewer Parent;
-//	void operator()(TRButtonDown &){}
-//};
-
 class LongWindow
 {
 public:

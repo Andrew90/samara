@@ -8,6 +8,8 @@
 #include "ResultData.h"
 #include "SelectMessage.h"
 #include "LabelMessage.h"
+#include "LogMessages.h"
+#include "LogBuffer.h"
 
 void StatusZoneThickness(int offs, double &data, int zone, double (&maxThreshold)[App::count_zones]
 , double (&minThreshold)[App::count_zones], double (&nominalTreshold)[App::count_zones], char &status)
@@ -17,7 +19,6 @@ void StatusZoneThickness(int offs, double &data, int zone, double (&maxThreshold
 	if(0.0 == data)
 	{
 		status = StatusId<Clr<Undefined>>();
-		//data = min;
 	}
 	else if(data < min)
 	{
@@ -267,7 +268,48 @@ namespace
 		}
 	};
 
-	void CommonStatus()
+	template<class T>struct ResultOk
+	{
+		bool operator()(){return true;}
+	};
+
+	template<class T>struct ResultOk<BorderLower<T>>
+	{
+		bool operator()(){return false;}
+	};
+	template<class T>struct ResultOk<BorderDefect<T>>
+	{
+		bool operator()(){return false;}
+	};
+	
+	template<class T>struct __first__;
+	template<class A, class B, class C, class D>struct __first__<Clr<A, B, C, D>>
+	{
+		typedef A Result;
+	};
+	template<class O, class P>struct __result_ok__
+	{
+		bool operator()(P *p)
+		{
+			if(TL::IndexOf<label_message_list, O>::value == *p)
+			{
+				return ResultOk<typename __first__<O>::Result>()();
+			}
+			return true;
+		}
+	};
+
+	bool TubeResult(char (&res)[240], int count)
+	{
+		if(count > dimention_of(res)) count = dimention_of(res);
+		for(int i = 0; i < count; ++i)
+		{
+			if(!TL::find<label_message_list, __result_ok__>()(&res[i])) return false;
+		}
+		return true;
+	}
+
+	void CommonStatus(bool &tubeResult)
 	{
 		bool crossOnJob     = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross> >().value;
 		bool longOnJob      = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long> >().value;
@@ -305,6 +347,7 @@ namespace
 
 			resultStatus[i] = t;
 		}
+		tubeResult = TubeResult(resultStatus, currentOffset);
 	}
 
 }
@@ -312,7 +355,15 @@ namespace
 void Compute::Recalculation()
 {	
 	TL::foreach<USPC::items_list, __recalculation__>()();
-	CommonStatus();
+	CommonStatus(tubeResult);
+	if(tubeResult)
+	{
+		Log::Mess<LogMess::CycleOk>();
+	}
+	else
+	{
+		Log::Mess<LogMess::CycleBrak>();
+	}
 	app.MainWindowUpdate();
 }
 
@@ -330,20 +381,3 @@ void RecalculationDlg::Do(HWND)
 {
 	compute.Recalculation();
 }
-
-/*
-void Compute::Test()
-{
-	int buf[4];
-	buf[3] = -1;
-
-	buf[2] = 10;//TL::IndexOf<label_message_list, Clr<Undefined>>::value;
-	buf[0] = 5;//TL::IndexOf<label_message_list, Clr<BorderDefect<Long>>>::value;
-	buf[1] = 2;//TL::IndexOf<label_message_list, Clr<BorderAbove<Thickness>>>::value;
-
-	int t = 0;
-
-	SelectMessage(buf, t);
-	dprint("mess %d\n", t);
-}
-*/

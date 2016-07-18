@@ -127,13 +127,13 @@ struct ColorTable
 /*0*/		Clr<Undefined   >
 /*1*/		, Clr<DeathZone>
 /*2*/		, Clr<Nominal	>
-/*4*/	    , Clr<BorderAbove<Thickness> >
-/*5*/	    , Clr<BorderLower<Thickness> >
-/*6*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-/*7*/	    , Clr<BorderKlass2<Long> > 
-/*8*/	    , Clr<BorderDefect<Long> >
-/*9*/	    , Clr<BorderKlass2<Cross>>
-/*10*/	    , Clr<BorderDefect<Cross>>
+/*3*/	    , Clr<BorderAbove<Thickness> >
+/*4*/	    , Clr<BorderLower<Thickness> >
+/*5*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+/*6*/	    , Clr<BorderKlass2<Long> > 
+/*7*/	    , Clr<BorderDefect<Long> >
+/*8*/	    , Clr<BorderKlass2<Cross>>
+/*9*/	    , Clr<BorderDefect<Cross>>
 
 ///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 ///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>

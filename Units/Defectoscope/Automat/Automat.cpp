@@ -453,46 +453,14 @@ void Automat::Impl::Do()
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
 				Log::Mess<LogMess::WaitControl>();
+				USPC::Config();
 				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(25 * 1000);
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
 				USPC::Start();
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
-/*
-				int test_counter = 0;
-                
-				while(timeGetTime() - startTime < 45 * 100) //test
-				{
-					USPC_Do::Do(0);
-					Sleep(5);
-					if(++test_counter > 200)
-					{
-						dprint("tme %d",  timeGetTime() - startTime);
-						test_counter = 0;
-					}
-				}
-				*/
-
-				//dprint("\nLog::Mess<LogMess::InfoBase>();\n");
-				
-				//Log::Mess<LogMess::InfoBase>();
-				//AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
-/*
-				while(timeGetTime() - startTime < 60 * 100) //test
-				{
-					USPC_Do::Do(0);
-					Sleep(5);
-					if(++test_counter > 200)
-					{
-						dprint("tme %d",  timeGetTime() - startTime);
-						test_counter = 0;
-					}
-				}
-				*/
-
-
 				//вычислить скорость каретки и вывод на экран
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
 				dprint("baseTime %d    startTime %d  baseTime - startTime %d", baseTime, startTime, baseTime - startTime);
@@ -500,7 +468,6 @@ void Automat::Impl::Do()
 				AND_BITS(Ex<ExceptionStopProc>, Off<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				//Остановить плату USPC
 				USPC::Stop();
-				//device1730.Write(0);
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
@@ -513,11 +480,29 @@ void Automat::Impl::Do()
 			    if(viewInterrupt)
 				{
 					ResetEvent(App::ProgrammContinueEvent);
-					Log::Mess<LogMess::ContineCycle>();
+					if(compute.tubeResult)
+					{
+						Log::Mess<LogMess::ContineCycleOk>();
+					}
+					else
+					{
+						Log::Mess<LogMess::ContineCycleBrak>();
+					}
+					AppKeyHandler::Continue();
 					WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
 				}
 				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
-				OUT_BITS(On<oResult1>, On<oResult2>);
+				//OUT_BITS(On<oResult1>, On<oResult2>);
+				if(compute.tubeResult)
+				{
+					OUT_BITS(On<oResult1>);
+					Log::Mess<LogMess::CycleOk>();
+				}
+				else
+				{
+					OUT_BITS(On<oResult2>);
+					Log::Mess<LogMess::CycleBrak>();
+				}
 				Sleep(500);
 				//выставить сигнал ПЕРЕКЛАДКА
 				OUT_BITS(On<oToShiftThe>);

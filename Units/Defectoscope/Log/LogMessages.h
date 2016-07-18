@@ -104,7 +104,11 @@ namespace LogMess
 		, AlarmControlCircuts
 		, AlarmCycle
 
-		, ContineCycle
+		, ContineCycleOk
+		, ContineCycleBrak
+
+		, CycleOk  
+		, CycleBrak
 
 		, max_row
 	};
@@ -162,7 +166,11 @@ namespace LogMess
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
 
-	MESS(ContineCycle, void, "Для продолжения нажмите кнопку \"Цикл\"", blue, white)
+	MESS(ContineCycleOk, void, "Результат контроля \"ГОДНО\". Для продолжения нажмите кнопку \"Цикл\"", blue, white)
+	MESS(ContineCycleBrak, void, "Результат контроля \"БРАК\". Для продолжения нажмите кнопку \"Цикл\"", red, yellow)
+
+	MESS(CycleOk  , void, "Результат контроля \"ГОДНО\"", blue, white)
+	MESS(CycleBrak, void, "Результат контроля \"БРАК\"", red, yellow)
 
 
 	MESS(InfoOnWorkBitIn                , void, "Ожидание сигнала \"Работа\""					  , blue , white)

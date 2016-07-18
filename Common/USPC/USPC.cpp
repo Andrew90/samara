@@ -301,12 +301,18 @@ namespace USPC
 		}
 	}
 
+	bool Config()
+	{
+		unsigned err = 0;
+		bool b = TL::find<items_list, __config__>()(&err);
+		dprint("config err %x\n", err);
+		return b;
+	}
+
 	bool Start()
 	{
 		unsigned err = 0;
-		//bool b = TL::find<items_list, __clear__>()(&err);
-		bool b = TL::find<items_list, __config__>()(&err);
-		if(b)b = TL::find<items_list, __start__>()(&err);
+		bool b = TL::find<items_list, __start__>()(&err);
 		if(!b)
 		{
 			TL::foreach<items_list, __stop__>()();
