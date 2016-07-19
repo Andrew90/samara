@@ -24,14 +24,15 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	int cnt = 0;
 	if(stop > maxOffs) stop = maxOffs;
 	int i = start + offs;
-	if(true)//!medianFiltreOn)
+	ItemData<Thickness> &d = Singleton<ItemData<Thickness> >::Instance();
+	if(!medianFiltreOn)
 	{
 		for(; i < stop; ++i)
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * 4600;
-			//	scan[cnt] = &s[i];
+				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * d.scope_velocity[channel];
+				scan[cnt] = &s[i];
 				StatusZoneThickness(offs, data[cnt], zone
 					, aboveBorder  
 					, lowerBorder  
@@ -54,7 +55,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[offs].Channel)
 			{
-				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * 4600;
+				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.scope_velocity[channel];
 				sk[z] = &s[offs];
 				
 				StatusZoneThickness(offs, tmp[z], zone
@@ -72,7 +73,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[i].Channel)
 			{
-				double t = 2.5e-6 * s[i].hdr.G1Tof * 4600;
+				double t = 2.5e-6 * s[i].hdr.G1Tof * d.scope_velocity[channel];
 				char st;
 				StatusZoneThickness(offs, t, zone
 					, aboveBorder  
@@ -86,13 +87,13 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				if(StatusId<Clr<DeathZone>>() != st)
 				{
 					data[cnt] = f.buf[ret];
-		//			scan[cnt] = sk[ret];
+					scan[cnt] = sk[ret];
 					status[cnt] = stat[ret];
 				}
 				else
 				{
 					data[cnt] = t;
-				//	scan[cnt] = &s[i];
+					scan[cnt] = &s[i];
 					status[cnt] = st;
 				}
 				if(++cnt >= dimention_of(data)) break;

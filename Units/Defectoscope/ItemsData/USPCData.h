@@ -42,7 +42,16 @@ template<class T>struct ItemData;
 template<>struct ItemData<Cross>: USPCViewerData{}; 
 template<>struct ItemData<Long>: USPCViewerData{};
 
-template<>struct ItemData<Thickness>: USPCViewerThicknessData{};
+template<>struct ItemData<Thickness>: USPCViewerThicknessData
+{
+	ItemData()
+	{
+		for(int i = 0; i < App::count_sensors; ++i)
+		{
+			scope_velocity[i] = 6400.0;
+		}
+	}
+};
 
 /// тестирование и эмуляция
 //struct TestUSPC
