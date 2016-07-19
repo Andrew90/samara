@@ -77,24 +77,12 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 
 	void operator()(TRButtonDown &l)
 	{
-		Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);//, dataViewer.scan[offsetX]);
+		Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);
 	}
 };
 
-//Set(zone, start, stop, channel, offs, maxOffs, s);
-
-//template<class T, int N>struct Line
 namespace
 {
-//template<template<class, int>class Wapper, class T, int start, int max>struct CreateNumList
-//{
-//	typedef Tlst<Wapper<T, start>, typename CreateNumList<Wapper, T, 1 + start, max>::Result> Result;
-//};
-//template<template<class, int>class Wapper, class T, int max>struct CreateNumList<Wapper, T, max, max>
-//{
-//	typedef Tlst<Wapper<T, max>, NullType> Result;
-//};
-
 template<class O, class P>struct __scan__
 {
 	bool operator()(O *o, P *p)
@@ -126,11 +114,29 @@ template<template<class, int>class L, class T, int N, class P>struct __scan__<L<
 	}
 };
 
+template<class T>struct __for_label__
+{
+	wchar_t buffer[128];
+	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d)
+	{
+		wsprintf(buffer, L"<ff>амплитуда %d", d->hdr.G1Amp);
+		return buffer;
+	}
+};
+
+template<>struct __for_label__<Thickness>
+{
+	wchar_t buffer[128];
+	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d)
+	{
+		wsprintf(buffer, L"<ff>смещение %d  амплитуда %d", d->hdr.G1Tof, d->hdr.G1Amp);
+		return buffer;
+	}
+};
 
 template<class T> struct Scan
 {
-	//typedef typename CreateNumList<Line, T, 0, App::count_sensors - 1>::Result line_list;
-	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())//, USPC7100_ASCANDATAHEADER *scan)
+	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())
 	{
 		typedef typename T::sub_type Ascan;
 		ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
@@ -155,23 +161,17 @@ template<class T> struct Scan
 		}
 		__scan_data__ d = {sens, zone, offs, NULL};
 		TL::foreach<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
-		//int x = data.offsets[zone];
-		////dprint("1offs %d first zone %d last zone %d\n", x
-		//	, data.offsets[zone] +  data.offsSensor[sens]
-		//, data.offsets[zone + 1] +  data.offsSensor[sens]);
-		//x += data.offsSensor[sens];
-		//dprint("2offs %d sensor %d, offset sens %d\n", x, sens, data.offsSensor[sens]);
-		//x += offs * App::count_sensors + sens;
-		//dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
-		//dprint("3offs %d offsetX %d channel %d  ----\n", x, offs, data.ascanBuffer[x].Channel);
-		
-		//if(x < 0) return;
 
+		//g1Tof = uspc->hdr.G1Tof;
+		 //g1Amp = uspc->hdr.G1Amp;
+		 //wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
+		
 		Singleton<ScanWindow>::Instance().Open(
 			zone
 			, sens
 			, offs
 			, Title<Ascan>()()
+			, __for_label__<Ascan>()(d.scan)
 			, d.scan
 			, o
 			, ptr

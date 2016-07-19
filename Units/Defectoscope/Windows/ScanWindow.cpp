@@ -93,7 +93,7 @@ void ScanWindow::operator()(TSize &l)
 		mouseMove = false;
 	}
 
-	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc, void *o, void(*ptr)())
+	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *uspc, void *o, void(*ptr)())
 	{
 		owner = o;
 		zone = zone_;
@@ -105,9 +105,10 @@ void ScanWindow::operator()(TSize &l)
 		 maxY = 100;
 		 wchar_t buf[1024];
 		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, 1 + zone_, 1 + sensor_, offset_);
-		 g1Tof = uspc->hdr.G1Tof;
-		 g1Amp = uspc->hdr.G1Amp;
-		 wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
+		 //g1Tof = uspc->hdr.G1Tof;
+		 //g1Amp = uspc->hdr.G1Amp;
+		 //wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
+		 label = mess1;
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
 		 if(NULL != h)
 		 {			

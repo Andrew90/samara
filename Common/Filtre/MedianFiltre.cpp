@@ -72,4 +72,18 @@ void MedianFiltre::Clear(int width_)
 	index = 0;
 	width = width_;
 	ZeroMemory(buf, sizeof(buf));
+	for(int i = 0; i < width; ++i)ind[i] = i;
+}
+//------------------------------------------------------------------
+void MedianFiltre::SetVal(int width_, double val)
+{
+	medianIndex = width_ / 2;
+	index = 0;
+	width = width_;
+	ZeroMemory(buf, sizeof(buf));
+	for(int i = 0; i < width; ++i)
+	{
+		ind[i] = i;
+		buf[i] = val;
+	}
 }

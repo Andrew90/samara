@@ -149,7 +149,9 @@ namespace
 							}
 						}
 						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
+						if(0.0 == val) val = 9999.9;
 						double t = filtre(channel, val);
+						if(9999.9 == t) t = 0.0;
 						if(t > d.bufferMax[i])
 						{													
 							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);

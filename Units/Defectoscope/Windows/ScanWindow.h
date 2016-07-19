@@ -37,7 +37,7 @@ public:
 	unsigned operator()(TCreate &);
 	void operator()(TLButtonDown &);
 
-	void Open(int zone, int sensor, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
+	void Open(int zone, int sensor, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);
 
 	void SensPlus();
