@@ -47,6 +47,7 @@ namespace Stored
 			 fwrite(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fwrite(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fwrite(&compute.lengthTube, sizeof(int), 1, f);
+			 fwrite(&thicknessData.scope_velocity, sizeof(thicknessData.scope_velocity), 1, f);
 
 			 __Store__(crossData.ascanBuffer    , crossData.currentOffsetFrames, f);
 			 __Store__(longData.ascanBuffer     , longData.currentOffsetFrames, f);
@@ -78,6 +79,7 @@ namespace Stored
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fread(&compute.lengthTube, sizeof(int), 1, f);
+			 fread(&thicknessData.scope_velocity, sizeof(thicknessData.scope_velocity), 1, f);
 
 			 __Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
 			 __Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
