@@ -83,12 +83,13 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				int ind = f.index % f.width;
 				sk[ind] = &s[i];
 				stat[ind] = st;
-				if(0.0 == t) t = 9999.99;
+				if(0 == t) t = 999999;
 				int ret = f.Add(t);
 				//if(StatusId<Clr<DeathZone>>() != st)
 				{
-					t =  f.buf[ret];
-					if(9999.99 == t) t = 0.0;
+					t = f.buf[ret];
+					if(999999 == t) t = 0;
+					
 					data[cnt] = t;//f.buf[ret];
 					scan[cnt] = sk[ret];
 					status[cnt] = stat[ret];

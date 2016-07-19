@@ -50,15 +50,6 @@ int MedianFiltre::Add(double d)
 		}
 	}
 	ind[index_] = cnt;
-	//for(int i = index - width, last = index; i < last; ++i)//не стирать
-	//{														 //не стирать
-	//	int k = i % width;									 //не стирать
-	//	if(medianIndex == ind[k]) 							 //не стирать
-	//		return i;										 //не стирать
-	//}														 //не стирать
-	//														 //не стирать
-	//return index - 1;										 //не стирать
-
 	for(int i = 0; i < width; ++i)
 	{
 		if(medianIndex == ind[i]) return i;
@@ -70,9 +61,15 @@ void MedianFiltre::Clear(int width_)
 {
 	medianIndex = width_ / 2;
 	index = 0;
+	indexX = 0;
 	width = width_;
 	ZeroMemory(buf, sizeof(buf));
-	for(int i = 0; i < width; ++i)ind[i] = i;
+	ZeroMemory(bufX, sizeof(bufX));
+	for(int i = 0; i < width; ++i)
+	{
+			ind[i] = i;
+			indX[i] = i;
+	}
 }
 //------------------------------------------------------------------
 void MedianFiltre::SetVal(int width_, double val)
@@ -87,3 +84,32 @@ void MedianFiltre::SetVal(int width_, double val)
 		buf[i] = val;
 	}
 }
+//------------------------------------------------------------------------------
+int MedianFiltre::AddX(double d)
+{
+	int index_ = indexX % width;
+	++indexX;
+	double x = bufX[index_];
+	for(int i = 0; i < width; ++i)
+	{
+		if(x < bufX[i]) --indX[i];
+	}
+
+	int cnt = 0;
+	bufX[index_] = d;
+
+	for(int i = 0; i < width; ++i)
+	{
+		if(i != index_)
+		{
+			if(d > bufX[i]) ++cnt; else ++indX[i];
+		}
+	}
+	indX[index_] = cnt;
+	for(int i = 0; i < width; ++i)
+	{
+		if(medianIndex == indX[i]) return i;
+	}
+	return 0;
+}
+//-------------------------------------------------------------------------

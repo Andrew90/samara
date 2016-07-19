@@ -51,12 +51,21 @@ namespace
 			MedianFiltre &ff = f[i];
 			return ff.buf[ff.Add(data)];
 		}
+		inline double AddX(int i, double data)
+		{
+			MedianFiltre &ff = f[i];
+			return ff.bufX[ff.AddX(data)];
+		}
 	};
 	struct FiltreOff
 	{
 		FiltreOff( MedianFiltre (&f)[App::count_sensors])
 		{}
 		inline double operator()(int i, double data)
+		{
+			return data;
+		}
+		inline double AddX(int i, double data)
 		{
 			return data;
 		}
@@ -149,15 +158,16 @@ namespace
 							}
 						}
 						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
-						if(0.0 == val) val = 9999.9;
-						double t = filtre(channel, val);
-						if(9999.9 == t) t = 0.0;
+						double t = filtre(channel, val);						
 						if(t > d.bufferMax[i])
 						{													
 							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
 							d.bufferMax[i] = t;
 						}
-						if(0.0 != t &&  t < d.bufferMin[i])
+						if(0 == val) val = 999999;
+						t = filtre.AddX(channel, val);	
+						if(999999 == t) t = 0;
+						if(0 != t &&  t < d.bufferMin[i])
 						{
 							d.bufferMin[i] = t;	
 							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							

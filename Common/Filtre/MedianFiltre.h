@@ -11,4 +11,9 @@ struct MedianFiltre
 	int Add(double);
 	void Clear(int);
 	void SetVal(int, double );
+public:
+	int indexX;
+	double bufX[16];
+	int indX[16];
+	int AddX(double);
 };
