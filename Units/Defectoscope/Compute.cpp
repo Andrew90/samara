@@ -149,7 +149,7 @@ namespace
 							}
 						}
 						//if(0 == b[j].hdr.G1Tof) continue;
-						double val = 2.5e-6 * b[j].hdr.G1Tof * 4600;
+						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
 						double t = filtre(channel, val);
 						if(t > d.bufferMax[i])
 						{													
