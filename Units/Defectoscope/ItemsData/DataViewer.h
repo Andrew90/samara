@@ -13,7 +13,7 @@ struct DataVieverConst
 struct DefectData
 {
 	double data[DataVieverConst::buf_size];
-	//USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
+	USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
 	char status[DataVieverConst::buf_size];
 	int count;
 	int zone;
@@ -87,7 +87,7 @@ template<class T>struct DataViewer: DefectData
 struct ThicknessData
 {
 	double data[DataVieverConst::buf_size];
-	//USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
+	USPC7100_ASCANDATAHEADER *scan[DataVieverConst::buf_size];
 	char status[DataVieverConst::buf_size];
 	int count;
 	int zone;

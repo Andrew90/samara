@@ -8,7 +8,8 @@
 
 class ScanWindow
 {
-	void (*ptrScan)(int, int, int, void(*)());
+	void *owner;
+	void (*ptrScan)(int, int, int, void *, void(*)());
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
@@ -27,7 +28,6 @@ public:
 	double data[512];
 	TMouseMove storedMouseMove;
 	ColorLabel label;
-//	Cursor cursor;
 	bool mouseMove;
 	ScanWindow();
 	void operator()(TSize &);
@@ -35,12 +35,9 @@ public:
 	void operator()(TCommand &);
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
-	//void operator()(TMouseWell &);
-	//void operator()(TMouseMove &);
 	void operator()(TLButtonDown &);
-	//void operator()(TLButtonDbClk &);
 
-	void Open(int zone, int sensor, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *data/*, unsigned char(&)[512], int countSamples, int maxY*/, void(*)());
+	void Open(int zone, int sensor, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);
 
 	void SensPlus();

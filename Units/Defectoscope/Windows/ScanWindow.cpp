@@ -93,12 +93,13 @@ void ScanWindow::operator()(TSize &l)
 		mouseMove = false;
 	}
 
-	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc, void(*ptr)())
+	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, USPC7100_ASCANDATAHEADER *uspc, void *o, void(*ptr)())
 	{
+		owner = o;
 		zone = zone_;
 		sensor = sensor_;
 		offsetInZone = offset_;
-		ptrScan = (void(*)(int, int, int, void(*)()))ptr;
+		ptrScan = (void(*)(int, int, int, void *, void(*)()))ptr;
 		for(int i = 0; i < 512; ++i)  data[i] = uspc->Point[i];
 		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
 		 maxY = 100;
@@ -134,22 +135,22 @@ void ScanWindow::operator()(TSize &l)
 	{
 		++sensor;
 		sensor %= App::count_sensors;
-		(*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+		(*ptrScan)(zone, sensor, offsetInZone, owner, (void(*)())ptrScan);
 	}
 	void ScanWindow::SensMinus()
 	{
 		--sensor;
 		sensor = (unsigned)sensor % App::count_sensors;
-		(*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+		(*ptrScan)(zone, sensor, offsetInZone, owner, (void(*)())ptrScan);
 	}
 	void ScanWindow::OffsPlus()	
 	{
        ++offsetInZone;
-	   (*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+	   (*ptrScan)(zone, sensor, offsetInZone, owner, (void(*)())ptrScan);
 	}
 	void ScanWindow::OffsMinus()
 	{
 		--offsetInZone;
-	   (*ptrScan)(zone, sensor, offsetInZone, (void(*)())ptrScan);
+	   (*ptrScan)(zone, sensor, offsetInZone, owner, (void(*)())ptrScan);
 	}
 

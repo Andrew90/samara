@@ -41,7 +41,7 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 			if(channel == s[i].Channel)
 			{
 				data[cnt] = s[i].hdr.G1Amp;
-			//	scan[cnt] = &s[i];
+				scan[cnt] = &s[i];
 				StatusZoneDefect<Cross>(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
 				if(++cnt >= dimention_of(data)) break;
 			}
@@ -83,13 +83,13 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 				if(StatusId<Clr<DeathZone>>() != st)
 				{
 					data[cnt] = f.buf[ret];
-				//	scan[cnt] = sk[ret];
+					scan[cnt] = sk[ret];
 					status[cnt] = stat[ret];
 				}
 				else
 				{
 					data[cnt] = t;
-				//	scan[cnt] = &s[i];
+					scan[cnt] = &s[i];
 					status[cnt] = st;
 				}
 				if(++cnt >= dimention_of(data)) break;

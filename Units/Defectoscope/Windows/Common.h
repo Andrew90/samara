@@ -293,6 +293,7 @@ template<class T>class NoSubMenu: public T
 {
 	public:
 	typedef T Parent;
+	explicit NoSubMenu(){}
 	void operator()(TRButtonDown &){}
 };
 

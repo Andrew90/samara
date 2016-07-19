@@ -24,7 +24,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	int cnt = 0;
 	if(stop > maxOffs) stop = maxOffs;
 	int i = start + offs;
-	if(!medianFiltreOn)
+	if(true)//!medianFiltreOn)
 	{
 		for(; i < stop; ++i)
 		{

@@ -77,20 +77,69 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 
 	void operator()(TRButtonDown &l)
 	{
-		Scan<typename T::sub_type>::Do(owner->lastZone, N, offsetX, (void(*)())Scan<typename T::sub_type>::Do);
+		Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);//, dataViewer.scan[offsetX]);
 	}
 };
 
+//Set(zone, start, stop, channel, offs, maxOffs, s);
+
+//template<class T, int N>struct Line
+namespace
+{
+//template<template<class, int>class Wapper, class T, int start, int max>struct CreateNumList
+//{
+//	typedef Tlst<Wapper<T, start>, typename CreateNumList<Wapper, T, 1 + start, max>::Result> Result;
+//};
+//template<template<class, int>class Wapper, class T, int max>struct CreateNumList<Wapper, T, max, max>
+//{
+//	typedef Tlst<Wapper<T, max>, NullType> Result;
+//};
+
+template<class O, class P>struct __scan__
+{
+	bool operator()(O *o, P *p)
+	{
+		return true;
+	}
+};
+
+struct __scan_data__
+{
+	int channel;
+	int zone;
+	int offs;
+	 USPC7100_ASCANDATAHEADER *scan;
+};
+
+template<template<class, int>class L, class T, int N, class P>struct __scan__<L<T, N>, P>
+{
+	typedef typename L<T, N> O;
+	bool operator()(O *o, P *p)
+	{
+		if(N == p->channel)
+		{
+			o->dataViewer.Do(p->zone, p->channel);
+			p->scan = o->dataViewer.scan[p->offs];
+			return false;
+		}
+		return true;
+	}
+};
+
+
 template<class T> struct Scan
 {
-	static void Do(int zone, int sens, int offs, void(*ptr)())
+	//typedef typename CreateNumList<Line, T, 0, App::count_sensors - 1>::Result line_list;
+	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())//, USPC7100_ASCANDATAHEADER *scan)
 	{
-		ItemData<T> &data = Singleton<ItemData<T>>::Instance();
+		typedef typename T::sub_type Ascan;
+		ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
 		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
 		if(of < offs)
 		{
 			++zone;
 			offs = 0;
+
 		}
 		if(offs < 0)
 		{
@@ -104,25 +153,30 @@ template<class T> struct Scan
 				offs = zone = 0;
 			}
 		}
-		int x = data.offsets[zone];
-		dprint("1offs %d first zone %d last zone %d\n", x
-			, data.offsets[zone] +  data.offsSensor[sens]
-		, data.offsets[zone + 1] +  data.offsSensor[sens]);
-		x += data.offsSensor[sens];
-		dprint("2offs %d sensor %d, offset sens %d\n", x, sens, data.offsSensor[sens]);
-		x += offs * App::count_sensors + sens;
-		dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
-		dprint("3offs %d offsetX %d channel %d  ----\n", x, offs, data.ascanBuffer[x].Channel);
+		__scan_data__ d = {sens, zone, offs, NULL};
+		TL::foreach<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
+		//int x = data.offsets[zone];
+		////dprint("1offs %d first zone %d last zone %d\n", x
+		//	, data.offsets[zone] +  data.offsSensor[sens]
+		//, data.offsets[zone + 1] +  data.offsSensor[sens]);
+		//x += data.offsSensor[sens];
+		//dprint("2offs %d sensor %d, offset sens %d\n", x, sens, data.offsSensor[sens]);
+		//x += offs * App::count_sensors + sens;
+		//dprint("G1Amp %d  G1Tof %d\n", data.ascanBuffer[x].hdr.G1Amp,  data.ascanBuffer[x].hdr.G1Tof);
+		//dprint("3offs %d offsetX %d channel %d  ----\n", x, offs, data.ascanBuffer[x].Channel);
 		
-		if(x < 0) return;
+		//if(x < 0) return;
+
 		Singleton<ScanWindow>::Instance().Open(
 			zone
 			, sens
 			, offs
-			, Title<T>()()
-			, &data.ascanBuffer[x]
+			, Title<Ascan>()()
+			, d.scan
+			, o
 			, ptr
 			);
 	}
 };
+}
 

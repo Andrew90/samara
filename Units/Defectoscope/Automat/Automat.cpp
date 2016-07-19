@@ -97,6 +97,7 @@ namespace
 		 };
 		 template<class P>struct ev<ExceptionRunProc, P>
 		 {
+			 typedef ExceptionRunProc O;
 			 bool operator()(P *p)
 			 {
 				 return TL::IndexOf<list, O>::value != *p;
@@ -104,6 +105,7 @@ namespace
 		 };
 		 template<class P>struct ev<ExceptionContinueProc, P>
 		 {
+			 typedef ExceptionContinueProc O;
 			 bool operator()(P *p)
 			 {
 				 return TL::IndexOf<list, O>::value != *p;
@@ -505,7 +507,7 @@ Start:
 					}
 					AppKeyHandler::Continue();
 					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
-					if(0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)) goto Start;					
+					if(0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)(60 * 60 * 1000)) goto Start;					
 				}
 				//todo в зависимости от результатов контрол€ выставить сигналы –≈«”Ћ№“ј“1 и –≈«”Ћ№“ј“2
 				//OUT_BITS(On<oResult1>, On<oResult2>);

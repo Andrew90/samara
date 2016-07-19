@@ -16,7 +16,7 @@ public:
 	HWND hWnd;
 	bool drawZones;
 	
-	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, 7>::Result line_list;
+	typedef TL::CreateWapperNumList<Line, CrossWindow, 0, App::count_sensors - 1>::Result line_list;
 	typedef TL::AppendList<
 		    TL::MkTlst<NoSubMenu<CrossViewer>>::Result
 		    , line_list
