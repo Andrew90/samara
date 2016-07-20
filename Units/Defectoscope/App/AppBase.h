@@ -334,14 +334,14 @@ struct Descriptor1730Table
  //--------------------------------------------------------------------------------------------------------
 ///\brief Смещение измерительных датчиков
 template<int N>struct Offset;
-DEFINE_PARAM_NUM(Offset, 0, int, 0)
-DEFINE_PARAM_NUM(Offset, 1, int, 50)
-DEFINE_PARAM_NUM(Offset, 2, int, 100)
-DEFINE_PARAM_NUM(Offset, 3, int, 150)
-DEFINE_PARAM_NUM(Offset, 4, int, 280)
-DEFINE_PARAM_NUM(Offset, 5, int, 330)
-DEFINE_PARAM_NUM(Offset, 6, int, 380)
-DEFINE_PARAM_NUM(Offset, 7, int, 430)
+DEFINE_PARAM_NUM(Offset, 0, int, 430)
+DEFINE_PARAM_NUM(Offset, 1, int, 380)
+DEFINE_PARAM_NUM(Offset, 2, int, 330)
+DEFINE_PARAM_NUM(Offset, 3, int, 280)
+DEFINE_PARAM_NUM(Offset, 4, int, 150)
+DEFINE_PARAM_NUM(Offset, 5, int, 100)
+DEFINE_PARAM_NUM(Offset, 6, int, 50)
+DEFINE_PARAM_NUM(Offset, 7, int, 0)
 
 struct OffsetsTable
 {

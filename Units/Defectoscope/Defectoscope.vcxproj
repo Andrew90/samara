@@ -65,11 +65,14 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..Common\Communication;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\Defectoscope;$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +182,11 @@
     <ClCompile Include="Windows\LongThresholdWindow.cpp" />
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\LongWindow.cpp" />
-    <ClCompile Include="Windows\MainWindow.cpp" />
+    <ClCompile Include="Windows\MainWindow.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Full</Optimization>
+      <WholeProgramOptimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</WholeProgramOptimization>
+      <IntrinsicFunctions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IntrinsicFunctions>
+    </ClCompile>
     <ClCompile Include="Windows\MainWindowToolBar.cpp" />
     <ClCompile Include="Windows\PacketWindow.cpp" />
     <ClCompile Include="Windows\ResultViewer.cpp" />

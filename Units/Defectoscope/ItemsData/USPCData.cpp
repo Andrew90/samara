@@ -6,6 +6,7 @@
 #include <Mmsystem.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "DebugMess.h"
 
 #pragma comment(lib, "Winmm.lib")
 
@@ -69,7 +70,7 @@ namespace
 		{
 			static const int i = TL::IndexOf<OffsetsTable::items_list, O>::value;
 			double t = (double)p->samplesPerZone * o->value / App::zone_length;// / App::count_sensors;
-			p->offsSensor[i] = int(t);
+			p->offsSensor[i] = (int)t;
 			p->offsSensor[i] /= App::count_sensors;
 			p->offsSensor[i] *= App::count_sensors;
 		}
