@@ -552,8 +552,8 @@ Start:
 				ResetEvent(App::ProgrammContinueEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
 				device1730.Write(0);
-				//	AppKeyHandler::Stop();
-		//	ResetEvent(App::ProgrammContinueEvent);
+				AppKeyHandler::Stop();
+			    ResetEvent(App::ProgrammRunEvent);
 			}
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
