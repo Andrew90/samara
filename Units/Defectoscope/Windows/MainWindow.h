@@ -89,5 +89,6 @@ public:
 	void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
 	void operator()(TUser &);
+	void operator()(TClose &);
 	static void CheckBoxStateStoreInBase();
 };

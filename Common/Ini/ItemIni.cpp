@@ -41,7 +41,7 @@ namespace ItemIni
 //----------------------------------------------------------------------------------------------
 	void Set(wchar_t *section, wchar_t *nameParam, double value, wchar_t *fileName)
 	{
-		wchar_t buff[64];
+		wchar_t buff[128];
 		wsprintf(buff, L"%g", value);
 		WritePrivateProfileString(section, nameParam, buff, fileName);
 	}

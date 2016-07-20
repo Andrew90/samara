@@ -167,7 +167,7 @@ template<typename, int N = 5>struct Wchar_from;
 
 template<>struct Wchar_from<int>
 {
-	wchar_t buf[64];
+	wchar_t buf[128];
 	Wchar_from(int data)
 	{
        _itow_s(data, buf, 10);
@@ -176,7 +176,7 @@ template<>struct Wchar_from<int>
 };
 template<>struct Wchar_from<unsigned>
 {
-	wchar_t buf[64];
+	wchar_t buf[128];
 	Wchar_from(unsigned data)
 	{
        _itow_s(data, buf, 10);
@@ -186,10 +186,10 @@ template<>struct Wchar_from<unsigned>
 
 template<int NUM>struct Wchar_from<double, NUM>
 {
-	wchar_t buf[64];
+	wchar_t buf[128];
 	Wchar_from(double data)
 	{
-		char c[64];
+		char c[128];
 		_gcvt_s(c, 64, data, NUM);
 		int len = strlen(c) - 1;
 		if('.' == c[len]) c[len] = 0;
@@ -200,7 +200,7 @@ template<int NUM>struct Wchar_from<double, NUM>
 	wchar_t *operator()(){return buf;}
 	wchar_t *operator()(double data)
 	{
-		char c[64];
+		char c[128];
 		_gcvt_s(c, 64, data, 5);
 		size_t ConvertedChars;
 		mbstowcs_s(&ConvertedChars, buf, c, 60);
@@ -209,10 +209,10 @@ template<int NUM>struct Wchar_from<double, NUM>
 };
 template<int NUM>struct Wchar_from<float, NUM>
 {
-	wchar_t buf[64];
+	wchar_t buf[128];
 	Wchar_from(float data)
 	{
-		char c[64];
+		char c[128];
         _gcvt_s(c, 64, data, NUM);
         size_t ConvertedChars;
 		mbstowcs_s(&ConvertedChars, buf, c, 60);

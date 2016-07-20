@@ -24,7 +24,7 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 		wchar_t buf[128];
 		if(b)
 		{
-			char min[64], max[64];
+			char min[128], max[128];
 			sprintf(min, "%.1f",viewerData.bufferMin[x]);
 			sprintf(max, "%.1f",viewerData.bufferMax[x]);
 			//wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
@@ -63,9 +63,9 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 	);
 	color = color1;
 	unsigned char *x = (unsigned char *) &color;
-	x[0] = unsigned char(3.0 * x[0] / 4);
-	x[1] = unsigned char(3.0 * x[1] / 4);
-	x[2] = unsigned char(3.0 * x[2] / 4);
+	x[0] = unsigned char(2.5 * x[0] / 4);
+	x[1] = unsigned char(2.5 * x[1] / 4);
+	x[2] = unsigned char(2.5 * x[2] / 4);
 
 	return zone < viewerData.currentOffsetZones;	  
 }

@@ -119,7 +119,7 @@ void DataTimeItem::GetValue()
 {
 	SYSTEMTIME t;
 	DateTime_GetSystemtime(hDate, &t);   
-	wchar_t buf[64];
+	wchar_t buf[128];
 	Edit_GetText(hHour, buf, dimention_of(buf));
 	t.wHour = _wtoi(buf);
 	Edit_GetText(hMin, buf, dimention_of(buf));

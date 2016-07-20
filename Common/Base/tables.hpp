@@ -206,7 +206,7 @@ struct __value_type_holder_N
 {
 	wchar_t *operator()(int N)
 	{
-		static wchar_t buf[64];
+		static wchar_t buf[128];
 		wsprintf(buf, L"VARCHAR(%d)", N);
 		return buf;
 	}

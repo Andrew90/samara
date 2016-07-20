@@ -129,6 +129,13 @@ void MainWindow::operator()(TDestroy &)
 {
 	PostQuitMessage(0);
 }
+void MainWindow::operator()(TClose &l)
+{
+	if(IDYES == MessageBox(l.hwnd, L"Выйти из программы?", L"Cообщение", MB_ICONQUESTION | MB_YESNO))
+	{
+		DestroyWindow(l.hwnd);
+	}
+}
 //---------------------------------------------------------------------------
 typedef void(*TptrMess)(void *);
 void MainWindow::operator()(TMessage &m)

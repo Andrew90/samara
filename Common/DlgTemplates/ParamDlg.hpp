@@ -32,7 +32,7 @@ template<class T>struct DlgItem
 	}
 	void Store()
 	{
-		wchar_t buf[64];
+		wchar_t buf[128];
 		GetWindowText(hWnd, buf, dimention_of(buf));
 		value.value = Wchar_to<typename T::type_value>()(buf);
 	}
@@ -52,7 +52,7 @@ template<class O>struct __data_from_widget__<O, int>
 	typedef int T;
     T operator()(O &o)
 	{
-		wchar_t buf[64];
+		wchar_t buf[128];
 		GetWindowText(o.hWnd, buf, dimention_of(buf));
 		return Wchar_to<T>()(buf);
 	}
@@ -62,7 +62,7 @@ template<class O>struct __data_from_widget__<O, unsigned>
 	typedef int T;
     T operator()(O &o)
 	{
-		wchar_t buf[64];
+		wchar_t buf[128];
 		GetWindowText(o.hWnd, buf, dimention_of(buf));
 		return Wchar_to<T>()(buf);
 	}
@@ -72,7 +72,7 @@ template<class O>struct __data_from_widget__<O, double>
 	typedef double T;
     T operator()(O &o)
 	{
-		wchar_t buf[64];
+		wchar_t buf[128];
 		GetWindowText(o.hWnd, buf, dimention_of(buf));
 		return Wchar_to<T>()(buf);
 	}

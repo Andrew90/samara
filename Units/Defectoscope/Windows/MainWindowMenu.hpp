@@ -15,7 +15,14 @@ namespace MainWindowMenu
 	struct LoadDateFile: LoadDataDlg{};//{static void Do(HWND h){zprint("");}};
 	struct SaveDateFile: StoredDataDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Compute     : RecalculationDlg{};//{static void Do(HWND h){zprint("");}};
-	struct MainExit{static void Do(HWND h){DestroyWindow(h);}};
+	struct MainExit
+	{
+		static void Do(HWND h)
+		{
+			TClose c = {h, WM_CLOSE, 0, 0};
+			SendMessage(MESSAGE(c));
+		}
+	};
 
 	MENU_ITEM(L"Загрузить данные", LoadDateFile)
 	MENU_ITEM(L"Сохранить данные", SaveDateFile)

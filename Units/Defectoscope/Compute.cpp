@@ -310,7 +310,7 @@ namespace
 		}
 	};
 
-	bool TubeResult(char (&res)[240], int count)
+	bool TubeResult(char (&res)[App::count_zones], int count)
 	{
 		if(count > dimention_of(res)) count = dimention_of(res);
 		for(int i = 0; i < count; ++i)
