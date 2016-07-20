@@ -15,6 +15,13 @@
     static const unsigned textColor = tc;\
 	static const char *mess(){return _cat(txt, __##tpe);}\
 };
+#define MESSX(name, tpe, txt, bc, tc) template<>struct Row<name>\
+{\
+	typedef tpe type;\
+	static const unsigned backColor = bc;\
+    static const unsigned textColor = tc;\
+	static const char *mess(){return txt;}\
+};
 #define MESS1(name, tpe, txt, bc, tc) template<>struct Row<name>\
 {\
 	typedef tpe type;\
@@ -166,11 +173,11 @@ namespace LogMess
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
 
-	MESS(ContineCycleOk, void, "Результат контроля \"ГОДНО\". Для продолжения нажмите кнопку \"Цикл\"", blue, white)
-	MESS(ContineCycleBrak, void, "Результат контроля \"БРАК\". Для продолжения нажмите кнопку \"Цикл\"", red, yellow)
-
-	MESS(CycleOk  , void, "Результат контроля \"ГОДНО\"", blue, white)
-	MESS(CycleBrak, void, "Результат контроля \"БРАК\"", red, yellow)
+	MESSX(ContineCycleOk, double, "Результат контроля \"ГОДНО\". Длина трубы %.2f м. Для продолжения нажмите кнопку \"Цикл\"", blue, white)
+	MESSX(ContineCycleBrak, double, "Результат контроля \"БРАК\". Длина трубы %.2f м. Для продолжения нажмите кнопку \"Цикл\"", red, yellow)
+		
+	MESSX(CycleOk  , double, "Результат контроля \"ГОДНО\". Длина трубы  %.2f м.", blue, white)
+	MESSX(CycleBrak, double, "Результат контроля \"БРАК\". Длина трубы  %.2f м.", red, yellow)
 
 
 	MESS(InfoOnWorkBitIn                , void, "Ожидание сигнала \"Работа\""					  , blue , white)

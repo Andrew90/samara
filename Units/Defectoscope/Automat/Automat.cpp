@@ -499,11 +499,11 @@ Start:
 					ResetEvent(App::ProgrammRunEvent);
 					if(compute.tubeResult)
 					{
-						Log::Mess<LogMess::ContineCycleOk>();
+						Log::Mess<LogMess::ContineCycleOk>((double)compute.lengthTube / 1000);
 					}
 					else
 					{
-						Log::Mess<LogMess::ContineCycleBrak>();
+						Log::Mess<LogMess::ContineCycleBrak>((double)compute.lengthTube / 1000);
 					}
 					AppKeyHandler::Continue();
 					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
@@ -514,12 +514,12 @@ Start:
 				if(compute.tubeResult)
 				{
 					OUT_BITS(On<oResult1>);
-					Log::Mess<LogMess::CycleOk>();
+					Log::Mess<LogMess::CycleOk>((double)compute.lengthTube / 1000);
 				}
 				else
 				{
 					OUT_BITS(On<oResult2>);
-					Log::Mess<LogMess::CycleBrak>();
+					Log::Mess<LogMess::CycleBrak>((double)compute.lengthTube / 1000);
 				}
 				Sleep(500);
 				//выставить сигнал ПЕРЕКЛАДКА

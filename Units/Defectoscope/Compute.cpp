@@ -369,11 +369,11 @@ void Compute::Recalculation()
 	CommonStatus(tubeResult);
 	if(tubeResult)
 	{
-		Log::Mess<LogMess::CycleOk>();
+		Log::Mess<LogMess::CycleOk>((double)lengthTube / 1000);
 	}
 	else
 	{
-		Log::Mess<LogMess::CycleBrak>();
+		Log::Mess<LogMess::CycleBrak>((double)lengthTube / 1000);
 	}
 	app.MainWindowUpdate();
 }
