@@ -65,6 +65,7 @@ public:
   void OffsetToPixelHorizontal(WORD &offsX, int delta);
   void OffsetToPixelVertical(WORD &offsY, int delta);
   void CoordCell(int mX, int mY, int &x, int &y);
+  void CellCoord(int &mX, int &mY, int x, int y);
 };
 class LeftAxes
 {
@@ -155,7 +156,6 @@ public:
 	   ptrMove = (TPtrMove)to;
    }   
 };
-//void FrameDraw(Gdiplus::Graphics &, RECT &);
 //--------------------для внутреннего использования
 void OffsetAxes(int , int , double , double , double &, double &, double &, double &);
 

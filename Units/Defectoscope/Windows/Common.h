@@ -305,32 +305,20 @@ template<class T>class NoSubMenu: public T
 //	{
 //	}
 //};
-class ThicknessWindow;
-class CrossWindow;
-class LongWindow;
+//class ThicknessWindow;
+//class CrossWindow;
+//class LongWindow;
+//
+//class ThicknessViewer;
+//class CrossViewer;
+//class LongViewer;
+
 namespace Common
 {
-
-template<>struct SetParamOpenWindow<ThicknessWindow>
-{
-	void operator()(HWND);
-};
-
 template<class T>struct SetParamOpenWindow
 {
 	void operator()(HWND h){}
 };
-
-template<class T>struct __SetParamOpenWindow__
-{
-	void operator()(HWND h)
-	{
-		//typedef T::x = a;
-	}
-};
-
-template<>struct SetParamOpenWindow<CrossWindow>: public __SetParamOpenWindow__<CrossWindow>{};
-template<>struct SetParamOpenWindow<LongWindow>: public __SetParamOpenWindow__<LongWindow>{};
 }
 
 

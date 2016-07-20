@@ -146,7 +146,6 @@ template<class T> struct Scan
 		{
 			++zone;
 			offs = 0;
-
 		}
 		if(offs < 0)
 		{
@@ -162,10 +161,6 @@ template<class T> struct Scan
 		}
 		__scan_data__ d = {sens, zone, offs, NULL};
 		TL::foreach<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
-
-		//g1Tof = uspc->hdr.G1Tof;
-		 //g1Amp = uspc->hdr.G1Amp;
-		 //wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
 		
 		Singleton<ScanWindow>::Instance().Open(
 			zone

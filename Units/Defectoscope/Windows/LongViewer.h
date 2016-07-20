@@ -27,6 +27,7 @@ public:
 	ColorLabel label;
 public:
 	Cursor cursor;
+	int currentX, currentY;
 	ItemData<Long> &viewerData;
 public:
 	LongViewer();

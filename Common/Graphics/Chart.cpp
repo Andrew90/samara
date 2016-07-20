@@ -702,9 +702,19 @@ int Chart::BetweenLeftRight(int x)
  {
 	double left = rect.left + offsetAxesLeft;
 	double bottom = rect.bottom - offsetAxesBottom;
-	double dx = deltaDigitX;// > 1 ? deltaDigitX : 1;
-	double dy = deltaDigitY;// > 1 ? deltaDigitY : 1;
+	double dx = deltaDigitX;
+	double dy = deltaDigitY;
 	x = int((mX - left) / deltaTickX * dx);
 	y = int((bottom - mY) / deltaTickY * dy);
  }
  //---------------------------------------------------------------------------------------------
+ void Chart::CellCoord(int &mX, int &mY, int x, int y)
+ {
+	 double left = rect.left + offsetAxesLeft;
+	 double bottom = rect.bottom - offsetAxesBottom;
+	 double dx = deltaDigitX;
+	 double dy = deltaDigitY;
+	 mX = int(deltaTickX * x / dx + left);
+	 mY = int(deltaTickY * y / dy + bottom);
+ }
+ //---------------------------------------------------------------------------------------

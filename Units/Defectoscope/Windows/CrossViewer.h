@@ -24,6 +24,7 @@ public:
 	TMouseMove storedMouseMove;
 	ColorLabel label;
 	Cursor cursor;
+	int currentX, currentY;
 public:
 	ItemData<Cross> &viewerData;
 	CrossViewer();
