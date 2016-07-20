@@ -53,6 +53,7 @@ namespace{
 		///\bug или необходимо определить в классе void operator()(XXX &){}, где XXX - TMouseMove, TSize ... TTimer(см выше) 
 		template<class Z>static double Is(O *, Helper<unsigned(O::*)(Z &), &O::operator()> * = NULL);
 		template<class Z>static double Is(O *, Helper<void(O::*)(Z &), &O::operator()> * = NULL);
+		//template<class Z>static double Is(O *, Helper<LRESULT(O::*)(Z &), &O::operator()> * = NULL);
 		template<class Z>static char Is(...);
 	public:
 		static const bool value = sizeof(Is<P>((O *)0)) == sizeof(double);
@@ -133,13 +134,13 @@ namespace{
 		template<class O, class P>unsigned operator()(O &o, P *p)
 		{
 			p->obj(o);
-			return -1;
+			return 0;
 		}
 	};
 
 	template<>struct Wapper<false>
 	{
-		template<class O, class P>unsigned operator()(O &o, P *p)
+		template<class O, class P>LRESULT operator()(O &o, P *p)
 		{
 			return p->obj(o);
 		}
@@ -176,12 +177,12 @@ namespace{
 			template<class T, T>struct Helper{};
 			template<class X, class Z>static double Is(X *, Helper<void(X::*)(Z &), &X::operator()> * = NULL);
 			template<class X, class Z>static char Is(...);
-			unsigned operator()(O *, P *p)
+			bool operator()(P *p)
 			{
-				if(TypeToEvent<typename O::PAR>::value != p->mess.uMsg) return 0;
+				if(TypeToEvent<typename O::PAR>::value != p->mess.uMsg) return true;
 				static const bool b = sizeof(double) == sizeof(Is<typename O::OBJ, typename O::PAR>((typename O::OBJ *)0));
-				return Wapper<b>()((typename O::PAR &)p->mess, (EventHandler<typename O::OBJ> *)p);
-				return 0;
+				p->result = Wapper<b>()((typename O::PAR &)p->mess, (EventHandler<typename O::OBJ> *)p);
+				return false;
 			}
 		};
 		template<class List, class T>struct TestNotNullType
@@ -190,22 +191,25 @@ namespace{
 		};
 		template<class T>struct TestNotNullType<NullType, T>
 		{
-			///\brief класс должен иметь обработчик в виде- unsigned T::operator()(XXX &) или void T::operator()(XXX &);
+			///\brief класс должен иметь обработчик в виде- LRESULT T::operator()(XXX &) или void T::operator()(XXX &);
 			///где: XXX - TMouseMove, TSize, TPaint, TActivate(добавить при необходимости в список type_events_all_list, см. выше)
 			typedef typename T::_class_does_not_have_any_handler nonexist;
 		};
 		typedef typename TestNotNullType<typename AddTypeEvent<type_events_all_list, T>::Result, T>::Result list_0;
 		TMessage &mess;
 		T &obj;
+		LRESULT result;
 	public:
 		typedef typename ReTypeDelete<list_0>::Result list;
 		EventHandler(TMessage &mess, T &obj)
 			: mess(mess)
 			, obj(obj)
+			, result(0)
 		{}
-		unsigned operator()()
+		LRESULT operator()()
 		{			
-			return TL::find_ret<list, loc>()((TL::Factory<list> *)0, this);
+			if(!TL::find<list, loc>()(this))return result;
+			return DefWindowProc(MESSAGE(mess));
 		}
 	};
 }
@@ -214,21 +218,21 @@ template<class T>class Viewer
 {
 	template<class Z>struct Create
 	{
-		unsigned operator()(TCreate &l)
+		LRESULT operator()(TCreate &l)
 		{
 			T *o = (T *)l.create->lpCreateParams;
 			o->hWnd = l.hwnd;
-			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG)o);
+			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG_PTR)o);
 			return (*(Z *)o)(l);
 		}
 	};
 	template<>struct Create<NullType>
 	{
-		unsigned operator()(TCreate &l)
+		LRESULT operator()(TCreate &l)
 		{
 			T *o = (T *)l.create->lpCreateParams;
 			o->hWnd = l.hwnd;
-			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG)o);
+			SetWindowLongPtr(l.hwnd, GWLP_USERDATA, (LONG_PTR)o);
 			return 0;
 		}
 	};	
@@ -236,18 +240,20 @@ public:
 	static LRESULT CALLBACK Proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		T *o = (T *)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		TMessage m = {hWnd, message, wParam, lParam};
 		if(NULL != o)
 		{
-			unsigned result = EventHandler<T>((TMessage &)hWnd, *o)();
-			if(0 != result) 
-			{
-				if(-1 == result) return 0;
-				return result;
-			}
+			//LRESULT result = EventHandler<T>(m, *o)();
+			//if(0 != result) 
+			//{
+			//	if(-1 == result) return 0;
+			//	return result;
+			//}
+			return EventHandler<T>(m, *o)();
 		}	
 		else if(message == WM_CREATE)
 		{
-			return Create<isParentExist<T>::Result>()((TCreate &)hWnd);
+			return Create<isParentExist<T>::Result>()((TCreate &)m);
 		}
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}	

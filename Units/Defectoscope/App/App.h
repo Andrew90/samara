@@ -41,6 +41,7 @@ public:
 	void MainWindowTopLabel(wchar_t *);
 	void MainWindowBottomLabel(int, wchar_t *);  
 	void MainWindowUpdate();
+	static void InitCaretka();
 };
 
 extern App app;
