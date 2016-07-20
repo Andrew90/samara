@@ -24,9 +24,16 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 		wchar_t buf[128];
 		if(b)
 		{
-			wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
-				Wchar_from<double>(viewerData.bufferMin[x])()
-				, Wchar_from<double>(viewerData.bufferMax[x])()
+			char min[64], max[64];
+			sprintf(min, "%.1f",viewerData.bufferMin[x]);
+			sprintf(max, "%.1f",viewerData.bufferMax[x]);
+			//wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
+			//	Wchar_from<double, 1>(viewerData.bufferMin[x])()
+			//	, Wchar_from<double, 1>(viewerData.bufferMax[x])()
+			//	);
+			wsprintf(buf, L"<ff>мин.толщина <ff0000>%S <ff>мах.толщина <ff0000>%S", 
+				min
+				, max
 				);
 		}
 		else

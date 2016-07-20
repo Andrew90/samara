@@ -58,8 +58,11 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 			char *s = StatusText()(dataViewer.status[offsetX], color, b);
 			if(TL::IndexOf<ColorTable::items_list, Clr<Undefined>>::value != dataViewer.status[offsetX])
 			{
-				wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d  величина %s   %S     "
-					, 1 + owner->lastZone, 1 + N, offsetX, Wchar_from<double, 5>(valY)(), s);
+				char val[64];
+				sprintf(val, "%.1f", valY);
+				wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d  величина %S   %S     "
+					//, 1 + owner->lastZone, 1 + N, offsetX, Wchar_from<double, 5>(valY)(), s);
+					, 1 + owner->lastZone, 1 + N, offsetX, val, s);
 			}
 			else
 			{
