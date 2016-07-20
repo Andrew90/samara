@@ -138,6 +138,7 @@ template<class T> struct Scan
 {
 	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())
 	{
+        if(NULL == FindWindow(WindowClass<T>()(), 0))return;
 		typedef typename T::sub_type Ascan;
 		ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
 		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;

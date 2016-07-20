@@ -151,7 +151,6 @@ void MainWindow::operator()(TMouseWell &l)
 //--------------------------------------------------------------------------------
 void MainWindow::operator()(TUser &l)
 {
-	//AppKeyHandler::KeyPressed((unsigned)l.data);
 	(*l.ptr)(l.data);
 }
 //--------------------------------------------------------------------------------
