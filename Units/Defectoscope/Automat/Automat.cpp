@@ -507,10 +507,11 @@ Start:
 					}
 					AppKeyHandler::Continue();
 					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
-					if(0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)(60 * 60 * 1000)) goto Start;					
+					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)(60 * 60 * 1000);
+					SetEvent(App::ProgrammRunEvent);
+					if(restart)goto Start;					
 				}
 				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
-				//OUT_BITS(On<oResult1>, On<oResult2>);
 				if(compute.tubeResult)
 				{
 					OUT_BITS(On<oResult1>);
@@ -526,7 +527,6 @@ Start:
 				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
 				Stored::Do();
-			//	Sleep(3000);
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
