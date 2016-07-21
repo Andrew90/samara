@@ -22,10 +22,29 @@ HANDLE App::ProgrammStopEvent;
 HANDLE App::ProgrammRunEvent;
 //HANDLE App::ProgrammTestRunEvent;
 bool App::measurementOfRunning = false;
+int __lengthCaretka = 0;
+const int &App::lengthCaretka = __lengthCaretka;
 //---------------------------------------------------------------
 App::App()	
 	: mainWindow(Singleton<MainWindow>::Instance())
 {}
+
+namespace
+{
+	template<class O, class P>struct __caretka__
+	{
+		void operator()(O *o, P *p)
+		{
+			if(o->value > *p) *p = o->value;
+		}
+	};
+}
+
+void App::InitCaretka()
+{
+	__lengthCaretka = 0;
+	TL::foreach<OffsetsTable::items_list, __caretka__>()(&Singleton<OffsetsTable>::Instance().items, &__lengthCaretka);
+}
 
 void App::Init()
 {
@@ -35,6 +54,7 @@ void App::Init()
 	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
 	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
 	App::ProgrammRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
+	InitCaretka();
 	LogUSPC::Clear();
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);

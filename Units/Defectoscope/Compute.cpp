@@ -333,7 +333,7 @@ namespace
 		char (&resultStatus)[App::count_zones] = Singleton<ResultViewerData>::Instance().commonStatus;
 		int &currentOffset = Singleton<ResultViewerData>::Instance().currentOffset;
 
-		ZeroMemory(resultStatus, sizeof(resultStatus));
+		ZeroMemory(resultStatus, sizeof(currentOffset));
 
 		currentOffset = 0;
 
@@ -362,43 +362,9 @@ namespace
 	}
 
 }
-namespace
-{
-	template<class O, class P>struct __min_scan__
-	{
-		void operator()(P *p)
-		{
-			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
-			{
-				ItemData<O> &o =  Singleton<ItemData<O> >::Instance();
-				if(0 == *p)
-				{
-					*p = o.currentOffsetFrames;
-				}
-				else
-				{
-					if(*p > o.currentOffsetFrames) *p = o.currentOffsetFrames;
-				}
-			}
-		}
-	};
-    template<class O, class P>struct __set_scan__
-	{
-		void operator()(P *p)
-		{
-			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
-			{
-				Singleton<ItemData<O> >::Instance().currentOffsetFrames = *p;				
-			}
-		}
-	};
-}
 
 void Compute::Recalculation()
 {	
-	int scanCount = 0;
-	TL::foreach<USPC::items_list, __min_scan__>()(&scanCount);
-	TL::foreach<USPC::items_list, __set_scan__>()(&scanCount);
 	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus(tubeResult);
 	if(tubeResult)
@@ -416,6 +382,7 @@ void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTim
 {
    double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
    lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
+   lengthTube -= App::lengthCaretka;
    dprint("length tube %d  base_offset %f\n", lengthTube, offs);
 }
 
