@@ -36,6 +36,7 @@ Chart::~Chart()
 //--------------------------------------------------------------------------------------
 void OffsetAxes(int offs, int length, double min, double max, double &digit, double &tick, double &minDigit, double &minTick)
 {
+	if(0 == length) length = 1;
 	double dLength = (double)length / offs;
 	double dValue = (max - min) / dLength;
 	if(0.0 >= dValue) dValue = 1.0;
