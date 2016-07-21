@@ -35,8 +35,7 @@ bool LongViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
-	//int testX, testY;
-	//chart.CellCoord(testY,testX, x, y);
+	if(y >= App::count_sensors) return false;
 	currentX = x; currentY = y;
 	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)

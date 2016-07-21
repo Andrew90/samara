@@ -35,6 +35,7 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
+	if(y >= App::count_sensors) return false;
 	currentX = x; currentY = y;
 	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)

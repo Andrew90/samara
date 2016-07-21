@@ -426,6 +426,7 @@ void LogUSPCWindow_Open(void *)
 
 void Automat::Impl::Do()
 {
+	device1730.Write(0);
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
@@ -445,12 +446,12 @@ Start:
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 
-				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);
-				Log::Mess<LogMess::PowerBMOn>();
+				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);			
 
 				if(TEST_OUT_BITS(Off<oPowerBM>))
 				{
 					USPC::Close();
+					Log::Mess<LogMess::PowerBMOn>();
 					OUT_BITS(On<oPowerBM>);
 					Sleep(2000);
 					if(!RestartService()) throw Exception_USPC_RestartService_ERROR_Proc();

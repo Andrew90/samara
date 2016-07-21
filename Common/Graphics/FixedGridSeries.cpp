@@ -18,21 +18,21 @@ FixedGridSeries::FixedGridSeries(Chart &chart)
 void FixedGridSeries::Draw()
 {
 	chart.g->SetClip(&Region(RectF(
-		REAL(chart.rect.left + chart.offsetAxesLeft + 3)
+		REAL(chart.rect.left + chart.offsetAxesLeft + 1)
 		, REAL(chart.rect.top + chart.offsetAxesTop + 3)
-		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 6)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 2)
 		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 6)
 		)),
 		CombineModeReplace
 		);	
+	double dX = chart.deltaTickX / chart.deltaDigitX;
 	double length = chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight;
-	double left = chart.rect.left + chart.offsetAxesLeft;
+	double left = chart.rect.left + chart.offsetAxesLeft;// + 0.5 * dX;
 	double bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	double x;
 	double y = bottom - chart.deltaTickY;
 	unsigned color;
-	double data;
-	double dX = chart.deltaTickX / chart.deltaDigitX;
+	double data;	
 	for(unsigned i = (unsigned)chart.minAxesY, len = (unsigned)chart.maxAxesY; i < len; ++i)//sensorCount; ++i)
 	{
 		x = left;
