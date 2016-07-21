@@ -52,6 +52,10 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 	{	
 		if(owner->drawZones)
 		{
+			double dX = (chart->rect.right - chart->rect.left - chart->offsetAxesLeft - chart->offsetAxesRight)
+				/(chart->maxAxesX - chart->minAxesX);
+			storedMouseMove.x = (WORD)(chart->rect.left + chart->offsetAxesLeft + dX * offsetX + dX / 2);
+
 			double valY = ((Parent::TChart *)chart)->items.get<BarSeries>().ValueY(offsetX);
 			int color;
 			bool b;
@@ -62,12 +66,12 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 				sprintf(val, "%.1f", valY);
 				wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d  величина %S   %S     "
 					//, 1 + owner->lastZone, 1 + N, offsetX, Wchar_from<double, 5>(valY)(), s);
-					, 1 + owner->lastZone, 1 + N, offsetX, val, s);
+					, 1 + owner->lastZone, 1 + N, 1 + offsetX, val, s);
 			}
 			else
 			{
 				wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d   %S     "
-					, 1 + owner->lastZone, 1 + N, offsetX, s);
+					, 1 + owner->lastZone, 1 + N, 1 + offsetX, s);
 			}
 		}
 		else

@@ -34,12 +34,12 @@ LongViewer::LongViewer()
 bool LongViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);
+	chart.CoordCell(l.x, l.y, x, y);		
 	if(y >= App::count_sensors) return false;
-	currentX = x; currentY = y;
 	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)
 	{
+		currentX = x;
 		int color;
 		bool b;
 		char *s = StatusText()(viewerData.status[y][x], color, b);
@@ -92,13 +92,16 @@ void LongViewer::operator()(TSize &l)
 	{
 		return;
 	}
+	chart.rect.right = l.Width;
+	chart.rect.bottom = l.Height;
+
+	ZoneToCoord(chart, currentX, currentY, storedMouseMove.x, storedMouseMove.y);
+
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
-	
-	chart.rect.right = l.Width;
-	chart.rect.bottom = l.Height;
+		
 	chart.Draw(g);
 
 }
@@ -147,6 +150,8 @@ void LongViewer::operator()(TMouseWell &l)
 			, 0 == l.flags.lButton 
 			);
 		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+
+		chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
 }
 //--------------------------------------------------------------------------------------
 void LongViewer::operator()(TLButtonDown &l)
@@ -157,8 +162,9 @@ void LongViewer::operator()(TLButtonDown &l)
 unsigned LongViewer::operator()(TCreate &l)
 {
 	storedMouseMove.hwnd = l.hwnd;
-	storedMouseMove.x = 0;	
-	storedMouseMove.y = WORD(chart.rect.top + 1);
+	currentX = currentY = 0;
+	storedMouseMove.x = WORD((chart.rect.right - chart.rect.left) / 2);	
+	storedMouseMove.y = WORD((chart.rect.bottom - chart.rect.top) / 2);
 	return 0;
 }
 //------------------------------------------------------------------------------------------

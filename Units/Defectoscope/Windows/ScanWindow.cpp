@@ -75,7 +75,7 @@ void ScanWindow::operator()(TSize &l)
 		if(NULL != l.pMinMaxInfo)
 		{
 			l.pMinMaxInfo->ptMinTrackSize.x = 300;
-			l.pMinMaxInfo->ptMinTrackSize.y = 100;
+			l.pMinMaxInfo->ptMinTrackSize.y = 200;
 		}	
 	}
 	VIEWERS_MENU(ScanWindow)

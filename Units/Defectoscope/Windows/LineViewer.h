@@ -17,7 +17,7 @@ public:
 	HWND hWnd;
 	ColorLabel label;
 	Chart *chart;
-	Cursor *cursor;
+	Cursor *cursor;	
 public:
 	TMouseMove storedMouseMove;
 	bool mouseMove;

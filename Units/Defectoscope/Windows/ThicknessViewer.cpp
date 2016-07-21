@@ -15,10 +15,11 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
 	chart.CoordCell(l.x, l.y, x, y);
-	if(y >= App::count_sensors) return false;
+	
 	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)
 	{
+	    currentX = x;
 		int color;
 		bool b;
 		char *s = StatusText()(viewerData.commonStatus[x], color, b);
@@ -28,10 +29,7 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 			char min[128], max[128];
 			sprintf(min, "%.1f",viewerData.bufferMin[x]);
 			sprintf(max, "%.1f",viewerData.bufferMax[x]);
-			//wsprintf(buf, L"<ff>мин.толщина <ff0000>%s <ff>мах.толщина <ff0000>%s", 
-			//	Wchar_from<double, 1>(viewerData.bufferMin[x])()
-			//	, Wchar_from<double, 1>(viewerData.bufferMax[x])()
-			//	);
+			
 			wsprintf(buf, L"<ff>мин.толщина <ff0000>%S <ff>мах.толщина <ff0000>%S", 
 				min
 				, max
@@ -114,13 +112,17 @@ void ThicknessViewer::operator()(TSize &l)
 	{
 		return;
 	}
+
+	chart.rect.right = l.Width;
+	chart.rect.bottom = l.Height;
+
+	ZoneToCoord(chart, currentX, currentY, storedMouseMove.x, storedMouseMove.y);
+
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, 29, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
 
-	chart.rect.right = l.Width;
-	chart.rect.bottom = l.Height;
 	chart.minAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMin<Thickness> >().value;
 	chart.maxAxesY = Singleton<AxesTable>::Instance().items.get<AxesYMax<Thickness> >().value;
 	chart.Draw(g);
@@ -175,13 +177,16 @@ void ThicknessViewer::operator()(TMouseWell &l)
 			, true 
 			);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+
+		chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
 }
 //------------------------------------------------------------------------------------------------------
 unsigned ThicknessViewer::operator()(TCreate &l)
 {
 	storedMouseMove.hwnd = l.hwnd;
-	storedMouseMove.x = 0;	
-	storedMouseMove.y = WORD(chart.rect.top + 1);
+	currentX = currentY = 0;
+	storedMouseMove.x = WORD((chart.rect.right - chart.rect.left) / 2);	
+	storedMouseMove.y = WORD((chart.rect.bottom - chart.rect.top) / 2);
 	return 0;
 }
 //------------------------------------------------------------------------------------------

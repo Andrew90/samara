@@ -5,11 +5,15 @@
 #include "EmptyWindow.h"
 #include "LabelMessage.h"
 #include "DebugMess.h"
+#include "Common.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
 bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
+	int xx, y;
+	chart.CoordCell(l.x, l.y, xx, y);
+	//currentX = xx;
 	int left = chart.rect.left + chart.offsetAxesLeft;
 	int right = chart.rect.right - chart.offsetAxesRight;
 	int t = right - left;
@@ -28,8 +32,11 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 	bool b;
 	char *s = StatusText()(viewerData.commonStatus[x], color, b);
 	
-	wsprintf(label.buffer, L"<ff>Результат смещение %s м. зона %d <%6x>%S"
-		, Wchar_from<double, 3>(m)()
+	char offs[128];
+	sprintf(offs, "%.2f", m);
+
+	wsprintf(label.buffer, L"<ff>Результат смещение %S м. зона %d <%6x>%S"
+		, offs
 		, 1 + x
 		, color
 		, s
@@ -100,18 +107,18 @@ void ResultViewer::operator()(TSize &l)
 	{
 		return;
 	}
+	
+    chart.rect.right = l.Width;
+	chart.rect.bottom = l.Height;
+	WORD y;
+	ZoneToCoord(chart, currentX, 0, storedMouseMove.x, y);
+
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, 29, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
 
-//	chart.minAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MinimumThicknessPipeWall>().value;
-//	chart.maxAxesY = Singleton<BorderCredibilityTable>::Instance().items.get<MaximumThicknessPipeWall>().value;
-	chart.rect.right = l.Width;
-	chart.rect.bottom = l.Height;
-//	label.Draw(g);
 	chart.Draw(g);
-	//storedMouseMove.hwnd = l.hwnd;
 }
 //----------------------------------------------------------------------------------------------------
 void ResultViewer::operator()(TPaint &l)
@@ -157,12 +164,14 @@ void ResultViewer::operator()(TMouseWell &l)
 
 		chart.OffsetToPixelHorizontal(storedMouseMove.x, l.delta / 120);
 		cursor.VerticalCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
+      //  int y;
+		//chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, y);
 }
 //------------------------------------------------------------------------------------------------------
 unsigned ResultViewer::operator()(TCreate &l)
 {
 	storedMouseMove.hwnd = l.hwnd;
-	storedMouseMove.x = 0;	
+	storedMouseMove.x = WORD((chart.rect.right - chart.rect.left) / 2);	
 	storedMouseMove.y = WORD(chart.rect.top + 1);
 	return 0;
 }

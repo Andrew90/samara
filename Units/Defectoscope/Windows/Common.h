@@ -128,6 +128,12 @@ namespace Common
 	}
 
 	template<class T>struct SetParamOpenWindow;
+	//{
+	//	void operator()(HWND h)
+	//	{
+	//		zprint("\n");
+	//	}
+	//};
 
 	template<class T>struct OpenWindow
 	{
@@ -296,29 +302,34 @@ template<class T>class NoSubMenu: public T
 	explicit NoSubMenu(){}
 	void operator()(TRButtonDown &){}
 };
+class Chart;
+void ZoneToCoord(Chart &, int zone, int sens, WORD &x, WORD &y);
 
+class CrossWindow;
+class ThicknessWindow;
+class LongWindow;
 
-
-//template<class T>struct SetParamOpenWindow
-//{
-//	void operator()(HWND h)
-//	{
-//	}
-//};
-//class ThicknessWindow;
-//class CrossWindow;
-//class LongWindow;
-//
-//class ThicknessViewer;
-//class CrossViewer;
-//class LongViewer;
-
-namespace Common
+namespace Common 
 {
 template<class T>struct SetParamOpenWindow
 {
 	void operator()(HWND h){}
 };
+template<>struct SetParamOpenWindow<CrossWindow>
+{
+	void operator()(HWND h);
+};
+template<>struct SetParamOpenWindow<ThicknessWindow>
+{
+	void operator()(HWND h);
+};
+template<>struct SetParamOpenWindow<LongWindow>
+{
+	void operator()(HWND h);
+};
 }
+
+
+
 
 

@@ -34,12 +34,14 @@ CrossViewer::CrossViewer()
 bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int x, y;
-	chart.CoordCell(l.x, l.y, x, y);
+	chart.CoordCell(storedMouseMove.x, storedMouseMove.y, x, y);
+	
+
 	if(y >= App::count_sensors) return false;
-	currentX = x; currentY = y;
+
 	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)
-	{
+	{		
 		int color;
 		bool b;
 		char *s = StatusText()(viewerData.status[y][x], color, b);
@@ -65,7 +67,6 @@ bool CrossViewer::Draw(TMouseMove &l, VGraphics &g)
 }
 bool CrossViewer::GetColorBar(unsigned sensor, int zone, double &data, unsigned &color)
 {
-	
 	--sensor;
 	data = viewerData.buffer[sensor][zone];
 	color = ConstData::ZoneColor(viewerData.status[sensor][zone]);
@@ -92,14 +93,17 @@ void CrossViewer::operator()(TSize &l)
 	{
 		return;
 	}
+
+	chart.rect.right = l.Width;
+	chart.rect.bottom = l.Height;
+
+	ZoneToCoord(chart, currentX, currentY, storedMouseMove.x, storedMouseMove.y);
+
     Graphics g(backScreen);
 	SolidBrush solidBrush(Color(0xffaaaaaa));
 	g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29);  
 	
-	
-	chart.rect.right = l.Width;
-	chart.rect.bottom = l.Height;
 	chart.Draw(g);	
 }
 //-----------------------------------------------------------------------
@@ -146,7 +150,9 @@ void CrossViewer::operator()(TMouseWell &l)
 			, l.delta / 120
 			, 0 == l.flags.lButton 
 			);
-		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));		
+		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));	
+
+		chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
 }
 //--------------------------------------------------------------------------------------
 void CrossViewer::operator()(TLButtonDown &)
@@ -157,8 +163,9 @@ void CrossViewer::operator()(TLButtonDown &)
 unsigned CrossViewer::operator()(TCreate &l)
 {
 	storedMouseMove.hwnd = l.hwnd;
-	storedMouseMove.x = 0;	
-	storedMouseMove.y = WORD(chart.rect.top + 1);
+	currentX = currentY = 0;
+	storedMouseMove.x = WORD((chart.rect.right - chart.rect.left) / 2);	
+	storedMouseMove.y = WORD((chart.rect.bottom - chart.rect.top) / 2);
 	return 0;
 }
 //------------------------------------------------------------------------------------------

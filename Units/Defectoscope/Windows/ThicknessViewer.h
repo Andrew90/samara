@@ -23,6 +23,7 @@ public:
 	Gdiplus::Bitmap *backScreen;
 	ColorLabel label;
 	Cursor cursor;
+	int currentX, currentY;
 	bool painting;
 public:
 	HWND hWnd;

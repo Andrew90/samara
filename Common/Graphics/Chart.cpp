@@ -634,7 +634,7 @@ bool Chart::AxesValues(int x, int y, double &dx, double &dy)
 		dy = (rect.bottom - offsetAxesBottom - y) * dY + minAxesY;
 		dy = floor(dy);
 		double dX = (maxAxesX - minAxesX) / (rect.right - rect.left - offsetAxesLeft - offsetAxesRight);
-		dx = (x - rect.left - offsetAxesLeft) * dX + minAxesX + dX / 2;
+		dx = (x - rect.left - offsetAxesLeft) * dX + minAxesX + dX;// / 2;
 		return true;
 	}
 	return false;

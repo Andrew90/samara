@@ -28,6 +28,7 @@ public:
 	ColorLabel label;
 	Cursor cursor;
 	bool painting;
+	int currentX;
 public:
 	HWND hWnd;
 	TMouseMove storedMouseMove;
