@@ -382,7 +382,6 @@ void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTim
 {
    double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
    lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
-   lengthTube -= App::lengthCaretka;
    dprint("length tube %d  base_offset %f\n", lengthTube, offs);
 }
 

@@ -104,10 +104,8 @@ void ScanWindow::operator()(TSize &l)
 		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
 		 maxY = 100;
 		 wchar_t buf[1024];
-		 wsprintf(buf, L"%s зона %d датчик %d смещение %d", mess, 1 + zone_, 1 + sensor_, offset_);
-		 //g1Tof = uspc->hdr.G1Tof;
-		 //g1Amp = uspc->hdr.G1Amp;
-		 //wsprintf(label.buffer, L"<ff>смещение %d  амплитуда %d", g1Tof, g1Amp);
+		 wsprintf(buf, L"%s зона %d датчик %d смещение %d кадр %d", mess, 1 + zone_, 1 + sensor_, offset_, uspc->hdr.ScanCounter);
+		 
 		 label = mess1;
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
 		 if(NULL != h)

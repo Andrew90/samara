@@ -21,7 +21,7 @@ public:
 
 	static const int speed_bottom_label = 0;
 
-	static const int count_frames = 150000;//512 * 1024 * 1024 / sizeof(USPC7100_ASCANDATAHEADER);
+	static const int count_frames = 150000;
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static const int thickness_number = 0;
 	static const int long_number = 1;
@@ -33,7 +33,6 @@ public:
 	static bool measurementOfRunning;									
 public:
 	MainWindow &mainWindow;
-	static const int &lengthCaretka;
 public:
 	App();
 	void Init();
@@ -41,7 +40,6 @@ public:
 	void MainWindowTopLabel(wchar_t *);
 	void MainWindowBottomLabel(int, wchar_t *);  
 	void MainWindowUpdate();
-	static void InitCaretka();
 };
 
 extern App app;

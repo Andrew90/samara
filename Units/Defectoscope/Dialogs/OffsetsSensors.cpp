@@ -36,6 +36,5 @@ void OffsetsSensorsDlg::Do(HWND h)
 {
 	if(TemplDialog<ParametersBase, OffsetsTable>(Singleton<OffsetsTable>::Instance()).Do(h, L"Смещения датчиков"))
 	{
-		App::InitCaretka();
 	}
 }

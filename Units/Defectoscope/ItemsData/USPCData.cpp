@@ -79,8 +79,7 @@ namespace
 
 void USPCData::SamplesPerZone(int tubeLength)
 {
-	samplesPerZone = (double)App::zone_length * currentOffsetFrames 
-		/ (tubeLength + App::lengthCaretka);
+	samplesPerZone = (double)App::zone_length * currentOffsetFrames / tubeLength;
 	ZeroMemory(offsets, sizeof(offsets));
 	for(int i = 0; i < App::count_zones; ++i)
 	{
