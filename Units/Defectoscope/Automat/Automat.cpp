@@ -467,7 +467,7 @@ void Automat::Impl::Do()
 Start:
 				App::measurementOfRunning = false;	
 
-				AND_BITS(Ex<ExceptionRunProc>)(); //кнопка начала измерений
+				AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionStopProc>)(); //кнопка начала измерений
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
