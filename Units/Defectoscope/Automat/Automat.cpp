@@ -439,8 +439,6 @@ void Automat::Impl::Do()
 Start:
 				App::measurementOfRunning = false;	
 
-				Sleep(500);
-
 				AND_BITS(Ex<ExceptionRunProc>)(); //кнопка начала измерений
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
