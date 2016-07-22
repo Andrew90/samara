@@ -185,20 +185,20 @@ namespace Protocols.Requests
                     if (num > packet.NumTube) num = packet.NumTube;
 
                     byte b;
-                    for (int i = 0; i < count; ++i)
+                    for (int i = 1; i <= count; ++i)
                     {
-                        b = buffer[i];
+                        b = buffer[i - 1];
                         if ((b >= 9 && b <= 12) || (b >= 16 && b <= 19) || (b >= 30 && b <= 33))
                         {
-                            crossDef += b.ToString() + ",";
+                            crossDef += i.ToString() + ",";
                         }
                         if ((b == 7) || (b >= 13 && b <= 19) || (b >= 34 && b <= 37))
                         {
-                            longDef += b.ToString() + ",";
+                            longDef += i.ToString() + ",";
                         }
                         if (th.Contains(b))
                         {
-                            thickDef += b.ToString() + ",";
+                            thickDef += i.ToString() + ",";
                         }
                     }
                     if (crossDef.Length > 0)
