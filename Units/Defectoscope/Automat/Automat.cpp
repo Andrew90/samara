@@ -411,8 +411,8 @@ unsigned &Off<iCycle>::bit =	Singleton<InputBitTable>::Instance().items.get<iCyc
 
 #define OUT_BITS(...) OUT_Bits<TL::MkTlst<__VA_ARGS__>::Result>()()
 #define SET_BITS(...) SET_Bits<TL::MkTlst<__VA_ARGS__>::Result>()()
-
 #define TEST_OUT_BITS(...)Test_OutBits<TL::MkTlst<__VA_ARGS__>::Result>()()
+
 	 bool &onTheJobCross = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross>>().value;
 	 bool &onTheJobLong = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long>>().value;
 	 bool &onTheJobThickness = Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness>>().value;
@@ -430,6 +430,17 @@ void Automat::Impl::Do()
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
+	//for(int i = 0; i < 100000; ++i)
+	//{
+	//	dprint("------%d\n", i);
+	//	////TEST_OUT_BITS(Off<oPowerBM>);
+	//	//AND_BITS(On<oPowerBM>)(100000000);
+	//	unsigned resXX = device1730.ReadOutput();
+	//		//	if(TEST_OUT_BITS(Off<oPowerBM>))
+	//			if(!(resXX & (1 << 4)))dprint("PowerOff\n");
+	//			else dprint("PowerOn\n");
+	//	Sleep(1000);
+	//}
 	try
 	{
 		while(true)
@@ -445,8 +456,9 @@ Start:
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 
 				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);			
-
-				if(TEST_OUT_BITS(Off<oPowerBM>))
+				unsigned resXX = device1730.ReadOutput();
+			//	if(TEST_OUT_BITS(Off<oPowerBM>))
+				if(!(resXX & (1 << 4)))
 				{
 					USPC::Close();
 					Log::Mess<LogMess::PowerBMOn>();
