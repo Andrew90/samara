@@ -559,39 +559,38 @@ Start:
 			}
 			catch(Exception—ontrol—ircuitsOffProc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmControlCircuts>();
 				device1730.Write(0);
 			}	
 			catch(Exception—ycleOffProc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmCycle>();
 				device1730.Write(0);
 			}
 			catch(ExceptionTimeOutProc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::TimeoutPipe>();
 				device1730.Write(0);
 			}
 			catch(ExceptionStopProc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
 				device1730.Write(0);
 				AppKeyHandler::Stop();
-			    ResetEvent(App::ProgrammRunEvent);
 			}
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::TimeoutPipe>();	
 				device1730.Write(0);
 			}
 			catch(Exception_USPC_ERROR_Proc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmUSPC>();
 				USPC::Stop();
 				device1730.Write(0);
@@ -606,7 +605,7 @@ Start:
 			}
 			catch(Exception_USPC_RestartService_ERROR_Proc)
 			{
-				ResetEvent(App::ProgrammContinueEvent);
+				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmRestartServiceError>();
 				device1730.Write(0);
 			}
