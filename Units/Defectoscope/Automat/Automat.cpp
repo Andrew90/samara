@@ -535,7 +535,7 @@ Start:
 					}
 					AppKeyHandler::Continue();
 					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
-					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>)(60 * 60 * 1000);
+					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>, Ex<ExceptionStopProc>)(60 * 60 * 1000);
 					SetEvent(App::ProgrammRunEvent);
 					if(restart)goto Start;					
 				}
