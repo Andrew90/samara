@@ -385,13 +385,16 @@ void Compute::Recalculation()
 	CommonStatus(tubeResult);
 	if(dataOk)
 	{
+		int l = lengthTube / 50;
+		l *= 50;
+		double len = 0.001 * l;
 		if(tubeResult)
 		{
-			Log::Mess<LogMess::CycleOk>((double)lengthTube / 1000);
+			Log::Mess<LogMess::CycleOk>(len);
 		}
 		else
 		{
-			Log::Mess<LogMess::CycleBrak>((double)lengthTube / 1000);
+			Log::Mess<LogMess::CycleBrak>(len);
 		}
 	}
 	app.MainWindowUpdate();
@@ -402,7 +405,6 @@ void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTim
    double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
    lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
    lengthTube -= App::lengthCaretka;
-   dprint("length tube %d  base_offset %f\n", lengthTube, offs);
 }
 
 Compute compute;

@@ -164,7 +164,9 @@ namespace Stored
 	unsigned StoredStatus(CBase &base)
 	{
 		StoredMeshureTable t;
-		t.items.get<LengthTube>().value = lengthTube;
+		int len = lengthTube / App::zone_length;
+		len *= App::zone_length;
+		t.items.get<LengthTube>().value = len;
 
 		TL::foreach<StoredMeshureTable::items_list, __stored__>()(&t.items, &base);
 
