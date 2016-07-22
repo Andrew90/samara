@@ -38,6 +38,12 @@ void LineViewer::operator()(TSize &l)
 	g.FillRectangle(&solidBrush, 0, 0, 10, l.Height);   
 	g.FillRectangle(&solidBrush, 0, 0, l.Width, 29); 
 
+	if(0 == chart->rect.right && 0 == chart->rect.bottom)
+	{
+		storedMouseMove.x = WORD(l.Width / 2);
+		storedMouseMove.y = WORD(l.Height / 2);
+	}
+
 	chart->rect.right = l.Width;
 	chart->rect.bottom = l.Height;
 	
@@ -61,10 +67,10 @@ unsigned LineViewer::operator()(TCreate &l)
 	chart->maxAxesX = 512;
 	chart->rect.top = 17;	
 	storedMouseMove.hwnd = l.hwnd;
-	storedMouseMove.x = 0;	
-	storedMouseMove.y = WORD(chart->rect.top + 1);
+	storedMouseMove.x = WORD((chart->rect.right - chart->rect.left)/ 2);
+	storedMouseMove.y = WORD((chart->rect.bottom - chart->rect.top)/ 2);
 	mouseMove = false;
-	offsetX = 0;
+	offsetX = 5;
 	return 0;
 }
 //----------------------------------------------------------------

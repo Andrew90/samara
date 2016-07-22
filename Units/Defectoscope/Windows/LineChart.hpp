@@ -115,6 +115,11 @@ template<template<class, int>class L, class T, int N, class P>struct __scan__<L<
 		{
 			o->dataViewer.Do(p->zone, p->channel);
 			p->scan = o->dataViewer.scan[p->offs];
+			typedef typename O::Parent::Parent TWhell;
+			
+			o->offsetX = p->offs;
+			TMouseWell w = {o->hWnd, WM_MOUSEWHEEL};
+			(*(TWhell *)o)(w);
 			return false;
 		}
 		return true;
@@ -151,20 +156,21 @@ template<class T> struct Scan
 		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
 		if(of < offs)
 		{
-			++zone;
-			offs = 0;
+			//++zone;
+			offs = of;
 		}
 		if(offs < 0)
 		{
-			--zone;
-			if(zone >= 0)
-			{
-				 offs = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
-			}
-			else
-			{
-				offs = zone = 0;
-			}
+			//--zone;
+			//if(zone >= 0)
+			//{
+			//	 offs = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
+			//}
+			//else
+			//{
+			//	offs = zone = 0;
+			//}
+			offs = 0;
 		}
 		__scan_data__ d = {sens, zone, offs, NULL};
 		TL::foreach<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
