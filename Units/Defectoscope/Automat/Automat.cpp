@@ -192,6 +192,23 @@ namespace
 		}
 	};
 
+	template<class List>struct SelectOutBits
+	{
+		void operator()(unsigned &bits)
+		{
+			bits = 0;
+			__sel_bits__<typename __filtr__<List, OutputBitTable::items_list>::Result, __bits_0__>()
+				(&Singleton<OutputBitTable>::Instance().items, &bits);
+		}
+	};
+
+	template<>struct SelectOutBits<NullType>
+	{
+		void operator()(unsigned &bits)
+		{
+		}
+	};
+
 	template<class List>struct BitsOut
 	{
 		void operator()(unsigned &bits)
@@ -301,8 +318,8 @@ namespace
 		bool operator()()
 		{
 			unsigned bitOn = 0, bitOff = 0;
-			SelectBits<typename Filt<List, On>::Result>()(bitOn);
-			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
+			SelectOutBits<typename Filt<List, On>::Result>()(bitOn);
+			SelectOutBits<typename Filt<List, Off>::Result>()(bitOff);
 			unsigned res = device1730.ReadOutput();
 			return bitOn == (res & (bitOn | bitOff));
 		}
@@ -433,12 +450,12 @@ void Automat::Impl::Do()
 	//for(int i = 0; i < 100000; ++i)
 	//{
 	//	dprint("------%d\n", i);
-	//	////TEST_OUT_BITS(Off<oPowerBM>);
+	//	TEST_OUT_BITS(Off<oPowerBM>);
 	//	//AND_BITS(On<oPowerBM>)(100000000);
-	//	unsigned resXX = device1730.ReadOutput();
+	////	unsigned resXX = device1730.ReadOutput();
 	//		//	if(TEST_OUT_BITS(Off<oPowerBM>))
-	//			if(!(resXX & (1 << 4)))dprint("PowerOff\n");
-	//			else dprint("PowerOn\n");
+	//		//	if(!(resXX & (1 << 4)))dprint("PowerOff\n");
+	//		//	else dprint("PowerOn\n");
 	//	Sleep(1000);
 	//}
 	try
@@ -456,9 +473,9 @@ Start:
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 
 				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);			
-				unsigned resXX = device1730.ReadOutput();
-			//	if(TEST_OUT_BITS(Off<oPowerBM>))
-				if(!(resXX & (1 << 4)))
+			//	unsigned resXX = device1730.ReadOutput(); ///< Èñïðàâëåííî ? ÷òåíèå âûõîäîà äèñêðåòíîé ïëàòû
+				if(TEST_OUT_BITS(Off<oPowerBM>))
+				//if(!(resXX & (1 << 4)))
 				{
 					USPC::Close();
 					Log::Mess<LogMess::PowerBMOn>();
