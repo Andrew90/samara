@@ -117,6 +117,8 @@ namespace LogMess
 		, CycleOk  
 		, CycleBrak
 
+		, AlarmNoDataCollection
+
 		, max_row
 	};
 
@@ -162,6 +164,8 @@ namespace LogMess
 	MESS(AlarmExitControlCircuitBitIn , void, "Нет сигнала \"Цепи управления\""	   , red  , yellow)
 	MESS(AlarmExitWorkBitIn			  , void, "Нет сигнала \"Работа\""			   , red  , yellow)
 	MESS(AlarmExitSycleBitIn		  , void, "Нет сигнала \"Цикл\""			   , red  , yellow)
+
+	MESS(AlarmNoDataCollection        , void, "Внимание!!! Нет сбора данных", red, yellow)
 
 	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
 

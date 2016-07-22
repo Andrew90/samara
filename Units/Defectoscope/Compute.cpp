@@ -363,17 +363,36 @@ namespace
 
 }
 
+template<class O, class P>struct __collection_data_ok__
+{
+	bool operator()()
+	{
+        if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
+		{
+			if(0 == Singleton<ItemData<O> >::Instance().currentOffsetFrames)
+			{
+                Log::Mess<LogMess::AlarmNoDataCollection>();
+				return false;
+			}
+		}
+		return true;
+	}
+};
 void Compute::Recalculation()
 {	
+	bool dataOk = TL::find<USPC::items_list, __collection_data_ok__>()();
 	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus(tubeResult);
-	if(tubeResult)
+	if(dataOk)
 	{
-		Log::Mess<LogMess::CycleOk>((double)lengthTube / 1000);
-	}
-	else
-	{
-		Log::Mess<LogMess::CycleBrak>((double)lengthTube / 1000);
+		if(tubeResult)
+		{
+			Log::Mess<LogMess::CycleOk>((double)lengthTube / 1000);
+		}
+		else
+		{
+			Log::Mess<LogMess::CycleBrak>((double)lengthTube / 1000);
+		}
 	}
 	app.MainWindowUpdate();
 }
