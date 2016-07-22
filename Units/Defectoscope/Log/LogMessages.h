@@ -118,6 +118,7 @@ namespace LogMess
 		, CycleBrak
 
 		, AlarmNoDataCollection
+		, InfoDataSaved
 
 		, max_row
 	};
@@ -204,6 +205,8 @@ namespace LogMess
 	MESS(InfoDataCollectionComplete		, void, "Сбор данных закончен"                           , green, white);
 	MESS(InfoDataCollection     		, void, "Сбор данных"                           , blue, white);
 	MESS(InfoBase, void, "Сработал датчик \"База\"", blue, white);
+
+	MESS(InfoDataSaved, void, "Данные сохранены", green, white);
 
 	MESS(SQ1BitIn             , bool, "SQ1BitIn            ", white, black)
 	MESS(SQ3BitIn             , bool, "SQ3BitIn            ", white, black)

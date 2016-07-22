@@ -3,7 +3,7 @@
 
 namespace Stored
 {
-	void Do();
+	bool Do();
 	void DataToFile(wchar_t *path);
 	void DataFromFile(wchar_t *path);
 }

@@ -554,7 +554,7 @@ Start:
 				//выставить сигнал ПЕРЕКЛАДКА
 				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
-				///Stored::Do();
+				if(Stored::Do()) Log::Mess<LogMess::InfoDataSaved>();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			}
 			catch(ExceptionСontrolСircuitsOffProc)

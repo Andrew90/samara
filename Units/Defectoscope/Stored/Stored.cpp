@@ -205,7 +205,7 @@ namespace Stored
 			);
 	}
 
-	void Do()
+	bool Do()
 	{
 		COleDateTime tme = COleDateTime::GetCurrentTime();
 		
@@ -247,7 +247,7 @@ namespace Stored
 		else
 		{
 			MessageBox(mainWindow.hWnd, L"Не могу открыть базу", L"Ошибка !!!", MB_ICONERROR);
-			return;
+			return false;
 		}
 
 		wchar_t *c = &path[len];
@@ -261,6 +261,7 @@ namespace Stored
 		DataToFile(path);
 
 		deleteLast(base, path, c);
+		return true;
 	}
 
 	struct __list_data__
