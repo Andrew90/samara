@@ -447,17 +447,7 @@ void Automat::Impl::Do()
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
-	//for(int i = 0; i < 100000; ++i)
-	//{
-	//	dprint("------%d\n", i);
-	//	TEST_OUT_BITS(Off<oPowerBM>);
-	//	//AND_BITS(On<oPowerBM>)(100000000);
-	////	unsigned resXX = device1730.ReadOutput();
-	//		//	if(TEST_OUT_BITS(Off<oPowerBM>))
-	//		//	if(!(resXX & (1 << 4)))dprint("PowerOff\n");
-	//		//	else dprint("PowerOn\n");
-	//	Sleep(1000);
-	//}
+	
 	try
 	{
 		while(true)
@@ -473,9 +463,7 @@ Start:
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
 
 				AND_BITS(Ex<ExceptionStopProc>, On<iÑontrolÑircuits>)(10000);			
-			//	unsigned resXX = device1730.ReadOutput(); ///< Èñïðàâëåííî ? ÷òåíèå âûõîäîà äèñêðåòíîé ïëàòû
 				if(TEST_OUT_BITS(Off<oPowerBM>))
-				//if(!(resXX & (1 << 4)))
 				{
 					USPC::Close();
 					Log::Mess<LogMess::PowerBMOn>();

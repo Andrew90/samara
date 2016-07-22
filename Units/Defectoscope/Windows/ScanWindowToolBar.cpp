@@ -31,28 +31,24 @@ namespace
 #undef BUTTON_KEY
 	void Key<IDB_DownArrow>::Click(HWND h)
 	{
-		zprint("\n");	
 		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
 		w->SensMinus();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_UpArrow>::Click(HWND h)
 	{
-		zprint("\n");
 		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
 		w->SensPlus();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_LeftArrow>::Click(HWND h)
 	{
-		zprint("\n");
 		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
 		w->OffsMinus();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_RightArrow>::Click(HWND h)
 	{
-		zprint("\n");
 		ScanWindow *w = (ScanWindow *)GetWindowLong(h, GWL_USERDATA);
 		w->OffsPlus();
 	}

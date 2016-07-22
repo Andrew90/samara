@@ -31,7 +31,6 @@ template<class O, class P>struct TemplDialogCtlColorEdit
 {
 	bool operator()(O *, P *)
 	{
-		zprint("");
 		return true;
 	}
 };

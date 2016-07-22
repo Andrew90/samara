@@ -24,12 +24,10 @@ namespace StatusProtocol
 			f->data.id = TL::IndexOf<__ip_protocol_procedure_list__, StatusProtocol::Server>::value;
 			f->length = 0;
 			f->proc = Recv<Stored>;
-			//h = CreateEvent(NULL, FALSE, FALSE, NULL);
 		}
 
 		bool Do()
 		{
-			dprint("%s\n", (char *)f->data.buf);
 			strcpy(status, (char *)f->data.buf); 
 			SetEvent(h);
 			f->proc = Stop;		

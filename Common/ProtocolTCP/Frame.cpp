@@ -30,13 +30,11 @@ Frame *Frame::_Get()
 	if (NULL != result) 
 	{
 			head = head->next;
-			dprint(" next Frames %d \n", ++nex);
 	}
 	else
 	{
 		result = new Frame;
 		result->next = NULL;
-		dprint(" Count Frames %d \n", ++counter);
 	}
 	LeaveCriticalSection(&cs);
 	return result;
@@ -47,7 +45,6 @@ void Frame::Drop(void *data)
 	EnterCriticalSection(&cs);
 	((Frame *)data)->next = head;
 	head = (Frame *)data;
-	dprint(" Drop Frames %d %d\n", counter, nex);
 	--nex;
 	LeaveCriticalSection(&cs);
 }

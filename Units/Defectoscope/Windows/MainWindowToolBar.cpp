@@ -66,28 +66,18 @@ namespace
 	}
 	void Key<IDB_Continue>::Click(HWND h)
 	{
-		zprint("\n");
 		SetEvent(App::ProgrammContinueEvent);
 		AppKeyHandler::Run();
 	}
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)
 	{
-		zprint("\n");
-		//SetEvent(App::ProgrammTestRunEvent);
 		if(USPC_Test())AppKeyHandler::Run();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)
 	{
-		zprint("\n");	
-		//-test
-	//	RECT r;
-	//WindowPosition::Get<LogUSPCWindow>(r);
-	//HWND hh = WindowTemplate(&Singleton<LogUSPCWindow>::Instance(), L"События USPC", r.left, r.top, r.right, r.bottom);
-	//ShowWindow(hh, SW_SHOWNORMAL);
 		LogUSPCWindow::Open();
-		//test
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)

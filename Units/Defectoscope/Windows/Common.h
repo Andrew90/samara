@@ -128,13 +128,7 @@ namespace Common
 	}
 
 	template<class T>struct SetParamOpenWindow;
-	//{
-	//	void operator()(HWND h)
-	//	{
-	//		zprint("\n");
-	//	}
-	//};
-
+	
 	template<class T>struct OpenWindow
 	{
 		static void Do(HWND)

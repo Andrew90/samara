@@ -14,7 +14,6 @@ bool NetClient::Connect(wchar_t *addr, int port, Frame *f)
 	{
         dprint("socket function failed with error: %u\n", WSAGetLastError());		
 		Frame::Drop(f);
-	//	app.MainWindowTopLabel(L"<ff00ff>Нет связи с толщиномером");
 		return false;
     }
 	

@@ -72,11 +72,6 @@ struct OkTabBtn
 	static const int ID = IDOK;
 	HWND hWnd;
 	wchar_t *Title(){return L"Применить";}
-	//template<class T>struct Inner;
-	//template<class A, class B, template<class, class>class C>struct Inner<C<A, B> >
-	//{
-	//	typedef A Result;
-	//};
 	template<class O, class P>struct loc
 	{
 		bool operator()(O *o, P *p)

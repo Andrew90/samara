@@ -266,18 +266,8 @@ template<class Base, class Table>struct __ok_table_btn__<Base, Table, Parameters
 };
 template<class, class, class>class TemplDialog;
 
-
-//template<class Base, class Table, class T>struct Insert
-//{
-//	void operator()(T &z, CBase &base)
-//	{
-//		zprint("   Дописать %s\n", typeid(z).name());
-//	}
-//};
-
-template<class Base, class Table, class B>struct Insert//<TemplDialog<Base, Table, B> >
+template<class Base, class Table, class B>struct Insert
 {
-	//typedef TemplDialog<Base, Table, B> Z;
 	template<class Z>void operator()(Z &t, CBase &base)
 	{
 		Insert_Into<Table>(t.table, base).Execute();

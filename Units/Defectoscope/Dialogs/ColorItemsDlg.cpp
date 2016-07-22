@@ -21,13 +21,10 @@ void __color_wm_paint(HWND hwnd, int color)
 
 int __color_l_button_down(HWND hwnd)
 {
-	dprint("%s", __FUNCTION__);
 	ColorDialog c(hwnd);
 	char d[4] = {-1};
 	if(c())
 	{
-		dprint("%s %x", __FUNCTION__, c.color.rgbResult);
-
 		*(int *)d = c.color.rgbResult | 0xff000000;
 		char t = d[0];
 		d[0] = d[2];
@@ -142,7 +139,6 @@ struct DefaultBtn
 	wchar_t *Title(){return L"Встроенные настройки";}
 	template<class Owner>void BtnHandler(Owner &o, HWND h)
 	{
-		dprint(__FUNCTION__"test");
 		if(TestPassword<Owner::Base, Owner::Table>()(h))
 		{
 			CBase base(Owner::Base().name());

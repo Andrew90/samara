@@ -47,10 +47,6 @@ namespace Stored
 			 fwrite(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fwrite(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fwrite(&compute.lengthTube, sizeof(int), 1, f);
-#pragma message("¬Œ—“¿ÕŒ¬»“‹")
-			 //TODO ¬Œ—“¿ÕŒ¬»“‹
-			// fwrite(&thicknessData.scope_velocity, sizeof(thicknessData.scope_velocity), 1, f);
-
 			 __Store__(crossData.ascanBuffer    , crossData.currentOffsetFrames, f);
 			 __Store__(longData.ascanBuffer     , longData.currentOffsetFrames, f);
 			 __Store__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
@@ -60,8 +56,6 @@ namespace Stored
 				 crossData.currentOffsetFrames
 				 + longData.currentOffsetFrames
 				 + thicknessData.currentOffsetFrames
-				 );
-			 dprint("**data stored**  length tube %d bytes stored %d\n", compute.lengthTube, t
 				 );
 		 }
 	}
@@ -81,9 +75,6 @@ namespace Stored
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 fread(&compute.lengthTube, sizeof(int), 1, f);
-			 //TODO ¬Œ—“¿ÕŒ¬»“‹
-			// fread(&thicknessData.scope_velocity, sizeof(thicknessData.scope_velocity), 1, f);
-
 			 __Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
 			 __Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
 			 __Load__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
@@ -118,48 +109,6 @@ namespace Stored
 			return id;
 		}
 	};
-
-	//typedef TL::MkTlst<Cross, Long, Thickness>::Result __type_id__;
-
-	//template<class T>struct StoredData
-	//{
-	//	void operator()(CBase &base, unsigned tubeId)
-	//	{
-	//		StoredMeshureTable t;
-	//		t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
-	//		t.items.get<Tube>().value = tubeId;
-	//		ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
-	//		for(int i = 0; i < App::count_sensors; ++i)
-	//		{
-	//			t.items.get<Sensor>().value = i;
-	//			memmove(t.items.get<Data>().value, unit.buffer[i], sizeof(t.items.get<Data>().value));
-	//			memmove(t.items.get<Status>().value, unit.status[i], sizeof(t.items.get<Status>().value));
-	//			Insert_Into<StoredMeshureTable>(t, base).Execute();
-	//		}
-	//	}
-	//};
-	//
-	//template<>struct StoredData<Thickness>
-	//{
-	//	typedef Thickness T;
-	//	void operator()(CBase &base, unsigned tubeId)
-	//	{			
-	//		StoredMeshureTable t;
-	//		t.items.get<Unit>().value = TL::IndexOf<__type_id__, T>::value;
-	//		t.items.get<Tube>().value = tubeId;
-	//		ItemData<T> &unit = Singleton<ItemData<T>>::Instance();
-	//
-	//		t.items.get<Sensor>().value = 0;
-	//		memmove(t.items.get<Data>().value, unit.bufferMin, sizeof(t.items.get<Data>().value));
-	//		memmove(t.items.get<Status>().value, unit.statusMin, sizeof(t.items.get<Status>().value));
-	//		Insert_Into<StoredMeshureTable>(t, base).Execute();
-	//
-	//		t.items.get<Sensor>().value = 1;
-	//		memmove(t.items.get<Data>().value, unit.bufferMax, sizeof(t.items.get<Data>().value));
-	//		memmove(t.items.get<Status>().value, unit.statusMax, sizeof(t.items.get<Status>().value));
-	//		Insert_Into<StoredMeshureTable>(t, base).Execute();
-	//	}
-	//};
 
 	unsigned StoredStatus(CBase &base)
 	{
@@ -220,7 +169,6 @@ namespace Stored
 		
 		CExpressBase base(
 			parameters.name()
-			//, CreateDataBase<StoredBase::type_list, SetDefault<StoredBase::type_list>, MSsql>()
 			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
 			, parameters.tables
 			);
@@ -229,22 +177,12 @@ namespace Stored
 		{
 			TubesTable tt;
 			tt.items.get<Date_Time>().value = tme;
-		//	tt.items.get<LengthTube>().value = lengthTube;
 			tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
 			tt.items.get<ID<ProtocolsTable>>().value = GetProtocolID(base);
-		//	TL::foreach<TubesTable::items_list, __stored__>()(&tt.items, &base);
 
 			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
 
 			Insert_Into<TubesTable>(tt, base).Execute();
-		//	unsigned id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
-
-			//if(0 != id)
-			//{
-			//	//StoredData<Cross>()(base, id);
-			//	//StoredData<Long>()(base, id);
-			//	//StoredData<Thickness>()(base, id);
-			//}
 		}
 		else
 		{
