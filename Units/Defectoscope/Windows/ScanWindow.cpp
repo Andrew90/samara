@@ -104,7 +104,12 @@ void ScanWindow::operator()(TSize &l)
 		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
 		 maxY = 100;
 		 wchar_t buf[1024];
-		 wsprintf(buf, L"%s зона %d датчик %d смещение %d номер скана %d", mess, 1 + zone_, 1 + sensor_, 1 + offset_, uspc->hdr.ScanCounter);
+		 wchar_t alarmBuff[128];
+		 alarmBuff[0] = 0;
+		 if(uspc->CycleAlarm) wcscpy(alarmBuff, L"авария Cycle, ");
+		 if(uspc->PrfAlarm) wcscat(alarmBuff, L"авария PRF, ");
+		  if(uspc->PowerAlarm) wcscat(alarmBuff, L"авария Power, ");
+		 wsprintf(buf, L"%s зона %d датчик %d %s смещение %d номер скана %d", mess, 1 + zone_, 1 + sensor_, alarmBuff, 1 + offset_, uspc->hdr.ScanCounter);
 		 
 		 label = mess1;
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
