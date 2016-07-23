@@ -527,6 +527,7 @@ Start:
 					SetEvent(App::ProgrammRunEvent);
 					if(restart)goto Start;					
 				}
+				SetEvent(App::ProgrammRunEvent);
 				//todo в зависимости от результатов контрол€ выставить сигналы –≈«”Ћ№“ј“1 и –≈«”Ћ№“ј“2
 				if(compute.tubeResult)
 				{
