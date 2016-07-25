@@ -31,8 +31,8 @@ void App::Destroy()
 {
 	if(device1730.IsOpen())
 	{
-		Sleep(2000);
 		device1730.Write(0);
+		Sleep(500);
 	}
 }
 

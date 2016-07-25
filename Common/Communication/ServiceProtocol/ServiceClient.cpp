@@ -24,11 +24,13 @@ namespace StatusProtocol
 			f->data.id = TL::IndexOf<__ip_protocol_procedure_list__, StatusProtocol::Server>::value;
 			f->length = 0;
 			f->proc = Recv<Stored>;
+			f->data.buf[0] = '\0';
 		}
 
 		bool Do()
 		{
-			strcpy(status, (char *)f->data.buf); 
+			strcpy(status, f->data.buf); 
+			dprint("%s\n", f->data.buf);
 			SetEvent(h);
 			f->proc = Stop;		
 			return true;
@@ -61,11 +63,12 @@ namespace RunProtocol
 			f->data.id = TL::IndexOf<__ip_protocol_procedure_list__, RunProtocol::Server>::value;
 			f->length = 0;
 			f->proc = Recv<Stored>;
+			f->data.buf[0] = '\0';
 		}
 
 		bool Do()
 		{
-			printf("%s\n", (char *)f->data.buf);
+			dprint("%s\n", f->data.buf);
 			f->proc = Stop;
 			return true;
 		}
@@ -95,11 +98,12 @@ namespace StopProtocol
 			f->data.id = TL::IndexOf<__ip_protocol_procedure_list__, StopProtocol::Server>::value;
 			f->length = 0;
 			f->proc = Recv<Stored>;
+			f->data.buf[0] = '\0';
 		}
 
 		bool Do()
 		{
-			printf("%s\n", (char *)f->data.buf);
+			printf("%s\n", f->data.buf);
 			f->proc = Stop;
 			return true;
 		}
