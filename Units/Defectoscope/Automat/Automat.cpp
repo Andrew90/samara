@@ -264,54 +264,6 @@ namespace
 	{
 		void operator()(){}
 	};
-
-	
-
-//Не убирать	template<class List>struct OR_Bits			   
-//Не убирать	{
-//Не убирать		unsigned operator()(unsigned delay = (unsigned)-1)
-//Не убирать		{
-//Не убирать			if((unsigned)-1 != delay) delay += GetTickCount();
-//Не убирать			unsigned bitOn = 0, bitOff = 0, bitInv = 0;
-//Не убирать			SelectBits<typename Filt<List, On>::Result>()(bitOn);
-//Не убирать			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
-//Не убирать			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
-//Не убирать
-//Не убирать			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
-//Не убирать			ArrEvents<exeption_list> arrEvents;
-//Не убирать			
-//Не убирать			while(true)
-//Не убирать			{
-//Не убирать				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
-//Не убирать				unsigned res = device1730_0.Read();
-//Не убирать				((unsigned short *)&res)[1] = device1730_1.Read();
-//Не убирать				if(WAIT_TIMEOUT == ev)
-//Не убирать				{
-//Не убирать					if(bitOn || bitOff)
-//Не убирать					{
-//Не убирать						unsigned t = res ^ bitInv;
-//Не убирать						if((t & bitOn) || (bitOff & (t ^ bitOff))) 
-//Не убирать						{
-//Не убирать								OnceDo<typename Filt<List, Once>::Result>()();
-//Не убирать								return res;
-//Не убирать						}
-//Не убирать					}
-//Не убирать					if((((unsigned short *)&res)[1]) & sycle_ts)
-//Не убирать					{
-//Не убирать						dprint("ExceptionStopProc  %x\n", sycle_ts);
-//Не убирать						throw ExceptionStopProc();
-//Не убирать					}
-//Не убирать					DefaultDo<typename Filt<List, Proc>::Result>()();
-//Не убирать					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
-//Не убирать				}
-//Не убирать				else
-//Не убирать				{
-//Не убирать					arrEvents.Throw(ev - WAIT_OBJECT_0);
-//Не убирать				}
-//Не убирать			}
-//Не убирать		}
-//Не убирать	};
-
 	
 	template<class List>struct Test_OutBits
 	{
@@ -481,16 +433,15 @@ Start:
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
-				//USPC::Start();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				OUT_BITS(On<oWork>);
 				Log::Mess<LogMess::WaitControl>();
-				USPC::Config();
+				if(!USPC::Config()) throw Exception_USPC_ERROR_Proc();
 				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(25 * 1000);
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
-				USPC::Start();
+				if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
@@ -602,9 +553,6 @@ Start:
 				Log::Mess<LogMess::AlarmRestartServiceError>();
 				device1730.Write(0);
 			}
-			//USPC::Stop();
-		//	AppKeyHandler::Stop();
-		//	ResetEvent(App::ProgrammContinueEvent);
 			dprint("DATA COMPLITE ******************************\n");
 		}
 	}
@@ -653,9 +601,8 @@ DWORD WINAPI Test_USPC(LPVOID)
 		unsigned startTime = timeGetTime();
 		//сбор данных с ультразвуковых датчиков
 		Log::Mess<LogMess::InfoDataCollection>();
-		USPC::Config();
-		USPC::Start();
-
+		if(!USPC::Config()) throw Exception_USPC_ERROR_Proc();
+		if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();
 		int test_counter = 0;				
 
 		for(int i = 0; i < 200; ++i) 

@@ -357,6 +357,7 @@
     <None Include="..\..\Common\Resource\TopArr.bmp" />
     <None Include="..\..\Common\Resource\UpArrow.bmp" />
     <None Include="..\..\Common\Resource\upload.ico" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

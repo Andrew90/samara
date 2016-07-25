@@ -73,8 +73,6 @@ namespace USPC
 
 	bool open = false;
 
-//	typedef TL::MkTlst<Thickness, Long, Cross>::Result items_list;
-
 	template<class T>struct __board__;
 	template<>struct __board__<Thickness>
 	{
@@ -123,11 +121,6 @@ namespace USPC
 	{
 		bool operator()(P *p)
 		{
-			/*
-			ULONG WINAPI USPC7100_Acq_Config(int Board, ULONG AcqMode
-			, ULONG StartMode, ULONG AcqCondition[8], int PrePostScans
-			, int FrequencyDivider, ULONG BufferSize, int * Unused, ULONG * SimplificationParam)
-			*/
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
 			{
 				int id = __board__<O>::value;

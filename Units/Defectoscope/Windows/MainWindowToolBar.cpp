@@ -41,11 +41,11 @@ namespace
 		, BUTTON_KEY(IDB_Reset)
 		, BUTTON_KEY(IDB_QueryBtn) 		
 		, SeparatorToolbar<1>
-		, BUTTON_KEY(IDB_arrow_down) 
-		, BUTTON_KEY(IDB_arrow_up)
-		, BUTTON_KEY(IDB_arrow_left) 
-		, BUTTON_KEY(IDB_arrow_right)
-		, SeparatorToolbar<2>
+		//, BUTTON_KEY(IDB_arrow_down) 
+		//, BUTTON_KEY(IDB_arrow_up)
+		//, BUTTON_KEY(IDB_arrow_left) 
+		//, BUTTON_KEY(IDB_arrow_right)
+		//, SeparatorToolbar<2>
 		>::Result tool_button_list;
 #undef BUTTON_KEY
 //----------------------------------------------------------------------------------
