@@ -34,6 +34,8 @@ wchar_t *GetHostByName::operator()(wchar_t *name)
 	wcstombs_s(&count, host_name, name, sizeof(host_name));
 	struct hostent *remoteHost  = gethostbyname(host_name);	
 	in_addr  addr;
+	buf[0] = '\0';
+	if(NULL == remoteHost) return buf;
 	addr.s_addr = *(u_long *) remoteHost->h_addr_list[0];
 	wsprintf(buf, L"%d.%d.%d.%d"
 		, addr.S_un.S_un_b.s_b1

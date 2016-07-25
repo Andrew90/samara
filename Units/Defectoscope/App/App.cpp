@@ -20,7 +20,6 @@ HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
 HANDLE App::ProgrammStopEvent;
 HANDLE App::ProgrammRunEvent;
-//HANDLE App::ProgrammTestRunEvent;
 bool App::measurementOfRunning = false;
 int __lengthCaretka = 0;
 const int &App::lengthCaretka = __lengthCaretka;

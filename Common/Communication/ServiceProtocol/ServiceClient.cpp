@@ -112,6 +112,7 @@ namespace StopProtocol
 	};		
 	bool Client::Do(wchar_t *addr, int port)
 	{
+		if(0 == *addr) return false;
 		Frame *f = Frame::Get();
 		new(Frame::AdditionalData<Stored>(f)) Stored(f);
 		return NetClient::Connect(addr, port, f);

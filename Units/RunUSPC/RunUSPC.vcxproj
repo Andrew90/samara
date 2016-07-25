@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)AppRunUSPC;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\Base\;$(ProjectDir)..\Defectoscope\App</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)App;D:\PROJECTS\Samara\USPCSamara\Common\ProtocolTCP;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\Base;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)..\Defectoscope\Automat;$(ProjectDir)..\..\Common\ProtocolTCP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,13 +76,44 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppRunUSPC\App.h" />
-    <ClInclude Include="AppRunUSPC\BitBM.h" />
+    <ClInclude Include="..\..\Common\1730\Device1730.h" />
+    <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h" />
+    <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp" />
+    <ClInclude Include="..\..\Common\Communication\ServerHandler.h" />
+    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h" />
+    <ClInclude Include="..\..\Common\USPC\Registry.h" />
+    <ClInclude Include="..\Defectoscope\Automat\RestartService.h" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="App\AppBase.h" />
+    <ClInclude Include="App\BitBM.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="DebugMess.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppRunUSPC\BitBM.cpp" />
+    <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp" />
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
+    <ClCompile Include="..\..\Common\USPC\Registry.cpp" />
+    <ClCompile Include="..\Defectoscope\Automat\RestartService.cpp" />
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="App\AppBase.cpp" />
+    <ClCompile Include="App\BitBM.cpp" />
     <ClCompile Include="RunUSPC.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
