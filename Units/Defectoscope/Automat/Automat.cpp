@@ -653,6 +653,7 @@ DWORD WINAPI Test_USPC(LPVOID)
 		unsigned startTime = timeGetTime();
 		//сбор данных с ультразвуковых датчиков
 		Log::Mess<LogMess::InfoDataCollection>();
+		USPC::Config();
 		USPC::Start();
 
 		int test_counter = 0;				

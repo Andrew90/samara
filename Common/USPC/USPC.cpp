@@ -235,7 +235,7 @@ namespace USPC
 				if(numberRead > 0)
 				{
 					item.OffsetCounter(numberRead);
-					dprint("plata %d count %d\n", id, numberRead);
+				//	dprint("plata %d count %d\n", id, numberRead);
 				}
 				*p = err;
 				return 0 == err;
