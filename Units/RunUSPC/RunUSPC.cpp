@@ -13,7 +13,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	EnableMenuItem( GetSystemMenu(wnd, false), SC_CLOSE, MF_DISABLED|MF_GRAYED);
 
 	App app;
-	if(!app.Init()) getchar();
+	if(!app.Init()) 
+	{
+		getchar();
+		app.Destroy();
+		return 0;
+	}
 	
 	RegistryPathApplications path;
 	

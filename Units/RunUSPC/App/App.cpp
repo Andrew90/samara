@@ -11,7 +11,7 @@ bool App::Init()
    if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
    {
 	   char b[128];
-	   CharToOemA("Не могу инициировать плату 1730\n", b);
+	   CharToOemA("Не могу инициировать плату 1730\nДля закрытия нажмите \"ENTER\"", b);
 	   dprint(b);
 	   return false;
    }
@@ -20,7 +20,7 @@ bool App::Init()
    if(!RestartService())
    {
 	   char b[128];
-	   CharToOemA("Нет связи с дефектоскопом\n", b);
+	   CharToOemA("Нет связи с дефектоскопом\nДля закрытия нажмите \"ENTER\"", b);
 	   dprint(b);
 	   return false;
    }
