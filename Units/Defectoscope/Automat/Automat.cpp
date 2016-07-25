@@ -522,22 +522,24 @@ Start:
 						Log::Mess<LogMess::ContineCycleBrak>((double)compute.lengthTube / 1000);
 					}
 					AppKeyHandler::Continue();
-					//WaitForSingleObject(App::ProgrammContinueEvent, INFINITE);
 					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>, Ex<ExceptionStopProc>)(60 * 60 * 1000);
 					SetEvent(App::ProgrammRunEvent);
+					dprint("restart %d\n", restart);
 					if(restart)goto Start;					
 				}
 				SetEvent(App::ProgrammRunEvent);
+				dprint("continue tube\n");
 				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
+				double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)
 				{
 					OUT_BITS(On<oResult1>);
-					Log::Mess<LogMess::CycleOk>((double)compute.lengthTube / 1000);
+					Log::Mess<LogMess::CycleOk>(len);
 				}
 				else
 				{
 					OUT_BITS(On<oResult2>);
-					Log::Mess<LogMess::CycleBrak>((double)compute.lengthTube / 1000);
+					Log::Mess<LogMess::CycleBrak>(len);
 				}
 				Sleep(500);
 				//выставить сигнал ПЕРЕКЛАДКА
@@ -545,6 +547,8 @@ Start:
 				//Записать результат контроля в базу данных
 				if(Stored::Do()) Log::Mess<LogMess::InfoDataSaved>();
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				AND_BITS(Ex<ExceptionStopProc>, Off<iCycle>)(60 * 60 * 1000);
+				OUT_BITS(Off<oToShiftThe>, Off<oResult1>, Off<oResult2>);
 			}
 			catch(ExceptionСontrolСircuitsOffProc)
 			{

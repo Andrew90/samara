@@ -101,6 +101,7 @@ char *ViewerDebugMess::get()
 	WaitForSingleObject(h, INFINITE);
 	while(map && map->tail != map->head)
 	{
+		if(map->head - map->tail > 256) map->tail = map->head + 256;
 		static char b[512];		
 		CharToOemA(map->data[map->tail & 0xff], b);
 		++map->tail;

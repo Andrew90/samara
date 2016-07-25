@@ -119,6 +119,7 @@ namespace LogMess
 
 		, AlarmNoDataCollection
 		, InfoDataSaved
+		, AlarmBufferOverflow
 
 		, max_row
 	};
@@ -167,6 +168,7 @@ namespace LogMess
 	MESS(AlarmExitSycleBitIn		  , void, "Нет сигнала \"Цикл\""			   , red  , yellow)
 
 	MESS(AlarmNoDataCollection        , void, "Внимание!!! Нет сбора данных", red, yellow)
+	MESS(AlarmBufferOverflow, void, "Внимание!!! Буффер переполнен", red, yellow)
 
 	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
 

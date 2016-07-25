@@ -378,16 +378,31 @@ template<class O, class P>struct __collection_data_ok__
 		return true;
 	}
 };
+
+template<class O, class P>struct __buffer_over_flow__
+{
+	bool operator()()
+	{
+		if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
+		{
+			if(App::count_frames > Singleton<ItemData<O> >::Instance().currentOffsetFrames) return true;
+			Log::Mess<LogMess::AlarmBufferOverflow>();
+			return false;
+		}
+		return true;
+	}
+};
+
 void Compute::Recalculation()
 {	
-	bool dataOk = TL::find<USPC::items_list, __collection_data_ok__>()();
+	bool dataOk = TL::find<USPC::items_list, __collection_data_ok__>()();//проверка на наличие данных в буфере
+	bool bufferNotOverflow = TL::find<USPC::items_list, __buffer_over_flow__>()();
+	if(!bufferNotOverflow) return; //Проверка на переполнение буфера
 	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus(tubeResult);
 	if(dataOk)
 	{
-		int l = lengthTube / 50;
-		l *= 50;
-		double len = 0.001 * l;
+		double len = 0.001 * lengthTube;
 		if(tubeResult)
 		{
 			Log::Mess<LogMess::CycleOk>(len);
