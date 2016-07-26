@@ -146,7 +146,7 @@ namespace Stored
 
 	void Path(wchar_t *path, COleDateTime tme)
 	{
-		wsprintf(path, L"%02d%02d%02d%02d%02d%02d.uspc"
+		wsprintf(path, L"%02d%02d%02d%02d%02d%02d.dat"
 			, tme.GetYear()	- 2000
 			, tme.GetMonth()
 			, tme.GetDay()
@@ -183,6 +183,7 @@ namespace Stored
 			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
 
 			Insert_Into<TubesTable>(tt, base).Execute();
+			dprint("database stored\n");
 		}
 		else
 		{

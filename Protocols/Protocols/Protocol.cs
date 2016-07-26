@@ -63,12 +63,18 @@ namespace Protocols
 
             var row = (sender as DataGridView).Rows[e.RowIndex];
 
-            f.ShowReport(
-                (int)row.Cells[0].Value
-                , (DateTime)row.Cells[1].Value
-                , (int)row.Cells[2].Value
-                , (string)row.Cells[3].Value
-                );
+            try
+            {
+
+                f.ShowReport(
+                    (int)row.Cells[0].Value
+                    , (DateTime)row.Cells[1].Value
+                    , (int)row.Cells[2].Value
+                    , (string)row.Cells[3].Value
+                    );
+            }
+            catch (System.InvalidCastException err)
+            { }
         }
     }
 }

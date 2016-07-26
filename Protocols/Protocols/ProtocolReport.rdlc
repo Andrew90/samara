@@ -169,7 +169,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Протокол №</Value>
+                              <Value />
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -203,7 +203,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>8.27х11.69</Value>
+                              <Value />
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -297,6 +297,7 @@
                       </Style>
                     </Textbox>
                     <ColSpan>6</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
