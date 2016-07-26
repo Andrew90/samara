@@ -48,14 +48,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Messages.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="App\App.cpp">
-      <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="Windows\MainWindow.cpp">
       <Filter>Windows\MainWindow</Filter>
@@ -102,19 +96,16 @@
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
       <Filter>Common\debug_tools</Filter>
     </ClCompile>
+    <ClCompile Include="AppMess\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="MessagesLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Messages.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="App\App.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="App\config.h">
-      <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
@@ -202,6 +193,15 @@
     </ClInclude>
     <ClInclude Include="Dlg\Dialogs.h">
       <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="AppMess\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="AppMess\config.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="MessagesLog.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

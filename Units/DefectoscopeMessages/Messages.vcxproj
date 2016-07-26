@@ -66,7 +66,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\Base;App;Windows;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\Defectoscope\Log;..\..\Common\Base;Windows;$(ProjectDir)AppMess;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool</AdditionalIncludeDirectories>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
@@ -90,11 +90,9 @@
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
     <ClCompile Include="..\Defectoscope\Log\LogBuffer.cpp" />
     <ClCompile Include="..\Defectoscope\Log\LogMessages.cpp" />
-    <ClCompile Include="App\App.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile Include="AppMess\App.cpp" />
     <ClCompile Include="Dlg\DlgProc.cpp" />
-    <ClCompile Include="Messages.cpp">
+    <ClCompile Include="MessagesLog.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Messages;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
@@ -128,10 +126,10 @@
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="..\Defectoscope\Log\LogBuffer.h" />
     <ClInclude Include="..\Defectoscope\Log\LogMessages.h" />
-    <ClInclude Include="App\App.h" />
-    <ClInclude Include="App\config.h" />
+    <ClInclude Include="AppMess\App.h" />
+    <ClInclude Include="AppMess\config.h" />
     <ClInclude Include="Dlg\Dialogs.h" />
-    <ClInclude Include="Messages.h" />
+    <ClInclude Include="MessagesLog.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Windows\MainWindow.h" />
