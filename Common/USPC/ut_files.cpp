@@ -31,19 +31,6 @@ namespace
 
 bool NewUSPCFile(HWND h, wchar_t *file)
 {
-	//MkDir(ut_files);
-	//CurrentDir src, dest;
-	//wsprintf(
-	//	&src.path[src.len]
-	//, L"\\%s\\default.us"
-	//	, ut_files
-	//	);
-	//wsprintf(
-	//	&dest.path[dest.len]
-	//, L"\\%s\\%s.us"
-	//	, ut_files
-	//	, file
-	//	);
 	RegistryPathUTFile appPath;
 	wchar_t src[256];
 	wchar_t dest[256];
@@ -65,7 +52,7 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 		else if(80 == err)
 		{
 			wsprintf(buffer, L"Файл существует %s", dest);
-			MessageBox(h, buffer, L"Ошибка!!!", MB_ICONHAND);
+			MessageBox(h, buffer, L"Предупреждение!!!", MB_ICONHAND);
 		}
 		else if(FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
                        NULL, 

@@ -121,11 +121,6 @@ DO_NOT_CHECK(NameParam)
 PARAM_TITLE(NameParam, L"")
 template<int N>struct DlgSubItems<NameParam, Holder<N> >: EditItems<NameParam, 420>{};
 
-//NO_USED_MENU_ITEM(ID<ThresholdsTable>)
-//NO_USED_MENU_ITEM(ID<DeadAreaTable>)
-//NO_USED_MENU_ITEM(ID<AxesTable>)
-//NO_USED_MENU_ITEM(ID<MedianFiltreTable>)
-
 void AddTypeSizeDlg::Do(HWND h)
 {
 	ParametersTable t;
@@ -137,7 +132,6 @@ void AddTypeSizeDlg::Do(HWND h)
 	   >(t).Do(h, L"Добавить типоразмер")
 	   )
 	{
-		//memmove(&Singleton<ParametersTable>::Instance(), &t, sizeof(t));
 		wchar_t *s = t.items.get<NameParam>().value;
 		Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
 		NewUSPCFile(h, s);
