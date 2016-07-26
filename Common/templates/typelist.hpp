@@ -153,6 +153,22 @@ namespace TL
 			Proc<Head, int>()();
 			foreach<Tail, Proc>()();
 		}	
+
+		template<class O, class P>void operator()(O &o, P &p)
+		{
+			Proc<Head, P>()(o, p);
+			foreach<Tail, Proc>()(o, p);
+		}
+		template<class P>void operator()(P &p)
+		{
+			Proc<Head, P>()(p);
+			foreach<Tail, Proc>()(p);
+		}	
+		void operator()(Tlst<Head, Tail> &o)
+		{
+			Proc<Head, int>()(o);
+			foreach<Tail, Proc>()(o);
+		}
 	};
 	template<class Head, template<class, class>class Proc>struct foreach<Tlst<Head, NullType>, Proc>
 	{
@@ -172,6 +188,19 @@ namespace TL
 		{
 			Proc<Head, int>()();
 		}	
+
+		template<class O, class P>void operator()(O &o, P &p)
+		{
+			Proc<Head, P>()(o, p);
+		}
+		void operator()(Tlst<Head, NullType> &o)
+		{
+			Proc<Head, int>()(o);
+		}
+		template<class P>void operator()(P &p)
+		{
+		    Proc<Head, P>()(p);
+		}
 	};
 //-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find;
@@ -197,6 +226,22 @@ namespace TL
 			if(Proc<Head, int>()())return find<Tail, Proc>()();
 			return false;
 		}	
+
+		template<class O, class P>bool operator()(O &o, P &p)
+		{
+			if(Proc<Head, P>()(o, p))return find<Tail, Proc>()(o, p);
+			return false;
+		}
+		template<class P>bool operator()(P &p)
+		{
+			if(Proc<Head, P>()(p))return find<Tail, Proc>()(p);
+			return false;
+		}	
+		bool operator()(Tlst<Head, Tail> &o)
+		{
+			if(Proc<Head, int>()(o))return find<Tail, Proc>()(o);
+			return false;
+		}
 	};
 	template<class Head, template<class, class>class Proc>struct find<Tlst<Head, NullType>, Proc>
 	{
@@ -216,6 +261,19 @@ namespace TL
 		{
 			return Proc<Head, int>()();
 		}	
+
+		template<class O, class P>bool operator()(O &o, P &p)
+		{
+			return Proc<Head, P>()(o, p);
+		}
+		bool operator()(Tlst<Head, NullType> &o)
+		{
+			return Proc<Head, int>()(o);
+		}
+		template<class P>bool operator()(P &p)
+		{
+			return Proc<Head, P>()(p);
+		}
 	};
 //-------------------------------------------------------------------------------------------------------------
 	template<class List, template<class, class>class Proc>struct find_ret;

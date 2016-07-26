@@ -901,6 +901,5 @@
     <None Include="..\..\Common\Resource\continue.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
