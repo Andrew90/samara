@@ -399,6 +399,10 @@ void Automat::Impl::Do()
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
+
+	////test
+	
+	//test
 	
 	try
 	{

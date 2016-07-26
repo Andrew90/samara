@@ -428,6 +428,9 @@
     <ClCompile Include="Dialogs\BaseLengthDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp">
+      <Filter>Common\window_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -810,6 +813,9 @@
     </ClInclude>
     <ClInclude Include="Windows\ScanWindowToolBar.h">
       <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

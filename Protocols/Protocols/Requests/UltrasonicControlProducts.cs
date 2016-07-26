@@ -17,15 +17,24 @@ namespace Protocols.Requests
 
             string queryString =
            "SELECT [IDProtocolsTable], [Date_Time], Count, op.[Operator]"
+            
+            +", pr.[Alloy            ]"
+            +", pr.[DeliveryStatus   ]"
+            +", pr.[NormativeDocument]"
+            +", pr.[Gang             ]"
+            +", pr.[ProductCodeNumber]"
+            +", pr.[NumberPacket     ]"
+            +", pr.[Standart         ]"
+          
                + " FROM("
                + " SELECT [IDProtocolsTable], [Date_Time],[IDOperator]"
                  + ", COUNT(*)OVER(PARTITION BY [IDProtocolsTable]) AS Count"
                  + ", ROW_NUMBER()OVER(PARTITION BY [IDProtocolsTable] ORDER BY [Date_Time])AS N"
                + " FROM [StoredBase].[dbo].[TubesTable]"
                 + " WHERE [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
-           + ")AS tmp, [StoredBase].[dbo].[OperatorsTable] AS op"
-           + " WHERE N = 1 AND tmp.[IDOperator] = op.ID"
-           + " ORDER BY [Date_Time] DESC"
+           + ")AS tmp, [StoredBase].[dbo].[OperatorsTable] AS op, [StoredBase].[dbo].[ProtocolsTable] pr"
+           + " WHERE N = 1 AND tmp.[IDOperator] = op.ID AND tmp.[IDProtocolsTable] = pr.ID"
+           + " ORDER BY [Date_Time], pr.[NumberPacket] DESC"
            ;
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
             {
@@ -49,6 +58,15 @@ namespace Protocols.Requests
                         t.TteTme = (DateTime)reader[1];
                         t.Count = (int)reader[2];
                         t.Operator = (string)reader[3];
+
+                        t.Alloy             = (string)reader[4];
+                        t.DeliveryStatus    = (string)reader[5];
+                        t.NormativeDocument = (string)reader[6];
+                        t.Gang              = (string)reader[7];
+                        t.ProductCodeNumber = (string)reader[8];
+                        t.NumberPacket      = (string)reader[9];
+                        t.Standart          = (string)reader[10];
+
                         idProtocols.Add(t);
                     }
                 }
@@ -239,16 +257,6 @@ namespace Protocols.Requests
                     i.NumTube += 1;
                 }
             }
-
-            //for (int i = 0; i < 150; ++i)
-            //{
-            //    TubesPacketResult z = new TubesPacketResult();
-            //    z.NumTube = i;
-            //    z.Cross = "cross " + i.ToString();
-            //    z.Long = "long " + i.ToString();
-            //    z.Thickness = "thickness " + i.ToString();
-            //    t.Add(z);
-            //}
             return t;
         }
     }

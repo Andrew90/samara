@@ -3,4 +3,5 @@
 namespace AutomatAdditional
 {
 void ComputeSpeed(unsigned);
+void SetToBottomLabel();
 }

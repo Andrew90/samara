@@ -14,6 +14,8 @@
 #include "Stored.h"
 #include "LogUSPCWindow.h"
 #include "Automat.h"
+#include "AutomatAdditional.h"
+#include "ToolBarButton.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -60,6 +62,9 @@ namespace
 				CloseAllWindows();
 				SetEvent(App::ProgrammRunEvent);
 				AppKeyHandler::Run();
+				AutomatAdditional::SetToBottomLabel();
+				MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+				SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Повтор");
 			}
 			closed_packet_dialog = true;
 		}
@@ -102,6 +107,8 @@ namespace
 	void Key<IDB_Reset>::Click(HWND h)
 	{
 		SetEvent(App::ProgrammStopEvent);
+		MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+		SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
 		AppKeyHandler::Stop();
 	}
 }

@@ -36,13 +36,32 @@ namespace Protocols
 
                 table.Columns.Add().DataType = typeof(int);
                 table.Columns.Add().DataType = typeof(DateTime);
+
+                table.Columns.Add().DataType = typeof(string);
+       
                 table.Columns.Add().DataType = typeof(int);
+                table.Columns.Add().DataType = typeof(string);
+
+               
+                table.Columns.Add().DataType = typeof(string);
+                table.Columns.Add().DataType = typeof(string);
+                table.Columns.Add().DataType = typeof(string);
+                table.Columns.Add().DataType = typeof(string);
+                table.Columns.Add().DataType = typeof(string);
                 table.Columns.Add().DataType = typeof(string);
 
                 table.Columns[0].ColumnName = "№ Протокола";
                 table.Columns[1].ColumnName = "Время";
-                table.Columns[2].ColumnName = "Количество труб";
-                table.Columns[3].ColumnName = "Оператор";
+                table.Columns[2].ColumnName = "Номер пакета";
+                table.Columns[3].ColumnName = "Количество труб";
+                table.Columns[4].ColumnName = "Оператор";
+
+                table.Columns[5].ColumnName = "Сплав";
+                table.Columns[6].ColumnName = "Состояние поставки";
+                table.Columns[7].ColumnName = "Нормативный документ";
+                table.Columns[8].ColumnName = "Смена";
+                table.Columns[9].ColumnName = "Шифр изделия";
+                table.Columns[10].ColumnName = "№СОП";
 
                 MainGridView.DataSource = table;
 
@@ -51,7 +70,16 @@ namespace Protocols
 
                 foreach (var i in l)
                 {
-                    table.Rows.Add(i.ID, i.TteTme, i.Count, i.Operator);
+                    table.Rows.Add(i.ID, i.TteTme
+                         , i.NumberPacket   
+                        , i.Count, i.Operator
+                        , i.Alloy            
+                        , i.DeliveryStatus   
+                        , i.NormativeDocument
+                        , i.Gang             
+                        , i.ProductCodeNumber                         
+                        , i.Standart         
+                        );
                 }
                 MainGridView.Update();
             }
@@ -69,8 +97,8 @@ namespace Protocols
                 f.ShowReport(
                     (int)row.Cells[0].Value
                     , (DateTime)row.Cells[1].Value
-                    , (int)row.Cells[2].Value
-                    , (string)row.Cells[3].Value
+                    , (int)row.Cells[3].Value
+                    , (string)row.Cells[4].Value
                     );
             }
             catch (System.InvalidCastException err)

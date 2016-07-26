@@ -2,6 +2,7 @@
 #include "AutomatAdditional.h"
 #include "AppBase.h"
 #include "templates.hpp"
+#include "PacketBase.h"
 
 namespace AutomatAdditional
 {
@@ -17,5 +18,16 @@ namespace AutomatAdditional
 				);
 		    app.MainWindowBottomLabel(App::speed_bottom_label, buf);
 		}
+	}
+
+	void SetToBottomLabel()
+	{
+		wchar_t *num = Singleton<NumberPacket>::Instance().value;
+		wchar_t *op = Singleton<Operator>::Instance().value;
+		wchar_t buf[512];
+		wsprintf(buf, L"Номер партии: %s", num);
+		app.MainWindowBottomLabel(App::number_party, buf);
+		wsprintf(buf, L"Оператор: %s", op);
+		app.MainWindowBottomLabel(App::operator_name, buf);
 	}
 }

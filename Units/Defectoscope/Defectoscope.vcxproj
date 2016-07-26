@@ -129,6 +129,7 @@
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
     <ClCompile Include="..\..\Common\window_tool\ProcessRun.cpp" />
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\AppKeyHandler.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
+    <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppBase.h" />
