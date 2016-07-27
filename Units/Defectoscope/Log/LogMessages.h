@@ -180,8 +180,8 @@ namespace LogMess
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
 
-	MESSX(ContineCycleOk, double, "Результат контроля \"ГОДНО\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Цикл\"", blue, white)
-	MESSX(ContineCycleBrak, double, "Результат контроля \"БРАК\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Цикл\"", red, yellow)
+	MESSX(ContineCycleOk, double, "Результат контроля \"ГОДНО\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Повтор\"", blue, white)
+	MESSX(ContineCycleBrak, double, "Результат контроля \"БРАК\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Повтор\"", red, yellow)
 		
 	MESSX(CycleOk  , double, "Результат контроля \"ГОДНО\". Длина трубы  %.1f м.", blue, white)
 	MESSX(CycleBrak, double, "Результат контроля \"БРАК\". Длина трубы  %.1f м.", red, yellow)
