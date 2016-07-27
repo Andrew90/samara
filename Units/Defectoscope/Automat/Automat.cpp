@@ -527,7 +527,6 @@ Start:
 				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmSensorReadError>();	
 				device1730.Write(0);
-				AppKeyHandler::Stop();
 				int ret = MessageBox(
 					app.mainWindow.hWnd
 					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
