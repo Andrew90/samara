@@ -207,7 +207,7 @@ namespace USPC
 
 	template<class O, class P>struct __do__
 	{
-		bool operator()(P *p)
+		bool operator()(P &p)
 		{
 			if(__delay__<O, 10>::Do()) return true;///< выполнятся будет примерно через каждые 50 мск
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O>>().value)
@@ -230,7 +230,8 @@ namespace USPC
 					item.OffsetCounter(numberRead);
 				//	dprint("plata %d count %d\n", id, numberRead);
 				}
-				*p = err;
+				p.err = err;
+				p.sensor = id;
 				return 0 == err;
 			}
 			return true;
@@ -306,12 +307,17 @@ namespace USPC
 		TL::foreach<items_list, __stop__>()();
 		TL::find<items_list, __clear__>()(&err);
 	}
-
+struct __err__
+{
+	unsigned sensor;
+	unsigned err;
+};
 	bool Do()
 	{
-		int err = 0;
-		bool b = TL::find<items_list, __do__>()(&err);	
-		if(err) dprint("USPC7100_Acq_Read err %x\n", err);
+		//int err = 0;
+		__err__ err = {};
+		bool b = TL::find<items_list, __do__>()(err);	
+		if(err.err) dprint("USPC7100_Acq_Read err %x  sensor %d\n", err.err, err.sensor);
 		return b;
 	}
 }

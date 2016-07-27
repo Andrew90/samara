@@ -525,8 +525,9 @@ Start:
 			catch(Exception_USPC_DO_ERROR_Proc)
 			{
 				ResetEvent(App::ProgrammRunEvent);
-				Log::Mess<LogMess::TimeoutPipe>();	
+				Log::Mess<LogMess::AlarmSensorReadError>();	
 				device1730.Write(0);
+				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_ERROR_Proc)
 			{
