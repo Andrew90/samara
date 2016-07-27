@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\Base;Windows;App;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\Base;Windows;AppMess;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
