@@ -459,32 +459,6 @@ Start:
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
 				compute.Recalculation();
-				
-				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				Sleep(100);
-				OUT_BITS(Off<oWork>);
-				//–ежим прерывани€
-			    if(viewInterrupt)
-				{
-					ResetEvent(App::ProgrammContinueEvent);
-					ResetEvent(App::ProgrammRunEvent);
-					if(compute.tubeResult)
-					{
-						Log::Mess<LogMess::ContineCycleOk>((double)compute.lengthTube / 1000);
-					}
-					else
-					{
-						Log::Mess<LogMess::ContineCycleBrak>((double)compute.lengthTube / 1000);
-					}
-					AppKeyHandler::Continue();
-					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>, Ex<ExceptionStopProc>)(60 * 60 * 1000);
-					SetEvent(App::ProgrammRunEvent);
-					dprint("restart %d\n", restart);
-					if(restart)goto Start;					
-				}
-				SetEvent(App::ProgrammRunEvent);
-				dprint("continue tube\n");
-				//todo в зависимости от результатов контрол€ выставить сигналы –≈«”Ћ№“ј“1 и –≈«”Ћ№“ј“2
 				double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)
 				{
@@ -496,6 +470,24 @@ Start:
 					OUT_BITS(On<oResult2>);
 					Log::Mess<LogMess::CycleBrak>(len);
 				}
+				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				Sleep(100);
+				OUT_BITS(Off<oWork>);
+				//–ежим прерывани€
+			    if(viewInterrupt)
+				{
+					ResetEvent(App::ProgrammContinueEvent);
+					ResetEvent(App::ProgrammRunEvent);					
+					AppKeyHandler::Continue();
+					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>, Ex<ExceptionStopProc>)(60 * 60 * 1000);
+					SetEvent(App::ProgrammRunEvent);
+					dprint("restart %d\n", restart);
+					if(restart)goto Start;					
+				}
+				SetEvent(App::ProgrammRunEvent);
+				dprint("continue tube\n");
+				//todo в зависимости от результатов контрол€ выставить сигналы –≈«”Ћ№“ј“1 и –≈«”Ћ№“ј“2
+				
 				Sleep(500);
 				//выставить сигнал ѕ≈–≈ Ћјƒ ј
 				OUT_BITS(On<oToShiftThe>);
