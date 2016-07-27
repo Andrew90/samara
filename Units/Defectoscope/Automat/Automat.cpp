@@ -528,6 +528,15 @@ Start:
 				Log::Mess<LogMess::AlarmSensorReadError>();	
 				device1730.Write(0);
 				AppKeyHandler::Stop();
+				int ret = MessageBox(
+					app.mainWindow.hWnd
+					, L"Открыть окно просмотра сообщений?", L"Ошибка платы ултразвкового контроля"
+					, MB_ICONEXCLAMATION | MB_YESNOCANCEL);
+				if(IDYES == ret)
+				{
+					PostMessage(app.mainWindow.hWnd, WM_USER, (WPARAM)LogUSPCWindow_Open, 0);
+				}
+				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_ERROR_Proc)
 			{
@@ -543,6 +552,7 @@ Start:
 				{
 					PostMessage(app.mainWindow.hWnd, WM_USER, (WPARAM)LogUSPCWindow_Open, 0);
 				}
+				AppKeyHandler::Stop();
 			}
 			catch(Exception_USPC_RestartService_ERROR_Proc)
 			{
