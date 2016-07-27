@@ -459,16 +459,16 @@ Start:
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
 				compute.Recalculation();
-				double len = 0.001 * compute.lengthTube;
+			//	double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)
 				{
 					OUT_BITS(On<oResult1>);
-					Log::Mess<LogMess::CycleOk>(len);
+				//	Log::Mess<LogMess::CycleOk>(len);
 				}
 				else
 				{
 					OUT_BITS(On<oResult2>);
-					Log::Mess<LogMess::CycleBrak>(len);
+				//	Log::Mess<LogMess::CycleBrak>(len);
 				}
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				Sleep(100);

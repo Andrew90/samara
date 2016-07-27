@@ -18,7 +18,8 @@ namespace Protocols.Requests
             string queryString =
            "SELECT "
            + "[IDProtocolsTable]"
-          + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
+      //    + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
+      + " , X "
            + ", [Date_Time], Count, op.[Operator]"
             
             +", pr.[Alloy            ]"
@@ -33,10 +34,12 @@ namespace Protocols.Requests
                + " SELECT [IDProtocolsTable], [Date_Time],[IDOperator]"
                  + ", COUNT(*)OVER(PARTITION BY [IDProtocolsTable]) AS Count"
                  + ", ROW_NUMBER()OVER(PARTITION BY [IDProtocolsTable] ORDER BY [Date_Time])AS N"
+                 + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
                + " FROM [StoredBase].[dbo].[TubesTable]"
-                + " WHERE [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
+         //       + " WHERE [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
            + ")AS tmp, [StoredBase].[dbo].[OperatorsTable] AS op, [StoredBase].[dbo].[ProtocolsTable] pr"
            + " WHERE N = 1 AND tmp.[IDOperator] = op.ID AND tmp.[IDProtocolsTable] = pr.ID"
+           + " AND [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
            + " ORDER BY [Date_Time], pr.[NumberPacket] DESC"
            ;
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
