@@ -52,14 +52,16 @@ namespace
 #undef BUTTON_KEY
 //----------------------------------------------------------------------------------
 	static bool closed_packet_dialog = true;
+	static bool run_once_per_sycle = false;
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
 		if(closed_packet_dialog)
 		{
 			closed_packet_dialog = false;
-			if(PacketWindowDlg(h)) 
+			if(run_once_per_sycle || PacketWindowDlg(h)) 
 			{
 				CloseAllWindows();
+				run_once_per_sycle = true;
 				SetEvent(App::ProgrammRunEvent);
 				AppKeyHandler::Run();
 				AutomatAdditional::SetToBottomLabel();
@@ -106,6 +108,7 @@ namespace
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)
 	{
+		run_once_per_sycle = false;
 		SetEvent(App::ProgrammStopEvent);
 		MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
 		SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
