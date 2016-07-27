@@ -35,6 +35,7 @@ namespace Protocols
                 DataTable table = new DataTable();
 
                 table.Columns.Add().DataType = typeof(int);
+                table.Columns.Add().DataType = typeof(long);
                 table.Columns.Add().DataType = typeof(DateTime);
 
                 table.Columns.Add().DataType = typeof(string);
@@ -50,27 +51,30 @@ namespace Protocols
                 table.Columns.Add().DataType = typeof(string);
                 table.Columns.Add().DataType = typeof(string);
 
-                table.Columns[0].ColumnName = "№ Протокола";
-                table.Columns[1].ColumnName = "Время";
-                table.Columns[2].ColumnName = "Номер пакета";
-                table.Columns[3].ColumnName = "Количество труб";
-                table.Columns[4].ColumnName = "Оператор";
+                table.Columns[0].ColumnName = "ID";
+                table.Columns[1].ColumnName = "№ Протокола";
+                table.Columns[2].ColumnName = "Время";
+                table.Columns[3].ColumnName = "Номер пакета";
+                table.Columns[4].ColumnName = "Количество труб";
+                table.Columns[5].ColumnName = "Оператор";
 
-                table.Columns[5].ColumnName = "Сплав";
-                table.Columns[6].ColumnName = "Состояние поставки";
-                table.Columns[7].ColumnName = "Нормативный документ";
-                table.Columns[8].ColumnName = "Смена";
-                table.Columns[9].ColumnName = "Шифр изделия";
-                table.Columns[10].ColumnName = "№СОП";
+                table.Columns[6].ColumnName = "Сплав";
+                table.Columns[7].ColumnName = "Состояние поставки";
+                table.Columns[8].ColumnName = "Нормативный документ";
+                table.Columns[9].ColumnName = "Смена";
+                table.Columns[10].ColumnName = "Шифр изделия";
+                table.Columns[11].ColumnName = "№СОП";
+
 
                 MainGridView.DataSource = table;
+                MainGridView.Columns[0].Width = 0;
 
                 for (int i = 0; i < MainGridView.Columns.Count; ++i)
                     MainGridView.Columns[i].ReadOnly = true;
 
                 foreach (var i in l)
                 {
-                    table.Rows.Add(i.ID, i.TteTme
+                    table.Rows.Add(i.ID, i.NumberProtocol, i.TteTme
                          , i.NumberPacket   
                         , i.Count, i.Operator
                         , i.Alloy            
@@ -96,12 +100,13 @@ namespace Protocols
 
                 f.ShowReport(
                     (int)row.Cells[0].Value
-                    , (DateTime)row.Cells[1].Value
-                    , (int)row.Cells[3].Value
-                    , (string)row.Cells[4].Value
+                      , (long)row.Cells[1].Value
+                    , (DateTime)row.Cells[2].Value
+                    , (int)row.Cells[4].Value
+                    , (string)row.Cells[5].Value
                     );
             }
-            catch (System.InvalidCastException err)
+            catch (System.InvalidCastException )
             { }
         }
     }

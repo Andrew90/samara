@@ -16,7 +16,10 @@ namespace Protocols.Requests
             IList<IDTimeCount> idProtocols = new List<IDTimeCount>();
 
             string queryString =
-           "SELECT [IDProtocolsTable], [Date_Time], Count, op.[Operator]"
+           "SELECT "
+           + "[IDProtocolsTable]"
+          + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
+           + ", [Date_Time], Count, op.[Operator]"
             
             +", pr.[Alloy            ]"
             +", pr.[DeliveryStatus   ]"
@@ -55,17 +58,18 @@ namespace Protocols.Requests
                     {
                         IDTimeCount t = new IDTimeCount();
                         t.ID = (int)reader[0];
-                        t.TteTme = (DateTime)reader[1];
-                        t.Count = (int)reader[2];
-                        t.Operator = (string)reader[3];
+                        t.NumberProtocol = (long)reader[1];
+                        t.TteTme = (DateTime)reader[2];
+                        t.Count = (int)reader[3];
+                        t.Operator = (string)reader[4];
 
-                        t.Alloy             = (string)reader[4];
-                        t.DeliveryStatus    = (string)reader[5];
-                        t.NormativeDocument = (string)reader[6];
-                        t.Gang              = (string)reader[7];
-                        t.ProductCodeNumber = (string)reader[8];
-                        t.NumberPacket      = (string)reader[9];
-                        t.Standart          = (string)reader[10];
+                        t.Alloy             = (string)reader[5];
+                        t.DeliveryStatus    = (string)reader[6];
+                        t.NormativeDocument = (string)reader[7];
+                        t.Gang              = (string)reader[8];
+                        t.ProductCodeNumber = (string)reader[9];
+                        t.NumberPacket      = (string)reader[10];
+                        t.Standart          = (string)reader[11];
 
                         idProtocols.Add(t);
                     }
@@ -78,7 +82,7 @@ namespace Protocols.Requests
             return idProtocols;
         }
 
-        public static IEnumerable<UltrasonicControlProductModels> HeaderProtocol(int id, DateTime dteTme, int count, string Operator)
+        public static IEnumerable<UltrasonicControlProductModels> HeaderProtocol(int id, long numberProtocol, DateTime dteTme, int count, string Operator)
         {
             List<UltrasonicControlProductModels> res = new List<UltrasonicControlProductModels>();
 
@@ -114,6 +118,9 @@ namespace Protocols.Requests
                         t.Count = count;
                         t.TteTme = dteTme;
                         t.Operator = Operator;
+
+                        t.NumberProtocol = numberProtocol.ToString();
+
                         res.Add(t);
                     }
                 }

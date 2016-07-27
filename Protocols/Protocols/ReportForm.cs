@@ -18,12 +18,12 @@ namespace Protocols
             InitializeComponent();
         }
         
-        public void ShowReport(int id, DateTime tdeTme, int count, string Operator)
+        public void ShowReport(int id, long numberProtocol, DateTime tdeTme, int count, string Operator)
         {
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.ReportPath = "ProtocolReport.rdlc";
 
-            var header = UltrasonicControlProducts.HeaderProtocol(id, tdeTme, count, Operator);
+            var header = UltrasonicControlProducts.HeaderProtocol(id, numberProtocol, tdeTme, count, Operator);
 
             Microsoft.Reporting.WinForms.ReportDataSource dataset1 = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", header); // set the datasource
             this.reportViewer1.LocalReport.DataSources.Add(dataset1);

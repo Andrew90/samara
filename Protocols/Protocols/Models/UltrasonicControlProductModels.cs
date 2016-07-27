@@ -8,6 +8,7 @@ namespace Protocols.Models
     public class IDTimeCount
     {
         public int ID { get; set; }
+        public long NumberProtocol { get; set; }
         public DateTime TteTme { get; set; }
         public int Count { get; set; }
         public string Operator { get; set; }
@@ -34,6 +35,7 @@ namespace Protocols.Models
         public int      Count            { get; set; }
         public DateTime TteTme           { get; set; }
         public string   Operator         { get; set; }
+        public string NumberProtocol { get; set; }
     }
 
     public class TubesPacketResult
