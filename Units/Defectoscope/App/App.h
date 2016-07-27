@@ -23,7 +23,7 @@ public:
 	static const int number_party       = 1;
 	static const int operator_name      = 2;
 
-	static const int count_frames = 300000;//512 * 1024 * 1024 / sizeof(USPC7100_ASCANDATAHEADER);
+	static const int count_frames = 1000000;//512 * 1024 * 1024 / sizeof(USPC7100_ASCANDATAHEADER);
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static const int thickness_number = 0;
 	static const int long_number = 1;
