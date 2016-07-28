@@ -405,7 +405,7 @@ void Automat::Impl::Do()
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
-	
+	bool inputNumberTube = true; //
 	try
 	{
 		while(true)
@@ -443,7 +443,11 @@ Start:
 				Log::Mess<LogMess::WaitReady>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 
-                if(!NumberTubeDlg::Do()) throw ExceptionStopProc();//Ввод  номера трубы
+				if(inputNumberTube)
+				{
+					if(!NumberTubeDlg::Do()) throw ExceptionStopProc();//Ввод  номера трубы
+					AutomatAdditional::SetToBottomLabel();//обновить строку статуса
+				}
 
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
@@ -486,6 +490,7 @@ Start:
 				//Режим прерывания
 			    if(viewInterrupt)
 				{
+					inputNumberTube = false;
 					ResetEvent(App::ProgrammContinueEvent);
 					ResetEvent(App::ProgrammRunEvent);					
 					AppKeyHandler::Continue();
@@ -494,6 +499,7 @@ Start:
 					dprint("restart %d\n", restart);
 					if(restart)goto Start;					
 				}
+				inputNumberTube = true;
 				SetEvent(App::ProgrammRunEvent);
 				dprint("continue tube\n");
 				//todo в зависимости от результатов контроля выставить сигналы РЕЗУЛЬТАТ1 и РЕЗУЛЬТАТ2
