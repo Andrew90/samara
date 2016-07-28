@@ -15,7 +15,6 @@ namespace
 {
 PARAM_TITLE(NumberTube, L"Номер трубы")
 DO_NOT_CHECK(NumberTube)
-
 struct ntCancelBtn
 {
 	static const int width = 120;
@@ -25,7 +24,6 @@ struct ntCancelBtn
 	template<class Owner>void BtnHandler(Owner &o, HWND h)
 	{
 	    EndDialog(h, FALSE);
-		Automat::Stop();
 	}
 };
 
@@ -38,7 +36,6 @@ struct ntOkBtn
 	template<class Owner>void BtnHandler(Owner &owner, HWND h)
 	{
 		wchar_t buf[512];
-
 		DlgItem<NumberTube> &widget = owner.items.get<DlgItem<NumberTube>>();
 
 		GetWindowText(widget.hWnd, buf, dimention_of(buf));
@@ -81,11 +78,10 @@ struct PacketXXXX
 	 const wchar_t *name();
 };
 
-void NumberTubeDlg::Do()
+bool NumberTubeDlg::Do()
 {
 	HWND h = App::MainWindowHWND();
 	NumberTubeTable &nt = Singleton<NumberTubeTable>::Instance();
-	if(TemplDialog<PacketXXXX, NumberTubeTable, TL::MkTlst<ntOkBtn, ntCancelBtn>::Result>(nt).Do(h, L"Ввод номера трубы"))
-	{
-	}
+	bool b = TemplDialog<PacketXXXX, NumberTubeTable, TL::MkTlst<ntOkBtn, ntCancelBtn>::Result>(nt).Do(h, L"Ввод номера трубы");
+	return b;
 }

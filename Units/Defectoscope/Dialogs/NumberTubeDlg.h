@@ -2,7 +2,7 @@
 
 struct NumberTubeDlg
 {
-	static void Do();
+	static bool Do();
 };
 
 

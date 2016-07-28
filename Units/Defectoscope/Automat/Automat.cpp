@@ -416,9 +416,14 @@ Start:
 				App::measurementOfRunning = false;	
 
 				AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionStopProc>)(); //кнопка начала измерений
+
+				
+
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
 				Log::Mess<LogMess::WaitControlCircuitBitIn>();
+
+				
 
 				AND_BITS(Ex<ExceptionStopProc>, On<iСontrolСircuits>)(10000);			
 				if(TEST_OUT_BITS(Off<oPowerBM>))
@@ -438,7 +443,7 @@ Start:
 				Log::Mess<LogMess::WaitReady>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 
-                NumberTubeDlg::Do();//Ввод  номера трубы
+                if(!NumberTubeDlg::Do()) throw ExceptionStopProc();//Ввод  номера трубы
 
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
