@@ -404,8 +404,8 @@ void Compute::Recalculation()
 	CommonStatus(tubeResult);
 	if(dataOk)
 	{
-		lengthTube /= App::zone_length;
-		double len = 0.001 * lengthTube * App::zone_length;
+		double len = double(lengthTube / App::zone_length);
+		len *= 0.001 * App::zone_length;
 		if(tubeResult)
 		{
 			Log::Mess<LogMess::CycleOk>(len);
