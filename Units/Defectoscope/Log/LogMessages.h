@@ -170,7 +170,7 @@ namespace LogMess
 	MESS(AlarmExitSycleBitIn		  , void, "Нет сигнала \"Цикл\""			   , red  , yellow)
 
 	MESS(AlarmNoDataCollection        , void, "Внимание!!! Нет сбора данных", red, yellow)
-	MESS(AlarmBufferOverflow, void, "Внимание!!! Буффер переполнен", red, yellow)
+	MESS(AlarmBufferOverflow, void, "Внимание!!! Буфер переполнен", red, yellow)
 
 	MESS(WaitControlCircuitBitIn      , void, "Ожидание сигнала \"Цепи управления\"", blue, white)
 
@@ -185,8 +185,8 @@ namespace LogMess
 	//MESSX(ContineCycleOk, double, "Результат контроля \"ГОДНО\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Повтор\"", blue, white)
 	//MESSX(ContineCycleBrak, double, "Результат контроля \"БРАК\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Повтор\"", red, yellow)
 		
-	MESSX(CycleOk  , double, "Результат контроля \"ГОДНО\". Длина трубы  %.1f м.", blue, white)
-	MESSX(CycleBrak, double, "Результат контроля \"БРАК\". Длина трубы  %.1f м.", red, yellow)
+	MESSX(CycleOk  , double, "Результат контроля \"ГОДНО\". Длина трубы  %.2f м.", blue, white)
+	MESSX(CycleBrak, double, "Результат контроля \"БРАК\". Длина трубы  %.2f м.", red, yellow)
 
 
 	MESS(InfoOnWorkBitIn                , void, "Ожидание сигнала \"Работа\""					  , blue , white)

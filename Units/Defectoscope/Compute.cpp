@@ -385,7 +385,9 @@ template<class O, class P>struct __buffer_over_flow__
 	{
 		if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 		{
-			if(App::count_frames > Singleton<ItemData<O> >::Instance().currentOffsetFrames) return true;
+			int count = Singleton<ItemData<O> >::Instance().currentOffsetFrames;
+			zprint("overflow %d  %d\n", App::count_frames, count);
+			if(App::count_frames > count) return true;
 			Log::Mess<LogMess::AlarmBufferOverflow>();
 			return false;
 		}
@@ -402,7 +404,8 @@ void Compute::Recalculation()
 	CommonStatus(tubeResult);
 	if(dataOk)
 	{
-		double len = 0.001 * lengthTube;
+		lengthTube /= App::zone_length;
+		double len = 0.001 * lengthTube * App::zone_length;
 		if(tubeResult)
 		{
 			Log::Mess<LogMess::CycleOk>(len);
