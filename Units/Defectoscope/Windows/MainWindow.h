@@ -91,4 +91,6 @@ public:
 	void operator()(TUser &);
 	void operator()(TClose &);
 	static void CheckBoxStateStoreInBase();
+
+	void ClearCharts();
 };

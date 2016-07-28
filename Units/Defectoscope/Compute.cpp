@@ -331,7 +331,7 @@ namespace
 		char (&thicknessStatus)[App::count_zones] = Singleton<ItemData<Thickness> >::Instance().commonStatus;
 
 		char (&resultStatus)[App::count_zones] = Singleton<ResultViewerData>::Instance().commonStatus;
-		int &currentOffset = Singleton<ResultViewerData>::Instance().currentOffset;
+		int &currentOffset = Singleton<ResultViewerData>::Instance().currentOffsetZones;
 
 		ZeroMemory(resultStatus, sizeof(currentOffset));
 

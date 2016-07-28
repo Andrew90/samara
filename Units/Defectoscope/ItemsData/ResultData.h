@@ -4,7 +4,7 @@
 class ResultViewerData
 {
 public:
-    int currentOffset;
+    int currentOffsetZones;
 	char commonStatus[App::count_zones];
 	ResultViewerData();
 };

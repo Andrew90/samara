@@ -169,6 +169,22 @@ void MainWindow::CheckBoxStateStoreInBase()
 		UpdateWhere<OnTheJobTable>(Singleton<OnTheJobTable>::Instance(), base).ID(1).Execute();
 	}
 }
+//------------------------------------------------------------------
+namespace
+{
+	template<class O, class P>struct __clear__
+	{
+		void operator()(O &o)
+		{
+			o.viewerData.currentOffsetZones = 0;
+		}
+	};
+}
+void MainWindow::ClearCharts()
+{
+	TL::foreach<viewers_list, __clear__>()(viewers);
+	RepaintWindow(hWnd);
+}
 
 
 

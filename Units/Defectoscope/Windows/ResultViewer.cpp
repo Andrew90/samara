@@ -25,7 +25,7 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 	m /= 0.05;
 	m= ceil(m);
 	m *= 0.05;
-	bool drawZones =  x < viewerData.currentOffset;
+	bool drawZones =  x < viewerData.currentOffsetZones;
 	if(drawZones)
 	{
 	int color;
@@ -56,7 +56,7 @@ bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 	    , data
 		);
 
-	return zone < viewerData.currentOffset;
+	return zone < viewerData.currentOffsetZones;
 }
 //-----------------------------------------------------------------------------
 ResultViewer::ResultViewer()

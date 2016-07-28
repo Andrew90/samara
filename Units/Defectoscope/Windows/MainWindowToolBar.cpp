@@ -33,7 +33,7 @@ namespace
 	KEY(IDB_arrow_down , L"F5 Вниз")
 	KEY(IDB_arrow_up   , L"F6 БАЗА")
 	KEY(IDB_arrow_left , L"F7 Влево")
-	KEY(IDB_arrow_right, L"F8 Вправо")
+	KEY(IDB_arrow_right, L"F8 Clear")
 	KEY(IDB_Continue, L"F11 Продолжить")
 #undef KEY
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
@@ -107,6 +107,7 @@ namespace
 	void Key<IDB_arrow_right>::Click(HWND h)
 	{
 		zprint("\n");	
+		app.mainWindow.ClearCharts();
 	}
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)

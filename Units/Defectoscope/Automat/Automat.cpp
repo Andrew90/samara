@@ -448,6 +448,7 @@ Start:
 					if(!NumberTubeDlg::Do()) throw ExceptionStopProc();//¬вод  номера трубы
 					AutomatAdditional::SetToBottomLabel();//обновить строку статуса
 				}
+				app.mainWindow.ClearCharts();
 
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
