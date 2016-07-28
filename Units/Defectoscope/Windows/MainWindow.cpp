@@ -96,8 +96,8 @@ unsigned MainWindow::operator()(TCreate &m)
 	select.Create(toolBar.hWnd);
 //
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
-	int pParts[] = {300,600, 900};
-	SendMessage(hStatusWindow, SB_SETPARTS, 3, (LPARAM)pParts);
+	int pParts[] = {200, 400, 600, 900};
+	SendMessage(hStatusWindow, SB_SETPARTS, dimention_of(pParts), (LPARAM)pParts);
 ////	//test
 //    testCheckBox0.Init(toolBar.hWnd, L"test check box 0");
 //    testCheckBox1.Init(toolBar.hWnd, L"test check box 1");

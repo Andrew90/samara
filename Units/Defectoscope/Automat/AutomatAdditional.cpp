@@ -23,10 +23,13 @@ namespace AutomatAdditional
 	void SetToBottomLabel()
 	{
 		wchar_t *num = Singleton<NumberPacket>::Instance().value;
+		wchar_t *tube = Singleton<NumberTubeTable>::Instance().items.get<NumberTube>().value;
 		wchar_t *op = Singleton<Operator>::Instance().value;
 		wchar_t buf[512];
-		wsprintf(buf, L"Номер партии: %s", num);
+		wsprintf(buf, L"Партия: %s", num);
 		app.MainWindowBottomLabel(App::number_party, buf);
+		wsprintf(buf, L"Труба: %s", tube);
+		app.MainWindowBottomLabel(App::number_tube, buf);
 		wsprintf(buf, L"Оператор: %s", op);
 		app.MainWindowBottomLabel(App::operator_name, buf);
 	}
