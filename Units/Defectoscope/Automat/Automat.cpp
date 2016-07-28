@@ -534,6 +534,7 @@ Start:
 			}
 			catch(ExceptionStopProc)
 			{
+				inputNumberTube = true;
 				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::InfoUserStop>();	
 				device1730.Write(0);
