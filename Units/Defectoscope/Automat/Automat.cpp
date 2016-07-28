@@ -15,6 +15,7 @@
 #include "LogUSPCWindow.h"
 #include "Stored.h"
 #include "RestartService.h"
+#include "NumberTubeDlg.h"
 
 struct Automat::Impl
 {	
@@ -365,7 +366,7 @@ namespace
 	{
 		static void Do(unsigned)
 		{
-			if(!USPC::Do()) Exception_USPC_DO_ERROR_Proc();
+			if(!USPC::Do()) throw Exception_USPC_DO_ERROR_Proc();
 		}
 	};
 ///-----------------------------------------------------------------------------------
@@ -393,16 +394,17 @@ void LogUSPCWindow_Open(void *)
 	LogUSPCWindow::Open();
 }
 
+void Automat::Stop()
+{
+	throw ExceptionStopProc();
+}
+
 void Automat::Impl::Do()
 {
 	device1730.Write(0);
 	Log::Mess<LogMess::ProgramOpen>(0);
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
-
-	////test
-	
-	//test
 	
 	try
 	{
@@ -435,6 +437,9 @@ Start:
 				AND_BITS(Ex<ExceptionStopProc>, On<iCycle>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
 				Log::Mess<LogMess::WaitReady>();
 				AND_BITS(Ex<ExceptionStopProc>, On<iReady>, Proc<Off<iСontrolСircuits>>)(60 * 60 * 1000);	
+
+                NumberTubeDlg::Do();//Ввод  номера трубы
+
 				SET_BITS(On<oPowerBM>);
 				//подготовить ультрозвуковую систему к работе
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

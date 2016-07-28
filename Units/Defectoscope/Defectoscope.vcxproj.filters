@@ -431,6 +431,9 @@
     <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp">
       <Filter>Common\window_tool</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\NumberTubeDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -816,6 +819,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h">
       <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\NumberTubeDlg.h">
+      <Filter>Windows\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

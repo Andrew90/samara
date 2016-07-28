@@ -92,6 +92,10 @@ void App::MainWindowUpdate()
 {
 	RepaintWindow(mainWindow.hWnd);
 }
+HWND App::MainWindowHWND()
+{
+	return app.mainWindow.hWnd;
+}
 
 Device1730 device1730;
 

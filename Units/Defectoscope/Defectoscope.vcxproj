@@ -150,6 +150,7 @@
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
+    <ClCompile Include="Dialogs\NumberTubeDlg.cpp" />
     <ClCompile Include="Dialogs\OffsetsSensors.cpp" />
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
     <ClInclude Include="Dialogs\InputOutputDlg.h" />
+    <ClInclude Include="Dialogs\NumberTubeDlg.h" />
     <ClInclude Include="GridData\PacketTemplateData.hpp" />
     <ClInclude Include="IOports\IOportsViewer.h" />
     <ClInclude Include="IOports\IOportsWindow.h" />

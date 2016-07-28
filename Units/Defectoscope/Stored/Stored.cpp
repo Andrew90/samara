@@ -9,6 +9,7 @@
 #include "MainWindow.h"
 #include "USPCData.h"
 #include "ProtocolTable.h"
+#include "PacketBase.h"
 
 namespace Stored
 {
@@ -181,6 +182,8 @@ namespace Stored
 			tt.items.get<ID<ProtocolsTable>>().value = GetProtocolID(base);
 
 			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
+
+			tt.items.get<NumberTube>().value = Singleton<NumberTubeTable>::Instance().items.get<NumberTube>().value;
 
 			Insert_Into<TubesTable>(tt, base).Execute();
 			dprint("database stored\n");

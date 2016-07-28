@@ -9,6 +9,7 @@ private:
 public:
 	Automat();
 	void Init();
+	static void Stop();
 };
 
 extern Automat automat;

@@ -64,7 +64,7 @@ struct CurrentPacketTable
 		, ID<Gang>
 		, ProductCodeNumber
 		, NumberPacket
-		, Standart
+		, Standart		
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -88,6 +88,15 @@ struct PacketBase
 	 static void Restore();
 	 static void Save();
  };
+
+struct NumberTubeTable
+{
+	typedef TL::MkTlst<
+		NumberTube
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+};
 
 
 

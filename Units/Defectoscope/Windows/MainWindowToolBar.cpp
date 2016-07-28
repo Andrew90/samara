@@ -16,6 +16,7 @@
 #include "Automat.h"
 #include "AutomatAdditional.h"
 #include "ToolBarButton.h"
+#include "Config.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -30,7 +31,7 @@ namespace
 	KEY(IDB_Reset      , L"F9 Стоп")
 	KEY(IDB_QueryBtn   , L"Тест")
 	KEY(IDB_arrow_down , L"F5 Вниз")
-	KEY(IDB_arrow_up   , L"F6 Вверх")
+	KEY(IDB_arrow_up   , L"F6 БАЗА")
 	KEY(IDB_arrow_left , L"F7 Влево")
 	KEY(IDB_arrow_right, L"F8 Вправо")
 	KEY(IDB_Continue, L"F11 Продолжить")
@@ -43,11 +44,13 @@ namespace
 		, BUTTON_KEY(IDB_Reset)
 		, BUTTON_KEY(IDB_QueryBtn) 		
 		, SeparatorToolbar<1>
-		//, BUTTON_KEY(IDB_arrow_down) 
-		//, BUTTON_KEY(IDB_arrow_up)
-		//, BUTTON_KEY(IDB_arrow_left) 
-		//, BUTTON_KEY(IDB_arrow_right)
-		//, SeparatorToolbar<2>
+#ifdef DEBUG_ITEMS
+		, BUTTON_KEY(IDB_arrow_down) 
+		, BUTTON_KEY(IDB_arrow_up)
+		, BUTTON_KEY(IDB_arrow_left) 
+		, BUTTON_KEY(IDB_arrow_right)
+		, SeparatorToolbar<2>
+#endif
 		>::Result tool_button_list;
 #undef BUTTON_KEY
 //----------------------------------------------------------------------------------

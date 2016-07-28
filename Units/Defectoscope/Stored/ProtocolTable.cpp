@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ProtocolTable.h"
 #include "PacketBase.h"
+#include "ExpressBase.hpp"
 
 namespace
 {
@@ -24,4 +25,23 @@ unsigned GetProtocolID(CBase &b)
 		id = Select<ProtocolsTable>(b).eq_all<ProtocolsTable::items_list>(&t.items).Execute();
 	}
 	return id;
+}
+
+bool TestNumberTableExist(wchar_t *number)
+{
+	StoredBase parameters;
+
+	CExpressBase base(
+		parameters.name()
+		, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+		, parameters.tables
+		);
+	if(base.IsOpen())
+	{
+		unsigned id = GetProtocolID(base);
+		NumberTube nt;
+		nt.value = number;
+		return 0 != Select<TubesTable>(base).eq<NumberTube>(nt.value).Execute();
+	}
+	return false;
 }
