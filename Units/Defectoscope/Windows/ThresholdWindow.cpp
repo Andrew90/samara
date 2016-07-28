@@ -100,7 +100,7 @@ void TresholdWindow::operator()(TMouseWell &l)
 	mouseMove = false;
 	int d = l.delta / 120;
 	bool m = 0 == (l.flags.lButton || l.flags.rButton);
-	double incr = 0 == (l.flags.rButton || fastOffset)  ? 0.1 : 5;
+	double incr = 0 == (l.flags.rButton || fastOffset)  ? 1 : 5;
 	OffsetToPixel(
 		chart
 		, storedMouseMove.x
@@ -198,8 +198,8 @@ unsigned TresholdWindow::operator()(TCreate &l)
 	border2ClassCheckBox.Init(hToolBar, L"Порог \"Класс 2\"");
 	borderDefectCheckBox.Init(hToolBar, L"Порог \"Брак\"");
 
-	offset01.Init(hToolBar, L"Смещение 0.1", true, true);
-	offset50.Init(hToolBar, L"Смещение 5.0");
+	offset01.Init(hToolBar, L"Смещение 1", true, true);
+	offset50.Init(hToolBar, L"Смещение 5");
 
 	alignOneZone.Init(hToolBar, L"Сместить зону", true, true);
 	alignAllZones.Init(hToolBar, L"Выровнять по зоне");
