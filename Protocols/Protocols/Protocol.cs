@@ -93,10 +93,9 @@ namespace Protocols
         {
             ReportForm f = new ReportForm();
 
-            var row = (sender as DataGridView).Rows[e.RowIndex];
-
             try
             {
+            var row = (sender as DataGridView).Rows[e.RowIndex];
 
                 f.ShowReport(
                     (int)row.Cells[0].Value
@@ -106,7 +105,7 @@ namespace Protocols
                     , (string)row.Cells[5].Value
                     );
             }
-            catch (System.InvalidCastException )
+            catch 
             { }
         }
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Protocols.Models;
 using Protocols.Requests;
+using System.Drawing.Printing;
 
 namespace Protocols
 {
@@ -20,21 +21,28 @@ namespace Protocols
         
         public void ShowReport(int id, long numberProtocol, DateTime tdeTme, int count, string Operator)
         {
-            this.reportViewer1.LocalReport.DataSources.Clear();
-            this.reportViewer1.LocalReport.ReportPath = "ProtocolReport.rdlc";
+            reportViewer1.LocalReport.DataSources.Clear();
+            reportViewer1.LocalReport.ReportPath = "ProtocolReport.rdlc";
 
             var header = UltrasonicControlProducts.HeaderProtocol(id, numberProtocol, tdeTme, count, Operator);
 
             Microsoft.Reporting.WinForms.ReportDataSource dataset1 = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", header); // set the datasource
-            this.reportViewer1.LocalReport.DataSources.Add(dataset1);
+            reportViewer1.LocalReport.DataSources.Add(dataset1);
 
             var body = UltrasonicControlProducts.BodyProtocol(id);
 
             Microsoft.Reporting.WinForms.ReportDataSource dataset2 = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet2", body); // set the datasource
-            this.reportViewer1.LocalReport.DataSources.Add(dataset2);
+            reportViewer1.LocalReport.DataSources.Add(dataset2);
 
-            this.reportViewer1.LocalReport.Refresh();
-            this.reportViewer1.RefreshReport();
+            //PageSettings ps = new PageSettings();
+            //ps.Margins.Left = 10;
+            //ps.Margins.Right = 0;
+            //ps.Margins.Top = 0;
+            //ps.Margins.Bottom = 0;
+            //reportViewer1.SetPageSettings(ps); 
+
+            reportViewer1.LocalReport.Refresh();
+            reportViewer1.RefreshReport();
 
             Show();
         }
