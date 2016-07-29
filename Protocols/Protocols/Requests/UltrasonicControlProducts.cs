@@ -138,7 +138,7 @@ namespace Protocols.Requests
         {
             IList<TubesPacketResult> t = new List<TubesPacketResult>();
 
-            string queryString = "SELECT s.[ID],s.[LengthTube],s.[Status]"
+            string queryString = "SELECT t.[NumberTube],s.[LengthTube],s.[Status]"
                + " FROM [StoredBase].[dbo].[StoredMeshureTable] AS s,"
                + " [StoredBase].[dbo].[TubesTable] as t"
                + " WHERE  t.[IDProtocolsTable] = @IDProtocols AND t.[IDStoredMeshureTable] = s.[ID]"
@@ -195,22 +195,22 @@ namespace Protocols.Requests
 
                 var th = new[] { 4, 5, 11, 12, 14, 15, 18, 19, 21, 22, 24, 25, 28, 29, 32, 33, 36, 37 };
 
-                int num = 0;
+                //int num = 0;
 
                 while (reader.Read())
                 {
                     TubesPacketResult packet = new TubesPacketResult();
 
-                    packet.NumTube = reader.GetInt32(0);
+                    packet.NumTube = (string)reader[0];
                     packet.Length = (int)reader.GetInt32(1);
                     count = reader.GetBytes(2, 0, buffer, 0, 240);
                     string crossDef = "";
                     string longDef = "";
                     string thickDef = "";
 
-                    if (0 == num) num = packet.NumTube;
-
-                    if (num > packet.NumTube) num = packet.NumTube;
+                    //if (0 == num) num = packet.NumTube;
+                    //
+                    //if (num > packet.NumTube) num = packet.NumTube;
 
                     byte b;
 
@@ -278,11 +278,11 @@ namespace Protocols.Requests
 
                     t.Add(packet);
                 }
-                foreach (var i in t)
-                {
-                    i.NumTube -= num;
-                    i.NumTube += 1;
-                }
+                //foreach (var i in t)
+                //{
+                //    i.NumTube -= num;
+                //    i.NumTube += 1;
+                //}
             }
             return t;
         }

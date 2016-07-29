@@ -40,7 +40,7 @@ namespace Protocols.Models
 
     public class TubesPacketResult
     {
-        public int NumTube      { get; set; }
+        public string NumTube      { get; set; }
         public int    Length    { get; set; }
         public string Long      { get; set; }
         public string Cross     { get; set; }
