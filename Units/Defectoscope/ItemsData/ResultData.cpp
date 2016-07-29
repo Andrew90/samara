@@ -3,5 +3,5 @@
 #include "AppBase.h"
 
 ResultViewerData::ResultViewerData()
-	: currentOffset(0)
+	: currentOffsetZones(0)
 {}
