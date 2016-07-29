@@ -213,42 +213,59 @@ namespace Protocols.Requests
                     if (num > packet.NumTube) num = packet.NumTube;
 
                     byte b;
+
+                    byte[] thick = new byte[300];
+                    byte[] cross = new byte[300];
+                    byte[] longA = new byte[300];
+
+                    int thickCount = 0;
+                    int crossCount = 0;
+                    int longACount = 0;
+
+
                     for (int i = 1; i <= count; ++i)
                     {
                         b = buffer[i - 1];
                         if ((b >= 9 && b <= 12) || (b >= 16 && b <= 19) || (b >= 30 && b <= 33))
                         {
-                            crossDef += i.ToString() + ",";
+                            //crossDef += i.ToString() + ",";
+                            cross[i - 1] = 1;
+                            crossCount = i;
                         }
                         if ((b == 7) || (b >= 13 && b <= 19) || (b >= 34 && b <= 37))
                         {
-                            longDef += i.ToString() + ",";
+                           // longDef += i.ToString() + ",";
+                            longA[i - 1] = 1;
+                            longACount = i;
                         }
                         if (th.Contains(b))
                         {
-                            thickDef += i.ToString() + ",";
+                           // thickDef += i.ToString() + ",";
+                            thick[i - 1] = 1;
+                            thickCount = i;
                         }
                     }
-                    if (crossDef.Length > 0)
+                    if (crossCount > 0)
                     {
-                        crossDef = "Брак зоны:" + crossDef;
+                        crossDef = "Брак зоны: " + CompressString(cross, crossCount);
                     }
                     else
                     {
                         crossDef = "Годен";
                     }
 
-                    if (longDef.Length > 0)
+                    if (longACount > 0)
                     {
-                        longDef = "Брак зоны:" + longDef;
-                    }
+                        longDef = "Брак зоны: " + CompressString(longA, longACount); //longDef;
+                    } 
                     else
                     {
                         longDef = "Годен";
                     }
-                    if (thickDef.Length > 0)
+
+                    if (thickCount > 0)
                     {
-                        thickDef = "Брак зоны:" + thickDef;
+                        thickDef = "Брак зоны: " + CompressString(thick, thickCount); //thickDef;
                     }
                     else
                     {
@@ -268,6 +285,47 @@ namespace Protocols.Requests
                 }
             }
             return t;
+        }
+        private static string CompressString(byte[] d, int length)
+        {
+            int tail = 1;
+            int counter = 0;
+            string res = "";
+            for (int i = 1; i <= length; ++i)
+            {
+                if (d[i - 1] == d[i])
+                {
+                    if(1 == d[i])++counter;
+                }
+                else
+                {
+                    if (1 == d[i - 1])
+                    {
+                        ++counter;
+                        if (counter > 2)
+                        {
+                            res += " ";
+                            res += (1 + tail).ToString();
+                            res += "-";
+                            res += i.ToString();
+                            res += ",";                           
+                        }
+                        else
+                        {
+                            for (int j = 0; j < counter; ++j)
+                            {
+                                res += " ";
+                                ++tail;
+                                res += tail.ToString();
+                                res += ",";
+                            }
+                        }
+                    }
+                    counter = 0;
+                    tail = i;
+                }
+            }
+            return res;
         }
     }
    

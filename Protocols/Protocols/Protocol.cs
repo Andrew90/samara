@@ -54,7 +54,7 @@ namespace Protocols
                 table.Columns[0].ColumnName = "ID";
                 table.Columns[1].ColumnName = "№ Протокола";
                 table.Columns[2].ColumnName = "Время";
-                table.Columns[3].ColumnName = "Номер пакета";
+                table.Columns[3].ColumnName = "Номер протокола";
                 table.Columns[4].ColumnName = "Количество труб";
                 table.Columns[5].ColumnName = "Оператор";
 
