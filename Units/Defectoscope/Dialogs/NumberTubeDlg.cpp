@@ -81,7 +81,9 @@ struct PacketXXXX
 bool NumberTubeDlg::Do()
 {
 	HWND h = App::MainWindowHWND();
-	NumberTubeTable &nt = Singleton<NumberTubeTable>::Instance();
+	NumberTubeTable nt;
+	nt.items.get<NumberTube>().value = Singleton<NumberTube>::Instance().value;
 	bool b = TemplDialog<PacketXXXX, NumberTubeTable, TL::MkTlst<ntOkBtn, ntCancelBtn>::Result>(nt).Do(h, L"¬вод номера трубы");
+	Singleton<NumberTube>::Instance().value = nt.items.get<NumberTube>().value;
 	return b;
 }

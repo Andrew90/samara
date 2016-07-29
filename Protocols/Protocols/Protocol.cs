@@ -52,9 +52,9 @@ namespace Protocols
                 table.Columns.Add().DataType = typeof(string);
 
                 table.Columns[0].ColumnName = "ID";
-                table.Columns[1].ColumnName = "№ Протокола";
+                table.Columns[1].ColumnName = "№ протокола";
                 table.Columns[2].ColumnName = "Время";
-                table.Columns[3].ColumnName = "Номер протокола";
+                table.Columns[3].ColumnName = "№ партии";
                 table.Columns[4].ColumnName = "Количество труб";
                 table.Columns[5].ColumnName = "Оператор";
 

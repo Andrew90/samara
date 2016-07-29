@@ -157,6 +157,15 @@ namespace Stored
 			);
 	}
 
+	template<class T, class D>struct __delete__
+	{
+		bool operator()(unsigned id, T &t, D &d)
+		{
+			Delete<StoredMeshureTable>(d).ID(t.items.get<ID<StoredMeshureTable> >().value).Execute();
+			return true;
+		}
+	};
+
 	bool Do()
 	{
 		COleDateTime tme = COleDateTime::GetCurrentTime();
@@ -179,13 +188,26 @@ namespace Stored
 			TubesTable tt;
 			tt.items.get<Date_Time>().value = tme;
 			tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
-			tt.items.get<ID<ProtocolsTable>>().value = GetProtocolID(base);
+			unsigned protocolID = GetProtocolID(base);
+			tt.items.get<ID<ProtocolsTable>>().value = protocolID;
 
 			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
 
-			tt.items.get<NumberTube>().value = Singleton<NumberTubeTable>::Instance().items.get<NumberTube>().value;
+			tt.items.get<NumberTube>().value = Singleton<NumberTube>::Instance().value;
 
-			Insert_Into<TubesTable>(tt, base).Execute();
+			int id = Select<TubesTable>(base)
+				.eq<NumberTube>(Singleton<NumberTube>::Instance().value)
+				.eq<ID<ProtocolsTable>>(protocolID)
+				.ExecuteLoop<__delete__>(base);
+
+			if(0 == id)
+			{
+				Insert_Into<TubesTable>(tt, base).Execute();
+			}
+			else
+			{
+				UpdateWhere<TubesTable>(tt, base).ID(id).Execute();
+			}
 			dprint("database stored\n");
 		}
 		else
