@@ -278,14 +278,36 @@ namespace
 		}
 	};
 
+	template<class A, class B>struct __all_lists_not_empty__
+	{
+		static const bool value = true;
+	};
+	template<>struct __all_lists_not_empty__<NullType, NullType>
+	{
+		static const bool value = false;
+	};
+
+	template<class A>struct __list_not_empty__
+	{
+		static const bool value = true;
+	};
+	template<>struct __list_not_empty__<NullType>
+	{
+		static const bool value = false;
+	};
+
 	template<class List>struct AND_Bits
 	{
 		unsigned operator()(unsigned delay = (unsigned)-1)
 		{
 			if((unsigned)-1 != delay) delay += GetTickCount();
 			unsigned bitOn = 0, bitOff = 0, bitInv = 0;
-			SelectBits<typename Filt<List, On>::Result>()(bitOn);
-			SelectBits<typename Filt<List, Off>::Result>()(bitOff);
+			typedef typename Filt<List, On>::Result list_on;
+			typedef typename Filt<List, Off>::Result list_off;
+			typedef typename Filt<List, Proc>::Result list_proc;
+			static const bool bitsNotEmpty = __all_lists_not_empty__<list_on, list_off>::value;
+			SelectBits<list_on>()(bitOn);
+			SelectBits<list_off>()(bitOff);
 			SelectBits<typename Filt<List, Inv>::Result>()(bitInv);
 
 			typedef TL::Append<typename Filt<List, Ex>::Result, ExceptionExitProc>::Result exeption_list;
@@ -294,10 +316,11 @@ namespace
 			while(true)
 			{
 				unsigned ev = WaitForMultipleObjects(dimention_of(arrEvents.h), arrEvents.h, FALSE, 5);
-				unsigned res = device1730.Read();
+				unsigned res = 0;
+				if(bitsNotEmpty || __list_not_empty__<list_proc>::value)res = device1730.Read();
 				if(WAIT_TIMEOUT == ev)
 				{
-					if(bitOn || bitOff)
+					if(bitsNotEmpty &&(bitOn || bitOff))
 					{						
 						unsigned t = res ^ bitInv;
 						if(bitOn == (t & (bitOn | bitOff))) 
@@ -306,7 +329,7 @@ namespace
 								return res;
 						}
 					}					
-					DefaultDo<typename Filt<List, Proc>::Result>()(res);
+					DefaultDo<list_proc>()(res);
 					if(GetTickCount() >= delay) throw ExceptionTimeOutProc();
 				}
 				else
