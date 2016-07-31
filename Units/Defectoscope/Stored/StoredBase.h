@@ -79,7 +79,7 @@ DEFINE_PARAM_WAPPER(ID, ProtocolsTable, unsigned, 0)
 struct StoredMeshureTable;
 DEFINE_PARAM_WAPPER(ID, StoredMeshureTable, unsigned, 0)
 
-STR_PARAM(NumberTube, 32, L"00000");
+STR_PARAM(NumberTube, 32, L"000");
 struct TubesTable
 {
 	typedef TL::MkTlst<

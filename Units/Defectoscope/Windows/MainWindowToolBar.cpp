@@ -17,6 +17,7 @@
 #include "AutomatAdditional.h"
 #include "ToolBarButton.h"
 #include "Config.h"
+#include "NumberTubeDlg.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -94,6 +95,7 @@ namespace
 	{
 		zprint("\n");
 //test
+		NumberTubeDlg::Do();
 		Stored::Do();
 //test
 	}

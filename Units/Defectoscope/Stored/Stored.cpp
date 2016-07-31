@@ -156,12 +156,18 @@ namespace Stored
 			, tme.GetSecond()
 			);
 	}
-
+	struct __delete_data__
+	{
+		unsigned id;
+		CExpressBase &base;
+		__delete_data__(CExpressBase &base) : id(0), base(base){}
+	};
 	template<class T, class D>struct __delete__
 	{
 		bool operator()(unsigned id, T &t, D &d)
 		{
-			Delete<StoredMeshureTable>(d).ID(t.items.get<ID<StoredMeshureTable> >().value).Execute();
+			d.id = id;
+			Delete<StoredMeshureTable>(d.base).ID(t.items.get<ID<StoredMeshureTable> >().value).Execute();
 			return true;
 		}
 	};
@@ -192,21 +198,22 @@ namespace Stored
 			tt.items.get<ID<ProtocolsTable>>().value = protocolID;
 
 			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
-
+			wchar_t *num = Singleton<NumberTube>::Instance().value;
 			tt.items.get<NumberTube>().value = Singleton<NumberTube>::Instance().value;
 
+			__delete_data__ data(base);
 			int id = Select<TubesTable>(base)
 				.eq<NumberTube>(Singleton<NumberTube>::Instance().value)
 				.eq<ID<ProtocolsTable>>(protocolID)
-				.ExecuteLoop<__delete__>(base);
+				.ExecuteLoop<__delete__>(data);
 
-			if(0 == id)
+			if(0 == data.id)
 			{
 				Insert_Into<TubesTable>(tt, base).Execute();
 			}
 			else
 			{
-				UpdateWhere<TubesTable>(tt, base).ID(id).Execute();
+				UpdateWhere<TubesTable>(tt, base).ID(data.id).Execute();
 			}
 			dprint("database stored\n");
 		}
