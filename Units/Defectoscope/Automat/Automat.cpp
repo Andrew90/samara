@@ -471,6 +471,7 @@ void Automat::Impl::Do()
 					if(!NumberTubeDlg::Do()) throw ExceptionStopProc();//Ввод  номера трубы
 					AutomatAdditional::SetToBottomLabel();//обновить строку статуса
 				}
+				AutomatAdditional::ComputeSpeed(0);
 				app.mainWindow.ClearCharts();
 
 				SET_BITS(On<oPowerBM>);
@@ -541,14 +542,17 @@ void Automat::Impl::Do()
 			catch(ExceptionСontrolСircuitsOffProc)
 			{
 				ResetEvent(App::ProgrammRunEvent);
-				Log::Mess<LogMess::AlarmControlCircuts>();
-				if(!baseOn)Log::Mess<LogMess::AlarmBase>();
+				Log::Mess<LogMess::AlarmControlCircuts>();				
 				device1730.Write(0);
 			}	
 			catch(ExceptionСycleOffProc)
 			{
 				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmCycle>();
+				if(!baseOn)
+				{
+					Log::Mess<LogMess::AlarmBase>();
+				}
 				device1730.Write(0);
 			}
 			catch(ExceptionTimeOutProc)
