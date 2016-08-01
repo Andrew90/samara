@@ -157,13 +157,13 @@ namespace MainWindowMenu
 	template<>struct TopMenu<Setting>
 	{
 		typedef TL::MkTlst<
-			MenuItem<AnalogPlate>
-			, SubMenu<DiscretePlate>	
+		//	MenuItem<AnalogPlate>
+			 SubMenu<DiscretePlate>	
 			//, MenuItem<Coefficient>
 			, MenuItem<OffsetsSensors>
 			, MenuItem<BaseLength>
-			, MenuItem<Signal>
-			, MenuItem<ACFBorder>
+		//	, MenuItem<Signal>
+		//	, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>
 			//, MenuItem<TestTab>
 		>::Result list;		
