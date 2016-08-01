@@ -24,7 +24,7 @@ namespace AutomatAdditional
 	void SetToBottomLabel()
 	{
 		wchar_t *num = Singleton<NumberPacket>::Instance().value;
-		wchar_t *tube = Singleton<NumberTubeTable>::Instance().items.get<NumberTube>().value;
+		wchar_t *tube = Singleton<NumberTube>::Instance().value;
 		wchar_t *op = Singleton<Operator>::Instance().value;
 		wchar_t buf[512];
 		wsprintf(buf, L"Партия: %s", num);
