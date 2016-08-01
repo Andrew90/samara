@@ -41,7 +41,10 @@ bool TestNumberTableExist(wchar_t *number)
 		unsigned id = GetProtocolID(base);
 		NumberTube nt;
 		nt.value = number;
-		return 0 != Select<TubesTable>(base).eq<NumberTube>(nt.value).Execute();
+		return 0 != Select<TubesTable>(base)
+			.eq<NumberTube>(nt.value)
+			.eq<ID<ProtocolsTable>>(id)
+			.Execute();
 	}
 	return false;
 }
