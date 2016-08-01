@@ -91,6 +91,22 @@ void USPCData::SamplesPerZone(int tubeLength)
 	currentOffsetZones = int((double)(tubeLength) / App::zone_length);
 	int lastZoneSize = tubeLength - currentOffsetZones * App::zone_length;
 	if(lastZoneSize > App::zone_length / 3)  ++currentOffsetZones;
+	//число отчётов в мёртвой зоне начало
+	double t = Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value;
+	t *= samplesPerZone;
+	t /=  App::zone_length;
+    deadZoneSamplesBeg  = (int)t;
+	//число отчётов в мёртвой зоне конец
+	t = Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value;
+	t *= samplesPerZone;
+	t /=  App::zone_length;
+    deadZoneSamplesEnd  = (int)t;
+
+	t = tubeLength * samplesPerZone / App::zone_length;
+
+	//первый отчёт задней мёртвой зоны
+	deadZoneSamplesEnd = (int)t - deadZoneSamplesEnd;
+
 	for(int i = 0; i < App::count_zones; ++i)
 	{
 		offsets[i] /= App::count_sensors;

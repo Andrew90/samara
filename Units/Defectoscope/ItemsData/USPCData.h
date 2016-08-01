@@ -15,6 +15,7 @@ public:
 	int offsSensor[App::count_sensors];
 	char commonStatus[App::count_zones];					///< общий статус по зонам
 	double samplesPerZone;
+	int deadZoneSamplesBeg, deadZoneSamplesEnd;
 	void Start();///< Выполнить перед началом цикла сбора кадров с платы
 	UCHAR *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
 	void OffsetCounter(int offs);

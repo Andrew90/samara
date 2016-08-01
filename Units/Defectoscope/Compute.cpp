@@ -102,11 +102,22 @@ namespace
 								}
 							}
 						}
-						double t = filtre(channel, b[j].hdr.G1Amp);
-						if(t > d.buffer[channel][i])
+						
+						if(jj < d.deadZoneSamplesBeg || jj > d.deadZoneSamplesEnd)
 						{
-							d.buffer[channel][i] = t;						
-							StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
+							if(StatusId<Clr<Undefined>>() == d.status[channel][i])
+							{
+								d.status[channel][i] = StatusId<Clr<DeathZone>>();
+							}
+						}
+						else
+						{
+							double t = filtre(channel, b[j].hdr.G1Amp);
+							if(t > d.buffer[channel][i])
+							{
+								d.buffer[channel][i] = t;						
+								StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
+							}
 						}
 					}	
 				}
@@ -157,20 +168,34 @@ namespace
 								}
 							}
 						}
-						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
-						double t = filtre(channel, val);						
-						if(t > d.bufferMax[i])
-						{													
-							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-							d.bufferMax[i] = t;
-						}
-						if(0 == val) val = 999999;
-						t = filtre.AddX(channel, val);	
-						if(999999 == t) t = 0;
-						if(0 != t &&  t < d.bufferMin[i])
+						if(jj < d.deadZoneSamplesBeg || jj > d.deadZoneSamplesEnd)
 						{
-							d.bufferMin[i] = t;	
-							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
+							if(StatusId<Clr<Undefined>>() == d.statusMax[i])
+							{
+								d.statusMax[i] = StatusId<Clr<DeathZone>>();
+							}
+							if(StatusId<Clr<Undefined>>() == d.statusMin[i])
+							{
+								d.statusMin[i] = StatusId<Clr<DeathZone>>();
+							}
+						}
+						else
+						{
+							double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
+							double t = filtre(channel, val);						
+							if(t > d.bufferMax[i])
+							{													
+								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+								d.bufferMax[i] = t;
+							}
+							if(0 == val) val = 999999;
+							t = filtre.AddX(channel, val);	
+							if(999999 == t) t = 0;
+							if(0 != t &&  t < d.bufferMin[i])
+							{
+								d.bufferMin[i] = t;	
+								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
+							}
 						}
 					}
 				}				
