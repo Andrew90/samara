@@ -102,8 +102,9 @@ namespace
 								}
 							}
 						}
-						
-						if(jj < d.deadZoneSamplesBeg || jj > d.deadZoneSamplesEnd)
+						int z = jj / App::count_sensors;
+						z *= App::count_sensors;
+						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
 							if(StatusId<Clr<Undefined>>() == d.status[channel][i])
 							{
@@ -168,14 +169,15 @@ namespace
 								}
 							}
 						}
-						if(jj < d.deadZoneSamplesBeg || jj > d.deadZoneSamplesEnd)
+						int z = jj / App::count_sensors;
+						z *= App::count_sensors;
+						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-							if(StatusId<Clr<Undefined>>() == d.statusMax[i])
+							if(StatusId<Clr<Undefined>>() == d.statusMax[i]
+						//	|| StatusId<Clr<Undefined>>() == d.statusMin[i]
+							)
 							{
 								d.statusMax[i] = StatusId<Clr<DeathZone>>();
-							}
-							if(StatusId<Clr<Undefined>>() == d.statusMin[i])
-							{
 								d.statusMin[i] = StatusId<Clr<DeathZone>>();
 							}
 						}
@@ -420,11 +422,45 @@ template<class O, class P>struct __buffer_over_flow__
 	}
 };
 
+template<class O, class P>struct __min_size__
+{
+	void operator()(P &p)
+	{
+		if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
+		{
+			if(0 == p)
+			{
+				p = Singleton<ItemData<O> >::Instance().currentOffsetFrames;
+			}
+			else if(p > Singleton<ItemData<O> >::Instance().currentOffsetFrames)
+			{
+				p = Singleton<ItemData<O> >::Instance().currentOffsetFrames;
+			}
+		}
+	}
+};
+
+template<class O, class P>struct __set_size__
+{
+	void operator()(P &p)
+	{
+		if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
+		{
+			Singleton<ItemData<O> >::Instance().currentOffsetFrames = p;
+		}
+	}
+};
+
 void Compute::Recalculation()
 {	
 	bool dataOk = TL::find<USPC::items_list, __collection_data_ok__>()();//проверка на наличие данных в буфере
 	bool bufferNotOverflow = TL::find<USPC::items_list, __buffer_over_flow__>()();
 	if(!bufferNotOverflow) return; //Проверка на переполнение буфера
+	int minSize = 0;
+	TL::foreach<USPC::items_list, __min_size__>()(minSize);
+	minSize /= App::count_sensors;
+	minSize *= App::count_sensors;
+	TL::foreach<USPC::items_list, __set_size__>()(minSize);
 	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus(tubeResult);
 	if(dataOk)

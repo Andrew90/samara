@@ -96,16 +96,17 @@ void USPCData::SamplesPerZone(int tubeLength)
 	t *= samplesPerZone;
 	t /=  App::zone_length;
     deadZoneSamplesBeg  = (int)t;
+	deadZoneSamplesBeg /= App::count_sensors;
+	deadZoneSamplesBeg *= App::count_sensors;
 	//число отчётов в мёртвой зоне конец
-	t = Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value;
+	t = tubeLength - Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value;
 	t *= samplesPerZone;
 	t /=  App::zone_length;
     deadZoneSamplesEnd  = (int)t;
 
-	t = tubeLength * samplesPerZone / App::zone_length;
-
-	//первый отчёт задней мёртвой зоны
-	deadZoneSamplesEnd = (int)t - deadZoneSamplesEnd;
+	deadZoneSamplesEnd /= App::count_sensors;
+	--deadZoneSamplesEnd;
+	deadZoneSamplesEnd *= App::count_sensors;
 
 	for(int i = 0; i < App::count_zones; ++i)
 	{
