@@ -4,6 +4,7 @@
 #include "Dlgfiles.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
+#include "ConstData.h"
 
 namespace{
 void __color_wm_paint(HWND hwnd, int color)
@@ -161,6 +162,7 @@ void ColorItemsDlg::Do(HWND h)
 		 , TL::MkTlst<OkBtn, CancelBtn, DefaultBtn>::Result>(color).Do(h, L"Цвета"))
 	{
 		CopyFactory::Do(Singleton<ColorTable>::Instance().items, color.items);
+		ConstData::Init();
 	}
 }
 
