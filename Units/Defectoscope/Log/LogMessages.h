@@ -111,6 +111,7 @@ namespace LogMess
 
 		, AlarmControlCircuts
 		, AlarmCycle
+		, AlarmBase
 
 		//, ContineCycleOk
 		//, ContineCycleBrak
@@ -180,6 +181,7 @@ namespace LogMess
 	MESS(WaitControl, void, "Ожидание входного сигнала \"Контроль\"", blue, white) 
 
 	MESS(AlarmControlCircuts, void, "Авария!!! Снят сигнал \"Цепи управления\"", red, yellow)
+	MESS(AlarmBase,           void, "Авария!!! Нет сигнала \"БАЗА\"", red, yellow)
 	MESS(AlarmCycle			, void, "Авария!!! Снят сигнал \"Цикл\"", red, yellow)
 
 	//MESSX(ContineCycleOk, double, "Результат контроля \"ГОДНО\". Длина трубы %.1f м. Для продолжения нажмите кнопку \"Повтор\"", blue, white)

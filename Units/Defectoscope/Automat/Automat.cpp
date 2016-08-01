@@ -429,18 +429,18 @@ void Automat::Impl::Do()
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
 	bool inputNumberTube = true; //
+	bool baseOn = false;
 	try
 	{
 		while(true)
 		{
 			try
 			{
-Start:
+//Start:
 				App::measurementOfRunning = false;	
+				baseOn = false;
 
-				AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionStopProc>)(); //кнопка начала измерений
-
-				
+				AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionStopProc>)(); //кнопка начала измерений				
 
 				ResetEvent(App::ProgrammStopEvent);
 				App::measurementOfRunning = true;
@@ -483,8 +483,9 @@ Start:
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
-				if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();
+				if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();				
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
+				baseOn = true;
 				unsigned baseTime = timeGetTime();
 				//вычислить скорость каретки и вывод на экран
 				AutomatAdditional::ComputeSpeed(baseTime - startTime);
@@ -521,7 +522,7 @@ Start:
 					bool restart = 0 == AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionContinueProc>, Ex<ExceptionStopProc>)(60 * 60 * 1000);
 					SetEvent(App::ProgrammRunEvent);
 					dprint("restart %d\n", restart);
-					if(restart)goto Start;					
+					if(restart) continue;//goto Start;					
 				}
 				inputNumberTube = true;
 				SetEvent(App::ProgrammRunEvent);
@@ -541,6 +542,7 @@ Start:
 			{
 				ResetEvent(App::ProgrammRunEvent);
 				Log::Mess<LogMess::AlarmControlCircuts>();
+				if(!baseOn)Log::Mess<LogMess::AlarmBase>();
 				device1730.Write(0);
 			}	
 			catch(ExceptionСycleOffProc)
