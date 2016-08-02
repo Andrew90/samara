@@ -939,6 +939,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -1347,7 +1348,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Состояние плавки</Value>
+                              <Value>Состояние поставки</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
