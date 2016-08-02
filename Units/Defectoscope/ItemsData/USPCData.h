@@ -19,7 +19,7 @@ public:
 	void Start();///< ¬ыполнить перед началом цикла сбора кадров с платы
 	UCHAR *CurrentFrame(); ///<смещение в массиве buffer записи новых кадров
 	void OffsetCounter(int offs);
-	void SamplesPerZone(int tubeLength);
+	void SamplesPerZone(int tubeLength, int deadArea0, int deadArea1);
 };
 
 class USPCViewerData: public USPCData

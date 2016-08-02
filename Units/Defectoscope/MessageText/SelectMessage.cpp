@@ -83,16 +83,16 @@ namespace
 		}
 	};
 	
-	template<>struct __id_skip__<Clr<DeathZone>>
-	{
-		template<class P>bool operator()(P *p)
-		{
-			*p->id = -1;
-			p->str = __status_label__<Clr<DeathZone>>::text();
-			p->res = __status_label__<Clr<DeathZone>>::ID;
-			return true;
-		}
-	};
+	//template<>struct __id_skip__<Clr<DeathZone>>
+	//{
+	//	template<class P>bool operator()(P *p)
+	//	{
+	//		*p->id = -1;
+	//		p->str = __status_label__<Clr<DeathZone>>::text();
+	//		p->res = __status_label__<Clr<DeathZone>>::ID;
+	//		return true;
+	//	}
+	//};
 	template<>struct __id_skip__<Clr<Nominal>>
 	{
 		template<class P>bool operator()(P *p)
@@ -198,6 +198,19 @@ namespace
 	template<>struct __test_undifined__<__status_label__<Clr<Undefined>>>
 	{
 		typedef __status_label__<Clr<Undefined>> O;
+		template<class P>void operator()(P *p)
+		{
+			if(0 == p->res)
+			{
+				p->str = O::text();
+				p->res = O::ID;
+			}
+		}
+	};
+
+	template<>struct __test_undifined__<__status_label__<Clr<DeathZone>>>
+	{
+		typedef __status_label__<Clr<DeathZone>> O;
 		template<class P>void operator()(P *p)
 		{
 			if(0 == p->res)

@@ -238,7 +238,10 @@ namespace
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
-				data.SamplesPerZone(compute.lengthTube);
+				data.SamplesPerZone(compute.lengthTube
+					, Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0<O>>().value
+					, Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1<O>>().value
+					);
 				MedianFiltre f[App::count_sensors];
 				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
 				{
@@ -275,7 +278,10 @@ namespace
 			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
 			if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 			{
-				data.SamplesPerZone(compute.lengthTube);
+				data.SamplesPerZone(compute.lengthTube
+					, Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0<O>>().value
+					, Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1<O>>().value
+					);
 				MedianFiltre f[App::count_sensors];
 				if(Singleton<MedianFiltreTable>::Instance().items.get<MedianFiltreOn<O> >().value)
 				{

@@ -77,7 +77,7 @@ namespace
 	};
 }
 
-void USPCData::SamplesPerZone(int tubeLength)
+void USPCData::SamplesPerZone(int tubeLength, int deadArea0, int deadArea1)
 {
 	samplesPerZone = (double)App::zone_length * currentOffsetFrames 
 		/ (tubeLength + App::lengthCaretka);
@@ -92,14 +92,14 @@ void USPCData::SamplesPerZone(int tubeLength)
 	int lastZoneSize = tubeLength - currentOffsetZones * App::zone_length;
 	if(lastZoneSize > App::zone_length / 3)  ++currentOffsetZones;
 	//число отчётов в мёртвой зоне начало
-	double t = Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value;
+	double t = deadArea0;//Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM0>().value;
 	t *= samplesPerZone;
 	t /=  App::zone_length;
     deadZoneSamplesBeg  = (int)t;
 	deadZoneSamplesBeg /= App::count_sensors;
 	deadZoneSamplesBeg *= App::count_sensors;
 	//число отчётов в мёртвой зоне конец
-	t = tubeLength - Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value;
+	t = tubeLength - deadArea1;//Singleton<DeadAreaTable>::Instance().items.get<DeadAreaMM1>().value;
 	t *= samplesPerZone;
 	t /=  App::zone_length;
     deadZoneSamplesEnd  = (int)t;

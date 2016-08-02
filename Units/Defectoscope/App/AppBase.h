@@ -206,13 +206,26 @@ struct AdditionalSettingsTable
 	const wchar_t *name(){return L"AdditionalSettingsTable";}
 };
 //--------------------------------------------------------------------------------------
- DEFINE_PARAM(DeadAreaMM0, int, 200)
- DEFINE_PARAM(DeadAreaMM1, int, 200)
+ template<class>struct DeadAreaMM0;
+ template<class>struct DeadAreaMM1;
+ DEFINE_PARAM_WAPPER(DeadAreaMM0, Cross, int, 200)
+ DEFINE_PARAM_WAPPER(DeadAreaMM1, Cross, int, 200)
+
+ DEFINE_PARAM_WAPPER(DeadAreaMM0, Long, int, 200)
+ DEFINE_PARAM_WAPPER(DeadAreaMM1, Long, int, 200)
+
+ DEFINE_PARAM_WAPPER(DeadAreaMM0, Thickness, int, 200)
+ DEFINE_PARAM_WAPPER(DeadAreaMM1, Thickness, int, 200)
+ 
  struct DeadAreaTable
  {
 	typedef TL::MkTlst<
-		DeadAreaMM0
-		, DeadAreaMM1
+		DeadAreaMM0<Cross>
+		, DeadAreaMM1<Cross>
+		, DeadAreaMM0<Long>
+		, DeadAreaMM1<Long>
+		, DeadAreaMM0<Thickness>
+		, DeadAreaMM1<Thickness>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;

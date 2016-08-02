@@ -3,7 +3,7 @@
 #include "AppBase.h"
 #include "TabWidgets.h"
 #include "App.h"
-
+/*
 namespace
 {
 	struct Items
@@ -81,7 +81,7 @@ MAX_EQUAL_VALUE(DeadAreaMM0, 500)
 MIN_EQUAL_VALUE(DeadAreaMM1, 0 )
 MAX_EQUAL_VALUE(DeadAreaMM1, 500)
 }
-
+*/
 void TestTabsDlg::Do(HWND h)
 {
 	//Tabs t;
