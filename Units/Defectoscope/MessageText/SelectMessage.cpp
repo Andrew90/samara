@@ -83,16 +83,15 @@ namespace
 		}
 	};
 	
-	//template<>struct __id_skip__<Clr<DeathZone>>
-	//{
-	//	template<class P>bool operator()(P *p)
-	//	{
-	//		*p->id = -1;
-	//		p->str = __status_label__<Clr<DeathZone>>::text();
-	//		p->res = __status_label__<Clr<DeathZone>>::ID;
-	//		return true;
-	//	}
-	//};
+	template<>struct __id_skip__<Clr<DeathZone>>
+	{
+		template<class P>bool operator()(P *p)
+		{
+			p->str = __status_label__<Clr<DeathZone>>::text();
+			p->res = __status_label__<Clr<DeathZone>>::ID;
+			return false;
+		}
+	};
 	template<>struct __id_skip__<Clr<Nominal>>
 	{
 		template<class P>bool operator()(P *p)
@@ -139,6 +138,10 @@ namespace
 	};
 
 	template<class P>struct __type_skip__<Clr<Undefined>, P>
+	{
+		typedef typename P::items_list Result;
+	};
+	template<class P>struct __type_skip__<Clr<DeathZone>, P>
 	{
 		typedef typename P::items_list Result;
 	};
@@ -260,7 +263,7 @@ namespace
 
 char *SelectMessage(int *x, int &res)
 {
-	__data_id__<label_message_list> d = { x, NULL, 0, 0 };
+	__data_id__<label_message_list> d = { x, NULL, 0, 0};
 	TL::find<label_message_list, __id__>()(&d);
 	res = d.res;
 	return d.str;
