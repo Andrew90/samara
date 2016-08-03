@@ -7,27 +7,27 @@
 
 MIN_EQUAL_VALUE(DeadAreaMM0<Cross>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM0<Cross>, 500)
-PARAM_TITLE(    DeadAreaMM0<Cross>, L"Поперечник начало трубы")
+PARAM_TITLE(    DeadAreaMM0<Cross>, L"Поперечный контроль начало трубы")
 
 MIN_EQUAL_VALUE(DeadAreaMM1<Cross>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM1<Cross>, 500)
-PARAM_TITLE(    DeadAreaMM1<Cross>, L"Поперечник конец трубы")
+PARAM_TITLE(    DeadAreaMM1<Cross>, L"Поперечный контроль конец трубы")
 
 MIN_EQUAL_VALUE(DeadAreaMM0<Long>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM0<Long>, 500)
-PARAM_TITLE(    DeadAreaMM0<Long>, L"Продольник начало трубы")
+PARAM_TITLE(    DeadAreaMM0<Long>, L"Продольный контроль начало трубы")
 							
 MIN_EQUAL_VALUE(DeadAreaMM1<Long>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM1<Long>, 500)
-PARAM_TITLE(    DeadAreaMM1<Long>, L"Продольник конец трубы")
+PARAM_TITLE(    DeadAreaMM1<Long>, L"Продольный контроль конец трубы")
 
 MIN_EQUAL_VALUE(DeadAreaMM0<Thickness>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM0<Thickness>, 500)
-PARAM_TITLE(    DeadAreaMM0<Thickness>, L"Толщиномер начало трубы")
+PARAM_TITLE(    DeadAreaMM0<Thickness>, L"Контроль толщины начало трубы")
 							
 MIN_EQUAL_VALUE(DeadAreaMM1<Thickness>, 0)
 MAX_EQUAL_VALUE(DeadAreaMM1<Thickness>, 500)
-PARAM_TITLE(    DeadAreaMM1<Thickness>, L"Толщиномер конец трубы")
+PARAM_TITLE(    DeadAreaMM1<Thickness>, L"Контроль толщины конец трубы")
 
 void DeadZonesDlg::Do(HWND h)
 {

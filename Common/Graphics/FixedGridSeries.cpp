@@ -18,9 +18,9 @@ FixedGridSeries::FixedGridSeries(Chart &chart)
 void FixedGridSeries::Draw()
 {
 	chart.g->SetClip(&Region(RectF(
-		REAL(chart.rect.left + chart.offsetAxesLeft + 1)
+		REAL(chart.rect.left + chart.offsetAxesLeft + 0)
 		, REAL(chart.rect.top + chart.offsetAxesTop + 3)
-		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 2)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 0)
 		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 6)
 		)),
 		CombineModeReplace
