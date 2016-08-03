@@ -470,9 +470,7 @@ void Compute::Recalculation()
 	TL::foreach<USPC::items_list, __recalculation__>()();
 	CommonStatus(tubeResult);
 	if(dataOk)
-	{
-		//double len = double(lengthTube / App::zone_length);
-		//len *= 0.001 * App::zone_length;
+	{		
 		double len = 0.001 * lengthTube;
 		if(tubeResult)
 		{

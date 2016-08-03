@@ -429,7 +429,7 @@ void Automat::Impl::Do()
 	LogMessageToTopLabel logMessageToTopLabel;
 	AppKeyHandler::Init();
 	bool inputNumberTube = true; //
-	bool baseOn = false;
+	bool baseOn;
 	try
 	{
 		while(true)
@@ -438,7 +438,7 @@ void Automat::Impl::Do()
 			{
 //Start:
 				App::measurementOfRunning = false;	
-				baseOn = false;
+				baseOn = true;
 
 				AND_BITS(Ex<ExceptionRunProc>, Ex<ExceptionStopProc>)(); //кнопка начала измерений				
 
@@ -484,7 +484,8 @@ void Automat::Impl::Do()
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
 				Log::Mess<LogMess::InfoDataCollection>();
-				if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();				
+				if(!USPC::Start()) throw Exception_USPC_ERROR_Proc();	
+				baseOn = false;
 				AND_BITS(Ex<ExceptionStopProc>, On<iBase>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>, Proc<USPC_Do>)(60 * 60 * 1000);
 				baseOn = true;
 				unsigned baseTime = timeGetTime();
