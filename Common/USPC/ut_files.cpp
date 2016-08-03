@@ -5,6 +5,7 @@
 #include "App.h"
 #include "AppBase.h"
 #include "Registry.h"
+#include "Config.h"
 
 namespace
 {
@@ -70,19 +71,24 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 
 bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 {
-	//CurrentDir src;
 	wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-	//wsprintf(&src.path[src.len], L"\\%s\\%s.us"
-	//	, ut_files
-	//	, s
-	//	);
 	RegistryPathUTFile appPath;
-	wchar_t src[256];
+	wchar_t src[512];
 	wsprintf(src, L"%s\\%s.us", appPath(), s);
+#ifndef DEBUG_ITEMS
 	bool b = 0 != PathFileExists(src);
+#else
+	bool b = true;
+#endif
 	if(b)
 	{
 		wcscpy(file, src);
+	}
+	else
+	{
+		wchar_t buf[1024];
+		wsprintf(buf, L"Файл %s\nинициализации платы \"USPC7100\" отсутствует", src);
+		MessageBox(App::MainWindowHWND(), buf, L"Ошибка!!!", MB_ICONERROR);
 	}
 	return b;
 }

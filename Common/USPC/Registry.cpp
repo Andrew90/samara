@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Registry.h"
+#include "Config.h"
 
 #pragma warning(disable: 4996)
 RegistryPathLogFile::RegistryPathLogFile()
@@ -42,10 +43,15 @@ RegistryPathUTFile::RegistryPathUTFile()
 }
 RegistryPathUTFile::~RegistryPathUTFile()
 {
+#ifndef DEBUG_ITEMS
 	RegCloseKey (hKey);
+#endif
 }
 wchar_t *RegistryPathUTFile::operator()()
 {
+#ifdef DEBUG_ITEMS
+	wcscpy(buffer, L"\\USPC\\application");
+#endif
 	return buffer;
 }
 //-----------------------------------

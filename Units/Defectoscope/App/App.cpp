@@ -57,7 +57,11 @@ void App::Init()
 	LogUSPC::Clear();
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);
-	HWND h = WindowTemplate(&mainWindow, L"หมา \"ม๓๐เํ-5000\"", r.left, r.top, r.right, r.bottom);
+	wchar_t b[256];
+	wchar_t bb[512];
+	ExistCurrentUSPCFile(b);
+	wsprintf(bb, L"%s %s", App::TitleApp(), b);
+	HWND h = WindowTemplate(&mainWindow, bb, r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	StartKeyHook(h);
 	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))

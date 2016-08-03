@@ -5,6 +5,7 @@
 #include "App.h"
 #include "message.h"
 #include "MainWindow.h"
+#include "ut_files.h"
 
 namespace
 {
@@ -74,6 +75,11 @@ void SelectTypeSizeList::Do(TCommand &m)
 				if(obj&&ptr)(obj->*ptr)();
 
 				SetFocus(m.hwnd);
+				wchar_t b[256];
+				wchar_t bb[512];
+                ExistCurrentUSPCFile(b);
+				wsprintf(bb, L"%s %s", App::TitleApp(), b);
+				SetWindowText(m.hwnd, bb);
 			}
 		}
 	}

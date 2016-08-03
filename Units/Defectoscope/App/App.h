@@ -46,6 +46,7 @@ public:
 	void MainWindowUpdate();
 	static HWND MainWindowHWND();
 	static void InitCaretka();
+	static const wchar_t *TitleApp(){return L"หมา \"ม๓๐เํ-5000\"";}
 };
 
 extern App app;
