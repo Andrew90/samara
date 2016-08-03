@@ -67,7 +67,7 @@ namespace Stored
 	    	fread(&d[i], sizeof(USPC7100_ASCANDATAHEADER), 1, f);
 	}
 
-	void DataFromFile(wchar_t *path)
+	bool DataFromFile(wchar_t *path)
 	{
 		 FILE *f = _wfopen(path, L"rb");
 		 if(NULL != f)
@@ -75,13 +75,33 @@ namespace Stored
 			 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
+			 if((App::count_frames < crossData.currentOffsetFrames
+				 || App::count_frames < longData.currentOffsetFrames
+				 || App::count_frames < thicknessData.currentOffsetFrames
+				 )
+				 && crossData.currentOffsetFrames > 0
+				 &&	longData.currentOffsetFrames > 0
+				 &&	thicknessData.currentOffsetFrames > 0
+				 )
+			 {
+				 crossData.currentOffsetFrames = 0;
+				 longData.currentOffsetFrames = 0;
+				 thicknessData.currentOffsetFrames = 0;
+				 compute.lengthTube = 0;
+
+				 MessageBox(App::MainWindowHWND(), L"Файл имеет неизвесный формат", L"Ошибка !!!", MB_ICONERROR);
+				 fclose(f);
+				 return false;
+			 }
 			 fread(&compute.lengthTube, sizeof(int), 1, f);
 			 __Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
 			 __Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
 			 __Load__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
 
 			 fclose(f);
+			 return true;
 		 }
+		 return false;
 	}
 
 	template<class O, class P>struct __stored__{void operator()(O *, P *){}};
