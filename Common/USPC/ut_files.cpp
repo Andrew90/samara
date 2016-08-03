@@ -86,6 +86,7 @@ bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 	}
 	else
 	{
+		wcscpy(file, L"Файл инициализации платы \"USPC7100\" отсутствует");
 		wchar_t buf[1024];
 		wsprintf(buf, L"Файл %s\nинициализации платы \"USPC7100\" отсутствует", src);
 		MessageBox(App::MainWindowHWND(), buf, L"Ошибка!!!", MB_ICONERROR);
