@@ -193,6 +193,7 @@ unsigned ThicknessViewer::operator()(TCreate &l)
 CONTEXT_MENU(ThicknessWindow)
 void ThicknessViewer::operator()(TRButtonDown &l)
 {
+	if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness>>().value)
 	PopupMenu<ContextMenuThicknessWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

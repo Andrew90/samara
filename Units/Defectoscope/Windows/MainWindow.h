@@ -86,7 +86,7 @@ public:
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
 	void operator()(TMessage &);
-	void operator()(TRButtonDown &);
+	//void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
 	void operator()(TUser &);
 	void operator()(TClose &);

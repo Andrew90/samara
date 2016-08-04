@@ -116,14 +116,14 @@ unsigned MainWindow::operator()(TCreate &m)
 	return 0;
 }
 //-------------------------------------------------------------------------
-void MainWindow::operator()(TRButtonDown &l)
-{
-  typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
-  TL::find<lst, Common::__in_rect__>()(
-	  &viewers
-	  , &Common::__event_data__<TRButtonDown, MainWindow>(*this, l)
-	  );
-}
+//void MainWindow::operator()(TRButtonDown &l)
+//{
+//  typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
+//  TL::find<lst, Common::__in_rect__>()(
+//	  &viewers
+//	  , &Common::__event_data__<TRButtonDown, MainWindow>(*this, l)
+//	  );
+//}
 //------------------------------------------------------------------------
 void MainWindow::operator()(TDestroy &)
 {

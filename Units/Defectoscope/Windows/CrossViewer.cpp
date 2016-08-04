@@ -172,6 +172,7 @@ unsigned CrossViewer::operator()(TCreate &l)
 CONTEXT_MENU(CrossWindow)
 void CrossViewer::operator()(TRButtonDown &l)
 {
+	if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross>>().value)
 	PopupMenu<ContextMenuCrossWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------

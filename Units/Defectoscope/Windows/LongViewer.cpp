@@ -171,6 +171,7 @@ unsigned LongViewer::operator()(TCreate &l)
 CONTEXT_MENU(LongWindow)
 void LongViewer::operator()(TRButtonDown &l)
 {
+	if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long>>().value)
 	PopupMenu<ContextMenuLongWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
