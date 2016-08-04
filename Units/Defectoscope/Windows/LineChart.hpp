@@ -153,27 +153,18 @@ template<class T> struct Scan
         if(NULL == FindWindow(WindowClass<T>()(), 0))return;
 		typedef typename T::sub_type Ascan;
 		ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
+		if(data.currentOffsetZones <= zone) return;
 		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
 		if(of < offs)
 		{
-			//++zone;
 			offs = of;
 		}
 		if(offs < 0)
 		{
-			//--zone;
-			//if(zone >= 0)
-			//{
-			//	 offs = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
-			//}
-			//else
-			//{
-			//	offs = zone = 0;
-			//}
 			offs = 0;
 		}
 		__scan_data__ d = {sens, zone, offs, NULL};
-		TL::foreach<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
+		TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
 		
 		Singleton<ScanWindow>::Instance().Open(
 			zone
