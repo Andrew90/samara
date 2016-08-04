@@ -102,6 +102,7 @@ namespace
 								}
 							}
 						}
+						double t = filtre(channel, b[j].hdr.G1Amp);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -112,8 +113,7 @@ namespace
 							}
 						}
 						else
-						{
-							double t = filtre(channel, b[j].hdr.G1Amp);
+						{							
 							if(t > d.buffer[channel][i])
 							{
 								d.buffer[channel][i] = t;						
@@ -169,6 +169,8 @@ namespace
 								}
 							}
 						}
+						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
+						double t = filtre(channel, val);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -182,9 +184,7 @@ namespace
 							}
 						}
 						else
-						{
-							double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
-							double t = filtre(channel, val);						
+						{													
 							if(t > d.bufferMax[i])
 							{													
 								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
