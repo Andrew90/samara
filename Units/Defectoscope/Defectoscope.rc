@@ -87,6 +87,13 @@ IDB_Continue            BITMAP                  "..\\..\\Common\\Resource\\conti
 IDI_UPLOAD              ICON                    "..\\..\\Common\\Resource\\upload.ico"
 IDI_LETTER              ICON                    "..\\..\\Common\\Resource\\POSTITL.ICO"
 IDI_settings            ICON                    "..\\..\\Common\\Resource\\settings.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AVI
+//
+
+IDR_UPLOAD_AVI          AVI                     "..\\..\\Common\\Resource\\upload.avi"
 #endif    // Russian (Russia) resources
 /////////////////////////////////////////////////////////////////////////////
 

@@ -117,6 +117,7 @@
     <ClCompile Include="..\..\Common\USPC\Registry.cpp" />
     <ClCompile Include="..\..\Common\USPC\USPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
     <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="..\..\Common\USPC\USPC.h" />
     <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\ut_files.h" />
+    <ClInclude Include="..\..\Common\window_tool\AnimationControl.h" />
     <ClInclude Include="..\..\Common\window_tool\Button.h" />
     <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
     <ClInclude Include="..\..\Common\window_tool\DlgFiles.h" />
@@ -360,6 +362,7 @@
     <None Include="..\..\Common\Resource\settings.ico" />
     <None Include="..\..\Common\Resource\TopArr.bmp" />
     <None Include="..\..\Common\Resource\UpArrow.bmp" />
+    <None Include="..\..\Common\Resource\upload.avi" />
     <None Include="..\..\Common\Resource\upload.ico" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

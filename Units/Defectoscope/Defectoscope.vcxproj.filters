@@ -434,6 +434,9 @@
     <ClCompile Include="Dialogs\NumberTubeDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp">
+      <Filter>Common\window_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -823,6 +826,9 @@
     <ClInclude Include="Dialogs\NumberTubeDlg.h">
       <Filter>Windows\Dialogs</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\AnimationControl.h">
+      <Filter>Common\window_tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\RefreshBtn.bmp">
@@ -911,6 +917,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\Common\Resource\continue.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\upload.avi">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
