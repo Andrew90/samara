@@ -20,7 +20,7 @@ namespace Protocols
         {
             InitializeComponent();
             HiddenExportMenu("Excel");
-            HiddenExportMenu("Word");
+            HiddenExportMenu("WORD");
         }
         
         public void ShowReport(int id, long numberProtocol, DateTime tdeTme, int count, string Operator)
@@ -59,6 +59,7 @@ namespace Protocols
                 {
                     info = extension.GetType().GetField("m_isVisible", BindingFlags.Instance | BindingFlags.NonPublic);
                     info.SetValue(extension, false);
+                    break;
                 }
             } 
         }
