@@ -5,11 +5,15 @@
 #include <WindowsX.h>
 #include "AnimationControl.h"
 #include "resource.h"
+#include "DebugMess.h"
 
 namespace AnimationWindow
 {
 	static const int IDC_ANIMATION	= 990;
 	HWND hDlg;
+	LONG exchange = 0;
+	static const LONG start = 0x22222;
+	static const LONG stop = 0x55555;
 	void OnClose(HWND hWnd)
 	{
 		EndDialog(hWnd, TRUE);
@@ -57,6 +61,11 @@ namespace AnimationWindow
 			y = (r.top + r.bottom - height) / 2;
 		}
 		MoveWindow(hWnd, x, y, width, height, FALSE);
+		long t = InterlockedCompareExchange(&exchange, start, 0);
+		if(stop == t)
+		{
+			SendMessage(hDlg, WM_CLOSE, 0, 0);
+		}
 		return TRUE;
 	}
 	INT_PTR CALLBACK AnimationDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -84,6 +93,11 @@ namespace AnimationWindow
 		return 0;
 	}
 
+	void Prepare()
+	{
+		exchange = 0;
+	}
+
 	void Init(HWND h, wchar_t *title)
 	{
 		p = (char *)LocalAlloc(LPTR, 2048);
@@ -98,6 +112,10 @@ namespace AnimationWindow
 
 	void Destroy()
 	{
-		SendMessage(hDlg, WM_CLOSE, 0, 0);
+		long t = InterlockedCompareExchange(&exchange, stop, 0);
+		if(start == t)
+		{
+	    	SendMessage(hDlg, WM_CLOSE, 0, 0);
+		}
 	}
 }

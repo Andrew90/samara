@@ -4,7 +4,7 @@
 #include "Stored.h"
 #include "Compute.h"
 #include "AnimationControl.h"
-
+#pragma warning(disable: 4996)
 namespace
 {
 	wchar_t path[512];
@@ -17,6 +17,7 @@ namespace
 		}
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
+			AnimationWindow::Prepare();
 			Stored::DataFromFile(path);		
 			compute.Recalculation();
 			AnimationWindow::Destroy();
@@ -32,6 +33,7 @@ namespace
 		}
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
+			AnimationWindow::Prepare();
 			Stored::DataToFile(path);
 			AnimationWindow::Destroy();
 			return 0;
