@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Protocols.Models;
 using Protocols.Requests;
 using System.Drawing.Printing;
+using System.Reflection;
+using Microsoft.Reporting.WinForms;
 
 namespace Protocols
 {
@@ -17,6 +19,8 @@ namespace Protocols
         public ReportForm()
         {
             InitializeComponent();
+            HiddenExportMenu("Excel");
+            HiddenExportMenu("Word");
         }
         
         public void ShowReport(int id, long numberProtocol, DateTime tdeTme, int count, string Operator)
@@ -45,6 +49,18 @@ namespace Protocols
             reportViewer1.RefreshReport();
 
             Show();
+        }
+        private void HiddenExportMenu(string strFormatName)
+        {
+            FieldInfo info;
+            foreach (RenderingExtension extension in reportViewer1.LocalReport.ListRenderingExtensions())
+            {
+                if (extension.Name == strFormatName)
+                {
+                    info = extension.GetType().GetField("m_isVisible", BindingFlags.Instance | BindingFlags.NonPublic);
+                    info.SetValue(extension, false);
+                }
+            } 
         }
     }
 }
