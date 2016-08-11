@@ -107,7 +107,7 @@ namespace AnimationWindow
 		d.cdit = 0;
 		wchar_t *c = (wchar_t *)&p[sizeof(DLGTEMPLATE) + 4];
 		wcscpy(c, title);
-		QueueUserWorkItem(ThreadProc, h, WT_EXECUTELONGFUNCTION);
+		QueueUserWorkItem(ThreadProc, h, WT_EXECUTEDEFAULT);
 	}
 
 	void Destroy()

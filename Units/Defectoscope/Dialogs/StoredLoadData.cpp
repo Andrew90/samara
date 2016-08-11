@@ -13,7 +13,7 @@ namespace
 		__load__(wchar_t *path_)
 		{
 			wcscpy(path, path_);
-			QueueUserWorkItem(ThreadProc, NULL, WT_EXECUTELONGFUNCTION);
+			QueueUserWorkItem(ThreadProc, NULL, WT_EXECUTEDEFAULT);
 		}
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
@@ -29,7 +29,7 @@ namespace
 		__store__(wchar_t *path_)
 		{
 			wcscpy(path, path_);
-			QueueUserWorkItem(ThreadProc, NULL, WT_EXECUTELONGFUNCTION);
+			QueueUserWorkItem(ThreadProc, NULL, WT_EXECUTEDEFAULT);
 		}
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
