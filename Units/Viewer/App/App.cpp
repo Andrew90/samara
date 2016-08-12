@@ -54,12 +54,8 @@ void App::Init()
 	InitCaretka();
 	LogUSPC::Clear();
 	RECT r;
-	WindowPosition::Get<MainWindow>(r);
-	wchar_t b[256];
-	wchar_t bb[512];
-	ExistCurrentUSPCFile(b);
-	wsprintf(bb, L"%s %s", App::TitleApp(), b);
-	HWND h = WindowTemplate(&mainWindow, bb, r.left, r.top, r.right, r.bottom);
+	WindowPosition::Get<MainWindow>(r);	
+	HWND h = WindowTemplate(&mainWindow, (wchar_t *)App::TitleApp(), r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	StartKeyHook(h);
 }

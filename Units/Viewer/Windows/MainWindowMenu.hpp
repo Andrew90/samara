@@ -49,8 +49,6 @@ namespace MainWindowMenu
 	//struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	//struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
-	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
-	struct MainDeleteTypeSize: DelTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
 
 	struct CrossThresholdWindow__: Common::OpenWindow<CrossThresholdWindow>{};
 	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
@@ -76,10 +74,6 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
-	//MENU_ITEM(L"Допустимая толщина", AllowableThickness)
-	//MENU_ITEM(L"Скорость вращения", RotationalSpeed)
-	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
-	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
 
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
 
@@ -88,12 +82,7 @@ namespace MainWindowMenu
 		typedef TL::MkTlst<
 		     SubMenu<ThicknessTreshold>
 			, MenuItem<DeadZones>
-			//, MenuItem<AllowableThickness>
 			, MenuItem<MedianFiltre>
-			//, MenuItem<RotationalSpeed>
-			, Separator<0>
-			, MenuItem<MainCreateTypesize>
-			, MenuItem<MainDeleteTypeSize>
 		>::Result list;
 	 };
 	//--------------------------------------------------------------------------------
@@ -101,17 +90,13 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
-	struct IOportsView       : IOportsDlg{};
 
 	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
-    MENU_ITEM(L"Просмотр дискретных портов", IOportsView)
 
 	template<>struct TopMenu<Options>
 	{
 		typedef TL::MkTlst<
 			MenuItem<WindowPosition>
-			, Separator<0>
-			, MenuItem<IOportsView>
 		>::Result list;		
 	};
 	//-------------------------------------------------------------------------------------------------------
@@ -146,26 +131,13 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Смещение датчиков", OffsetsSensors)
 	MENU_ITEM(L"Базовое расстояние", BaseLength)
 	
-	template<>struct SubMenu<DiscretePlate>
-	{
-		typedef TL::TypeToTypeLst<
-			typename TL::MkTlst<DiscretePlateDescriptor, DiscretePlateInputs, DiscretePlateOutputs>::Result 
-			, MenuItem
-		>::Result list;
-	};
 
 	template<>struct TopMenu<Setting>
 	{
 		typedef TL::MkTlst<
-		//	MenuItem<AnalogPlate>
-			 SubMenu<DiscretePlate>	
-			//, MenuItem<Coefficient>
-			, MenuItem<OffsetsSensors>
+			MenuItem<OffsetsSensors>
 			, MenuItem<BaseLength>
-		//	, MenuItem<Signal>
-		//	, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>
-			//, MenuItem<TestTab>
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------

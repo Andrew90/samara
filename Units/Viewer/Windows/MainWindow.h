@@ -12,38 +12,6 @@
 #include "ResultViewer.h"
 #include "MessagesInterface.h"
 
-/*
-template<int N>class TestCheckBoxX
-{
-protected:
-	void Command(TCommand &m, bool b)
-	{
-		MainWindow *o = (MainWindow *) GetWindowLongPtr(m.hwnd, GWLP_USERDATA);
-		wchar_t text[128];
-		wsprintf(text, L"Чекбокс %d   %s "
-			, N
-			, b ? L"Включён"
-			    : L"Отключён"
-			);
-		SendMessage(o->hStatusWindow, SB_SETTEXT, N, (LONG)text);
-	}
-	bool Init(HWND h)
-	{
-		bool b = true;
-		HWND hParent = GetParent(GetParent(h));
-		MainWindow *o = (MainWindow *) GetWindowLongPtr(hParent, GWLP_USERDATA);
-		wchar_t text[128];
-		wsprintf(text, L"Чекбокс %d   %s "
-			, N
-			, b ? L"Включён"
-			    : L"Отключён"
-			);
-		SendMessage(o->hStatusWindow, SB_SETTEXT, N, (LONG)text);
-		return b;
-	}
-};
-*/
-
 template<class T, class Parent>struct OnTheJobCheckBox
 {
 protected:
@@ -64,15 +32,10 @@ public:
 	HWND hWnd;
 	HWND hStatusWindow;
 	MainWindowToolBar toolBar;
-	//CheckBoxWidget<TestCheckBoxX<0> > testCheckBox0;
-	//CheckBoxWidget<TestCheckBoxX<1> > testCheckBox1;
-	//CheckBoxWidget<TestCheckBoxX<2> > testCheckBox2;
 	CheckBoxWidget<OnTheJobCheckBox<Cross    , MainWindow> > crossCheckBox;
 	CheckBoxWidget<OnTheJobCheckBox<Long     , MainWindow> > longCheckBox;
 	CheckBoxWidget<OnTheJobCheckBox<Thickness, MainWindow> > thicknessCheckBox;
-	CheckBoxWidget<OnTheJobCheckBox<ViewInterrupt, MainWindow> > viewInterruptCheckBox;
 	TopLabelViewer topLabelViewer;
-	SelectTypeSizeList select;
 	typedef TL::MkTlst<
 		CrossViewer
 		, LongViewer
@@ -86,7 +49,6 @@ public:
 	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
 	void operator()(TMessage &);
-	//void operator()(TRButtonDown &);
 	void operator()(TMouseWell &);
 	void operator()(TUser &);
 	void operator()(TClose &);

@@ -5,8 +5,8 @@
 namespace{
 static const wchar_t *about_text[] = {
 	L"ООО НТЦ НК 'Уран'"
-	, L"Январь 2016 г."
-	, L"Версия 5.3"
+	, L"Август 2016 г."
+	, L"Версия 1.3"
 	, VERSION()
 };
 

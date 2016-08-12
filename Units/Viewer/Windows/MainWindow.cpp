@@ -51,16 +51,15 @@ void MainWindow::operator()(TSize &m)
 	GetClientRect(m.hwnd, &r);	
 
 	static const int width = toolBar.Width();
-	select.Size(width, 5, 400);
+	//select.Size(width, 5, 400);
 
 	//testCheckBox0.Size(width + 525, 52, 200, 20);
 	//testCheckBox1.Size(width, 52, 525, 20);
 	//testCheckBox2.Size(width, 69, 525, 20);
 
-	crossCheckBox	 .Size (width + 425, 5 , 400, 20);
-	longCheckBox	 .Size (width + 425, 25, 400, 20);
-	thicknessCheckBox.Size (width + 425, 45, 400, 20);
-	viewInterruptCheckBox.Size(width, 55, 400, 20);
+	crossCheckBox	 .Size (width, 5 , 400, 20);
+	longCheckBox	 .Size (width, 25, 400, 20);
+	thicknessCheckBox.Size (width, 45, 400, 20);
 
 	static const int topLabelHeight = 28;
 	int y = rt.bottom - rt.top - 1;
@@ -93,7 +92,7 @@ unsigned MainWindow::operator()(TCreate &m)
 	Menu<MainWindowMenu::MainMenu>().Init(m.hwnd);
 //
 	toolBar.Init(m.hwnd);
-	select.Create(toolBar.hWnd);
+	//select.Create(toolBar.hWnd);
 //
 	hStatusWindow = CreateStatusWindow(WS_CHILD | WS_VISIBLE, NULL, m.hwnd, 0);
 	int pParts[] = {200, 400, 600, 900};
@@ -108,7 +107,6 @@ unsigned MainWindow::operator()(TCreate &m)
 	crossCheckBox	 .Init(toolBar.hWnd, L"Измерение поперечных дефектов стенки трубы");
 	longCheckBox	 .Init(toolBar.hWnd, L"Измерение продольных дефектов стенки трубы");
 	thicknessCheckBox.Init(toolBar.hWnd, L"Измерение толщины стенки трубы");
-	viewInterruptCheckBox.Init(toolBar.hWnd, L"Прерывание на просмотр");
 
 	topLabelViewer.hWnd = CreateChildWindow(m.hwnd, (WNDPROC)&Viewer<TopLabelViewer>::Proc, L"TopLabelWindow", &topLabelViewer);
 	topLabelViewer.label.fontHeight = 16;

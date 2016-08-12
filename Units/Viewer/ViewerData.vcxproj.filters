@@ -6,7 +6,6 @@
     <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
-    <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />
     <ClCompile Include="ItemsData\USPCData.cpp" />
     <ClCompile Include="Windows\ThicknessThresholdWindow .cpp" />
     <ClCompile Include="Windows\ThicknessViewer.cpp" />
@@ -152,9 +151,6 @@
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
-    <ClCompile Include="IOports\IOportsDlg.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="IOports\IOportsViewer.cpp">
@@ -660,9 +656,6 @@
     </None>
     <None Include="..\..\Common\Resource\LeftArrow.bmp">
       <Filter>Z3</Filter>
-    </None>
-    <None Include="ReadMe.txt">
-      <Filter>Z4</Filter>
     </None>
     <None Include="..\..\Common\Resource\MashBtn.bmp">
       <Filter>Z4</Filter>

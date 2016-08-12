@@ -46,7 +46,7 @@ public:
 	void MainWindowUpdate();
 	static HWND MainWindowHWND();
 	static void InitCaretka();
-	static const wchar_t *TitleApp(){return L"ЛБТ \"Буран-5000\"";}
+	static const wchar_t *TitleApp(){return L"Просмотр данных";}
 };
 
 extern App app;
