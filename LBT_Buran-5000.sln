@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RunUSPC", "Units\RunUSPC\Ru
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animation", "Tests\Animation\Animation.vcxproj", "{91A98D24-FD0D-49C6-AD3F-D24AEDBEB9B2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ViewerData", "Units\Viewer\ViewerData.vcxproj", "{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,18 @@ Global
 		{91A98D24-FD0D-49C6-AD3F-D24AEDBEB9B2}.Release|Win32.ActiveCfg = Release|Win32
 		{91A98D24-FD0D-49C6-AD3F-D24AEDBEB9B2}.Release|Win32.Build.0 = Release|Win32
 		{91A98D24-FD0D-49C6-AD3F-D24AEDBEB9B2}.Release|x86.ActiveCfg = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|Win32.Build.0 = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Debug|x86.ActiveCfg = Debug|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|Any CPU.ActiveCfg = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|Win32.ActiveCfg = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|Win32.Build.0 = Release|Win32
+		{CE97B397-94ED-42EB-9DE4-FC50AF1D3B42}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
