@@ -36,8 +36,8 @@ namespace Stored
 	}
 	void __Store__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
 	{
-		for(int i = 0; i < count; ++i)
-	    	fwrite(&d[i], sizeof(USPC7100_ASCANDATAHEADER), 1, f);
+		//for(int i = 0; i < count; ++i)
+	    	fwrite(d, sizeof(USPC7100_ASCANDATAHEADER), count, f);
 	}
 	void DataToFile(wchar_t *path)
 	{
@@ -52,19 +52,14 @@ namespace Stored
 			 __Store__(longData.ascanBuffer     , longData.currentOffsetFrames, f);
 			 __Store__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
 
-			 fclose(f);
-			 int t = sizeof(USPC7100_ASCANDATAHEADER) * (
-				 crossData.currentOffsetFrames
-				 + longData.currentOffsetFrames
-				 + thicknessData.currentOffsetFrames
-				 );
+			 fclose(f);			
 		 }
 	}
 
 	void __Load__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
 	{
-		for(int i = 0; i < count; ++i)
-	    	fread(&d[i], sizeof(USPC7100_ASCANDATAHEADER), 1, f);
+		//for(int i = 0; i < count; ++i)
+	    	fread(d, sizeof(USPC7100_ASCANDATAHEADER), count, f);
 	}
 
 	bool DataFromFile(wchar_t *path)
