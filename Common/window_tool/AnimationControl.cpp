@@ -97,7 +97,7 @@ namespace AnimationWindow
 	{
 		exchange = 0;
 	}
-
+#pragma warning(disable : 4996)
 	void Init(HWND h, wchar_t *title)
 	{
 		p = (char *)LocalAlloc(LPTR, 2048);
