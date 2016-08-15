@@ -108,7 +108,6 @@ namespace MainWindowMenu
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct ColorItems             : ColorItemsDlg{};//{static void Do(HWND h){zprint("");}};
-	struct DiscretePlateDescriptor: Descriptor1730Dlg{};//{static void Do(HWND h){zprint("");}};
 	struct Coefficient            {static void Do(HWND h){zprint("");}};
 	//struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
@@ -120,7 +119,6 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
 	MENU_ITEM(L"Выодные порты", DiscretePlateOutputs)
-	MENU_ITEM(L"Дискриптор платы", DiscretePlateDescriptor)
 	MENU_ITEM(L"Коэффициенты пересчёта", Coefficient)
 	
 	MENU_ITEM(L"Аналоговая плата", AnalogPlate)

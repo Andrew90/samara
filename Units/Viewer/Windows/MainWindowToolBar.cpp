@@ -12,7 +12,6 @@
 #include <gdiplus.h>
 #include "AppKeyHandler.h"
 #include "Stored.h"
-#include "LogUSPCWindow.h"
 #include "ToolBarButton.h"
 #include "Config.h"
 using namespace Gdiplus;
@@ -36,14 +35,14 @@ namespace
 #undef KEY
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
 		typedef TL::MkTlst<
-		SeparatorToolbar<0>
-		, BUTTON_KEY(IDB_CycleBtn)
-		, BUTTON_KEY(IDB_Continue)
-		, BUTTON_KEY(IDB_Reset)
-		, BUTTON_KEY(IDB_QueryBtn) 		
-		, SeparatorToolbar<1>
+		//SeparatorToolbar<0>
+		//, BUTTON_KEY(IDB_CycleBtn)
+		//, BUTTON_KEY(IDB_Continue)
+		//, BUTTON_KEY(IDB_Reset)
+		//, BUTTON_KEY(IDB_QueryBtn) 		
+		//, SeparatorToolbar<1>
 #ifdef DEBUG_ITEMS
-		, BUTTON_KEY(IDB_arrow_down) 
+		 BUTTON_KEY(IDB_arrow_down) 
 		, BUTTON_KEY(IDB_arrow_up)
 		, BUTTON_KEY(IDB_arrow_left) 
 		, BUTTON_KEY(IDB_arrow_right)
@@ -60,8 +59,8 @@ namespace
 	}
 	void Key<IDB_Continue>::Click(HWND h)
 	{
-		SetEvent(App::ProgrammContinueEvent);
-		AppKeyHandler::Run();
+		//SetEvent(App::ProgrammContinueEvent);
+		//AppKeyHandler::Run();
 	}
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)
@@ -70,7 +69,6 @@ namespace
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)
 	{
-		LogUSPCWindow::Open();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)
@@ -81,7 +79,6 @@ namespace
 	void Key<IDB_arrow_left>::Click(HWND h)
 	{
 		zprint("\n");	
-		LogUSPCWindow::Open();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_right>::Click(HWND h)
@@ -92,11 +89,11 @@ namespace
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)
 	{
-		run_once_per_sycle = false;
-		SetEvent(App::ProgrammStopEvent);
-		MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
-		SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
-		AppKeyHandler::Stop();
+		//run_once_per_sycle = false;
+		//SetEvent(App::ProgrammStopEvent);
+		//MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+		//SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
+		//AppKeyHandler::Stop();
 	}
 }
 //--------------------------------------------------------------------------------------------

@@ -20,7 +20,6 @@ public:
 //-------------------------------------------------------------------
 #define DLG(n)struct n{static void Do(HWND);};
 
-DLG(Descriptor1730Dlg)
 DLG(OutputsDlg)
 DLG(InputsDlg)
 DLG(AddTypeSizeDlg)

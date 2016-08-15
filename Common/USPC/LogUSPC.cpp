@@ -15,14 +15,6 @@ void LogUSPC::Clear()
 	RegistryPathLogFile t;
 	wchar_t *path = t();
 #endif
-	//int fSuccess = DeleteFile(path);
-	//if (!fSuccess) 
-    //{
-    //    // Handle the error.
-    //   dprint("DeleteFile failed (%d)\n", GetLastError());
-    //}
-	//FILE *f;
-	//if(!_wfopen_s(&f, path, L"wt"))fclose(f);
 	FILE *f = _wfopen(path, L"wt");
 	if(f)fclose(f);
 }

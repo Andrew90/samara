@@ -85,9 +85,6 @@
     <ResourceCompile Include="Defectoscope.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
-    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp" />
-    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp" />
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
     <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
@@ -113,7 +110,6 @@
     <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
     <ClCompile Include="..\..\Common\templates\Hash.cpp" />
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
-    <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\Registry.cpp" />
     <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
     <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp" />
@@ -145,13 +141,10 @@
     <ClCompile Include="Dialogs\BaseLengthDlg.cpp" />
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp" />
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
-    <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
     <ClCompile Include="Dialogs\OffsetsSensors.cpp" />
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
-    <ClCompile Include="IOports\IOportsViewer.cpp" />
-    <ClCompile Include="IOports\IOportsWindow.cpp" />
     <ClCompile Include="ItemsData\ConstData.cpp" />
     <ClCompile Include="ItemsData\DataThicknessViewer.cpp" />
     <ClCompile Include="ItemsData\DataViewer.cpp" />
@@ -162,6 +155,7 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp" />
     <ClCompile Include="MessageText\SelectMessage.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Stored\LoadFromBase.cpp" />
     <ClCompile Include="Stored\PacketBase.cpp" />
     <ClCompile Include="Stored\ProtocolTable.cpp" />
     <ClCompile Include="Stored\Stored.cpp">
@@ -173,8 +167,6 @@
     <ClCompile Include="Windows\CrossWindow.cpp" />
     <ClCompile Include="Windows\GridWindow.cpp" />
     <ClCompile Include="Windows\LineViewer.cpp" />
-    <ClCompile Include="Windows\LogUSPCWindow.cpp" />
-    <ClCompile Include="Windows\LogUSPCWindowGrid.cpp" />
     <ClCompile Include="Windows\LongThresholdWindow.cpp" />
     <ClCompile Include="Windows\LongViewer.cpp" />
     <ClCompile Include="Windows\LongWindow.cpp" />
@@ -195,15 +187,12 @@
     <ClCompile Include="Windows\TopLabelViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Common\1730\Device1730.h" />
     <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h" />
     <ClInclude Include="..\..\Common\Base\Base.hpp" />
     <ClInclude Include="..\..\Common\Base\ExpressBase.hpp" />
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
     <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
     <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp" />
-    <ClInclude Include="..\..\Common\Communication\ServerHandler.h" />
-    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h" />
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
     <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp" />
     <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h" />
@@ -237,7 +226,6 @@
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h" />
-    <ClInclude Include="..\..\Common\USPC\LogUSPC.h" />
     <ClInclude Include="..\..\Common\USPC\Registry.h" />
     <ClInclude Include="..\..\Common\USPC\ut_files.h" />
     <ClInclude Include="..\..\Common\window_tool\AnimationControl.h" />
@@ -270,10 +258,7 @@
     <ClInclude Include="Automat\AppKeyHandler.h" />
     <ClInclude Include="Compute.h" />
     <ClInclude Include="Dialogs\Dialogs.h" />
-    <ClInclude Include="Dialogs\InputOutputDlg.h" />
     <ClInclude Include="GridData\PacketTemplateData.hpp" />
-    <ClInclude Include="IOports\IOportsViewer.h" />
-    <ClInclude Include="IOports\IOportsWindow.h" />
     <ClInclude Include="IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="ItemsData\ConstData.h" />
     <ClInclude Include="ItemsData\DataViewer.h" />
@@ -286,6 +271,7 @@
     <ClInclude Include="MessageText\SelectMessage.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Stored\LoadFromBase.h" />
     <ClInclude Include="Stored\PacketBase.h" />
     <ClInclude Include="Stored\ProtocolTable.h" />
     <ClInclude Include="Stored\Stored.h" />
@@ -299,7 +285,6 @@
     <ClInclude Include="Windows\GridWindow.h" />
     <ClInclude Include="Windows\LineChart.hpp" />
     <ClInclude Include="Windows\LineViewer.h" />
-    <ClInclude Include="Windows\LogUSPCWindow.h" />
     <ClInclude Include="Windows\LogUSPCWindowGrid.h" />
     <ClInclude Include="Windows\LogUSPCWindowMenu.hpp" />
     <ClInclude Include="Windows\LongThresholdWindow.h" />

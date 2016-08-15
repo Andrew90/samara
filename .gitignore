@@ -38,9 +38,6 @@ enc_temp_folder/
 Units/Defectoscope/Version.h
 Units/Defectoscope/NumVerOld.txt
 Units/Defectoscope/NumVer.txt
-Units/View/Version.h
-Units/View/NumVerOld.txt
-Units/View/NumVer.txt
 Stored/
 !Units/Defectoscope/Stored/
 !Units/View/Stored/
@@ -49,3 +46,5 @@ TestProject/
 !Tests/testUSPS/
 !testUSPS/
 Protocols/Protocols/Requests/CountingByYear.sql
+Units/Viewer/NumVerOld.txt
+Units/Viewer/Version.h

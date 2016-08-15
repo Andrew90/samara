@@ -90,9 +90,6 @@
     <ClCompile Include="Defectoscope.cpp">
       <Filter>Z1</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\1730\Device1730.cpp">
-      <Filter>Z1</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp">
       <Filter>Z1</Filter>
     </ClCompile>
@@ -138,25 +135,13 @@
     <ClCompile Include="..\..\Common\templates\Hash.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\LogUSPCWindowGrid.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\HookKey.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogs\InputOutputDlg.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
-    <ClCompile Include="IOports\IOportsViewer.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
-    <ClCompile Include="IOports\IOportsWindow.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp">
@@ -174,19 +159,7 @@
     <ClCompile Include="Log\LogMessageToTopLabel.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\LogUSPCWindow.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
     <ClCompile Include="Windows\LongThresholdWindow.cpp">
-      <Filter>Z4</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\MainWindowToolBar.cpp">
-      <Filter>Z4</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp">
       <Filter>Z4</Filter>
     </ClCompile>
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp">
@@ -246,19 +219,10 @@
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
-    <ClCompile Include="Stored\Stored.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
     <ClCompile Include="Windows\LongWindow.cpp">
@@ -268,6 +232,18 @@
       <Filter>Windows\Common</Filter>
     </ClCompile>
     <ClCompile Include="Windows\MainWindow.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Stored\LoadFromBase.cpp">
+      <Filter>Stored</Filter>
+    </ClCompile>
+    <ClCompile Include="Stored\Stored.cpp">
+      <Filter>Stored</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp">
+      <Filter>Filtre</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\MainWindowToolBar.cpp">
       <Filter>Windows\MainWindow</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,7 +259,6 @@
     <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="ItemsData\USPCData.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="Windows\ThicknessThresholdWindow.h" />
     <ClInclude Include="Windows\ThicknessViewer.h" />
     <ClInclude Include="Windows\ThicknessWindow.h" />
@@ -365,9 +340,6 @@
     <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
       <Filter>Z1</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\1730\Device1730.h">
-      <Filter>Z1</Filter>
-    </ClInclude>
     <ClInclude Include="Dialogs\Dialogs.h">
       <Filter>Z1</Filter>
     </ClInclude>
@@ -437,16 +409,7 @@
     <ClInclude Include="..\..\Common\window_tool\InitToolbar.hpp">
       <Filter>Z3</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogs\InputOutputDlg.h">
-      <Filter>Z3</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\InRect.h">
-      <Filter>Z3</Filter>
-    </ClInclude>
-    <ClInclude Include="IOports\IOportsViewer.h">
-      <Filter>Z3</Filter>
-    </ClInclude>
-    <ClInclude Include="IOports\IOportsWindow.h">
       <Filter>Z3</Filter>
     </ClInclude>
     <ClInclude Include="IOports\IOportsWindowMenu.hpp">
@@ -476,12 +439,6 @@
     <ClInclude Include="Log\LogMessageToTopLabel.h">
       <Filter>Z3</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\USPC\LogUSPC.h">
-      <Filter>Z3</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\LogUSPCWindow.h">
-      <Filter>Z3</Filter>
-    </ClInclude>
     <ClInclude Include="Windows\LogUSPCWindowGrid.h">
       <Filter>Z4</Filter>
     </ClInclude>
@@ -489,15 +446,6 @@
       <Filter>Z4</Filter>
     </ClInclude>
     <ClInclude Include="Windows\LongThresholdWindow.h">
-      <Filter>Z4</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\MainWindowMenu.hpp">
-      <Filter>Z4</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\MainWindowToolBar.h">
-      <Filter>Z4</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
       <Filter>Z4</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\MenuAPI.h">
@@ -548,9 +496,6 @@
     <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h">
       <Filter>Z4</Filter>
     </ClInclude>
-    <ClInclude Include="Stored\StoredBase.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\USPC\Registry.h">
       <Filter>Z6</Filter>
     </ClInclude>
@@ -578,19 +523,7 @@
     <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h">
       <Filter>Z6</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Communication\ServerHandler.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\Graphics\StepSeries.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
-    <ClInclude Include="Stored\Stored.h">
       <Filter>Z6</Filter>
     </ClInclude>
     <ClInclude Include="App\Config.h">
@@ -608,10 +541,32 @@
     <ClInclude Include="Windows\MainWindow.h">
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
+    <ClInclude Include="Stored\LoadFromBase.h">
+      <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\StoredBase.h">
+      <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="Stored\Stored.h">
+      <Filter>Stored</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
+      <Filter>Filtre</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\MainWindowMenu.hpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\MainWindowToolBar.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Common\Resource\upload.avi" />
-    <None Include="..\..\Common\Resource\upload.ico" />
     <None Include="..\..\Common\Resource\arrow_down.bmp">
       <Filter>Resource Files</Filter>
     </None>
@@ -651,26 +606,8 @@
     <None Include="..\..\Common\Resource\ExitTubeBtn.bmp">
       <Filter>Z2</Filter>
     </None>
-    <None Include="..\..\Common\Resource\LeftArr.bmp">
-      <Filter>Z3</Filter>
-    </None>
-    <None Include="..\..\Common\Resource\LeftArrow.bmp">
-      <Filter>Z3</Filter>
-    </None>
-    <None Include="..\..\Common\Resource\MashBtn.bmp">
-      <Filter>Z4</Filter>
-    </None>
-    <None Include="..\..\Common\Resource\OptionsBtn.bmp">
-      <Filter>Z4</Filter>
-    </None>
-    <None Include="..\..\Common\Resource\POSTITL.ICO">
-      <Filter>Z4</Filter>
-    </None>
     <None Include="..\..\Common\Resource\QueryBtn.bmp">
       <Filter>Z4</Filter>
-    </None>
-    <None Include="..\..\Common\Resource\settings.ico">
-      <Filter>Z6</Filter>
     </None>
     <None Include="..\..\Common\Resource\sep.bmp">
       <Filter>Resource Files</Filter>
@@ -694,6 +631,30 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\Common\Resource\UpArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\LeftArr.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\LeftArrow.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\MashBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\OptionsBtn.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\upload.avi">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\upload.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\settings.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Common\Resource\POSTITL.ICO">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

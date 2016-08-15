@@ -45,6 +45,7 @@ namespace{
 	template<>struct TypeToEvent<TMessage>{static const int value =  WM_MESSAGE;};
 	template<>struct TypeToEvent<TTimer>{static const int value =  WM_TIMER;};
 	template<>struct TypeToEvent<TClose>{static const int value =  WM_CLOSE;};
+	template<>struct TypeToEvent<TCopyData>{static const int value =  WM_COPYDATA;};
 
 	template<class O, class P>class IsFuncExist
 	{
@@ -122,6 +123,7 @@ namespace{
 		, TUser, TCommand, TDestroy
 		, TGetMinMaxInfo, TMouseWell, TRButtonDown, TMoving, TSizing
 		, TMessage, TTimer, TClose
+		, TCopyData
 	>::Result type_events_all_list; //<-------см. ниже комментарий
 
 	template<class T, class tmp>struct AddTypeEvent<NullType, T, tmp>
@@ -243,12 +245,6 @@ public:
 		TMessage m = {hWnd, message, wParam, lParam};
 		if(NULL != o)
 		{
-			//LRESULT result = EventHandler<T>(m, *o)();
-			//if(0 != result) 
-			//{
-			//	if(-1 == result) return 0;
-			//	return result;
-			//}
 			return EventHandler<T>(m, *o)();
 		}	
 		else if(message == WM_CREATE)

@@ -209,6 +209,13 @@ struct TMouseWell
 	WORD x;
 	WORD y;
 };
+struct TCopyData
+{
+	HWND hwnd;
+	UINT message;
+	HWND h;
+	COPYDATASTRUCT *copyDataStruct;
+};
 struct TContextMenu
 {
   HWND hwnd; UINT uMsg; WPARAM wParam; LPARAM lParam;

@@ -28,18 +28,14 @@ public:
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static const int thickness_number = 0;
 	static const int long_number = 1;
-	static const int cross_number = 2;
-	static HANDLE ProgrammExitEvent;
-	static HANDLE ProgrammContinueEvent;
-	static HANDLE ProgrammStopEvent;
-	static HANDLE ProgrammRunEvent;
-	static bool measurementOfRunning;									
+	static const int cross_number = 2;						
 public:
 	MainWindow &mainWindow;
 	static const int &lengthCaretka;
 public:
 	App();
 	void Init();
+	static void WindowUp(HWND, wchar_t *);
 	void Destroy();
 	void MainWindowTopLabel(wchar_t *);
 	void MainWindowBottomLabel(int, wchar_t *);  

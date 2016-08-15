@@ -52,6 +52,7 @@ public:
 	void operator()(TMouseWell &);
 	void operator()(TUser &);
 	void operator()(TClose &);
+	void operator()(TCopyData &);
 	static void CheckBoxStateStoreInBase();
 
 	void ClearCharts();

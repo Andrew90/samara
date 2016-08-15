@@ -113,15 +113,6 @@ unsigned MainWindow::operator()(TCreate &m)
 	TL::foreach<viewers_list, Common::__create_window__>()(&viewers, &m.hwnd);
 	return 0;
 }
-//-------------------------------------------------------------------------
-//void MainWindow::operator()(TRButtonDown &l)
-//{
-//  typedef TL::EraseItem<viewers_list, ResultViewer>::Result lst;
-//  TL::find<lst, Common::__in_rect__>()(
-//	  &viewers
-//	  , &Common::__event_data__<TRButtonDown, MainWindow>(*this, l)
-//	  );
-//}
 //------------------------------------------------------------------------
 void MainWindow::operator()(TDestroy &)
 {
@@ -157,6 +148,11 @@ void MainWindow::operator()(TMouseWell &l)
 void MainWindow::operator()(TUser &l)
 {
 	(*l.ptr)(l.data);
+}
+//--------------------------------------------------------------------------------
+void MainWindow::operator()(TCopyData &l)
+{
+	App::WindowUp(l.hwnd, (wchar_t *)l.copyDataStruct->lpData);
 }
 //--------------------------------------------------------------------------------
 void MainWindow::CheckBoxStateStoreInBase()

@@ -1,11 +1,15 @@
 #include "stdafx.h"
 
 #include <windows.h>
+#include <ShellAPI.h>
 #include <commctrl.h>
 #include "Base.hpp"
 #include "App.h"
 #include "HookKey.h"
 #include "InitTcp.h"
+#include "DebugMess.h"
+#include "LoadFromBase.h"
+#include "Emptywindow.h"
 
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
@@ -17,20 +21,28 @@
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 
-//HINSTANCE hInstance;	
-wchar_t *typeWindow = L"LBT_Buran-5000_Defectoscope_160516";
+wchar_t *typeWindow = L"LBT_Buran-5000_Viewer_160812";
+wchar_t data_buffer[128];
+COPYDATASTRUCT data = {0, 128 * sizeof(wchar_t), data_buffer};
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
 					   LPTSTR    lpCmdLine,
 					   int       nCmdShow)
-{
+{	
 	CreateSemaphore(0, 0, 1, typeWindow);
 	if(GetLastError() == ERROR_ALREADY_EXISTS)
 	{
-		HWND h = FindWindow(typeWindow, 0);
+		HWND h = FindWindow(WindowClass<MainWindow>()(), 0);
 		SendMessage(h, WM_SYSCOMMAND, SC_RESTORE, 0);
-		SetForegroundWindow(h);
+		SetForegroundWindow(h);	
+		int num = 0;
+		LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
+		if(12 == wcslen(arg[1]))
+		{
+			wcscpy(data_buffer, (wchar_t *)arg[1]);
+			SendMessage(h, WM_COPYDATA, (WPARAM)h, (LPARAM)&data);
+		}
 		return 0;
 	}
 	INITCOMMONCONTROLSEX *iccx = new INITCOMMONCONTROLSEX;
@@ -47,6 +59,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	InitTcp initTcp;
 	
 	app.Init();
+
+	//////////////test
+	//int num = 0;
+	//	LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
+	//	if(12 == wcslen(arg[1]))
+	//	{
+	//		wcscpy(data_buffer, (wchar_t *)arg[1]);
+	//		SendMessage(app.MainWindowHWND(), WM_COPYDATA, (WPARAM)app.MainWindowHWND(), (LPARAM)&data);
+	//	}
+	///test
+
 
 #ifdef THREAD_PRIORITY
 	SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
