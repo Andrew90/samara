@@ -87,9 +87,6 @@
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
       <Filter>Z1</Filter>
     </ClCompile>
-    <ClCompile Include="Defectoscope.cpp">
-      <Filter>Z1</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp">
       <Filter>Z1</Filter>
     </ClCompile>
@@ -245,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="Windows\MainWindowToolBar.cpp">
       <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Defectoscope.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

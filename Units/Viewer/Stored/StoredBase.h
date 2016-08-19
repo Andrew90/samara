@@ -113,6 +113,12 @@ struct StoredMeshureTable
 		, ID<BorderNominal< Thickness> >
 		, ID<BorderAbove  < Thickness> >
 		, ID<BorderLower  < Thickness> >
+		, DeadAreaMM0<Cross>
+		, DeadAreaMM1<Cross>
+		, DeadAreaMM0<Long>
+		, DeadAreaMM1<Long>
+		, DeadAreaMM0<Thickness>
+		, DeadAreaMM1<Thickness>
 		, Status
 	>::Result items_list;
 	typedef NullType unique_list;

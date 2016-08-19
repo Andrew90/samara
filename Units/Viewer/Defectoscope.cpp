@@ -59,15 +59,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	
 	app.Init();
 
-	//////////////test
-	//int num = 0;
-	//	LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
-	//	if(12 == wcslen(arg[1]))
-	//	{
-	//		wcscpy(data_buffer, (wchar_t *)arg[1]);
-	//		SendMessage(app.MainWindowHWND(), WM_COPYDATA, (WPARAM)app.MainWindowHWND(), (LPARAM)&data);
-	//	}
-	///test
+	int num = 0;
+	LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
+	if(12 == wcslen(arg[1]))
+	{
+		data.lpData = arg[1];
+		HWND h = app.MainWindowHWND();
+		SendMessage(h, WM_COPYDATA, (WPARAM)h, (LPARAM)&data);
+	}
 
 
 #ifdef THREAD_PRIORITY

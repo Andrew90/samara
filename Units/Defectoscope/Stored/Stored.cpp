@@ -36,7 +36,6 @@ namespace Stored
 	}
 	void __Store__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
 	{
-		//for(int i = 0; i < count; ++i)
 	    	fwrite(d, sizeof(USPC7100_ASCANDATAHEADER), count, f);
 	}
 	void DataToFile(wchar_t *path)
@@ -58,7 +57,6 @@ namespace Stored
 
 	void __Load__(USPC7100_ASCANDATAHEADER *d, int count, FILE *f)
 	{
-		//for(int i = 0; i < count; ++i)
 	    	fread(d, sizeof(USPC7100_ASCANDATAHEADER), count, f);
 	}
 
@@ -110,6 +108,17 @@ namespace Stored
 		}
 	};
 
+	template<class O, class P>struct __stored__XXXXX__
+	{
+		void operator()(O *o, P *p)
+		{
+			o->value = Singleton<DeadAreaTable>::Instance().items.get<O>().value;
+		}
+	};
+
+	template<class X, class P>struct __stored__<DeadAreaMM0<X>, P>: __stored__XXXXX__<DeadAreaMM0<X>, P>{};
+	template<class X, class P>struct __stored__<DeadAreaMM1<X>, P>: __stored__XXXXX__<DeadAreaMM1<X>, P>{};
+
 	template<class Table, class Data>struct __get_id__
 	{
 		unsigned operator()(CBase &base, Data &data)
@@ -129,9 +138,7 @@ namespace Stored
 	unsigned StoredStatus(CBase &base)
 	{
 		StoredMeshureTable t;
-		int len = lengthTube / App::zone_length;
-		len *= App::zone_length;
-		t.items.get<LengthTube>().value = len;
+		t.items.get<LengthTube>().value = lengthTube;
 
 		TL::foreach<StoredMeshureTable::items_list, __stored__>()(&t.items, &base);
 
