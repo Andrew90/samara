@@ -28,14 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProtocolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UltrasonicControlProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainGridView = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.protocol_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGridView)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -86,7 +91,30 @@
             this.MainGridView.Name = "MainGridView";
             this.MainGridView.Size = new System.Drawing.Size(744, 361);
             this.MainGridView.TabIndex = 1;
-            this.MainGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainGridView_CellClick);
+            this.MainGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainGridView_CellContentClick);
+            this.MainGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.MainGridView_CellMouseDown);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listToolStripMenuItem,
+            this.protocol_ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            // 
+            // listToolStripMenuItem
+            // 
+            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listToolStripMenuItem.Text = "Список труб";
+            this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
+            // 
+            // protocol_ToolStripMenuItem
+            // 
+            this.protocol_ToolStripMenuItem.Name = "protocol_ToolStripMenuItem";
+            this.protocol_ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.protocol_ToolStripMenuItem.Text = "Протокол";
+            this.protocol_ToolStripMenuItem.Click += new System.EventHandler(this.protocol_ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -101,6 +129,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGridView)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,6 +143,9 @@
         private System.Windows.Forms.ToolStripMenuItem ProtocolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UltrasonicControlProductsToolStripMenuItem;
         private System.Windows.Forms.DataGridView MainGridView;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem protocol_ToolStripMenuItem;
     }
 }
 

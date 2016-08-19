@@ -22,8 +22,7 @@
 #endif
 
 wchar_t *typeWindow = L"LBT_Buran-5000_Viewer_160812";
-wchar_t data_buffer[128];
-COPYDATASTRUCT data = {0, 128 * sizeof(wchar_t), data_buffer};
+COPYDATASTRUCT data = {0, 512 * sizeof(wchar_t), NULL};
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
@@ -40,7 +39,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
 		if(12 == wcslen(arg[1]))
 		{
-			wcscpy(data_buffer, (wchar_t *)arg[1]);
+			data.lpData = arg[1];
 			SendMessage(h, WM_COPYDATA, (WPARAM)h, (LPARAM)&data);
 		}
 		return 0;

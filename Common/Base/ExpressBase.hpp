@@ -46,6 +46,9 @@ public:
 
 			wsprintf(buf, L"EXEC sp_addrolemember 'db_datawriter','user'");
 		    conn->Execute(buf, NULL, ADODB::adExecuteNoRecords); 
+			
+			wsprintf(buf, L"EXEC sp_addrolemember 'db_accessadmin','user'");
+		    conn->Execute(buf, NULL, ADODB::adExecuteNoRecords); 
 		}		
 	}
 };

@@ -46,4 +46,10 @@ namespace Protocols.Models
         public string Cross     { get; set; }
         public string Thickness { get; set; }
     }
+
+    public class TubesView
+    {
+        public string NumTube { get; set; }
+        public DateTime TteTme { get; set; }
+    }
 }

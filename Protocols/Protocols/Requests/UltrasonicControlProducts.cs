@@ -278,11 +278,6 @@ namespace Protocols.Requests
 
                     t.Add(packet);
                 }
-                //foreach (var i in t)
-                //{
-                //    i.NumTube -= num;
-                //    i.NumTube += 1;
-                //}
             }
             return t;
         }

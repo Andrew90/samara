@@ -50,21 +50,27 @@ void App::Init()
 	ShowWindow(h, SW_SHOWNORMAL);
 //	StartKeyHook(h);
 	int num = 0;
-	LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
-	FromBase::Load(h, arg[num - 1]);
+	wchar_t *buf = CommandLineToArgvW(GetCommandLineW(), &num)[1];
+//	FromBase::Load(h, arg[num - 1]);
 	//FromBase::Load(h, buf);
-
+	wchar_t txt[512];
+	wchar_t *protocol = &buf[1 + wcslen(buf)];
+	wchar_t *party = &protocol[1 + wcslen(protocol)];
+	wchar_t *number = &party[1 + wcslen(party)];
+	wsprintf(txt, L"Протокол %s партия %s номер трубы %s", protocol, party, number);
+	SetWindowText(h, txt);
 }
 
 void App::WindowUp(HWND h, wchar_t *buf)
-{
-	//AppBase().Init();
-	//ConstData::Init();
+{	
 	app.InitCaretka();
-	//int num = 0;
-	//LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
 	FromBase::Load(h, buf);
-//	FromBase::Load(h, buf);
+	wchar_t txt[512];
+	wchar_t *protocol = &buf[1 + wcslen(buf)];
+	wchar_t *party = &protocol[1 + wcslen(protocol)];
+	wchar_t *number = &party[1 + wcslen(party)];
+	wsprintf(txt, L"Протокол %s партия %s номер трубы %s", protocol, party, number);
+	SetWindowText(h, txt);
 }
 
 void App::Destroy()
