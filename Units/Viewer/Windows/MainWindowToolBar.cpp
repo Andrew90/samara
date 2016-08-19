@@ -99,17 +99,17 @@ namespace
 //--------------------------------------------------------------------------------------------
 HWND MainWindowToolBar::Init(HWND h)
 {
-	return hWnd = NULL;//InitToolbar<tool_button_list>()(h);
+	return hWnd = InitToolbar<tool_button_list>()(h);
 }
 //-------------------------------------------------------------------
 void MainWindowToolBar::Size()
 {
-	//MoveWindow(hWnd, 0, 0, 0, 0, false);
+	MoveWindow(hWnd, 0, 0, 0, 0, false);
 }
 //----------------------------------------------------------------------------
 const int MainWindowToolBar::Width()
 {
-	return 0;//__tool_bar_width__<tool_button_list>::value;
+	return __tool_bar_width__<tool_button_list>::value;
 }
 //------------------------------------------------------------------------
 
