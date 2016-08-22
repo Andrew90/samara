@@ -42,7 +42,7 @@ namespace
 		//, BUTTON_KEY(IDB_QueryBtn) 		
 		//, SeparatorToolbar<1>
 #ifdef DEBUG_ITEMS
-		 BUTTON_KEY(IDB_arrow_down) 
+		, BUTTON_KEY(IDB_arrow_down) 
 		, BUTTON_KEY(IDB_arrow_up)
 		, BUTTON_KEY(IDB_arrow_left) 
 		, BUTTON_KEY(IDB_arrow_right)

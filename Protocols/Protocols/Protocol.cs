@@ -22,23 +22,14 @@ namespace Protocols
         {
             contextMenuStrip1.Show(p);
         }
-        /*
-         * *
-         *   table.Columns[0].ColumnName = "№ протокола";
-            table.Columns[1].ColumnName = "№ партии";
-            table.Columns[2].ColumnName = "№ трубы";
-            table.Columns[3].ColumnName = "Время";
-         * */
-
+       
         protected void SelectTube(Point p)
         {
             var row = MainGridView.Rows[currentRow];
-           // DateTime t = (DateTime)row.Cells[3].Value;
             string param = ((DateTime)row.Cells[3].Value).ToString("yyMMddHHmmss");
             param += " " + row.Cells[0].Value.ToString();
             param += " " + row.Cells[1].Value.ToString();
             param += " " + row.Cells[2].Value.ToString();
-            Text = param; 
             Process.Start(".\\ViewerData.exe", param);
         }
 
