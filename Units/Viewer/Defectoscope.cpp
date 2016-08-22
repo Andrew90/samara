@@ -61,7 +61,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	int num = 0;
 	LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
-	if(12 == wcslen(arg[1]))
+	if(NULL != arg[1] && 12 == wcslen(arg[1]))
 	{
 		data.lpData = arg[1];
 		HWND h = app.MainWindowHWND();

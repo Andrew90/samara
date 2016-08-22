@@ -57,10 +57,11 @@ public:
 	wchar_t *operator()(){return sub<sizeof(char) == sizeof(Is<T>((T *)0)), T>::Do();}
 };
 
-template<class list, int Height = 64, int SEPARATOR_WIDTH = 10>class InitToolbar
+template<class listX, int Height = 64, int SEPARATOR_WIDTH = 10>class InitToolbar
 {
 	typedef InitToolbar Self;
 	HIMAGELIST himl;
+	typedef listX list;
 	TBBUTTON tbb[TL::Length<list>::value];
     template<class T>struct no_IDB_SEP
 	{
@@ -95,22 +96,49 @@ private:
 	};
 	template<class O, class P>struct loc
 	{
-		void operator()(P *p)
+		void operator()(P &p)
 		{
-			Set<O::IDB_>().Do<O>(p->tbb[TL::IndexOf<list, O>::value], p);
+			Set<O::IDB_>().Do<O>(p.tbb[TL::IndexOf<list, O>::value], &p);
 		};
-	};	    
+	};	 
+	template<class xlist>struct CreateToolBar
+	{
+		template<class O>HWND operator()(O &o, HWND hwnd)
+		{
+			o.himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
+			TL::foreach<list, loc>()(o);
+			return  CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
+				, (UINT)o.tbb
+				, TL::Length<typename O::list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL
+				, o.tbb, TL::Length<typename O::list>::value,0,0,0,0, sizeof(TBBUTTON)
+				);
+		}
+	};
+	template<>struct CreateToolBar<NullType>
+	{
+		template<class O>HWND operator()(O &o, HWND hwnd)
+		{
+			o.himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, 1, 0);
+			return  CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
+				, (UINT)o.tbb
+				, TL::Length<O::list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL
+				, o.tbb, TL::Length<O::list>::value,0,0,0,0, sizeof(TBBUTTON)
+				);
+		}
+	};
 public:
 	HWND operator()(HWND hwnd)
 	{
 		memset(tbb, 0, sizeof(tbb));
-		himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
-		TL::foreach<list, loc>()(this);
-		HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
-			, (UINT)tbb
-			, TL::Length<list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL
-			, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
-			);
+		//himl = ImageList_Create(Height, Height, ILC_COLOR24|ILC_COLORDDB|ILC_MASK, TL::Length<only_buttons_list>::value, 0);
+		//TL::foreach<list, loc>()(this);
+		//HWND hToolBar = CreateToolbarEx(hwnd, TBSTYLE_FLAT | CCS_ADJUSTABLE | CCS_NODIVIDER | WS_CHILD | WS_VISIBLE
+		//	, (UINT)tbb
+		//	, TL::Length<list>::value, (HINSTANCE)::GetModuleHandle(NULL), NULL
+		//	, tbb, TL::Length<list>::value,0,0,0,0, sizeof(TBBUTTON)
+		//	);
+		HWND hToolBar = CreateToolBar<only_buttons_list>()(*this, hwnd);
+		
 		//Свяжите image list с ToolBar -ом
 		SendMessage(hToolBar, TB_SETIMAGELIST, 0, (LPARAM)himl);
 		SendMessage(hToolBar, TB_AUTOSIZE, 0, 0);

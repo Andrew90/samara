@@ -6,6 +6,7 @@
 #include "AnimationControl.h"
 #include "Stored.h"
 #include "Compute.h"
+#include "DebugMess.h"
 
 namespace FromBase
 {
@@ -101,6 +102,7 @@ namespace FromBase
 			DWORD length = GetModuleFileName( NULL, buf, 1024);
 			PathRemoveFileSpec(buf);
 			wsprintf(&buf[wcslen(buf)], L"\\..\\Stored\\%s.dat", path);
+			dprint("%S\n", path);
 			AnimationWindow::Init(h, L"Загрузка");
 			__load__ load(buf);
 		}
