@@ -94,7 +94,7 @@ namespace Protocols
             foreach (var i in l)
             {
                 table.Rows.Add(i.ID, i.NumberProtocol, i.TteTme
-                     , i.NumberPacket
+                    , i.NumberPacket
                     , i.Count, i.Operator
                     , i.Alloy
                     , i.DeliveryStatus
@@ -105,11 +105,6 @@ namespace Protocols
                     );
             }
             MainGridView.Update();
-        }
-
-        private void MainGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void MainGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -178,7 +173,5 @@ namespace Protocols
             var row = MainGridView.Rows[currentRow];
             ListTubes((long)row.Cells[1].Value, (string)row.Cells[3].Value);
         }
-
-
     }
 }

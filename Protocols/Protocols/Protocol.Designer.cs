@@ -91,7 +91,6 @@
             this.MainGridView.Name = "MainGridView";
             this.MainGridView.Size = new System.Drawing.Size(744, 361);
             this.MainGridView.TabIndex = 1;
-            this.MainGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainGridView_CellContentClick);
             this.MainGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.MainGridView_CellMouseDown);
             // 
             // contextMenuStrip1
