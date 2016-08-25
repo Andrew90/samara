@@ -82,7 +82,7 @@ namespace Stored
 				 thicknessData.currentOffsetFrames = 0;
 				 compute.lengthTube = 0;
 
-				 MessageBox(App::MainWindowHWND(), L"Файл имеет неизвесный формат", L"Ошибка !!!", MB_ICONERROR);
+				 MessageBox(App::MainWindowHWND(), L"Р¤Р°Р№Р» РёРјРµРµС‚ РЅРµРёР·РІРµСЃРЅС‹Р№ С„РѕСЂРјР°С‚", L"РћС€РёР±РєР° !!!", MB_ICONERROR);
 				 fclose(f);
 				 return false;
 			 }
@@ -104,7 +104,7 @@ namespace Stored
 		typedef ID<W<X>> O;
 		void operator()(O *o, P *p)
 		{
-			o->value = StoreThreshold(*p, Singleton<W<X>>::Instance().value);
+			o->value = StoreThreshold(*p, Singleton<ThresholdsTable>::Instance().items.get<W<X>>().value);
 		}
 	};
 
@@ -241,7 +241,7 @@ namespace Stored
 		}
 		else
 		{
-			MessageBox(mainWindow.hWnd, L"Не могу открыть базу", L"Ошибка !!!", MB_ICONERROR);
+			MessageBox(mainWindow.hWnd, L"РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ Р±Р°Р·Сѓ", L"РћС€РёР±РєР° !!!", MB_ICONERROR);
 			return false;
 		}
 
@@ -322,7 +322,7 @@ void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 	}
 }
 #else	
-#pragma message("Проверить удаление при заполнении базы данных")
+#pragma message("РџСЂРѕРІРµСЂРёС‚СЊ СѓРґР°Р»РµРЅРёРµ РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё Р±Р°Р·С‹ РґР°РЅРЅС‹С…")
 void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 {
 	path = path_;
