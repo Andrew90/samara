@@ -17,7 +17,6 @@
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 
-//HINSTANCE hInstance;	
 wchar_t *typeWindow = L"LBT_Buran-5000_Defectoscope_160516";
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,

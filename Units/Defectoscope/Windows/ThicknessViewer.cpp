@@ -197,11 +197,3 @@ void ThicknessViewer::operator()(TRButtonDown &l)
 	PopupMenu<ContextMenuThicknessWindow::items_list>::Do(l.hwnd, l.hwnd);
 }
 //--------------------------------------------------------------------------------
-/*
-void ThicknessViewer::operator()(TDestroy &m)
-{
-	delete backScreen;
-    backScreen = NULL;
-	SetWindowLongPtr(m.hwnd, GWLP_USERDATA, NULL);
-}
-*/

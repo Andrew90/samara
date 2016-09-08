@@ -246,6 +246,12 @@
     <ClCompile Include="Defectoscope.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\Zip\Zip.cpp">
+      <Filter>Common\Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Zip\ZipAll.cpp">
+      <Filter>Common\Zip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
@@ -565,6 +571,12 @@
     <ClInclude Include="Windows\MainWindowToolBar.h">
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\Zip\Zip.h">
+      <Filter>Common\Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Zip\ZipAll.h">
+      <Filter>Common\Zip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Common\Resource\arrow_down.bmp">
@@ -769,6 +781,9 @@
     </Filter>
     <Filter Include="Z6">
       <UniqueIdentifier>{62b58b3c-2391-418a-9f6b-e948b3372478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Zip">
+      <UniqueIdentifier>{24bcaff6-70f5-402e-af0a-1c7edf9dc776}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@
 #include "Automat.h"
 #include "HookKey.h"
 #include "LogUSPC.h"
+#include "ZipAll.h"
 
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
@@ -73,6 +74,7 @@ void App::Init()
 	}
 	
 	automat.Init();
+	Zip::ZipAll();
 }
 
 void App::Destroy()

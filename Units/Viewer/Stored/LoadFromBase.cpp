@@ -7,6 +7,7 @@
 #include "Stored.h"
 #include "Compute.h"
 #include "DebugMess.h"
+#include "Zip.h"
 
 namespace FromBase
 {
@@ -59,7 +60,12 @@ namespace FromBase
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
 			AnimationWindow::Prepare();
+			int len = wcslen(__load_path);
+            wcscat(__load_path, L".bz2");
+			bool existZipFile = Zip::UnZipFile2(__load_path);
+			__load_path[len] = '\0';
 			Stored::DataFromFile(__load_path);		
+			if(existZipFile)DeleteFile(__load_path);
 			compute.Recalculation();
 			AnimationWindow::Destroy();
 			return 0;

@@ -6,6 +6,15 @@
 #include "ScanWindowToolBar.h"
 #include "USPCData.h"
 
+class RedLineSeries
+{
+	LineSeries line;
+public:
+	double buf[512];
+	RedLineSeries(Chart &);
+	void Draw();
+};
+
 class ScanWindow
 {
 	void *owner;
@@ -15,6 +24,7 @@ public:
 		LeftAxes
 		, BottomAxes
 		, LineSeries
+		, RedLineSeries
 		, Grid
 	>::Result>	TChart;
 	HWND hWnd;
@@ -22,12 +32,15 @@ public:
 	Gdiplus::Bitmap *backScreen;	
 	ScanWindowToolBar toolBar;
 	int offset, zone, sensor, offsetInZone;
-	int maxX, maxY;
+	int maxX, minY, maxY;
 	int g1Tof;
     int g1Amp;
 	double data[512];
 	TMouseMove storedMouseMove;
-	ColorLabel label;
+	int currentX, currentY;
+	Cursor cursor;
+	int lengthMess;
+	ColorLabel label;	
 	bool mouseMove;
 	ScanWindow();
 	void operator()(TSize &);
@@ -36,6 +49,10 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TLButtonDown &);
+
+	void operator()(TMouseMove &);
+	void operator()(TLButtonDbClk &);
+	void operator()(TMouseWell &);
 
 	void Open(int zone, int sensor, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);

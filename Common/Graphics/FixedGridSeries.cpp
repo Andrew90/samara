@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <math.h>
 #include "FixedGridSeries.h"
 #include "Chart.h"
 #include "DebugMess.h"
@@ -137,7 +138,6 @@ void FixedLeftAxes::Draw()
 	int x = leftOffset;
 	int bottom = chart.rect.bottom - chart.offsetAxesBottom;
 	chart.g->DrawLine(&pen, x, chart.rect.top + chart.offsetAxesTop, x, bottom);
-	//char buf[32];
 	wchar_t wbuf[32];
 	PointF origin;
 	RectF rect;	
@@ -259,19 +259,9 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 	{
 		double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
 		int offsMin = chart.rect.left + chart.offsetAxesLeft;
-		double t = offsX - offsMin - dX * delta;
-		int offs = offsX;
-		t /= dX;
-		int tt = (int)(t + 0.5);
-		tt = int(dX * tt);
-		offsX = WORD(tt + offsMin + dX / 2);
-		if(offs == offsX)
-		{
-			offsX += delta < 0 
-				? 1
-				: -1
-				;
-		}
+		double t = offsX - dX * delta;
+		t = delta > 0 ? ceil(t) : floor(t);
+		offsX = (WORD)t;
 		if(offsMin >= offsX){offsX = offsMin + 3; return;}
 		int offsMax = chart.rect.right - chart.offsetAxesRight;
 		if(offsMax <= offsX)offsX = offsMax - 3;
@@ -280,22 +270,12 @@ void OffsetToPixel(Chart &chart, WORD &offsX, WORD &offsY, int delta, bool horis
 	{
 		double dY = (double)(chart.rect.bottom - chart.rect.top - chart.offsetAxesTop - chart.offsetAxesBottom) / (chart.maxAxesY - chart.minAxesY);
 		int offsMin = chart.rect.top + chart.offsetAxesTop;
-		double t = offsY - offsMin + dY * delta;
-		int offs = offsY;
-		t /= dY;
-		int tt = (int)(t + 0.5);
-		tt = int(dY * tt);
-		offsY = WORD(tt + offsMin + dY / 2);
-		if(offs == offsY)
-		{
-			offsY += delta < 0 
-				? -1
-				: 1
-				;
-		}
+		double t = offsY + dY * delta;
+		t = delta < 0 ? ceil(t) : floor(t);
+		offsY = (WORD)t;
 		if(offsMin >= offsY){offsY = offsMin + 3; return;}
 		int offsMax = chart.rect.bottom - chart.offsetAxesBottom;
-		if(offsMax <= offsY)offsY = WORD(offsMax - 3);
+		if(offsMax <= offsY)offsY = WORD(offsMax - dY / 2);
 	}
 }
 

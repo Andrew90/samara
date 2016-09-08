@@ -10,6 +10,7 @@
 #include "USPCData.h"
 #include "ProtocolTable.h"
 #include "PacketBase.h"
+#include "ZipAll.h"
 
 namespace Stored
 {
@@ -256,6 +257,9 @@ namespace Stored
 		DataToFile(path);
 
 		deleteLast(base, path, c);
+
+		Zip::ZipAll();
+
 		return true;
 	}
 
@@ -268,6 +272,8 @@ template<class Table, class Data>struct __list__
 	bool operator()(unsigned id, Table &t, Data &d)
 	{		
 		Path(d.offsPath, t.items.get<Date_Time>().value);
+		DeleteFile(d.path);
+		wcscat(d.path, L".bz2");
 		DeleteFile(d.path);
 		return false;
 	}
