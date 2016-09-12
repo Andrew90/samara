@@ -14,7 +14,8 @@ void EventDo(TCommand &m)
 			button_info.cbSize = sizeof(button_info);
 			button_info.dwMask = TBIF_LPARAM;
 			SendMessage(m.hControl, (UINT) TB_GETBUTTONINFO, m.id , (LPARAM)&button_info);
-			((void (__cdecl *)(HWND))(button_info.lParam))(m.hwnd);
+			if(IsBadReadPtr((void *)button_info.lParam, sizeof(void *)))
+				((void (__cdecl *)(HWND))(button_info.lParam))(m.hwnd);
 		}
 		else if(TEvent *x = (TEvent *)GetWindowLongPtr(m.hControl, GWLP_USERDATA))
 		{
@@ -28,7 +29,8 @@ void EventDo(TCommand &m)
 		mii.fMask = MIIM_DATA;
 		if(GetMenuItemInfo(GetMenu(m.hwnd), m.id, false, &mii))
 		{
-			((void (__cdecl *)(HWND))(mii.dwItemData))(m.hwnd);
+			if(IsBadReadPtr((void *)mii.dwItemData, sizeof(void *)))
+				((void (__cdecl *)(HWND))(mii.dwItemData))(m.hwnd);
 		}
 	}
 }
