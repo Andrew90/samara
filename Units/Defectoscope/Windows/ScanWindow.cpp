@@ -154,7 +154,7 @@ void ScanWindow::operator()(TMouseWell &l)
 
 bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)
 {
-	wsprintf(&label.buffer[lengthMess], L"   X %d  Y %d", currentX + 1, currentY - 128);
+	wsprintf(&label.buffer[lengthMess], L"   X %d  Y %d", currentX + 1, currentY);// - 128);
 	label.Draw(g());
 	return true;
 }

@@ -156,14 +156,14 @@ template<class O>struct MaxY
 	static const int value = 100;
 };
 
-template<>struct MinY<Thickness>
-{
-	static const int value = -128;
-};
-template<>struct MaxY<Thickness>
-{
-	static const int value = 127;
-};
+//template<>struct MinY<Thickness>
+//{
+//	static const int value = -128;
+//};
+//template<>struct MaxY<Thickness>
+//{
+//	static const int value = 127;
+//};
 
 template<class T>struct ComputeFFT
 {
@@ -173,39 +173,39 @@ template<class T>struct ComputeFFT
 	}
 };
 
-template<>struct ComputeFFT<Thickness>
-{
-	void operator()(unsigned char(&c)[512], double(&d)[512])
-	{
-		static const int count = dimention_of(d);
-		for(int i = 0; i < count; ++i)
-		{
-			d[i] = c[i] - 128;
-		}
-		
-		
-		CFFT fft;
-		
-		fft.Init(count - 1);
-		fft.Direct(d);
-	    fft.Spectrum(d);
-		//for(int i = 0; i < 120; ++i)
-		//{
-		//	d[i] = 0;
-		//}
-		//for(int i = 180; i < count; ++i)
-		//{
-		//	d[i] = 0;
-		//}
-		fft.Direct(d);		
-        fft.Spectrum(d);	
-		//
-		for(int i = 0; i < count; ++i)
-		{
-			d[i] *= 200;
-		}
-	}
-};
+//template<>struct ComputeFFT<Thickness>
+//{
+//	void operator()(unsigned char(&c)[512], double(&d)[512])
+//	{
+//		static const int count = dimention_of(d);
+//		for(int i = 0; i < count; ++i)
+//		{
+//			d[i] = c[i] - 128;
+//		}
+//		
+//		
+//		CFFT fft;
+//		
+//		fft.Init(count - 1);
+//		fft.Direct(d);
+//	    fft.Spectrum(d);
+//		//for(int i = 0; i < 120; ++i)
+//		//{
+//		//	d[i] = 0;
+//		//}
+//		//for(int i = 180; i < count; ++i)
+//		//{
+//		//	d[i] = 0;
+//		//}
+//		fft.Direct(d);		
+//        fft.Spectrum(d);	
+//		//
+//		for(int i = 0; i < count; ++i)
+//		{
+//			d[i] *= 200;
+//		}
+//	}
+//};
 
 template<class T> struct Scan
 {
@@ -229,10 +229,10 @@ template<class T> struct Scan
 		ScanWindow &sc = Singleton<ScanWindow>::Instance();
 		sc.minY = MinY<Ascan>::value;
 		sc.maxY = MaxY<Ascan>::value;
-		ComputeFFT<Thickness>()(
-			  d.scan->Point
-		    , sc.chart.items.get<RedLineSeries>().buf
-		);
+		//ComputeFFT<Thickness>()(
+		//	  d.scan->Point
+		//    , sc.chart.items.get<RedLineSeries>().buf
+		//);
 		sc.Open(
 			zone
 			, sens

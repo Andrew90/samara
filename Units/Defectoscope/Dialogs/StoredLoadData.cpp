@@ -52,7 +52,6 @@ namespace
 			Stored::DataToFile(path);
 			if(archive)
 			{
-				wcscat(path, L".bz2");
 				Zip::ZipFile2(path);
 			}
 			AnimationWindow::Destroy();

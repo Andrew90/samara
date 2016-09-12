@@ -24,7 +24,7 @@ public:
 		LeftAxes
 		, BottomAxes
 		, LineSeries
-		, RedLineSeries
+	//	, RedLineSeries
 		, Grid
 	>::Result>	TChart;
 	HWND hWnd;
