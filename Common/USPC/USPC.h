@@ -8,5 +8,5 @@ void Stop();
 bool Open();
 void Close();
 bool Do();
-
+unsigned &Err();
 }
