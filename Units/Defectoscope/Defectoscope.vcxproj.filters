@@ -121,9 +121,6 @@
     <Filter Include="Common\FFT">
       <UniqueIdentifier>{1d12a995-ba6f-470a-98fd-4c3d81349050}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Zip">
-      <UniqueIdentifier>{860c53fe-24da-40c3-bd0b-30da9da55f94}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
@@ -446,11 +443,11 @@
     <ClCompile Include="..\..\Common\FFT\FFT.cpp">
       <Filter>Common\FFT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Zip\Zip.cpp">
-      <Filter>Common\Zip</Filter>
+    <ClCompile Include="..\..\Common\window_tool\Zip.cpp">
+      <Filter>Common\window_tool</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Zip\ZipAll.cpp">
-      <Filter>Common\Zip</Filter>
+    <ClCompile Include="..\..\Common\window_tool\ZipAll.cpp">
+      <Filter>Common\window_tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -847,11 +844,11 @@
     <ClInclude Include="..\..\Common\FFT\FFT.h">
       <Filter>Common\FFT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Zip\Zip.h">
-      <Filter>Common\Zip</Filter>
+    <ClInclude Include="..\..\Common\window_tool\Zip.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Zip\ZipAll.h">
-      <Filter>Common\Zip</Filter>
+    <ClInclude Include="..\..\Common\window_tool\ZipAll.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

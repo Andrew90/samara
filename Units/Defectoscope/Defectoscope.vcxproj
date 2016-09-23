@@ -69,16 +69,19 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Common\Zip;$(ProjectDir)..\..Common\Communication;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\..\Common\FFT;$(ProjectDir)..\Defectoscope;$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Common\FFT;$(ProjectDir)..\..Common\Communication;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\Defectoscope;$(ProjectDir)..\..\Common\tools;$(ProjectDir)GridData;$(ProjectDir)ItemsData;$(ProjectDir)Stored;$(ProjectDir)MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)IOports;$(ProjectDir)Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -132,10 +135,8 @@
     <ClCompile Include="..\..\Common\window_tool\ProcessRun.cpp" />
     <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
     <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
-    <ClCompile Include="..\..\Common\Zip\Zip.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\Common\Zip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Zip\ZipAll.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Zip.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ZipAll.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\AppKeyHandler.cpp" />
@@ -278,8 +279,8 @@
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
-    <ClInclude Include="..\..\Common\Zip\Zip.h" />
-    <ClInclude Include="..\..\Common\Zip\ZipAll.h" />
+    <ClInclude Include="..\..\Common\window_tool\Zip.h" />
+    <ClInclude Include="..\..\Common\window_tool\ZipAll.h" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppBase.h" />
     <ClInclude Include="App\Config.h" />
