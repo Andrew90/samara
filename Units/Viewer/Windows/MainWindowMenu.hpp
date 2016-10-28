@@ -32,10 +32,10 @@ namespace MainWindowMenu
 	template<>struct TopMenu<MainFile>
 	{
 		typedef TL::MkTlst<
-			//MenuItem<LoadDateFile>
+			MenuItem<LoadDateFile>
 			//, MenuItem<SaveDateFile>
-			//, Separator<0>
-			 MenuItem<Compute>
+			, Separator<0>
+			, MenuItem<Compute>
 			, Separator<1>
 			, MenuItem<MainExit>
 		>::Result list;
