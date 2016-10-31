@@ -1,4 +1,4 @@
-"C:\Program Files (x86)\Git\bin"\git describe --tags --long --always>NumVer.txt
+"C:\Program Files\Git\bin"\git describe --tags --long --always>NumVer.txt
 fc NumVer.txt NumVerOld.txt > nul
 if ERRORLEVEL 1 goto Different
 if ERRORLEVEL 2 goto Different
