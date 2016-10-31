@@ -10,7 +10,7 @@
 #include "USPCData.h"
 #include "ProtocolTable.h"
 #include "PacketBase.h"
-#include "..\..\Defectoscope\App\VersionDiff.h"
+#include "VersionDiff.h"
 
 namespace Stored
 {
