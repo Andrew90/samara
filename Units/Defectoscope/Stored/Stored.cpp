@@ -340,13 +340,31 @@ void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 	path = path_;
 	offsPath= offsPath_;
 	base = &b;
-	if(count > 10000)
+	/*
+	BOOL WINAPI GetDiskFreeSpaceEx(
+  _In_opt_  LPCTSTR         lpDirectoryName,
+  _Out_opt_ PULARGE_INTEGER lpFreeBytesAvailable,
+  _Out_opt_ PULARGE_INTEGER lpTotalNumberOfBytes,
+  _Out_opt_ PULARGE_INTEGER lpTotalNumberOfFreeBytes
+);
+*/
+	ULARGE_INTEGER freeBytesAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
+
+	wchar_t path[1024];
+	GetModuleFileName(0, path, dimention_of(path));
+	path[2] = 0;
+
+	bool diskSizeOk = 0 != GetDiskFreeSpaceEx(path, &freeBytesAvailable, &totalNumberOfBytes, &totalNumberOfFreeBytes);
+
+	unsigned countGb = freeBytesAvailable.QuadPart / 1024 * 1024 * 1024;
+
+	if(count > 10000 || (diskSizeOk && (countGb < 200))) //меньше 10 гиго байт
 	{
 		COleDateTime tme;
 		CMD(b).CommandText(
 			L"SELECT max([Date_Time]) as TME FROM [StoredBase].[dbo].[TubeTable]"\
 			L"WHERE [Date_Time] "\
-			L"IN (SELECT TOP(100)[Date_Time] FROM [StoredBase].[dbo].[TubeTable] ORDER BY [Date_Time] ASC)"
+			L"IN (SELECT TOP(10)[Date_Time] FROM [StoredBase].[dbo].[TubeTable] ORDER BY [Date_Time] ASC)"
 			).GetValue(L"TME", tme);
 		Select<TubesTable>(b).op<Date_Time>(L"<", tme).ExecuteLoop<__list__>(*this);
 

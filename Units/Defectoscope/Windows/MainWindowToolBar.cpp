@@ -88,14 +88,14 @@ namespace
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)
 	{
-		LogUSPCWindow::Open();
+		LogUSPCWindow::Open();		
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)
 	{
 		zprint("\n");
 //test
-		NumberTubeDlg::Do();
+	//	NumberTubeDlg::Do();
 		Stored::Do();
 //test
 	}
