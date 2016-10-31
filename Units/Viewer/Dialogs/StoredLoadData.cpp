@@ -4,6 +4,7 @@
 #include "Stored.h"
 #include "Compute.h"
 #include "AnimationControl.h"
+#include "Zip.h"
 #pragma warning(disable: 4996)
 namespace
 {
@@ -17,9 +18,25 @@ namespace
 		}
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
+			//AnimationWindow::Prepare();
+			//Stored::DataFromFile(path);		
+			//compute.Recalculation();
+			//AnimationWindow::Destroy();
+			//return 0;
 			AnimationWindow::Prepare();
+
+			int offs = wcslen(path) - 4;
+			bool deleteFile = false;
+			if(0 == wcscmp(&path[offs], L".bz2"))
+			{
+				Zip::UnZipFile2(path);
+				path[offs] = 0;
+				deleteFile = true;
+			}
+
 			Stored::DataFromFile(path);		
-			compute.Recalculation();
+			if(deleteFile) DeleteFile(path);
+			compute.Recalculation();			
 			AnimationWindow::Destroy();
 			return 0;
 		}
