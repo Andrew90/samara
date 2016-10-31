@@ -5,6 +5,7 @@
 #include "ut_files.h"
 #include "DebugMess.h"		
 #include "Config.h"
+#include "VersionDiff.h"
 #ifndef DEBUG_ITEMS
 #pragma comment(lib, "..\\..\\Common\\USPC\\USPC7100.lib")
 #else
@@ -158,6 +159,7 @@ namespace USPC
 			for(int i = 0; i < dimention_of(data.scope_velocity)&&(!err); ++i)
 			{
 				err = USPC7100_Read(id, i, 400, (LPCSTR)"scope_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
+				Version::StoreScopeVelocity(i, data.scope_velocity[i]); ///< для востановления(портится при загрузке данных для просмотра. Востанавливать в начале цикла)
 			}
 			return err;
 		}

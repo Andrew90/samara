@@ -11,6 +11,7 @@
 #include "ProtocolTable.h"
 #include "PacketBase.h"
 #include "ZipAll.h"
+#include "VersionDiff.h"
 
 namespace Stored
 {
@@ -44,6 +45,7 @@ namespace Stored
 		 FILE *f = _wfopen(path, L"wb");
 		 if(NULL != f)
 		 {
+			 Version::SaveToFile(f);
 			 fwrite(&crossData.currentOffsetFrames, sizeof(int), 1, f);
 			 fwrite(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fwrite(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
@@ -67,6 +69,10 @@ namespace Stored
 		 if(NULL != f)
 		 {
 			 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
+			 if(Version::LoadFromFile(crossData.currentOffsetFrames, f))
+			 {
+				  fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
+			 }
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 if((App::count_frames < crossData.currentOffsetFrames
