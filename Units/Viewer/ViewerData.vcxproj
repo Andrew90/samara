@@ -128,6 +128,7 @@
     <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Zip.cpp" />
     <ClCompile Include="..\..\Common\window_tool\ZipAll.cpp" />
+    <ClCompile Include="..\Defectoscope\App\VersionDiff.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppBase.cpp" />
     <ClCompile Include="Automat\AppKeyHandler.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="..\..\Common\window_tool\Zip.h" />
     <ClInclude Include="..\..\Common\window_tool\ZipAll.h" />
+    <ClInclude Include="..\Defectoscope\App\VersionDiff.h" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppBase.h" />
     <ClInclude Include="App\Config.h" />

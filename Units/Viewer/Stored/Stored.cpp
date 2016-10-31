@@ -10,6 +10,7 @@
 #include "USPCData.h"
 #include "ProtocolTable.h"
 #include "PacketBase.h"
+#include "..\..\Defectoscope\App\VersionDiff.h"
 
 namespace Stored
 {
@@ -73,6 +74,10 @@ namespace Stored
 		 if(NULL != f)
 		 {
 			 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
+			 if(Version::LoadFromFile(crossData.currentOffsetFrames, f))
+			 {
+				 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
+			 }
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);
 			 if((App::count_frames < crossData.currentOffsetFrames

@@ -51,7 +51,14 @@ namespace
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
 			AnimationWindow::Prepare();
+			int offs = wcslen(path) - 4;
+			bool archive = 0 == wcscmp(&path[offs], L".bz2");
+			if(archive) path[offs] = '\0';
 			Stored::DataToFile(path);
+			if(archive)
+			{
+				Zip::ZipFile2(path);
+			}
 			AnimationWindow::Destroy();
 			return 0;
 		}
@@ -76,6 +83,7 @@ void LoadDataDlg::Do(HWND h)
 	if(o())
 	{
 		AnimationWindow::Init(h, L"Загрузка");
+		
 		__load__(o.sFile);
 		return;
 	}

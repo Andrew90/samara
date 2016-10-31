@@ -16,6 +16,7 @@
 #include "Stored.h"
 #include "RestartService.h"
 #include "NumberTubeDlg.h"
+#include "VersionDiff.h"
 
 struct Automat::Impl
 {	
@@ -499,6 +500,7 @@ void Automat::Impl::Do()
 				//расчЄт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
+				Version::RestoreMemory();///< ¬останавливает параметры которые могут изменитьс€ при загрузке и просмотре
 				compute.Recalculation();
 			//	double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)

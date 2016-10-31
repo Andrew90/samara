@@ -252,6 +252,9 @@
     <ClCompile Include="..\..\Common\window_tool\ZipAll.cpp">
       <Filter>Common\Zip</Filter>
     </ClCompile>
+    <ClCompile Include="..\Defectoscope\App\VersionDiff.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
@@ -576,6 +579,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\ZipAll.h">
       <Filter>Common\Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\App\VersionDiff.h">
+      <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
