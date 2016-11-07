@@ -203,7 +203,8 @@ namespace Protocols.Requests
 
                     packet.NumTube = (string)reader[0];
                     packet.Length = (int)reader.GetInt32(1);
-                    count = reader.GetBytes(2, 0, buffer, 0, 240);
+                    reader.GetBytes(2, 0, buffer, 0, 240);
+                    count = packet.Length / 50;
                     string crossDef = "";
                     string longDef = "";
                     string thickDef = "";
