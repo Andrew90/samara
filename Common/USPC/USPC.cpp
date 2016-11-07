@@ -160,6 +160,13 @@ namespace USPC
 			{
 				err = USPC7100_Read(id, i, 400, (LPCSTR)"gate1_TOF_WT_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
 				Version::StoreScopeVelocity(i, data.scope_velocity[i]); ///< для востановления(портится при загрузке данных для просмотра. Востанавливать в начале цикла)
+				double scope_offset = 0;
+				err = USPC7100_Read(id, i, 0, (LPCSTR)"scope_offset", &scope_offset, NULL, NULL, NULL);
+				double gateIF_position = 0;
+				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_position", &gateIF_position, NULL, NULL, NULL);
+				double gateIF_width = 0;
+				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_width", &gateIF_position, NULL, NULL, NULL);
+				dprint("\n");
 			}
 			return err;
 		}
