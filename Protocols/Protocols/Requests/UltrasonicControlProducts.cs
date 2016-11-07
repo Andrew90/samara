@@ -155,7 +155,7 @@ namespace Protocols.Requests
                 command.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader(CommandBehavior.SequentialAccess);
                 long count;
-                byte[] buffer = new byte[240];
+                byte[] buffer = new byte[300];
 
                 ///*4*/	, Clr<BorderLower<Thickness> >
                 ///*5*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
@@ -203,7 +203,7 @@ namespace Protocols.Requests
 
                     packet.NumTube = (string)reader[0];
                     packet.Length = (int)reader.GetInt32(1);
-                    reader.GetBytes(2, 0, buffer, 0, 240);
+                    reader.GetBytes(2, 0, buffer, 0, 300);
                     count = packet.Length / 50;
                     string crossDef = "";
                     string longDef = "";
