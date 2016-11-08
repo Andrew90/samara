@@ -77,6 +77,7 @@ namespace Stored
 			 if(Version::LoadFromFile(crossData.currentOffsetFrames, f))
 			 {
 				 fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);
+				 Singleton<ParametersTable>::Instance().items.get<NameParam>().value = L"default";
 			 }
 			 fread(&longData.currentOffsetFrames, sizeof(int), 1, f);
 		     fread(&thicknessData.currentOffsetFrames, sizeof(int), 1, f);

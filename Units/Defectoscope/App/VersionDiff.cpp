@@ -7,7 +7,7 @@
 namespace Version
 {
 	static const int __magic_word__ = 0xcafe0000;
-	static const int __version__ = 1;
+	static const int __version__ = 2;
 
 	struct ScopeVelocity
 	{
@@ -21,6 +21,9 @@ namespace Version
 		fwrite(&t, sizeof(unsigned), 1, f);
 		ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
 		fwrite(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
+
+		wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+		fwrite(s, sizeof(NameParam::type_value), 1, f);
 	}
 
 	bool LoadFromFile(unsigned ver, FILE *f)
@@ -29,6 +32,15 @@ namespace Version
 		{
 			switch(ver & 0xffff)
 			{
+			case 2:
+				{
+					ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
+					fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
+
+					wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+					fread(s, sizeof(NameParam::type_value), 1, f);
+				}
+				return true;
 			case 1:
 				{
 					ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
