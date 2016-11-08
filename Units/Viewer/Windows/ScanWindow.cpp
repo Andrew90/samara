@@ -5,6 +5,28 @@
 
 using namespace Gdiplus;
 
+ScanWindow::GateIF::GateIF(Chart &c)
+	: Gate(c)
+	, visible(false)
+{
+	color = 0xffffff00;
+}
+void ScanWindow::GateIF::Draw()
+{
+	if(visible) Gate::Draw();
+}
+
+ScanWindow::Gate1::Gate1(Chart &c)
+	: Gate(c)
+	, visible(false)
+{
+	color = 0xffff0000;
+}
+void ScanWindow::Gate1::Draw()
+{
+	if(visible) Gate::Draw();
+}
+
 ScanWindow::ScanWindow()
 	: chart(backScreen)
 {

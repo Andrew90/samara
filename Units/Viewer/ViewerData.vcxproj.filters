@@ -111,9 +111,6 @@
     <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp">
       <Filter>Z2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Graphics\Gate.cpp">
-      <Filter>Z2</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp">
       <Filter>Z2</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\InRect.cpp">
-      <Filter>Z3</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\Ini\ItemIni.cpp">
       <Filter>Z3</Filter>
     </ClCompile>
     <ClCompile Include="Windows\LineViewer.cpp">
@@ -254,6 +248,12 @@
     </ClCompile>
     <ClCompile Include="App\VersionDiff.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Graphics\Gate.cpp">
+      <Filter>Common\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Ini\ItemIni.cpp">
+      <Filter>Common\Ini</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,9 +388,6 @@
     <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h">
       <Filter>Z2</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Graphics\Gate.h">
-      <Filter>Z2</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h">
       <Filter>Z2</Filter>
     </ClInclude>
@@ -425,9 +422,6 @@
       <Filter>Z3</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp">
-      <Filter>Z3</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\Ini\ItemIni.h">
       <Filter>Z3</Filter>
     </ClInclude>
     <ClInclude Include="MessageText\LabelMessage.h">
@@ -582,6 +576,12 @@
     </ClInclude>
     <ClInclude Include="App\VersionDiff.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Graphics\Gate.h">
+      <Filter>Common\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Ini\ItemIni.h">
+      <Filter>Common\Ini</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

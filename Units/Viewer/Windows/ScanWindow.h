@@ -5,17 +5,35 @@
 #include "ColorLabel.h"
 #include "ScanWindowToolBar.h"
 #include "USPCData.h"
+#include "Gate.h"
 
 class ScanWindow
 {
 	void *owner;
 	void (*ptrScan)(int, int, int, void *, void(*)());
 public:
+	class GateIF: public Gate
+	{
+	public:
+		bool visible;
+		GateIF(Chart &);
+		void Draw();
+	};
+	class Gate1: public Gate
+	{
+	public:
+		bool visible;
+		Gate1(Chart &);
+		void Draw();
+	};
+public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
 		, LineSeries
 		, Grid
+		, GateIF
+		, Gate1
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;

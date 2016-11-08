@@ -1,6 +1,8 @@
 #pragma once
 #include "AppBase.h"
 #include "ScanWindow.h"
+#include "ItemIni.h"
+#include "ut_files.h"
 
 namespace
 {
@@ -146,6 +148,56 @@ template<>struct __for_label__<Thickness>
 	}
 };
 
+template<class>struct __gates__
+{
+	void operator()(ScanWindow &s, int)
+	{
+		s.chart.items.get<ScanWindow::GateIF>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1>().visible = false;
+	}
+};
+
+template<>struct __gates__<Thickness>
+{
+	void operator()(ScanWindow &s, int g1Tof)
+	{
+		wchar_t path[256];
+		if(!ExistCurrentUSPCFile(path)) return;
+		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
+		gif.visible = true;
+
+		double scope_offset = 0;
+		scope_offset = ItemIni::Get(L"Test 0", L"scope_offset", scope_offset, path); 
+		double gateIF_position = 0;
+		gateIF_position = ItemIni::Get(L"Test 0", L"gateIF_position", gateIF_position, path); 
+		double gateIF_width = 0;
+		gateIF_width = ItemIni::Get(L"Test 0", L"gateIF_width", gateIF_width, path); 
+
+		double gateIF_level = 0;
+		gateIF_level = ItemIni::Get(L"Test 0", L"gateIF_level", gateIF_level, path); 
+
+		gif.x = (gateIF_position - scope_offset) * 25;
+		gif.width = gateIF_width;
+		gif.y = gateIF_level;
+
+		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
+		g1.visible = true;
+
+		double gate1_width = 0;
+		gate1_width = ItemIni::Get(L"Test 0", L"gate1_width", gate1_width, path); 
+
+		double gate1_position = 0;
+		gate1_position = ItemIni::Get(L"Test 0", L"gate1_position", gate1_position, path); 
+
+		double gate1_level = 0;
+		gate1_level = ItemIni::Get(L"Test 0", L"gate1_level", gate1_level, path); 
+
+		g1.x = gate1_position + g1Tof;
+		g1.width = gate1_width ;
+		g1.y = gate1_level;
+	}
+};
+
 template<class T> struct Scan
 {
 	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())
@@ -165,8 +217,9 @@ template<class T> struct Scan
 		}
 		__scan_data__ d = {sens, zone, offs, NULL};
 		TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
-		
-		Singleton<ScanWindow>::Instance().Open(
+		ScanWindow &s = Singleton<ScanWindow>::Instance();
+		__gates__<Ascan>()(s,  d.scan->hdr.G1Amp);
+		s.Open(
 			zone
 			, sens
 			, offs

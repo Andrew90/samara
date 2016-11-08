@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <string.h>
 
-
+#pragma warning(disable : 4996)
 int _tmain(int argc, _TCHAR* argv[])
 {
 	char b[128];
