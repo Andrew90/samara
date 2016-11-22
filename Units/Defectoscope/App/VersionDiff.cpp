@@ -37,8 +37,8 @@ namespace Version
 					ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
 					fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
 
-					wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-					fread(s, sizeof(NameParam::type_value), 1, f);
+					//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+					//fread(s, sizeof(NameParam::type_value), 1, f);
 				}
 				return true;
 			case 1:

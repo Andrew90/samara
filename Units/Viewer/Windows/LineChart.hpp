@@ -150,7 +150,7 @@ template<>struct __for_label__<Thickness>
 
 template<class>struct __gates__
 {
-	void operator()(ScanWindow &s, int)
+	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *)
 	{
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1>().visible = false;
@@ -159,42 +159,63 @@ template<class>struct __gates__
 
 template<>struct __gates__<Thickness>
 {
-	void operator()(ScanWindow &s, int g1Tof)
+	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
+		double k = 10000 == d->TimeEqu ? 1.5 : 1.0;
 		wchar_t path[256];
 		if(!ExistCurrentUSPCFile(path)) return;
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
 		gif.visible = true;
 
+		wchar_t section[16];
+		wsprintf(section, L"Test %d", d->Channel);
+        dprint("Channel %d\n", d->Channel);
+// todo  расчёт гайтов для отрисовки
+		double scope_range = 0;
+        scope_range = ItemIni::Get(section, L"scope_range", scope_range, path); 
+		dprint("scope_range %f\n", scope_range);
+		double dX = scope_range / d->DataSize;
 		double scope_offset = 0;
-		scope_offset = ItemIni::Get(L"Test 0", L"scope_offset", scope_offset, path); 
+		scope_offset = ItemIni::Get(section, L"scope_offset", scope_offset, path); 
+		dprint("scope_offset %f\n", scope_offset);
 		double gateIF_position = 0;
-		gateIF_position = ItemIni::Get(L"Test 0", L"gateIF_position", gateIF_position, path); 
+		gateIF_position = ItemIni::Get(section, L"gateIF_position", gateIF_position, path);
+		dprint("gateIF_position %f\n", gateIF_position);
 		double gateIF_width = 0;
-		gateIF_width = ItemIni::Get(L"Test 0", L"gateIF_width", gateIF_width, path); 
+		gateIF_width = ItemIni::Get(section, L"gateIF_width", gateIF_width, path); 
+		dprint("gateIF_width %f\n", gateIF_width);
 
 		double gateIF_level = 0;
-		gateIF_level = ItemIni::Get(L"Test 0", L"gateIF_level", gateIF_level, path); 
+		gateIF_level = ItemIni::Get(section, L"gateIF_level", gateIF_level, path); 
+		dprint("gateIF_level %f\n", gateIF_level);
 
-		gif.x = (gateIF_position - scope_offset) * 25;
-		gif.width = gateIF_width;
+		gif.x = k * (gateIF_position - scope_offset) / dX;
+		gif.width = k * gateIF_width / dX;
 		gif.y = gateIF_level;
 
 		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
 		g1.visible = true;
 
 		double gate1_width = 0;
-		gate1_width = ItemIni::Get(L"Test 0", L"gate1_width", gate1_width, path); 
+		gate1_width = ItemIni::Get(section, L"gate1_width", gate1_width, path); 
+		dprint("gate1_width %f\n", gate1_width);
 
 		double gate1_position = 0;
-		gate1_position = ItemIni::Get(L"Test 0", L"gate1_position", gate1_position, path); 
+		gate1_position = ItemIni::Get(section, L"gate1_position", gate1_position, path);
+		dprint("gate1_position %f\n", gate1_position);
 
 		double gate1_level = 0;
-		gate1_level = ItemIni::Get(L"Test 0", L"gate1_level", gate1_level, path); 
+		gate1_level = ItemIni::Get(section, L"gate1_level", gate1_level, path);
+		dprint("gate1_level %f\n", gate1_level);
 
-		g1.x = gate1_position + g1Tof;
-		g1.width = gate1_width ;
+		double x = 5e-3 * d->hdr.GIFTof - scope_offset;
+		g1.x = k * (gate1_position + x) / dX;
+		g1.width = k * gate1_width / dX;
+		dprint("x %f  gate1_position %f  d->hdr.GIFTof %d  %d %d\n", x, gate1_position, d->hdr.GIFTof, d->TimeEqu, d->hdr.G1Tof);
 		g1.y = gate1_level;
+
+		double thick =  (k * (0.005 * d->hdr.GIFTof/* + 2.5e-3 * d->hdr.G1Tof*/) - scope_offset) / dX;
+		s.chart.items.get<ScanWindow::ThickBorder>().value = thick;
 	}
 };
 
@@ -218,7 +239,7 @@ template<class T> struct Scan
 		__scan_data__ d = {sens, zone, offs, NULL};
 		TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
 		ScanWindow &s = Singleton<ScanWindow>::Instance();
-		__gates__<Ascan>()(s,  d.scan->hdr.G1Amp);
+		__gates__<Ascan>()(s,  d.scan);
 		s.Open(
 			zone
 			, sens

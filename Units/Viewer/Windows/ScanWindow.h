@@ -6,6 +6,7 @@
 #include "ScanWindowToolBar.h"
 #include "USPCData.h"
 #include "Gate.h"
+#include "Borders.h"
 
 class ScanWindow
 {
@@ -26,6 +27,11 @@ public:
 		Gate1(Chart &);
 		void Draw();
 	};
+	class ThickBorder: public VBorder
+	{
+	public:
+		ThickBorder(Chart &);		
+	};
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
@@ -34,6 +40,7 @@ public:
 		, Grid
 		, GateIF
 		, Gate1
+		, ThickBorder
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;
@@ -41,8 +48,8 @@ public:
 	ScanWindowToolBar toolBar;
 	int offset, zone, sensor, offsetInZone;
 	int maxX, maxY;
-	int g1Tof;
-    int g1Amp;
+	//int g1Tof;
+    //int g1Amp;
 	double data[512];
 	TMouseMove storedMouseMove;
 	ColorLabel label;

@@ -27,6 +27,12 @@ void ScanWindow::Gate1::Draw()
 	if(visible) Gate::Draw();
 }
 
+ScanWindow::ThickBorder::ThickBorder(Chart &c)
+	: VBorder(c)
+{
+	color = 0xff00ffff;
+}
+
 ScanWindow::ScanWindow()
 	: chart(backScreen)
 {
@@ -38,6 +44,7 @@ ScanWindow::ScanWindow()
 	chart.items.get<LineSeries>().data = data;
 
 	label.fontHeight = 12;
+	chart.items.get<ThickBorder>().color = 0xff00ffff;
 }
 void ScanWindow::operator()(TSize &l)
 {
@@ -74,6 +81,7 @@ void ScanWindow::operator()(TSize &l)
 		chart.rect.bottom = l.Height;
 		chart.maxAxesY = maxY;
 		chart.items.get<LineSeries>().SetData(data, maxX, 0, maxX - 1);
+		//chart.items.get<ThickBorder>().value = g1Tof;
 		chart.Draw(g);
 		label.Draw(g);
 	}
