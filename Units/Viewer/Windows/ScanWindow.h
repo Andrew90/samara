@@ -27,20 +27,34 @@ public:
 		Gate1(Chart &);
 		void Draw();
 	};
-	class ThickBorder: public VBorder
+	class GateIFBorder: public VBorder
 	{
 	public:
-		ThickBorder(Chart &);		
+		GateIFBorder(Chart &);		
+	};
+	class Gate1Border: public VBorder
+	{
+	public:
+		Gate1Border(Chart &);		
+	};
+	class Line: public LineSeries
+	{
+	public:
+		double mash;
+		//int count;
+		Line(Chart &);
+		void Draw();
 	};
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
-		, LineSeries
+		, Line
 		, Grid
 		, GateIF
 		, Gate1
-		, ThickBorder
+		, GateIFBorder
+		, Gate1Border
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;

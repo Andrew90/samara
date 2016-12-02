@@ -14,6 +14,7 @@
 #include "HookKey.h"
 #include "LogUSPC.h"
 #include "LoadFromBase.h"
+#include "USPC.h"
 
 int __lengthCaretka = 0;
 const int &App::lengthCaretka = __lengthCaretka;
@@ -44,6 +45,9 @@ void App::Init()
 	AppBase().Init();
 	ConstData::Init();
 	InitCaretka();
+
+	//USPC::Open();
+
 	RECT r;
 	WindowPosition::Get<MainWindow>(r);	
 	HWND h = WindowTemplate(&mainWindow, (wchar_t *)App::TitleApp(), r.left, r.top, r.right, r.bottom);

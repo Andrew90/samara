@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
-    <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
     <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
@@ -26,9 +25,6 @@
     </ClCompile>
     <ClCompile Include="Dialogs\AnalogPlateDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp">
-      <Filter>Z0</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp">
       <Filter>Z0</Filter>
@@ -186,9 +182,6 @@
     <ClCompile Include="Stored\ProtocolTable.cpp">
       <Filter>Z4</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\USPC\Registry.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
     <ClCompile Include="ItemsData\ResultData.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
@@ -255,6 +248,21 @@
     <ClCompile Include="..\..\Common\Ini\ItemIni.cpp">
       <Filter>Common\Ini</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\USPC.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\ut_files.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\Registry.cpp">
+      <Filter>Common\Device\USPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp">
+      <Filter>Common\window_tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
@@ -263,7 +271,6 @@
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
-    <ClInclude Include="..\..\Common\USPC\ut_files.h" />
     <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h" />
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
@@ -285,9 +292,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Base\Base.hpp">
       <Filter>Common\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\window_tool\AnimationControl.h">
-      <Filter>Z0</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h">
       <Filter>Z0</Filter>
@@ -499,9 +503,6 @@
     <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h">
       <Filter>Z4</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\USPC\Registry.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Z6</Filter>
     </ClInclude>
@@ -582,6 +583,24 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Ini\ItemIni.h">
       <Filter>Common\Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\LogUSPC.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\USPC.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\ut_files.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\Registry.h">
+      <Filter>Common\Device\USPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\window_tool\AnimationControl.h">
+      <Filter>Common\window_tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -790,6 +809,12 @@
     </Filter>
     <Filter Include="Common\Zip">
       <UniqueIdentifier>{24bcaff6-70f5-402e-af0a-1c7edf9dc776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Device">
+      <UniqueIdentifier>{95952656-baaf-416e-aea7-ef82e151c827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Device\USPC">
+      <UniqueIdentifier>{ce4befeb-cd0b-4e5f-94ea-f8b195d50875}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

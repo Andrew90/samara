@@ -110,7 +110,9 @@
     <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
     <ClCompile Include="..\..\Common\templates\Hash.cpp" />
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
+    <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\Registry.cpp" />
+    <ClCompile Include="..\..\Common\USPC\USPC.cpp" />
     <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
     <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp" />
     <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
@@ -229,7 +231,10 @@
     <ClInclude Include="..\..\Common\templates\templates.hpp" />
     <ClInclude Include="..\..\Common\templates\typelist.hpp" />
     <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h" />
+    <ClInclude Include="..\..\Common\USPC\LogUSPC.h" />
     <ClInclude Include="..\..\Common\USPC\Registry.h" />
+    <ClInclude Include="..\..\Common\USPC\USPC.h" />
+    <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
     <ClInclude Include="..\..\Common\USPC\ut_files.h" />
     <ClInclude Include="..\..\Common\window_tool\AnimationControl.h" />
     <ClInclude Include="..\..\Common\window_tool\Button.h" />

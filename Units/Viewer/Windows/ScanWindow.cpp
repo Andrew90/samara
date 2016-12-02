@@ -27,12 +27,71 @@ void ScanWindow::Gate1::Draw()
 	if(visible) Gate::Draw();
 }
 
-ScanWindow::ThickBorder::ThickBorder(Chart &c)
+ScanWindow::GateIFBorder::GateIFBorder(Chart &c)
 	: VBorder(c)
 {
-	color = 0xff00ffff;
+	color = 0xffffff00;
 }
 
+ScanWindow::Gate1Border::Gate1Border(Chart &c)
+	: VBorder(c)
+{
+	color = 0xffff0000;
+}
+//---------------------------------------------------------------------------------
+ScanWindow::Line::Line(Chart &c)
+	: LineSeries(c)
+{
+	color = 0xff0000ff;
+}
+void ScanWindow::Line::Draw()
+{
+  if(NULL != data)
+  {
+    Color col(color);
+	Pen pen(col, 2);
+	chart.g->SetClip(&Region(RectF(
+		REAL(chart.rect.left + chart.offsetAxesLeft + 2)
+		, REAL(chart.rect.top + chart.offsetAxesTop + 2)
+		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 4)
+		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 4)
+		)),
+       CombineModeReplace
+     );
+    double dY = (double) (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
+
+    double y = chart.rect.bottom - chart.offsetAxesBottom;
+   
+	int width = chart.rect.right - chart.rect.left - chart.offsetAxesRight - chart.offsetAxesLeft;
+	double dX = (double)(width) / (chart.maxAxesX - chart.minAxesX) * mash;
+	int x0 = chart.rect.left + chart.offsetAxesLeft;
+	Point points[2000];
+	points[0].X = x0;
+	points[0].Y = int(y - data[0] * dY);
+	double x = 0;
+	int last = 0;
+	for(int i = 1; i < count; ++i)
+	{
+		if(dimention_of(points) < last) break;
+		x += dX;
+		int k = i;//(int)x;
+		points[k].X = int(x + x0);
+		if(last == k)
+		{
+			int tmp = int(y - data[i] * dY);
+			if(points[k].Y < tmp) points[k].Y = tmp;
+		}
+		else
+		{
+			points[k].Y =  int(y - data[i] * dY);
+		}
+		last = k;
+	}
+	chart.g->DrawLines(&pen, points, count);
+	chart.g->SetClip(&Region());
+  }
+}
+//---------------------------------------------------------------------------------
 ScanWindow::ScanWindow()
 	: chart(backScreen)
 {
@@ -44,7 +103,7 @@ ScanWindow::ScanWindow()
 	chart.items.get<LineSeries>().data = data;
 
 	label.fontHeight = 12;
-	chart.items.get<ThickBorder>().color = 0xff00ffff;
+	//chart.items.get<ThickBorder>().color = 0xff00ffff;
 }
 void ScanWindow::operator()(TSize &l)
 {
