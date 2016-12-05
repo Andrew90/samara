@@ -5,6 +5,7 @@ class VBorder
 public:
 	double value;
 	int color;
+	int widthPen;
 public:
   Chart &chart;
   VBorder(Chart &chart);

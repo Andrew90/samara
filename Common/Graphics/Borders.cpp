@@ -3,13 +3,13 @@
 #include "AppBase.h"
 using namespace Gdiplus;
 //------------------------------------------------------------------
-VBorder::VBorder(Chart &c) : chart(c), color(0xffffff00), value(0.0)
+VBorder::VBorder(Chart &c) : chart(c), color(0xffffff00),  widthPen(2), value(0.0)
 {}
 //-----------------------------------------------------------------
 void VBorder::Draw()
 {
 	Color col(color);
-	Pen pen(col, 1);
+	Pen pen(col, (Gdiplus::REAL)widthPen);
 	double dX = (double)(chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight) / (chart.maxAxesX - chart.minAxesX);
 
 	double x =  chart.rect.left + chart.offsetAxesLeft + (value - chart.minAxesX) * dX;

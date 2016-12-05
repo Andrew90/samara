@@ -75,7 +75,11 @@ void ScanWindow::Line::Draw()
 		for(int i = offset; i < count; ++i)
 		{
 			x += dX;
-			if(i < 0) continue;
+			if(i < 0) 
+			{
+				y0 = (int)yOffs;
+				continue;
+			}
 			y = int(yOffs - (data[i] - minY) * dY);
 			if(x0 != int(x) || y0 != y)
 			{
