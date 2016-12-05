@@ -164,7 +164,6 @@ template<>struct __gates__<Thickness>
 {
 	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
-		double k = 1;//10000 == d->TimeEqu ? 1.5 : 1.0;
 		wchar_t path[256];
 		if(!ExistCurrentUSPCFile(path)) return;
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
@@ -177,14 +176,15 @@ template<>struct __gates__<Thickness>
 		double scope_range = 0;
         scope_range = ItemIni::Get(section, L"scope_range", scope_range, path); 
 		dprint("scope_range %f\n", scope_range);
-		double dX = 1;//scope_range / d->DataSize;
 		double scope_offset = 0;
 		scope_offset = ItemIni::Get(section, L"scope_offset", scope_offset, path); 
 		dprint("scope_offset %f\n", scope_offset);
-
+		scope_offset = 0.5 * int(scope_offset / 0.5);
 		s.chart.minAxesX = scope_offset;
-		//s.chart.maxAxesX = scope_offset + scope_range;
-		s.chart.maxAxesX = scope_offset + 0.001 * d->TimeEqu;
+		s.chart.maxAxesX = scope_offset + scope_range;//0.001 * d->TimeEqu;
+
+		//s.chart.minAxesX = 0;
+		//s.chart.maxAxesX = d->DataSize;
 
 		double gateIF_position = 0;
 		gateIF_position = ItemIni::Get(section, L"gateIF_position", gateIF_position, path);
@@ -197,8 +197,8 @@ template<>struct __gates__<Thickness>
 		gateIF_level = ItemIni::Get(section, L"gateIF_level", gateIF_level, path); 
 		dprint("gateIF_level %f\n", gateIF_level);
 
-		gif.x = k * (gateIF_position/* - scope_offset*/) / dX;
-		gif.width = k * gateIF_width / dX;
+		gif.x = gateIF_position;
+		gif.width = gateIF_width;
 		gif.y = gateIF_level;
 
 		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
@@ -217,17 +217,45 @@ template<>struct __gates__<Thickness>
 		dprint("gate1_level %f\n", gate1_level);
 
 		double x = 5e-3 * d->hdr.GIFTof;
-		g1.x = k * (gate1_position + x) / dX;
-		g1.width = k * gate1_width / dX;
+		g1.x = (gate1_position + x);
+		g1.width = gate1_width;
 		dprint("x %f  gate1_position %f  d->hdr.GIFTof %d  %d %d\n", x, gate1_position, d->hdr.GIFTof, d->TimeEqu, d->hdr.G1Tof);
 		g1.y = gate1_level;
 
-		s.chart.items.get<ScanWindow::GateIFBorder>().value = k * 0.005 * d->hdr.GIFTof / dX;
-		s.chart.items.get<ScanWindow::Gate1Border>().value = k * 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof) / dX;
+		
 		int count = d->DataSize;
 		if(0 == count) count = 500;
-		s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
+		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
 		s.chart.items.get<ScanWindow::Line>().count = count;
+        s.chart.items.get<ScanWindow::Line>().offset = 0;
+
+		s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
+		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+		if(0 != d->hdr.GIFTof)
+		{
+			int i = 0;
+			for(; i < count; ++i)
+			{
+				if(d->Point[i] > gateIF_level)
+				{
+					break;
+				}
+			}
+			if(0 != d->hdr.G1Tof)
+			{
+				int k = 1 + int(0.005 * d->hdr.G1Tof / mash);
+				i += k;
+				for(; i < count; ++i)
+				{
+					if(d->Point[i] > gate1_level)
+					{
+						break;
+					}
+				}
+			}
+			s.chart.items.get<ScanWindow::Line>().offset = 
+					int(i - (0.005 * (d->hdr.G1Tof + d->hdr.GIFTof) - scope_offset) / mash);
+		}
 	}
 };
 

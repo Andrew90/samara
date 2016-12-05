@@ -41,7 +41,7 @@ public:
 	{
 	public:
 		double mash;
-		//int count;
+		int offset;
 		Line(Chart &);
 		void Draw();
 	};

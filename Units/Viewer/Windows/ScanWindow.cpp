@@ -41,57 +41,53 @@ ScanWindow::Gate1Border::Gate1Border(Chart &c)
 //---------------------------------------------------------------------------------
 ScanWindow::Line::Line(Chart &c)
 	: LineSeries(c)
+	, offset(0)
 {
 	color = 0xff0000ff;
 }
 void ScanWindow::Line::Draw()
 {
-  if(NULL != data)
-  {
-    Color col(color);
-	Pen pen(col, 2);
-	chart.g->SetClip(&Region(RectF(
-		REAL(chart.rect.left + chart.offsetAxesLeft + 2)
-		, REAL(chart.rect.top + chart.offsetAxesTop + 2)
-		, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 4)
-		, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 4)
-		)),
-       CombineModeReplace
-     );
-    double dY = (double) (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
-
-    double y = chart.rect.bottom - chart.offsetAxesBottom;
-   
-	int width = chart.rect.right - chart.rect.left - chart.offsetAxesRight - chart.offsetAxesLeft;
-	double dX = (double)(width) / (chart.maxAxesX - chart.minAxesX) * mash;
-	int x0 = chart.rect.left + chart.offsetAxesLeft;
-	Point points[2000];
-	points[0].X = x0;
-	points[0].Y = int(y - data[0] * dY);
-	double x = 0;
-	int last = 0;
-	for(int i = 1; i < count; ++i)
+	if(NULL != data)
 	{
-		if(dimention_of(points) < last) break;
-		x += dX;
-		int k = i;//(int)x;
-		points[k].X = int(x + x0);
-		if(last == k)
+		Color col(color);
+		Pen pen(col, 2);
+		chart.g->SetClip(&Region(RectF(
+			REAL(chart.rect.left + chart.offsetAxesLeft + 1)
+			, REAL(chart.rect.top + chart.offsetAxesTop + 1)
+			, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 2)
+			, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 2)
+			)),
+			CombineModeReplace
+			);
+		double dY = (double) (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
+
+		double yOffs = chart.rect.bottom - chart.offsetAxesBottom;
+
+		int width = chart.rect.right - chart.rect.left - chart.offsetAxesRight - chart.offsetAxesLeft;
+		//double dX = (double)width / (count - 1);
+		double dX = mash * width /(chart.maxAxesX - chart.minAxesX);
+		int x0 = chart.rect.left + chart.offsetAxesLeft;
+		double minY = chart.minAxesY;
+		int y0 = int(yOffs - (data[0] - minY) * dY);
+		double x = x0;
+		int y = y0;
+		dprint("offset %d\n", offset);
+		for(int i = offset; i < count; ++i)
 		{
-			int tmp = int(y - data[i] * dY);
-			if(points[k].Y < tmp) points[k].Y = tmp;
+			x += dX;
+			if(i < 0) continue;
+			y = int(yOffs - (data[i] - minY) * dY);
+			if(x0 != int(x) || y0 != y)
+			{
+				chart.g->DrawLine(&pen, x0, y0, (int)x, y);
+				x0 = int(x);
+				y0 = y;
+			}
 		}
-		else
-		{
-			points[k].Y =  int(y - data[i] * dY);
-		}
-		last = k;
+		chart.g->SetClip(&Region());
 	}
-	chart.g->DrawLines(&pen, points, count);
-	chart.g->SetClip(&Region());
-  }
 }
-//---------------------------------------------------------------------------------
+
 ScanWindow::ScanWindow()
 	: chart(backScreen)
 {
