@@ -1,6 +1,6 @@
 #pragma once
 #pragma message("ПОДКЛЮЧЕНИЕ ПЛАТ РАСШИРЕНИЯ!!!")
-#define DEBUG_ITEMS
+#undef DEBUG_ITEMS
 
 #ifndef DEBUG_ITEMS
 #pragma message("подключены платы 1730, USPC")

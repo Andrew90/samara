@@ -2,37 +2,108 @@
 #include "ScanWindow.h"
 #include "EmptyWindow.h"
 #include "ViewersMenu.hpp"
-#include "FixedGridSeries.h"
 
 using namespace Gdiplus;
 
-RedLineSeries::RedLineSeries(Chart &c)
-	: line(c)
+ScanWindow::GateIF::GateIF(Chart &c)
+	: Gate(c)
+	, visible(false)
 {
-	line.color = 0xffff0000;
-	static const int count = dimention_of(buf);
-	line.SetData(buf, count, 0, count - 1);
+	color = 0xffffff00;
+}
+void ScanWindow::GateIF::Draw()
+{
+	if(visible) Gate::Draw();
 }
 
-void RedLineSeries::Draw()
+ScanWindow::Gate1::Gate1(Chart &c)
+	: Gate(c)
+	, visible(false)
 {
-	line.Draw();
+	color = 0xffff0000;
+}
+void ScanWindow::Gate1::Draw()
+{
+	if(visible) Gate::Draw();
+}
+
+ScanWindow::GateIFBorder::GateIFBorder(Chart &c)
+	: VBorder(c)
+{
+	color = 0xffffff00;
+}
+
+ScanWindow::Gate1Border::Gate1Border(Chart &c)
+	: VBorder(c)
+{
+	color = 0xffff0000;
+}
+//---------------------------------------------------------------------------------
+ScanWindow::Line::Line(Chart &c)
+	: LineSeries(c)
+	, offset(0)
+{
+	color = 0xff0000ff;
+}
+void ScanWindow::Line::Draw()
+{
+	if(NULL != data)
+	{
+		Color col(color);
+		Pen pen(col, 2);
+		chart.g->SetClip(&Region(RectF(
+			REAL(chart.rect.left + chart.offsetAxesLeft + 1)
+			, REAL(chart.rect.top + chart.offsetAxesTop + 1)
+			, REAL((chart.rect.right - chart.offsetAxesRight) - (chart.rect.left + chart.offsetAxesLeft) - 2)
+			, REAL((chart.rect.bottom - chart.offsetAxesBottom) - (chart.rect.top + chart.offsetAxesTop) - 2)
+			)),
+			CombineModeReplace
+			);
+		double dY = (double) (chart.rect.bottom - chart.rect.top - chart.offsetAxesBottom - chart.offsetAxesTop) / (chart.maxAxesY - chart.minAxesY);
+
+		double yOffs = chart.rect.bottom - chart.offsetAxesBottom;
+
+		int width = chart.rect.right - chart.rect.left - chart.offsetAxesRight - chart.offsetAxesLeft;
+		//double dX = (double)width / (count - 1);
+		double dX = mash * width /(chart.maxAxesX - chart.minAxesX);
+		int x0 = chart.rect.left + chart.offsetAxesLeft;
+		double minY = chart.minAxesY;
+		int y0 = int(yOffs - (data[0] - minY) * dY);
+		double x = x0;
+		int y = y0;
+		dprint("offset %d\n", offset);
+		for(int i = offset; i < count; ++i)
+		{
+			x += dX;
+			if(i < 0) 
+			{
+				y0 = (int)yOffs;
+				continue;
+			}
+			y = int(yOffs - (data[i] - minY) * dY);
+			if(x0 != int(x) || y0 != y)
+			{
+				chart.g->DrawLine(&pen, x0, y0, (int)x, y);
+				x0 = int(x);
+				y0 = y;
+			}
+		}
+		chart.g->SetClip(&Region());
+	}
 }
 
 ScanWindow::ScanWindow()
 	: chart(backScreen)
-	, cursor(chart)
 {
 	chart.minAxesY = 0;
 	chart.maxAxesY = 255;
 	chart.minAxesX = 0;
-	chart.maxAxesX = 256;
+	chart.maxAxesX = 512;
 
 	chart.items.get<LineSeries>().data = data;
 
 	label.fontHeight = 12;
-
-	cursor.SetMouseMoveHandler(this, &ScanWindow::CursorDraw);
+	//chart.items.get<ThickBorder>().color = 0xff00ffff;
 }
 void ScanWindow::operator()(TSize &l)
 {
@@ -67,9 +138,9 @@ void ScanWindow::operator()(TSize &l)
 		chart.rect.top = r.bottom + 20;
 		chart.rect.right = l.Width;
 		chart.rect.bottom = l.Height;
-		chart.minAxesY = minY;
 		chart.maxAxesY = maxY;
 		chart.items.get<LineSeries>().SetData(data, maxX, 0, maxX - 1);
+		//chart.items.get<ThickBorder>().value = g1Tof;
 		chart.Draw(g);
 		label.Draw(g);
 	}
@@ -81,7 +152,6 @@ void ScanWindow::operator()(TSize &l)
 		{		
 			Graphics g(hdc);		
 			g.DrawCachedBitmap(&CachedBitmap(backScreen, &g), 0, 0);
-			cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
 		}
 		EndPaint(l.hwnd, &p);
 	}
@@ -104,12 +174,6 @@ void ScanWindow::operator()(TSize &l)
 		offset = 0;
 		Menu<ViewersMenuScanWindow::MainMenu>().Init(l.hwnd);
 		toolBar.Init(l.hwnd);
-
-		storedMouseMove.hwnd = l.hwnd;
-		storedMouseMove.x = WORD((chart.rect.right - chart.rect.left) / 2);	
-		storedMouseMove.y = WORD((chart.rect.bottom - chart.rect.top) / 2);
-
-        chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
 		return 0;
 	}
 	
@@ -117,47 +181,6 @@ void ScanWindow::operator()(TSize &l)
 	{
 		mouseMove = false;
 	}
-
-	void ScanWindow::operator()(TMouseMove &l)
-{
-	if(mouseMove)
-	{
-		storedMouseMove = l;
-		chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
-		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));
-	}
-}
-//------------------------------------------------------------------------------
-void ScanWindow::operator()(TLButtonDbClk &l)
-{
-	 mouseMove = true;
-	if(cursor.CrossCursor(*(TMouseMove *)&l, HDCGraphics(l.hwnd, backScreen)))
-	{
-		storedMouseMove.x = l.x;
-	}
-}
-//--------------------------------------------------------------------------------
-void ScanWindow::operator()(TMouseWell &l)
-{
-		mouseMove = false;
-	
-		OffsetToPixel(
-			chart
-			, storedMouseMove.x
-			, storedMouseMove.y
-			, l.delta / 120
-			, 0 == l.flags.lButton 
-			);
-		chart.CoordCell(storedMouseMove.x, storedMouseMove.y, currentX, currentY);
-		cursor.CrossCursor(storedMouseMove, HDCGraphics(storedMouseMove.hwnd, backScreen));		
-}
-
-bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)
-{
-	wsprintf(&label.buffer[lengthMess], L"   X %d  Y %d", currentX + 1, currentY);// - 128);
-	label.Draw(g());
-	return true;
-}
 
 	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *uspc, void *o, void(*ptr)())
 	{
@@ -168,7 +191,7 @@ bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)
 		ptrScan = (void(*)(int, int, int, void *, void(*)()))ptr;
 		for(int i = 0; i < 512; ++i)  data[i] = uspc->Point[i];
 		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
-		
+		 maxY = 100;
 		 wchar_t buf[1024];
 		 wchar_t alarmBuff[128];
 		 alarmBuff[0] = 0;
@@ -178,7 +201,6 @@ bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)
 		 wsprintf(buf, L"%s зона %d датчик %d %s смещение %d номер скана %d", mess, 1 + zone_, 1 + sensor_, alarmBuff, 1 + offset_, uspc->hdr.ScanCounter);
 		 
 		 label = mess1;
-		 lengthMess = wcslen(mess1);
 		 HWND h = FindWindow(WindowClass<ScanWindow>()(), 0);
 		 if(NULL != h)
 		 {			
@@ -194,6 +216,12 @@ bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)
 			 HWND h = WindowTemplate(this, buf, r.left, r.top, r.right, r.bottom);
 			 ShowWindow(h, SW_SHOWNORMAL);
 		 }		 
+	}
+
+	bool ScanWindow::CursorDraw(TMouseMove &l, VGraphics &g)	  
+	{			
+		RepaintWindow(l.hwnd);
+		return true;
 	}
 
 	void ScanWindow::SensPlus() 

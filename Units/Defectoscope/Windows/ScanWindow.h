@@ -5,42 +5,68 @@
 #include "ColorLabel.h"
 #include "ScanWindowToolBar.h"
 #include "USPCData.h"
-
-class RedLineSeries
-{
-	LineSeries line;
-public:
-	double buf[512];
-	RedLineSeries(Chart &);
-	void Draw();
-};
+#include "Gate.h"
+#include "Borders.h"
 
 class ScanWindow
 {
 	void *owner;
 	void (*ptrScan)(int, int, int, void *, void(*)());
 public:
+	class GateIF: public Gate
+	{
+	public:
+		bool visible;
+		GateIF(Chart &);
+		void Draw();
+	};
+	class Gate1: public Gate
+	{
+	public:
+		bool visible;
+		Gate1(Chart &);
+		void Draw();
+	};
+	class GateIFBorder: public VBorder
+	{
+	public:
+		GateIFBorder(Chart &);		
+	};
+	class Gate1Border: public VBorder
+	{
+	public:
+		Gate1Border(Chart &);		
+	};
+	class Line: public LineSeries
+	{
+	public:
+		double mash;
+		int offset;
+		Line(Chart &);
+		void Draw();
+	};
+public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		LeftAxes
 		, BottomAxes
-		, LineSeries
-	//	, RedLineSeries
+		, Line
 		, Grid
+		, GateIF
+		, Gate1
+		, GateIFBorder
+		, Gate1Border
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;
 	Gdiplus::Bitmap *backScreen;	
 	ScanWindowToolBar toolBar;
 	int offset, zone, sensor, offsetInZone;
-	int maxX, minY, maxY;
-	int g1Tof;
-    int g1Amp;
+	int maxX, maxY;
+	//int g1Tof;
+    //int g1Amp;
 	double data[512];
 	TMouseMove storedMouseMove;
-	int currentX, currentY;
-	Cursor cursor;
-	int lengthMess;
-	ColorLabel label;	
+	ColorLabel label;
 	bool mouseMove;
 	ScanWindow();
 	void operator()(TSize &);
@@ -49,10 +75,6 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TLButtonDown &);
-
-	void operator()(TMouseMove &);
-	void operator()(TLButtonDbClk &);
-	void operator()(TMouseWell &);
 
 	void Open(int zone, int sensor, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);
