@@ -52,9 +52,9 @@ public:
 		, Line
 		, Grid
 		, GateIF
-		, Gate1
-		, GateIFBorder
+		, Gate1		
 		, Gate1Border
+		, GateIFBorder
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;
