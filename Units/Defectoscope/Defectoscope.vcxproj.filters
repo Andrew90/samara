@@ -121,6 +121,9 @@
     <Filter Include="Common\FFT">
       <UniqueIdentifier>{1d12a995-ba6f-470a-98fd-4c3d81349050}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\arch_bin">
+      <UniqueIdentifier>{364b6f41-d785-46b7-8cee-50633ac8966d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Defectoscope.rc">
