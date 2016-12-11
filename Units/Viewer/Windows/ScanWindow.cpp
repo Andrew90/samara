@@ -33,10 +33,20 @@ ScanWindow::GateIFBorder::GateIFBorder(Chart &c)
 	color = 0xffffff00;
 }
 
+void ScanWindow::GateIFBorder::Draw()
+{
+	if(visible) VBorder ::Draw();
+}
+
 ScanWindow::Gate1Border::Gate1Border(Chart &c)
 	: VBorder(c)
 {
 	color = 0xffff0000;
+}
+
+void ScanWindow::Gate1Border::Draw()
+{
+	if(visible) VBorder::Draw();
 }
 //---------------------------------------------------------------------------------
 ScanWindow::Line::Line(Chart &c)

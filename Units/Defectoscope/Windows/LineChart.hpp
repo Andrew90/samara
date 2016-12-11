@@ -153,10 +153,17 @@ template<>struct __for_label__<Thickness>
 
 template<class>struct __gates__
 {
-	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *)
+	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1Border >().visible = false;
+		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+
+		s.chart.minAxesX = 0;
+		s.chart.maxAxesX = d->DataSize - 1;
+
+		s.chart.items.get<ScanWindow::Line>().mash = 1;
 	}
 };
 
@@ -166,6 +173,10 @@ template<>struct __gates__<Thickness>
 	{
 		wchar_t path[256];
 		if(!ExistCurrentUSPCFile(path)) return;
+
+		s.chart.items.get<ScanWindow::Gate1Border >().visible = true;
+		s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
+
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
 		gif.visible = true;
 

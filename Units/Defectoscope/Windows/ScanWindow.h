@@ -30,12 +30,16 @@ public:
 	class GateIFBorder: public VBorder
 	{
 	public:
-		GateIFBorder(Chart &);		
+		bool visible;
+		GateIFBorder(Chart &);
+		void Draw();
 	};
 	class Gate1Border: public VBorder
 	{
 	public:
-		Gate1Border(Chart &);		
+		bool visible;
+		Gate1Border(Chart &);	
+		void Draw();
 	};
 	class Line: public LineSeries
 	{

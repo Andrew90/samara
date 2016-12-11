@@ -38,7 +38,8 @@ namespace Version
 					fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
 
 					//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-					//fread(s, sizeof(NameParam::type_value), 1, f);
+					NameParam::type_value s;
+					fread(s, sizeof(NameParam::type_value), 1, f);
 				}
 				return true;
 			case 1:

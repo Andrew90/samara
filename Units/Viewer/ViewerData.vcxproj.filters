@@ -191,12 +191,6 @@
     <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\ScanWindow.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\ScanWindowToolBar.cpp">
-      <Filter>Z6</Filter>
-    </ClCompile>
     <ClCompile Include="MessageText\SelectMessage.cpp">
       <Filter>Z6</Filter>
     </ClCompile>
@@ -262,6 +256,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp">
       <Filter>Common\window_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ScanWindow.cpp">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\ScanWindowToolBar.cpp">
+      <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -431,9 +431,6 @@
     <ClInclude Include="MessageText\LabelMessage.h">
       <Filter>Z3</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\LineChart.hpp">
-      <Filter>Z3</Filter>
-    </ClInclude>
     <ClInclude Include="Windows\LineViewer.h">
       <Filter>Z3</Filter>
     </ClInclude>
@@ -513,12 +510,6 @@
       <Filter>Z6</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\ScanWindow.h">
-      <Filter>Z6</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\ScanWindowToolBar.h">
       <Filter>Z6</Filter>
     </ClInclude>
     <ClInclude Include="MessageText\SelectMessage.h">
@@ -601,6 +592,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\window_tool\AnimationControl.h">
       <Filter>Common\window_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ScanWindowToolBar.h">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\ScanWindow.h">
+      <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LineChart.hpp">
+      <Filter>Windows\CrossWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
