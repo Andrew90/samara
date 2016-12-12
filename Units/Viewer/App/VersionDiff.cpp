@@ -7,7 +7,7 @@
 namespace Version
 {
 	static const int __magic_word__ = 0xcafe0000;
-	static const int __version__ = 3;
+	static const int __version__ = 4;
 
 	struct ScopeVelocity
 	{
@@ -70,15 +70,15 @@ namespace Version
 
 	void SaveToFile(FILE *f)
 	{
-		unsigned t = __magic_word__ | __version__;
-		fwrite(&t, sizeof(unsigned), 1, f);
-		ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-		fwrite(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
-
-		wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-		fwrite(s, sizeof(NameParam::type_value), 1, f);
-
-		TL::foreach<items_list, __write_all__>()(f);
+		//unsigned t = __magic_word__ | __version__;
+		//fwrite(&t, sizeof(unsigned), 1, f);
+		//ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
+		//fwrite(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
+		//
+		//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
+		//fwrite(s, sizeof(NameParam::type_value), 1, f);
+		//
+		//TL::foreach<items_list, __write_all__>()(f);
 	}
 
 	bool LoadFromFile(unsigned ver, FILE *f)
@@ -87,15 +87,13 @@ namespace Version
 		{
 			switch(ver & 0xffff)
 			{
-			case 3:
+			case 4:
 				{
 					ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
 					fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
 
-					wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
-					fread(s, sizeof(NameParam::type_value), 1, f);
-
-					TL::foreach<items_list, __read_all__>()(f);
+					USPCIniFile &u = Singleton<USPCIniFile>::Instance();
+	            	fread(&u, sizeof(u), 1, f);
 				}
 				return true;
 			case 2:

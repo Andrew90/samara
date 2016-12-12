@@ -117,7 +117,6 @@ void USPCData::SamplesPerZone(int tubeLength, int deadArea0, int deadArea1)
 	}
 }
 //-----------------------------------------------------------------------------------------
-
 void USPCIniFile::Init()
 {
 	wchar_t path[256];

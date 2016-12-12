@@ -88,7 +88,7 @@ namespace Stored
 				longData.currentOffsetFrames = 0;
 				thicknessData.currentOffsetFrames = 0;
 				compute.lengthTube = 0;
-
+		
 				MessageBox(App::MainWindowHWND(), L"Файл имеет неизвесный формат", L"Ошибка !!!", MB_ICONERROR);
 				fclose(f);
 				return false;
@@ -97,7 +97,7 @@ namespace Stored
 			__Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
 			__Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
 			__Load__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
-
+		
 			fclose(f);
 			return true;
 		}

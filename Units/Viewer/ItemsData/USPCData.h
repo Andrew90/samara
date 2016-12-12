@@ -54,9 +54,16 @@ template<>struct ItemData<Thickness>: USPCViewerThicknessData
 	}
 };
 
-/// тестирование и эмуляция
-//struct TestUSPC
-//{
-//	void Init(USPCData &);
-//	void InitThickness(USPCData &);
-//};
+class USPCIniFile
+{
+public:
+   double scope_range    [8];
+   double scope_offset   [8];
+   double gateIF_position[8];
+   double gateIF_width   [8];
+   double gateIF_level   [8];
+   double gate1_width    [8];
+   double gate1_position [8];
+   double gate1_level    [8];
+   void Init();
+};

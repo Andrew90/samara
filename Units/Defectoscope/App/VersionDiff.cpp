@@ -2,12 +2,13 @@
 #include "VersionDiff.h"
 #include "AppBase.h"
 #include "USPCData.h"
+#include "DebugMess.h"
 
 
 namespace Version
 {
 	static const int __magic_word__ = 0xcafe0000;
-	static const int __version__ = 3;
+	static const int __version__ = 4;
 
 	struct ScopeVelocity
 	{
@@ -25,32 +26,31 @@ namespace Version
 		//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
 		//fwrite(s, sizeof(NameParam::type_value), 1, f);
 		USPCIniFile &u = Singleton<USPCIniFile>::Instance();
-		fwrite(&u, sizeof(u), 1, f);
+		int size = sizeof(USPCIniFile);
+		fwrite(&u, size, 1, f);
 	}
 
 	bool LoadFromFile(unsigned ver, FILE *f)
 	{
 		if(__magic_word__ == (ver & 0xffff0000))
 		{
-			switch(ver & 0xffff)
+			int v = ver & 0xffff;
+			switch(v)
 			{
-			case 3:
+			case 4:
 				{
-					//ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-					//fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
-					double d;
-					fread(&d, sizeof(d), 1, f);
+					double scope_velocity[App::count_sensors];
+					fread(scope_velocity, sizeof(scope_velocity), 1, f);
 
 					USPCIniFile u;// = Singleton<USPCIniFile>::Instance();
-	            	fwrite(&u, sizeof(u), 1, f);
+	            	fread(&u, sizeof(USPCIniFile), 1, f);
+					dprint("ok");
 				}
 				return true;
 			case 2:
 				{
-					//ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-					double d;
-					//fread(d.scope_velocity, sizeof(d.scope_velocity), 1, f);
-					fread(&d, sizeof(d), 1, f);
+					double scope_velocity[App::count_sensors];
+					fread(scope_velocity, sizeof(scope_velocity), 1, f);
 
 					//wchar_t *s = Singleton<ParametersTable>::Instance().items.get<NameParam>().value;
 					NameParam::type_value s;
