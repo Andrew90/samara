@@ -7,6 +7,8 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "DebugMess.h"
+#include "ut_files.h"
+#include "ItemIni.h"
 
 #pragma comment(lib, "Winmm.lib")
 
@@ -115,3 +117,24 @@ void USPCData::SamplesPerZone(int tubeLength, int deadArea0, int deadArea1)
 	}
 }
 //-----------------------------------------------------------------------------------------
+
+void USPCIniFile::Init()
+{
+	wchar_t path[256];
+	wchar_t section[256];
+	if(ExistCurrentUSPCFile(path))
+	{
+		for(int i = 0; i < dimention_of(scope_range); ++i)
+		{
+		   wsprintf(section, L"Test %d", i);
+		   scope_range    [i]   = ItemIni::Get(section, L"scope_range", 12, path); 
+		   scope_offset   [i]   = ItemIni::Get(section, L"scope_offset", 40, path); 
+		   gateIF_position[i]   = ItemIni::Get(section, L"gateIF_position", 30.769, path);
+		   gateIF_width   [i]   = ItemIni::Get(section, L"gateIF_width", 2, path); 
+		   gateIF_level   [i]   = ItemIni::Get(section, L"gateIF_level", 20, path); 
+		   gate1_width    [i]   = ItemIni::Get(section, L"gate1_width", 7.311, path); 
+		   gate1_position [i]   = ItemIni::Get(section, L"gate1_position", 1.231, path);
+		   gate1_level    [i]   = ItemIni::Get(section, L"gate1_level", 30, path);
+		}
+	}
+}

@@ -23,23 +23,23 @@ public:
 	class Gate1: public Gate
 	{
 	public:
-		bool visible;
+	//	bool visible;
 		Gate1(Chart &);
-		void Draw();
+	//	void Draw();
 	};
 	class GateIFBorder: public VBorder
 	{
 	public:
 		bool visible;
-		GateIFBorder(Chart &);
+		GateIFBorder(Chart &);	
 		void Draw();
 	};
 	class Gate1Border: public VBorder
 	{
 	public:
-		bool visible;
-		Gate1Border(Chart &);	
-		void Draw();
+	//	bool visible;
+		Gate1Border(Chart &);
+		//void Draw();
 	};
 	class Line: public LineSeries
 	{

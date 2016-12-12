@@ -80,6 +80,7 @@ void SelectTypeSizeList::Do(TCommand &m)
                 ExistCurrentUSPCFile(b);
 				wsprintf(bb, L"%s %s", App::TitleApp(), b);
 				SetWindowText(m.hwnd, bb);
+				Singleton<USPCIniFile>::Instance().Init();
 			}
 		}
 	}
