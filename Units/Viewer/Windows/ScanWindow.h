@@ -23,9 +23,9 @@ public:
 	class Gate1: public Gate
 	{
 	public:
-		bool visible;
+	//	bool visible;
 		Gate1(Chart &);
-		void Draw();
+	//	void Draw();
 	};
 	class GateIFBorder: public VBorder
 	{
@@ -37,9 +37,9 @@ public:
 	class Gate1Border: public VBorder
 	{
 	public:
-		bool visible;
+	//	bool visible;
 		Gate1Border(Chart &);
-		void Draw();
+		//void Draw();
 	};
 	class Line: public LineSeries
 	{
