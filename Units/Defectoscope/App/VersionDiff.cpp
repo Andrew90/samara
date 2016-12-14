@@ -10,28 +10,50 @@ namespace Version
 	static const int __magic_word__ = 0xcafe0000;
 	static const int __version__ = 5;
 
-	struct ScopeVelocity
+	//struct ScopeVelocity
+	//{
+	//	double value[App::count_sensors];
+	//};
+	//ScopeVelocity stored_items;
+
+	typedef TL::MkTlst<Thickness, Long, Cross>::Result unit_list;
+	template<class T>struct __unit_data__
 	{
-		double value[App::count_sensors];
+		T proc;
+		FILE *file;
+		__unit_data__(T proc, FILE *file)
+			: proc(proc)
+			, file(file)
+		{}
 	};
-	ScopeVelocity stored_items;
+	template<class T>__unit_data__<T>__set__unit_data__(T t, FILE *f){return __unit_data__<T>(t, f);};
+	template<class O, class P>struct __unit__
+	{
+		void operator()(P p)
+		{
+			ItemData<O> &d = Singleton<ItemData<O>>::Instance();
+			p.proc(d.param, sizeof(d.param), 1, p.file);
+		}
+	};
 
 	void SaveToFile(FILE *f)
 	{
 		unsigned t = __magic_word__ | __version__;
 		fwrite(&t, sizeof(unsigned), 1, f);
-		{
-			ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
-			fwrite(d.param, sizeof(d.param), 1, f);
-		}
-		{
-			ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
-			fwrite(d.param, sizeof(d.param), 1, f);
-		}
-		{
-			ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-			fwrite(d.param, sizeof(d.param), 1, f);
-		}
+		//{
+		//	ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
+		//	fwrite(d.param, sizeof(d.param), 1, f);
+		//}
+		//{
+		//	ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
+		//	fwrite(d.param, sizeof(d.param), 1, f);
+		//}
+		//{
+		//	ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
+		//	fwrite(d.param, sizeof(d.param), 1, f);
+		//}
+		//__unit_data__ data = {fwrite, f};
+		TL::foreach<unit_list, __unit__>()(__set__unit_data__(fwrite, f));
 	}
 
 	class USPCIniFile
@@ -56,20 +78,23 @@ namespace Version
 			{
 			case __version__:
 				{
-					{
-						ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
-						fread(d.param, sizeof(d.param), 1, f);
-					}
-					{
-						ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
-						fread(d.param, sizeof(d.param), 1, f);
-					}
-					{
-						ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-						fread(d.param, sizeof(d.param), 1, f);
-					}
+					//{
+					//	ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
+					//	fread(d.param, sizeof(d.param), 1, f);
+					//}
+					//{
+					//	ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
+					//	fread(d.param, sizeof(d.param), 1, f);
+					//}
+					//{
+					//	ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
+					//	fread(d.param, sizeof(d.param), 1, f);
+					//}
+					//__unit_data__ data = {fread, f};
+					//TL::foreach<unit_list, __unit__>()(data);
+					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
 				}
-				break;
+				return true;
 			case 4:
 				{
 					double scope_velocity[App::count_sensors];
