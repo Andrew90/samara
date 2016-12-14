@@ -62,7 +62,7 @@ void App::Init()
 	wchar_t bb[512];
 	ExistCurrentUSPCFile(b);
 	wsprintf(bb, L"%s %s", App::TitleApp(), b);
-	Singleton<USPCIniFile>::Instance().Init();
+//	Singleton<USPCIniFile>::Instance().Init();
 	HWND h = WindowTemplate(&mainWindow, bb, r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	StartKeyHook(h);

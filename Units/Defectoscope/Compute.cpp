@@ -169,7 +169,7 @@ namespace
 								}
 							}
 						}
-						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
+						double val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 						double t = filtre(channel, val);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;

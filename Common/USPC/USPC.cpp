@@ -146,29 +146,74 @@ namespace USPC
 		__test_data__(): status(0), err(0), board(-1){}
 	};
 
-	template<class T>struct __read_param__{template<class P>int operator()(P *){return 0;}};
-	///< Для толщиномера необходима скорость звука в среде
-	template<>struct __read_param__<Thickness>
+//	template<class T>struct __read_param__{template<class P>int operator()(P *){return 0;}};
+//	///< Для толщиномера необходима скорость звука в среде
+//	template<>struct __read_param__<Thickness>
+//	{
+//		typedef Thickness O;
+//		template<class P>int operator()(P *p)
+//		{
+//			int id = __board__<O>::value;
+//			ItemData<O> &data = Singleton<ItemData<Thickness> >::Instance();
+//			int err = 0;
+//			for(int i = 0; i < dimention_of(data.scope_velocity)&&(!err); ++i)
+//			{
+//				err = USPC7100_Read(id, i, 400, (LPCSTR)"gate1_TOF_WT_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
+//			//	Version::StoreScopeVelocity(i, data.scope_velocity[i]); ///< для востановления(портится при загрузке данных для просмотра. Востанавливать в начале цикла)
+//				double scope_offset = 0;
+//				err = USPC7100_Read(id, i, 0, (LPCSTR)"scope_offset", &scope_offset, NULL, NULL, NULL);
+//				double gateIF_position = 0;
+//				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_position", &gateIF_position, NULL, NULL, NULL);
+//				double gateIF_width = 0;
+//				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_width", &gateIF_position, NULL, NULL, NULL);
+//				dprint("\n");
+//			}
+//			return err;
+//		}
+//	};
+
+	struct __uspc_read_data__
 	{
-		typedef Thickness O;
-		template<class P>int operator()(P *p)
+		int unit;
+		int sensor;
+		int err;
+	};
+
+	template<class O, class P>struct __uspc_read__
+	{
+		bool operator()(O &o, P &p)
 		{
-			int id = __board__<O>::value;
-			ItemData<O> &data = Singleton<ItemData<Thickness> >::Instance();
-			int err = 0;
-			for(int i = 0; i < dimention_of(data.scope_velocity)&&(!err); ++i)
+			p.err = USPC7100_Read(p.unit, p.sensor, 0, (LPCSTR)o.Name(), &o.value, NULL, NULL, NULL);
+			return !p.err;
+		}
+	};
+
+	template<class P>struct __uspc_read__<gate1_TOF_WT_velocity, P>
+	{
+		typedef gate1_TOF_WT_velocity O;
+		bool operator()(O &o, P &p)
+		{
+			p.err = USPC7100_Read(p.unit, p.sensor, 400, (LPCSTR)o.Name(), &o.value, NULL, NULL, NULL);
+			return !p.err;
+		}
+	};
+
+	template<class O>struct __read_param__
+	{
+		template<class P>int operator()(P *)
+		{
+			ItemData<O> &data = Singleton<ItemData<O> >::Instance();
+			__uspc_read_data__ uspc_read_data;
+			uspc_read_data.unit = __board__<O>::value;
+			for(int i = 0; i < App::count_sensors; ++i)
 			{
-				err = USPC7100_Read(id, i, 400, (LPCSTR)"gate1_TOF_WT_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
-				Version::StoreScopeVelocity(i, data.scope_velocity[i]); ///< для востановления(портится при загрузке данных для просмотра. Востанавливать в начале цикла)
-				double scope_offset = 0;
-				err = USPC7100_Read(id, i, 0, (LPCSTR)"scope_offset", &scope_offset, NULL, NULL, NULL);
-				double gateIF_position = 0;
-				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_position", &gateIF_position, NULL, NULL, NULL);
-				double gateIF_width = 0;
-				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_width", &gateIF_position, NULL, NULL, NULL);
-				dprint("\n");
+				uspc_read_data.sensor = i;
+				if(!TL::find<ItemData<O>::param_list, __uspc_read__>()(data.param[i], uspc_read_data))
+				{
+					return uspc_read_data.err;
+				}
 			}
-			return err;
+			return 0;
 		}
 	};
 
