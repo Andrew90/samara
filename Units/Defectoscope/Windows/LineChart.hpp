@@ -176,7 +176,7 @@ template<class T>struct __gates__
 		USPC(gate1_level);
 		dprint("gate1_level %f\n", _gate1_level);
 
-		g1.x = (_gate1_position + _scope_offset);
+		g1.x = _gate1_position;//(_gate1_position + _scope_offset);
 		g1.width = _gate1_width;
 		double offs = 0.005 * d->hdr.G1Tof;
 		dprint("gate1_position %f  offs %f  %d %d\n", _gate1_position, offs, d->TimeEqu, d->hdr.G1Tof);
@@ -192,8 +192,8 @@ template<class T>struct __gates__
 		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - _scope_offset;
 		int gate1Amp = d->hdr.G1Amp;
 
-		int end = int((_gate1_position + _gate1_width) / mash);
-		int beg = int(_gate1_position / mash);
+		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+		int beg = int((_gate1_position - _scope_offset) / mash);
 		if(end > count)	end = count;
 		if(beg < 0) beg = 0;
 		wchar_t buf[128];
