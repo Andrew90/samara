@@ -43,6 +43,7 @@
 /*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
 /*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
 /*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+/*38*/  , Clr<BrackStrobe>
 //------------------------------------------------------------------------------
 	>::Result label_message_list;
 //-------------------------------------------------------------------
@@ -148,12 +149,28 @@ namespace
 			return true;
 		}
 	};
+	template<class P>struct __select__<Clr<BrackStrobe>, P>
+	{
+		typedef Clr<BrackStrobe> O;
+		bool operator()(P *p)
+		{
+			if(TL::IndexOf<label_message_list, O>::value == p->id)
+			{
+				p->text = __status_label__<O>::text();
+				p->color = Singleton<ColorTable>::Instance().items.get<typename __first_color__<Clr<BorderLower<Thickness>>>::Result>().value;
+				p->visibleVal = ValueVisible<O>::value;
+				return false;
+			}
+			return true;
+		}
+	};
 }
 
 STATUS_LABEL(Clr<Undefined>, "\"Результат не определён\"")
 STATUS_LABEL(Clr<DeathZone>, "\"Мёртвая зона\"")
 
 STATUS_LABEL(Clr<Nominal>, "\"Норма\"")
+STATUS_LABEL(Clr<BrackStrobe>, "\"Брак по стробу\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"Толщина выше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"Толщина меньше нормы\"")
@@ -204,6 +221,19 @@ template<class O, class P>struct __set_color_bar_next__
 		if(TL::IndexOf<label_message_list, O>::value == p->id)
 		{
 			p->color = Singleton<ColorTable>::Instance().items.get<typename GetFirst<O>::Result>().value;
+             return false;
+		}
+		return true;
+    }
+};
+template<class P>struct __set_color_bar_next__<Clr<BrackStrobe>, P>
+{
+	typedef Clr<BrackStrobe> O;
+	bool operator()(P *p)
+    {
+		if(TL::IndexOf<label_message_list, O>::value == p->id)
+		{
+			p->color = Singleton<ColorTable>::Instance().items.get<Clr<BorderLower<Thickness>>>().value;
              return false;
 		}
 		return true;

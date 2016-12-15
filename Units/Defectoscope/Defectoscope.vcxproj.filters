@@ -455,6 +455,9 @@
     <ClCompile Include="App\VersionDiff.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\BrackStrobe2Dlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

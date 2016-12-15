@@ -158,6 +158,7 @@ namespace
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
+		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrackStrobe2>().value;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
 			d.bufferMin[i] = 1000;
@@ -184,15 +185,31 @@ namespace
 								}
 							}
 						}
-						double val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+						double val = 0;
+						bool strobeErr = false;
+						if(b[j].hdr.G1Tof)
+						{
+							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+							if(b[j].hdr.G2Tof)
+							{
+								double val2 = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+								double t = val - val2;
+								if(t > brackStrobe)
+								{
+									strobeErr = true;
+								}
+								else
+								{
+									val = val2;
+								}
+							}
+						}
 						double t = filtre(channel, val);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-							if(StatusId<Clr<Undefined>>() == d.statusMax[i]
-						//	|| StatusId<Clr<Undefined>>() == d.statusMin[i]
-							)
+							if(StatusId<Clr<Undefined>>() == d.statusMax[i])
 							{
 								d.statusMax[i] = StatusId<Clr<DeathZone>>();
 								d.statusMin[i] = StatusId<Clr<DeathZone>>();
@@ -212,6 +229,10 @@ namespace
 							{
 								d.bufferMin[i] = t;	
 								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
+							}
+							if(strobeErr) 
+							{
+								d.statusMin[i] = d.statusMax[i] =  TL::IndexOf<label_message_list, Clr<BrackStrobe>>::value;//StatusId<Clr<BrackStrobe>>();
 							}
 						}
 					}

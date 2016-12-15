@@ -50,6 +50,18 @@ struct ThresholdsTable
 	const wchar_t *name(){return L"ThresholdsTable";}
 };
 
+DEFINE_PARAM(BrackStrobe2, double, 1.0)
+
+struct BrackStrobe2Table
+{
+	typedef TL::MkTlst<
+		 BrackStrobe2
+	>::Result items_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"BrackStrobe2Table";}
+};
+
 //----------------------------------------------------------------------------------------
 DEFINE_PARAM(CommunicationRemoveUnit, int, 0)
 DEFINE_PARAM(CounterTubesStored, int, 0)
@@ -106,6 +118,7 @@ template<template<class, class, class, class>class W, class _0, class _1, class 
 struct Undefined{};
 struct Nominal{};
 struct DeathZone{typedef NullType items_list;};
+struct BrackStrobe{};
 
 #define	JOIN2(a, b) a##,##b
 DEFINE_WAPPER(Clr<Undefined>, int, 0xff555555)
@@ -118,6 +131,7 @@ DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER(Clr<BrackStrobe>, int, 0xffff3355)
 #undef	JOIN2
 
 
@@ -275,6 +289,7 @@ DEFINE_PARAM_ID(ThresholdsTable            , int, 1)
 DEFINE_PARAM_ID(DeadAreaTable			   , int, 1)
 DEFINE_PARAM_ID(AxesTable	   , int, 1)
 DEFINE_PARAM_ID(MedianFiltreTable, int, 1)
+DEFINE_PARAM_ID(BrackStrobe2Table, int, 1)
 STR_PARAM(NameParam, 128, L"NONAME")
  struct ParametersTable
  {
@@ -283,6 +298,7 @@ STR_PARAM(NameParam, 128, L"NONAME")
 		, ID<DeadAreaTable			   	>
 		, ID<AxesTable	   	>
 		, ID<MedianFiltreTable>
+		, ID<BrackStrobe2Table>
 		, NameParam
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -470,6 +486,7 @@ struct PathUSPCTable
 		 , DeadAreaTable	
 		 , MedianFiltreTable
 		 , AxesTable
+		 , BrackStrobe2Table
 	 >::Result multy_row_table_list;
 
 	 typedef TL::MkTlst<

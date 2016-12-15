@@ -154,6 +154,7 @@
     </ClCompile>
     <ClCompile Include="Dialogs\AnalogPlateDlg.cpp" />
     <ClCompile Include="Dialogs\BaseLengthDlg.cpp" />
+    <ClCompile Include="Dialogs\BrackStrobe2Dlg.cpp" />
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp" />
     <ClCompile Include="Dialogs\DeadZonesDlg.cpp" />
     <ClCompile Include="Dialogs\InputOutputDlg.cpp" />
