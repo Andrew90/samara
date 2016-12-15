@@ -103,8 +103,8 @@ namespace
 							}
 						}
 						DWORD g1Amp = b[j].hdr.G1Amp;
-						double g1Beg = d.param[channel].get<gate1_position>().value;
-						double g1End = g1Beg + d.param[channel].get<gate1_width>().value;
+						double g1Beg = d.param[channel].get<gate1_position>().value  - d.param[channel].get<scope_offset>().value;
+						double g1End = g1Beg + d.param[channel].get<gate1_width>().value  - d.param[channel].get<scope_offset>().value;
 						double g1Tof = 0.005 * b[j].hdr.G1Tof - d.param[channel].get<scope_offset>().value;
 						if(g1Tof < g1Beg || g1Tof > g1End)
 						{
