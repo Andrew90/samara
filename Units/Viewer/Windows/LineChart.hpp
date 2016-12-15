@@ -233,7 +233,7 @@ template<>struct __gates__<Thickness>
 		dprint("scope_range %f\n", _scope_range);
 		USPC(scope_offset);
 		dprint("scope_offset %f\n", _scope_offset);
-		_scope_offset = 0.5 * int(_scope_offset / 0.5);
+		//_scope_offset = 0.5 * int(_scope_offset / 0.5);
 		s.chart.minAxesX = _scope_offset;
 		s.chart.maxAxesX = _scope_offset + _scope_range;
 
