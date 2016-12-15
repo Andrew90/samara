@@ -39,6 +39,11 @@ USPC_PARAM(gate1_position , 1.21)
 USPC_PARAM(gate1_level 	  , 30.01)
 USPC_PARAM(gate1_TOF_WT_velocity , 6400.01)
 
+USPC_PARAM(gate2_width    , 7.32)
+USPC_PARAM(gate2_position , 1.22)
+USPC_PARAM(gate2_level 	  , 30.02)
+USPC_PARAM(gate2_TOF_WT_velocity , 6400.02)
+
 #undef USPC_PARAM
 
 class USPCViewerData: public USPCData
@@ -79,6 +84,11 @@ public:
 		, gate1_position 
 		, gate1_level 	  
 		, gate1_TOF_WT_velocity
+
+		, gate2_width    
+		, gate2_position 
+		, gate2_level 	  
+		, gate2_TOF_WT_velocity
 	>::Result param_list;
 	typedef TL::Factory<param_list> TParam;
 	TParam param[App::count_sensors]; 

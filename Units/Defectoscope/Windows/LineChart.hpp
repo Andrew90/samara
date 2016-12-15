@@ -279,8 +279,8 @@ template<>struct __gates__<Thickness>
 				{
 					s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
 					s.chart.items.get<ScanWindow::GateIF>().visible = true;
-					s.chart.items.get<ScanWindow::Line>().offset = 
-					  int(i - (0.005 * d->hdr.GIFTof - _scope_offset) / mash);
+					//s.chart.items.get<ScanWindow::Line>().offset = 
+					//  int(i - (0.005 * d->hdr.GIFTof - _scope_offset) / mash);
 					break;
 				}
 			}
