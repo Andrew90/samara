@@ -41,9 +41,6 @@
     <ClCompile Include="Dialogs\ColorItemsDlg.cpp">
       <Filter>Z0</Filter>
     </ClCompile>
-    <ClCompile Include="Compute.cpp">
-      <Filter>Z1</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp">
       <Filter>Z1</Filter>
     </ClCompile>
@@ -263,6 +260,9 @@
     <ClCompile Include="Windows\ScanWindowToolBar.cpp">
       <Filter>Windows\CrossWindow</Filter>
     </ClCompile>
+    <ClCompile Include="Compute.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Base\tables.hpp" />
@@ -327,9 +327,6 @@
       <Filter>Z1</Filter>
     </ClInclude>
     <ClInclude Include="Windows\Common.h">
-      <Filter>Z1</Filter>
-    </ClInclude>
-    <ClInclude Include="Compute.h">
       <Filter>Z1</Filter>
     </ClInclude>
     <ClInclude Include="ItemsData\ConstData.h">
@@ -601,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="Windows\LineChart.hpp">
       <Filter>Windows\CrossWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute.h">
+      <Filter>Compute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

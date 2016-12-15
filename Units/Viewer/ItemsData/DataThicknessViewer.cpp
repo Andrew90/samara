@@ -31,7 +31,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * d.scope_velocity[channel];
+				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 				scan[cnt] = &s[i];
 				StatusZoneThickness(offs, data[cnt], zone
 					, aboveBorder  
@@ -55,7 +55,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[offs].Channel)
 			{
-				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.scope_velocity[channel];
+				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 				sk[z] = &s[offs];
 				
 				StatusZoneThickness(offs, tmp[z], zone
@@ -73,7 +73,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		{
 			if(channel == s[i].Channel)
 			{
-				double t = 2.5e-6 * s[i].hdr.G1Tof * d.scope_velocity[channel];
+				double t = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 				char st;
 				StatusZoneThickness(offs, t, zone
 					, aboveBorder  

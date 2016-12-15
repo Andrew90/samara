@@ -102,7 +102,22 @@ namespace
 								}
 							}
 						}
-						double t = filtre(channel, b[j].hdr.G1Amp);
+						DWORD g1Amp = b[j].hdr.G1Amp;
+						double g1Beg = d.param[channel].get<gate1_position>().value;
+						double g1End = g1Beg + d.param[channel].get<gate1_width>().value;
+						double g1Tof = 0.005 * b[j].hdr.G1Tof - d.param[channel].get<scope_offset>().value;
+						if(g1Tof < g1Beg || g1Tof > g1End)
+						{
+							g1Amp = 0;
+							double k = 1000.0 * b[j].DataSize / b[j].TimeEqu;
+							int beg = int(k * g1Beg);
+							int end = int(k * g1End);
+							for(int i = beg; i < end; ++i)
+							{
+								if(b[j].Point[i] > g1Amp) g1Amp = b[j].Point[i];
+							}
+						}
+						double t = filtre(channel, g1Amp);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -169,7 +184,7 @@ namespace
 								}
 							}
 						}
-						double val = 2.5e-6 * b[j].hdr.G1Tof * d.scope_velocity[channel];
+						double val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 						double t = filtre(channel, val);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;

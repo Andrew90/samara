@@ -2,7 +2,6 @@
 #include "AppBase.h"
 #include "ScanWindow.h"
 #include "ItemIni.h"
-//#include "ut_files.h"
 
 namespace
 {
@@ -147,52 +146,41 @@ template<>struct __for_label__<Thickness>
 		return buffer;
 	}
 };
-#define USPC(name) double name = uspc.name[d->Channel]
-template<class>struct __gates__
+#define USPC(name) double _##name = uspc.param[d->Channel].get<name>().value;
+template<class T>struct __gates__
 {
 	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
-		//wchar_t path[256];
-		//if(!ExistCurrentUSPCFile(path)) return;
-
-		//wchar_t section[16];
-		//wsprintf(section, L"Test %d", d->Channel);
-        //dprint("Channel %d\n", d->Channel);
-
-		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1>().visible = true;
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
-
+		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
 // todo  расчёт гайтов для отрисовки
-		USPCIniFile &uspc = Singleton<USPCIniFile>::Instance();
+		ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
 		USPC(scope_range);
-       // scope_range = ItemIni::Get(section, L"scope_range", scope_range, path); 
-		dprint("scope_range %f\n", scope_range);
+		dprint("scope_range %f\n", _scope_range);
 		USPC(scope_offset);
-//		scope_offset = ItemIni::Get(section, L"scope_offset", scope_offset, path); 
-		dprint("scope_offset %f\n", scope_offset);
-		scope_offset = 0.5 * int(scope_offset / 0.5);
-		s.chart.minAxesX = scope_offset;
-		s.chart.maxAxesX = scope_offset + scope_range;
+		dprint("scope_offset %f\n", _scope_offset);
+		_scope_offset = 0.5 * int(_scope_offset / 0.5);
+		s.chart.minAxesX = _scope_offset;
+		s.chart.maxAxesX = _scope_offset + _scope_range;
 
 		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
 
 		USPC(gate1_width);
-		//gate1_width = ItemIni::Get(section, L"gate1_width", gate1_width, path); 
-		dprint("gate1_width %f\n", gate1_width);
+		dprint("gate1_width %f\n", _gate1_width);
 
 		USPC(gate1_position);
-		//gate1_position = ItemIni::Get(section, L"gate1_position", gate1_position, path);
-		dprint("gate1_position %f\n", gate1_position);
+		dprint("gate1_position %f\n", _gate1_position);
 
 		USPC(gate1_level);
-		//gate1_level = ItemIni::Get(section, L"gate1_level", gate1_level, path);
-		dprint("gate1_level %f\n", gate1_level);
+		dprint("gate1_level %f\n", _gate1_level);
 
-		g1.x = (gate1_position + scope_offset);
-		g1.width = gate1_width;
+		g1.x = (_gate1_position + _scope_offset);
+		g1.width = _gate1_width;
 		double offs = 0.005 * d->hdr.G1Tof;
-		dprint("gate1_position %f  offs %f  %d %d\n", gate1_position, offs, d->TimeEqu, d->hdr.G1Tof);
-		g1.y = gate1_level;
+		dprint("gate1_position %f  offs %f  %d %d\n", _gate1_position, offs, d->TimeEqu, d->hdr.G1Tof);
+		g1.y = _gate1_level;
 
 		
 		int count = d->DataSize;
@@ -201,31 +189,25 @@ template<class>struct __gates__
 		s.chart.items.get<ScanWindow::Line>().count = count;
         s.chart.items.get<ScanWindow::Line>().offset = 0;
 
-		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - scope_offset;
+		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - _scope_offset;
 		int gate1Amp = d->hdr.G1Amp;
 
-		int end = int((gate1_position + gate1_width) / mash) + 1;
-		int beg = int(gate1_position / mash) - 1;
+		int end = int((_gate1_position + _gate1_width) / mash);
+		int beg = int(_gate1_position / mash);
 		if(end > count)	end = count;
 		if(beg < 0) beg = 0;
 		wchar_t buf[128];
 		buf[0] = 0;
-		int amp = (int)gate1_level;
-		bool b = false;
+		int amp = 0;
 		for(int i = beg; i < end; ++i)
 		{
-			if(d->Point[i] >= amp)
+			if(d->Point[i] > amp)
 			{
-				double gate1AmpOffs = i * mash + scope_offset;
-				int toffs =  int((gate1AmpOffs -  0.005 * d->hdr.G1Tof) / mash);
-				s.chart.items.get<ScanWindow::Line>().offset = 	toffs;
 				amp	= d->Point[i];	
-				b = true;
-				dprint("gate1AmpOffs %f offs %f,  d = %d", gate1AmpOffs, 0.005 * d->hdr.G1Tof, toffs);
 			}
 		}
 		
-		if(b) wsprintf(buf, L"<ff>Амплитуда %d", amp);
+		wsprintf(buf, L"<ff>Амплитуда %d", amp);
 		s.label = buf;
 		
 	}
@@ -235,69 +217,49 @@ template<>struct __gates__<Thickness>
 {
 	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
-		//wchar_t path[256];
-		//if(!ExistCurrentUSPCFile(path)) return;
-
-
-
-		USPCIniFile &uspc = Singleton<USPCIniFile>::Instance();
-
-		s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
-		s.chart.items.get<ScanWindow::GateIF>().visible = true;
+		ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
+		
+		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
+		s.chart.items.get<ScanWindow::GateIF>().visible = false;
+		s.chart.items.get<ScanWindow::Gate1>().visible = false;
 
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
 		gif.visible = true;
 
-	//	wchar_t section[16];
-	//	wsprintf(section, L"Test %d", d->Channel);
         dprint("Channel %d\n", d->Channel);
 // todo  расчёт гайтов для отрисовки
 		USPC(scope_range);
-        //scope_range = ItemIni::Get(section, L"scope_range", scope_range, path); 
-		dprint("scope_range %f\n", scope_range);
+		dprint("scope_range %f\n", _scope_range);
 		USPC(scope_offset);
-	//	scope_offset = ItemIni::Get(section, L"scope_offset", scope_offset, path); 
-		dprint("scope_offset %f\n", scope_offset);
-		scope_offset = 0.5 * int(scope_offset / 0.5);
-		s.chart.minAxesX = scope_offset;
-		s.chart.maxAxesX = scope_offset + scope_range;
+		dprint("scope_offset %f\n", _scope_offset);
+		_scope_offset = 0.5 * int(_scope_offset / 0.5);
+		s.chart.minAxesX = _scope_offset;
+		s.chart.maxAxesX = _scope_offset + _scope_range;
 
 		USPC(gateIF_position);
-	//	gateIF_position = ItemIni::Get(section, L"gateIF_position", gateIF_position, path);
-		dprint("gateIF_position %f\n", gateIF_position);
+		dprint("gateIF_position %f\n", _gateIF_position);
 		USPC(gateIF_width);
-		//gateIF_width = ItemIni::Get(section, L"gateIF_width", gateIF_width, path); 
-		dprint("gateIF_width %f\n", gateIF_width);
+		dprint("gateIF_width %f\n", _gateIF_width);
 
 		USPC(gateIF_level);
-		//gateIF_level = ItemIni::Get(section, L"gateIF_level", gateIF_level, path); 
-		dprint("gateIF_level %f\n", gateIF_level);
+		dprint("gateIF_level %f\n", _gateIF_level);
 
-		gif.x = gateIF_position;
-		gif.width = gateIF_width;
-		gif.y = gateIF_level;
+		gif.x = _gateIF_position;
+		gif.width = _gateIF_width;
+		gif.y = _gateIF_level;
 
 		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
 
 		USPC(gate1_width);
-		//gate1_width = ItemIni::Get(section, L"gate1_width", gate1_width, path); 
-		dprint("gate1_width %f\n", gate1_width);
+		dprint("gate1_width %f\n", _gate1_width);
 
 		USPC(gate1_position);
-		//gate1_position = ItemIni::Get(section, L"gate1_position", gate1_position, path);
-		dprint("gate1_position %f\n", gate1_position);
+		dprint("gate1_position %f\n", _gate1_position);
 
 		USPC(gate1_level);
-		//gate1_level = ItemIni::Get(section, L"gate1_level", gate1_level, path);
-		dprint("gate1_level %f\n", gate1_level);
+		dprint("gate1_level %f\n", _gate1_level);
 
-		double x = 5e-3 * d->hdr.GIFTof;
-		g1.x = (gate1_position + x);
-		g1.width = gate1_width;
-		dprint("x %f  gate1_position %f  d->hdr.GIFTof %d  %d %d\n", x, gate1_position, d->hdr.GIFTof, d->TimeEqu, d->hdr.G1Tof);
-		g1.y = gate1_level;
-
-		
 		int count = d->DataSize;
 		if(0 == count) count = 500;
 		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
@@ -306,30 +268,33 @@ template<>struct __gates__<Thickness>
 
 		s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
 		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+		dprint("gateif %f gate1 %f\n", 0.005 * d->hdr.GIFTof, 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof)) ;
 		if(0 != d->hdr.GIFTof)
 		{
 			int i = 0;
+			dprint("gif position %f\n", 0.005 *  d->hdr.GIFTof);
 			for(; i < count; ++i)
 			{
-				if(d->Point[i] > gateIF_level)
+				if(d->Point[i] > _gateIF_level)
 				{
+					s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
+					s.chart.items.get<ScanWindow::GateIF>().visible = true;
+					s.chart.items.get<ScanWindow::Line>().offset = 
+					  int(i - (0.005 * d->hdr.GIFTof - _scope_offset) / mash);
 					break;
 				}
 			}
 			if(0 != d->hdr.G1Tof)
 			{
-				int k = 1 + int(0.005 * d->hdr.G1Tof / mash);
-				i += k;
-				for(; i < count; ++i)
-				{
-					if(d->Point[i] > gate1_level)
-					{
-						break;
-					}
-				}
+				s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
+				s.chart.items.get<ScanWindow::Gate1>().visible = true;
+				double x = 5e-3 * d->hdr.GIFTof;
+				g1.x = _gate1_position + x - s.chart.items.get<ScanWindow::Line>().offset * mash;
+				g1.width = _gate1_width;
+				g1.y = _gate1_level;
+				dprint("offs gate1 %f\n", g1.x);
+				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
 			}
-			s.chart.items.get<ScanWindow::Line>().offset = 
-					int(i - (0.005 * (d->hdr.G1Tof + d->hdr.GIFTof) - scope_offset) / mash);
 		}
 	}
 };
