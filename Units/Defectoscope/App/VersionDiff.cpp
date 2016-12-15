@@ -8,13 +8,24 @@
 namespace Version
 {
 	static const int __magic_word__ = 0xcafe0000;
-	static const int __version__ = 5;
+	static const int __version__ = 6;
 
-	//struct ScopeVelocity
-	//{
-	//	double value[App::count_sensors];
-	//};
-	//ScopeVelocity stored_items;
+	template<class O, class P>struct __store__
+	{
+		void operator()(P *p)
+		{
+			fwrite(&Singleton<O>::Instance(), sizeof(O), 1, p); 
+		}
+	};
+
+	template<class O, class P>struct __load__
+	{
+		void operator()(P *p)
+		{
+			O o;
+			fread(&o, sizeof(O), 1, p); 
+		}
+	};
 
 	typedef TL::MkTlst<Thickness, Long, Cross>::Result unit_list;
 	template<class T>struct __unit_data__
@@ -40,19 +51,7 @@ namespace Version
 	{
 		unsigned t = __magic_word__ | __version__;
 		fwrite(&t, sizeof(unsigned), 1, f);
-		//{
-		//	ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
-		//	fwrite(d.param, sizeof(d.param), 1, f);
-		//}
-		//{
-		//	ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
-		//	fwrite(d.param, sizeof(d.param), 1, f);
-		//}
-		//{
-		//	ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-		//	fwrite(d.param, sizeof(d.param), 1, f);
-		//}
-		//__unit_data__ data = {fwrite, f};
+		TL::foreach<ParametersBase::type_list, __store__>()(f);
 		TL::foreach<unit_list, __unit__>()(__set__unit_data__(fwrite, f));
 	}
 
@@ -78,20 +77,12 @@ namespace Version
 			{
 			case __version__:
 				{
-					//{
-					//	ItemData<Cross> &d = Singleton<ItemData<Cross>>::Instance();
-					//	fread(d.param, sizeof(d.param), 1, f);
-					//}
-					//{
-					//	ItemData<Long> &d = Singleton<ItemData<Long>>::Instance();
-					//	fread(d.param, sizeof(d.param), 1, f);
-					//}
-					//{
-					//	ItemData<Thickness> &d = Singleton<ItemData<Thickness>>::Instance();
-					//	fread(d.param, sizeof(d.param), 1, f);
-					//}
-					//__unit_data__ data = {fread, f};
-					//TL::foreach<unit_list, __unit__>()(data);
+					TL::foreach<ParametersBase::type_list, __load__>()(f);
+					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
+				}
+				return true;
+			case 5:
+				{
 					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
 				}
 				return true;

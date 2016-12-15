@@ -31,7 +31,7 @@ public:
 
 USPC_PARAM(scope_range    , 12.01)
 USPC_PARAM(scope_offset   , 40.01)
-USPC_PARAM(gateIF_position, 30.01)
+USPC_PARAM(gateIF_position, 41.01)
 USPC_PARAM(gateIF_width   , 2.01)
 USPC_PARAM(gateIF_level   , 20.01)
 USPC_PARAM(gate1_width    , 7.31)
