@@ -146,6 +146,11 @@ namespace
 		typedef typename P::items_list Result;
 	};
 
+	//template<class P>struct __type_skip__<Clr<BrackStrobe>, P>	//TODO доделать  BrackStrobe
+	//{
+	//	typedef typename P::items_list Result;
+	//};
+
 	template<class X, class P>struct __type_skip__<Clr<BorderDefect<X>>, P>
 	{
 		typedef typename P::items_list Result;
@@ -239,7 +244,7 @@ namespace
 	template<class O, class P>struct __id__
 	{
 		bool operator()(P *p)
-		{
+		{			
 			if (TL::IndexOf<label_message_list, O>::value == *p->id)
 			{
 				p->id = &p->id[1];

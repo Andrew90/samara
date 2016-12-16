@@ -1,5 +1,6 @@
 #pragma once
 #include "AppBase.h"
+#include "DebugMess.h"
 //-----------------------------------------------------------------
 	typedef TL::MkTlst<	
 /*0*/	Clr<Undefined   >
@@ -233,8 +234,8 @@ template<class P>struct __set_color_bar_next__<Clr<BrackStrobe>, P>
     {
 		if(TL::IndexOf<label_message_list, O>::value == p->id)
 		{
-			p->color = Singleton<ColorTable>::Instance().items.get<Clr<BorderLower<Thickness>>>().value;
-             return false;
+			p->color = Singleton<Clr<BrackStrobe>>::Instance().value;
+            return false;
 		}
 		return true;
     }
@@ -384,6 +385,11 @@ struct ColorBar
 		if(TL::find<ColorTable::items_list, __set_color_bar__>()(&d))
 		{
 			TL::find<label_message_list, __set_color_bar_next__>()(&d);
+		}
+		else if(id == TL::IndexOf<label_message_list, Clr<BrackStrobe> >::value)
+		{
+			 data = 10.0;
+			 color = Singleton<Clr<BrackStrobe>>::Instance().value;
 		}
 	}
 };

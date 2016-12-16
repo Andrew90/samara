@@ -131,7 +131,7 @@ DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(Clr<BrackStrobe>, int, 0xffff3355)
+DEFINE_WAPPER(Clr<BrackStrobe>, int, 0xff1681f4)
 #undef	JOIN2
 
 

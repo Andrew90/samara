@@ -185,22 +185,24 @@ namespace
 								}
 							}
 						}
-						double val = 0;
-						bool strobeErr = false;
+						double val = maxThickness[i];
+						bool strobeErr = true;
 						if(b[j].hdr.G1Tof)
 						{
 							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+							strobeErr = false;
 							if(b[j].hdr.G2Tof)
 							{
-								double val2 = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+								double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
 								double t = val - val2;
-								if(t > brackStrobe)
+								if(t < brackStrobe)
 								{
-									strobeErr = true;
+									val = val2;
 								}
 								else
 								{
-									val = val2;
+									strobeErr = true;
+									val = maxThickness[i];
 								}
 							}
 						}
@@ -216,24 +218,29 @@ namespace
 							}
 						}
 						else
-						{													
-							if(t > d.bufferMax[i])
-							{													
-								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-								d.bufferMax[i] = t;
-							}
-							if(0 == val) val = 999999;
-							t = filtre.AddX(channel, val);	
-							if(999999 == t) t = 0;
-							if(0 != t &&  t < d.bufferMin[i])
+						{	
+							if(!strobeErr)
 							{
-								d.bufferMin[i] = t;	
-								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
+								if(t > d.bufferMax[i])
+								{													
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+									d.bufferMax[i] = t;
+								}
+								if(0 == val) val = 999999;
+								t = filtre.AddX(channel, val);	
+								if(999999 == t) t = 0;
+								if(0 != t &&  t < d.bufferMin[i])
+								{
+									d.bufferMin[i] = t;	
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+								}
 							}
-							if(strobeErr) 
-							{
-								d.statusMin[i] = d.statusMax[i] =  TL::IndexOf<label_message_list, Clr<BrackStrobe>>::value;//StatusId<Clr<BrackStrobe>>();
-							}
+							//else
+							//{
+							//	d.statusMin[i] = d.statusMax[i] =  TL::IndexOf<label_message_list, Clr<BrackStrobe>>::value;//StatusId<Clr<BrackStrobe>>();
+							//	d.bufferMin[i] = val;	
+							//	d.bufferMin[i] = val;	
+							//}
 						}
 					}
 				}				

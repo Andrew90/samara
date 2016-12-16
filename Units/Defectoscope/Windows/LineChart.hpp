@@ -318,6 +318,7 @@ template<>struct __gates__<Thickness>
 					g2.y = _gate2_level;
 					dprint("offs gate2 %f\n", g2.x);
 					s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
+					dprint("G1Tof %d G2Tof %d\n", d->hdr.G1Tof, d->hdr.G2Tof);
 				}
 			}
 		}
