@@ -235,12 +235,6 @@ namespace
 									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
 								}
 							}
-							//else
-							//{
-							//	d.statusMin[i] = d.statusMax[i] =  TL::IndexOf<label_message_list, Clr<BrackStrobe>>::value;//StatusId<Clr<BrackStrobe>>();
-							//	d.bufferMin[i] = val;	
-							//	d.bufferMin[i] = val;	
-							//}
 						}
 					}
 				}				
@@ -370,10 +364,11 @@ namespace
 	};
 	
 	template<class T>struct __first__;
-	template<class A, class B, class C, class D>struct __first__<Clr<A, B, C, D>>
+	template<template<class, class, class, class>class W, class A, class B, class C, class D>struct __first__<W<A, B, C, D>>
 	{
 		typedef A Result;
 	};
+
 	template<class O, class P>struct __result_ok__
 	{
 		bool operator()(P *p)

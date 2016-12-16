@@ -38,16 +38,16 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		((Parent::TChart *)chart)->items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
 		cursor->SetMouseMoveHandler(this, &Line<T, N>::CursorDraw);
 	}	
-	bool GetColorBar(int offs, double &data, unsigned &color)
-	{
-		if(NULL != dataViewer.data && offs < dataViewer.count)
-		{
-			data = DefVal<typename T::sub_type>()(dataViewer.data[offs], offs);
-			color = ConstData::ZoneColor(dataViewer.status[offs]);
-			return true;
-		}
-		return false;
-	}
+	//bool GetColorBar(int offs, double &data, unsigned &color)
+	//{
+	//	if(NULL != dataViewer.data && offs < dataViewer.count)
+	//	{
+	//		data = DefVal<typename T::sub_type>()(dataViewer.data[offs], offs);
+	//		color = ConstData::ZoneColor(dataViewer.status[offs]);
+	//		return true;
+	//	}
+	//	return false;
+	//}
 
 	bool CursorDraw(TMouseMove &l, VGraphics &g)	  
 	{	

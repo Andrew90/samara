@@ -24,7 +24,8 @@ namespace ConstData{
 	unsigned ZoneColor(unsigned c)
 	{
 		if(c < dimention_of(buf)) return buf[c];
-		if(c == TL::IndexOf<label_message_list, Clr<BrackStrobe> >::value) return Singleton<Clr<BrackStrobe>>::Instance().value;
+		if(c == TL::IndexOf<label_message_list, Xlr<BrackStrobe> >::value) 
+			return Singleton<ColorTable>::Instance().items.get<Xlr<BrackStrobe>>().value;
 		return 0xBADC0105;
 	}
 }

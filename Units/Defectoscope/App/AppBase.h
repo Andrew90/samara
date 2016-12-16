@@ -104,6 +104,7 @@ struct PointsOptionsTable
 };
 //----------------------------------------------------------------------------------
 template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Clr;
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Xlr;
 //{
 //	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
 //};
@@ -131,7 +132,7 @@ DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(Clr<BrackStrobe>, int, 0xff1681f4)
+DEFINE_WAPPER(Xlr<BrackStrobe>, int, 0xff1681f4)
 #undef	JOIN2
 
 
@@ -148,7 +149,7 @@ struct ColorTable
 /*7*/	    , Clr<BorderDefect<Long> >
 /*8*/	    , Clr<BorderKlass2<Cross>>
 /*9*/	    , Clr<BorderDefect<Cross>>
-
+/*xxx*/     , Xlr<BrackStrobe>
 ///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 ///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
 ///*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>

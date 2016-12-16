@@ -2,6 +2,7 @@
 #include "AppBase.h"
 #include "ScanWindow.h"
 #include "ItemIni.h"
+#include "templates.hpp"
 
 namespace
 {
@@ -139,10 +140,22 @@ template<>struct __for_label__<Thickness>
 	wchar_t buffer[128];
 	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
 	{
-		wsprintf(buffer, L"<ff>смещение %s  амплитуда %d"
-			, Wchar_from<double>(0.005 * d->hdr.G1Tof)()
-			, d->hdr.G1Amp
-			);
+		ItemData<Thickness> &t = Singleton<ItemData<Thickness> >::Instance();
+		wchar_t s1[256];
+		wchar_t s2[256];
+		s1[0] = '\0';
+		s2[0] = '\0';
+		if(d->hdr.G1Tof)
+		{
+			double tmp = 2.5e-6 * d->hdr.G1Tof * t.param[d->Channel].get<gate1_TOF_WT_velocity>().value;
+			wsprintf(s1, L"<ff>толщина1 <ffffff>%s", Wchar_from<double>(tmp)());
+			if(d->hdr.G2Tof)
+			{
+				double tmp = 2.5e-6 * d->hdr.G2Tof * t.param[d->Channel].get<gate2_TOF_WT_velocity>().value;
+				wsprintf(s2, L"<ff>толщина2 <ffffff>%s", Wchar_from<double>(tmp)());
+			}
+		}
+		wsprintf(buffer, L"%s %s" , s1, s2);
 		return buffer;
 	}
 };
@@ -155,6 +168,8 @@ template<class T>struct __gates__
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
 // todo  расчёт гайтов для отрисовки
 		ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
 		USPC(scope_range);
@@ -209,7 +224,6 @@ template<class T>struct __gates__
 		
 		wsprintf(buf, L"<ff>Амплитуда %d", amp);
 		s.label = buf;
-		
 	}
 };
 

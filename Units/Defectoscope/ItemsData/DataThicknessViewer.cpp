@@ -57,15 +57,18 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				scan[cnt] = &s[i];
 				if(!errorStrobe)
 				{
-				StatusZoneThickness(offs, data[cnt], zone
-					, aboveBorder  
-					, lowerBorder  
-					, nominalBorder
-					, status[cnt]);
+					StatusZoneThickness(offs, data[cnt], zone
+						, aboveBorder  
+						, lowerBorder  
+						, nominalBorder
+						, status[cnt]);
 				}
 				else
 				{
-					status[cnt] = TL::IndexOf<label_message_list, Clr<BrackStrobe>>::value;
+					status[cnt] = s[i].hdr.G1Tof 
+						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
+						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
+						;
 				}
 				if(++cnt >= dimention_of(data)) break;
 			}
@@ -100,15 +103,45 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		
 		for(; i < stop; ++i)
 		{
+			double t = nominalBorder[zone];
+			bool errorStrobe = true;
 			if(channel == s[i].Channel)
 			{
-				double t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+				bool errorStrobe = true;
+				if(s[i].hdr.G1Tof)
+				{
+					t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+					errorStrobe = false;
+					if(s[i].hdr.G2Tof)
+					{
+						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+						double tt = t - val2;
+						if(tt < brackStrobe)
+						{
+							t = val2;
+						}
+						else
+						{
+							errorStrobe = true;
+						}
+					}
+				}
 				char st;
-				StatusZoneThickness(offs, t, zone
-					, aboveBorder  
-					, lowerBorder  
-					, nominalBorder
-					, st);
+				if(!errorStrobe)
+				{
+					StatusZoneThickness(offs, t, zone
+						, aboveBorder  
+						, lowerBorder  
+						, nominalBorder
+						, st);
+				}
+				else
+				{
+					st = s[i].hdr.G1Tof 
+						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
+						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
+						;
+				}
 				int ind = f.index % f.width;
 				sk[ind] = &s[i];
 				stat[ind] = st;
