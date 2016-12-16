@@ -223,6 +223,8 @@ template<>struct __gates__<Thickness>
 		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2>().visible = false;
 
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
 		gif.visible = true;
@@ -260,6 +262,19 @@ template<>struct __gates__<Thickness>
 		USPC(gate1_level);
 		dprint("gate1_level %f\n", _gate1_level);
 
+
+		ScanWindow::Gate2 &g2 = s.chart.items.get<ScanWindow::Gate2>();
+
+		USPC(gate2_width);
+		dprint("gate2_width %f\n", _gate2_width);
+
+		USPC(gate2_position);
+		dprint("gate2_position %f\n", _gate2_position);
+
+		USPC(gate2_level);
+		dprint("gate2_level %f\n", _gate2_level);
+
+
 		int count = d->DataSize;
 		if(0 == count) count = 500;
 		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
@@ -279,8 +294,6 @@ template<>struct __gates__<Thickness>
 				{
 					s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
 					s.chart.items.get<ScanWindow::GateIF>().visible = true;
-					//s.chart.items.get<ScanWindow::Line>().offset = 
-					//  int(i - (0.005 * d->hdr.GIFTof - _scope_offset) / mash);
 					break;
 				}
 			}
@@ -289,11 +302,23 @@ template<>struct __gates__<Thickness>
 				s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
 				s.chart.items.get<ScanWindow::Gate1>().visible = true;
 				double x = 5e-3 * d->hdr.GIFTof;
-				g1.x = _gate1_position + x - s.chart.items.get<ScanWindow::Line>().offset * mash;
+				g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
 				g1.width = _gate1_width;
 				g1.y = _gate1_level;
 				dprint("offs gate1 %f\n", g1.x);
 				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+
+				if(0 != d->hdr.G2Tof)
+				{
+					s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
+					s.chart.items.get<ScanWindow::Gate2>().visible = true;
+					double x = 5e-3 * d->hdr.GIFTof;
+					g2.x = _gate2_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+					g2.width = _gate2_width;
+					g2.y = _gate2_level;
+					dprint("offs gate2 %f\n", g2.x);
+					s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
+				}
 			}
 		}
 	}

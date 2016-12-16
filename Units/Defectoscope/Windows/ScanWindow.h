@@ -27,6 +27,13 @@ public:
 		Gate1(Chart &);
 		void Draw();
 	};
+	class Gate2: public Gate
+	{
+	public:
+		bool visible;
+		Gate2(Chart &);
+		void Draw();
+	};
 	class GateIFBorder: public VBorder
 	{
 	public:
@@ -41,6 +48,13 @@ public:
 		Gate1Border(Chart &);
 		void Draw();
 	};
+	class Gate2Border: public VBorder
+	{
+	public:
+		bool visible;
+		Gate2Border(Chart &);
+		void Draw();
+	}; 
 	class Line: public LineSeries
 	{
 	public:
@@ -59,6 +73,8 @@ public:
 		, Gate1		
 		, Gate1Border
 		, GateIFBorder
+		, Gate2Border
+		, Gate2
 	>::Result>	TChart;
 	HWND hWnd;
 	TChart chart;
