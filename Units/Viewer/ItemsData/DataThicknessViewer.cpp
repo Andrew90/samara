@@ -4,6 +4,7 @@
 #include "AppBase.h"
 #include "Compute.h"
 #include "DataViewer.h"
+#include "LabelMessage.h"
 
 ThicknessData::ThicknessData(int &filterWidth, bool &filterOn
 	, double (&aboveBorder)[App::count_zones]
@@ -25,19 +26,50 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	if(stop > maxOffs) stop = maxOffs;
 	int i = start + offs;
 	ItemData<Thickness> &d = Singleton<ItemData<Thickness> >::Instance();
+	double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrackStrobe2>().value;
 	if(!medianFiltreOn)
 	{
 		for(; i < stop; ++i)
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+				data[cnt] = nominalBorder[zone];
+				bool errorStrobe = true;
+				if(s[i].hdr.G1Tof)
+				{
+					double val = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+					data[cnt] = val;
+					errorStrobe = false;
+					if(s[i].hdr.G2Tof)
+					{
+						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+						double t = val - val2;
+						if(t < brackStrobe)
+						{
+							data[cnt] = val2;
+						}
+						else
+						{
+							errorStrobe = true;
+						}
+					}
+				}
 				scan[cnt] = &s[i];
-				StatusZoneThickness(offs, data[cnt], zone
-					, aboveBorder  
-					, lowerBorder  
-					, nominalBorder
-					, status[cnt]);
+				if(!errorStrobe)
+				{
+					StatusZoneThickness(offs, data[cnt], zone
+						, aboveBorder  
+						, lowerBorder  
+						, nominalBorder
+						, status[cnt]);
+				}
+				else
+				{
+					status[cnt] = s[i].hdr.G1Tof 
+						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
+						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
+						;
+				}
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -71,35 +103,58 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		
 		for(; i < stop; ++i)
 		{
+			double t = nominalBorder[zone];
+			bool errorStrobe = true;
 			if(channel == s[i].Channel)
 			{
-				double t = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+				bool errorStrobe = true;
+				if(s[i].hdr.G1Tof)
+				{
+					t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+					errorStrobe = false;
+					if(s[i].hdr.G2Tof)
+					{
+						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+						double tt = t - val2;
+						if(tt < brackStrobe)
+						{
+							t = val2;
+						}
+						else
+						{
+							errorStrobe = true;
+						}
+					}
+				}
 				char st;
-				StatusZoneThickness(offs, t, zone
-					, aboveBorder  
-					, lowerBorder  
-					, nominalBorder
-					, st);
+				if(!errorStrobe)
+				{
+					StatusZoneThickness(offs, t, zone
+						, aboveBorder  
+						, lowerBorder  
+						, nominalBorder
+						, st);
+				}
+				else
+				{
+					st = s[i].hdr.G1Tof 
+						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
+						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
+						;
+				}
 				int ind = f.index % f.width;
 				sk[ind] = &s[i];
 				stat[ind] = st;
 				if(0 == t) t = 999999;
 				int ret = f.Add(t);
-				//if(StatusId<Clr<DeathZone>>() != st)
 				{
 					t = f.buf[ret];
 					if(999999 == t) t = 0;
 					
-					data[cnt] = t;//f.buf[ret];
+					data[cnt] = t;
 					scan[cnt] = sk[ret];
 					status[cnt] = stat[ret];
 				}
-				//else
-				//{
-				//	data[cnt] = t;
-				//	scan[cnt] = &s[i];
-				//	status[cnt] = st;
-				//}
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
