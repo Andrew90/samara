@@ -27,6 +27,17 @@ void ScanWindow::Gate1::Draw()
 	if(visible) Gate::Draw();
 }
 
+ScanWindow::Gate2::Gate2(Chart &c)
+	: Gate(c)
+	, visible(false)
+{
+	color = 0xff00ffff;
+}
+void ScanWindow::Gate2::Draw()
+{
+	if(visible) Gate::Draw();
+}
+
 ScanWindow::GateIFBorder::GateIFBorder(Chart &c)
 	: VBorder(c)
 	, visible(false)
@@ -47,6 +58,18 @@ ScanWindow::Gate1Border::Gate1Border(Chart &c)
 }
 
 void ScanWindow::Gate1Border::Draw()
+{
+	if(visible) VBorder::Draw();
+}
+
+ScanWindow::Gate2Border::Gate2Border(Chart &c)
+	: VBorder(c)
+	, visible(false)
+{
+	color = 0xff00ffff;
+}
+
+void ScanWindow::Gate2Border::Draw()
 {
 	if(visible) VBorder::Draw();
 }

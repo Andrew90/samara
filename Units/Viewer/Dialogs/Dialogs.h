@@ -39,6 +39,8 @@ DLG(LoadDataDlg)
 DLG(AnalogPlateDlg)
 DLG(BaseLengthDlg)
 
+DLG(BrackStrobe2Dlg)
+
 #undef DLG
 
 template<class T>struct WindowPositionDlg

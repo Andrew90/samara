@@ -158,6 +158,7 @@ namespace
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
+		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrackStrobe2>().value;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
 			d.bufferMin[i] = 1000;
@@ -184,34 +185,55 @@ namespace
 								}
 							}
 						}
-						double val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+						double val = maxThickness[i];
+						bool strobeErr = true;
+						if(b[j].hdr.G1Tof)
+						{
+							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+							strobeErr = false;
+							if(b[j].hdr.G2Tof)
+							{
+								double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+								double t = val - val2;
+								if(t < brackStrobe)
+								{
+									val = val2;
+								}
+								else
+								{
+									strobeErr = true;
+									val = maxThickness[i];
+								}
+							}
+						}
 						double t = filtre(channel, val);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-							if(StatusId<Clr<Undefined>>() == d.statusMax[i]
-						//	|| StatusId<Clr<Undefined>>() == d.statusMin[i]
-							)
+							if(StatusId<Clr<Undefined>>() == d.statusMax[i])
 							{
 								d.statusMax[i] = StatusId<Clr<DeathZone>>();
 								d.statusMin[i] = StatusId<Clr<DeathZone>>();
 							}
 						}
 						else
-						{													
-							if(t > d.bufferMax[i])
-							{													
-								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-								d.bufferMax[i] = t;
-							}
-							if(0 == val) val = 999999;
-							t = filtre.AddX(channel, val);	
-							if(999999 == t) t = 0;
-							if(0 != t &&  t < d.bufferMin[i])
+						{	
+							if(!strobeErr)
 							{
-								d.bufferMin[i] = t;	
-								StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);							
+								if(t > d.bufferMax[i])
+								{													
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+									d.bufferMax[i] = t;
+								}
+								if(0 == val) val = 999999;
+								t = filtre.AddX(channel, val);	
+								if(999999 == t) t = 0;
+								if(0 != t &&  t < d.bufferMin[i])
+								{
+									d.bufferMin[i] = t;	
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+								}
 							}
 						}
 					}
@@ -342,10 +364,11 @@ namespace
 	};
 	
 	template<class T>struct __first__;
-	template<class A, class B, class C, class D>struct __first__<Clr<A, B, C, D>>
+	template<template<class, class, class, class>class W, class A, class B, class C, class D>struct __first__<W<A, B, C, D>>
 	{
 		typedef A Result;
 	};
+
 	template<class O, class P>struct __result_ok__
 	{
 		bool operator()(P *p)

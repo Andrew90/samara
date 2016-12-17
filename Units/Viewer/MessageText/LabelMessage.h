@@ -43,6 +43,7 @@
 /*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
 /*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
 /*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+/*38*/  , Xlr<BrackStrobe>
 //------------------------------------------------------------------------------
 	>::Result label_message_list;
 //-------------------------------------------------------------------
@@ -129,10 +130,29 @@ namespace
 		static const bool value = false;
 	};
 	template<class T>struct __first_color__;
+
+	template<class List>struct __xel__;
+	template<class A, class B, class C, class D, class Tail>struct __xel__<Tlst<Clr<A, B, C, D>, Tail>>
+	{
+		typedef Tlst<Clr<A, B, C, D>, typename __xel__<Tail>::Result> Result;
+	};
+	template<class Head, class Tail>struct __xel__<Tlst<Head, Tail>>
+	{
+		typedef typename __xel__<Tail>::Result Result;
+	};
+	template<>struct __xel__<NullType>
+	{
+		typedef NullType Result;
+	};
+
 	template<class  _0, class _1, class _2, class _3>struct __first_color__<Clr<_0, _1, _2, _3>>
 	{
 		typedef Clr<_0, _1, _2, _3> O;
-		typedef typename TL::_if<(TL::Length<ColorTable::items_list>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
+		typedef typename TL::_if<(TL::Length<typename __xel__<ColorTable::items_list>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
+	};
+	template<class  _0, class _1, class _2, class _3>struct __first_color__<Xlr<_0, _1, _2, _3>>
+	{
+		typedef Xlr<_0, _1, _2, _3> Result;
 	};
 	template<class O, class P>struct __select__
 	{
@@ -154,6 +174,7 @@ STATUS_LABEL(Clr<Undefined>, "\"Результат не определён\"")
 STATUS_LABEL(Clr<DeathZone>, "\"Мёртвая зона\"")
 
 STATUS_LABEL(Clr<Nominal>, "\"Норма\"")
+STATUS_LABEL(Xlr<BrackStrobe>, "\"Брак по стробу\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"Толщина выше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"Толщина меньше нормы\"")

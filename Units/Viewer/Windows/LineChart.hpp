@@ -2,6 +2,7 @@
 #include "AppBase.h"
 #include "ScanWindow.h"
 #include "ItemIni.h"
+#include "templates.hpp"
 
 namespace
 {
@@ -38,16 +39,16 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		((Parent::TChart *)chart)->items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
 		cursor->SetMouseMoveHandler(this, &Line<T, N>::CursorDraw);
 	}	
-	//bool GetColorBar(int offs, double &data, unsigned &color)
-	//{
-	//	if(NULL != dataViewer.data && offs < dataViewer.count)
-	//	{
-	//		data = DefVal<typename T::sub_type>()(dataViewer.data[offs], offs);
-	//		color = ConstData::ZoneColor(dataViewer.status[offs]);
-	//		return true;
-	//	}
-	//	return false;
-	//}
+	bool GetColorBar(int offs, double &data, unsigned &color)
+	{
+		if(NULL != dataViewer.data && offs < dataViewer.count)
+		{
+			data = DefVal<typename T::sub_type>()(dataViewer.data[offs], offs);
+			color = ConstData::ZoneColor(dataViewer.status[offs]);
+			return true;
+		}
+		return false;
+	}
 
 	bool CursorDraw(TMouseMove &l, VGraphics &g)	  
 	{	
@@ -139,10 +140,22 @@ template<>struct __for_label__<Thickness>
 	wchar_t buffer[128];
 	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
 	{
-		wsprintf(buffer, L"<ff>смещение %s  амплитуда %d"
-			, Wchar_from<double>(0.005 * d->hdr.G1Tof)()
-			, d->hdr.G1Amp
-			);
+		ItemData<Thickness> &t = Singleton<ItemData<Thickness> >::Instance();
+		wchar_t s1[256];
+		wchar_t s2[256];
+		s1[0] = '\0';
+		s2[0] = '\0';
+		if(d->hdr.G1Tof)
+		{
+			double tmp = 2.5e-6 * d->hdr.G1Tof * t.param[d->Channel].get<gate1_TOF_WT_velocity>().value;
+			wsprintf(s1, L"<ff>толщина1 <ffffff>%s", Wchar_from<double>(tmp)());
+			if(d->hdr.G2Tof)
+			{
+				double tmp = 2.5e-6 * d->hdr.G2Tof * t.param[d->Channel].get<gate2_TOF_WT_velocity>().value;
+				wsprintf(s2, L"<ff>толщина2 <ffffff>%s", Wchar_from<double>(tmp)());
+			}
+		}
+		wsprintf(buffer, L"%s %s" , s1, s2);
 		return buffer;
 	}
 };
@@ -155,6 +168,8 @@ template<class T>struct __gates__
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
 // todo  расчёт гайтов для отрисовки
 		ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
 		USPC(scope_range);
@@ -176,7 +191,7 @@ template<class T>struct __gates__
 		USPC(gate1_level);
 		dprint("gate1_level %f\n", _gate1_level);
 
-		g1.x = (_gate1_position);
+		g1.x = _gate1_position;//(_gate1_position + _scope_offset);
 		g1.width = _gate1_width;
 		double offs = 0.005 * d->hdr.G1Tof;
 		dprint("gate1_position %f  offs %f  %d %d\n", _gate1_position, offs, d->TimeEqu, d->hdr.G1Tof);
@@ -209,7 +224,6 @@ template<class T>struct __gates__
 		
 		wsprintf(buf, L"<ff>Амплитуда %d", amp);
 		s.label = buf;
-		
 	}
 };
 
@@ -223,6 +237,8 @@ template<>struct __gates__<Thickness>
 		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
 		s.chart.items.get<ScanWindow::GateIF>().visible = false;
 		s.chart.items.get<ScanWindow::Gate1>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
+		s.chart.items.get<ScanWindow::Gate2>().visible = false;
 
 		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
 		gif.visible = true;
@@ -260,6 +276,19 @@ template<>struct __gates__<Thickness>
 		USPC(gate1_level);
 		dprint("gate1_level %f\n", _gate1_level);
 
+
+		ScanWindow::Gate2 &g2 = s.chart.items.get<ScanWindow::Gate2>();
+
+		USPC(gate2_width);
+		dprint("gate2_width %f\n", _gate2_width);
+
+		USPC(gate2_position);
+		dprint("gate2_position %f\n", _gate2_position);
+
+		USPC(gate2_level);
+		dprint("gate2_level %f\n", _gate2_level);
+
+
 		int count = d->DataSize;
 		if(0 == count) count = 500;
 		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
@@ -279,8 +308,6 @@ template<>struct __gates__<Thickness>
 				{
 					s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
 					s.chart.items.get<ScanWindow::GateIF>().visible = true;
-					s.chart.items.get<ScanWindow::Line>().offset = 
-					  int(i - (0.005 * d->hdr.GIFTof - _scope_offset) / mash);
 					break;
 				}
 			}
@@ -289,11 +316,24 @@ template<>struct __gates__<Thickness>
 				s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
 				s.chart.items.get<ScanWindow::Gate1>().visible = true;
 				double x = 5e-3 * d->hdr.GIFTof;
-				g1.x = _gate1_position + x - s.chart.items.get<ScanWindow::Line>().offset * mash;
+				g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
 				g1.width = _gate1_width;
 				g1.y = _gate1_level;
 				dprint("offs gate1 %f\n", g1.x);
 				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+
+				if(0 != d->hdr.G2Tof)
+				{
+					s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
+					s.chart.items.get<ScanWindow::Gate2>().visible = true;
+					double x = 5e-3 * d->hdr.GIFTof;
+					g2.x = _gate2_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+					g2.width = _gate2_width;
+					g2.y = _gate2_level;
+					dprint("offs gate2 %f\n", g2.x);
+					s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
+					dprint("G1Tof %d G2Tof %d\n", d->hdr.G1Tof, d->hdr.G2Tof);
+				}
 			}
 		}
 	}

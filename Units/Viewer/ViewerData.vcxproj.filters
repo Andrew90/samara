@@ -263,6 +263,7 @@
     <ClCompile Include="Compute.cpp">
       <Filter>Compute</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\BrackStrobe2Dlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Base\tables.hpp" />

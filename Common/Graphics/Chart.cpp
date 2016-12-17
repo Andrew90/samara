@@ -305,7 +305,7 @@ void BottomAxesMeters::Draw()
     double minTick = 0;
     int maxLen = 0;
 	OffsetAxes(
-		int(3.0 * chart.GetCountDigit(minA, maxA, height, font, maxLen))
+		int(3.5 * chart.GetCountDigit(minA, maxA, height, font, maxLen))
 		, chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight
 		, minBorder
 		, maxBorder
@@ -386,7 +386,7 @@ void BottomAxesInt::Draw()
     double minTick = 0;
     int maxLen = 0;
 	OffsetAxes(
-		int(2.0 * chart.GetCountDigit(minA, maxA, height, font, maxLen))
+		int(3.5 * chart.GetCountDigit(minA, maxA, height, font, maxLen))
 		, chart.rect.right - chart.rect.left - chart.offsetAxesLeft - chart.offsetAxesRight
 		, chart.minAxesX
 		, chart.maxAxesX

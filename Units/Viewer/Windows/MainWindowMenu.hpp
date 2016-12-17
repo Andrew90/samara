@@ -44,7 +44,8 @@ namespace MainWindowMenu
 	struct MainOptionTypeSize{};
 	MENU_TEXT(L"Типоразмер", TopMenu<MainOptionTypeSize>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-	struct ThicknessTreshold {};
+	struct Tresholds {};
+	struct Thickness{};
 	struct DeadZones         : DeadZonesDlg{};//{static void Do(HWND h){zprint("");}};
 	//struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	//struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
@@ -54,35 +55,43 @@ namespace MainWindowMenu
 	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
 	struct ThicknessThresholdWindow__: Common::OpenWindow<ThicknessThresholdWindow>{};
 
+	struct BrackStrobe2__: BrackStrobe2Dlg{};//{static void Do(HWND h){zprint("");}};
+
 	struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
 
-	template<>struct SubMenu<ThicknessTreshold>
+	template<>struct SubMenu<Tresholds>
 	{
-		typedef TL::TypeToTypeLst<
-			typename TL::MkTlst<
-			CrossThresholdWindow__
-			, LongThresholdWindow__
-			, ThicknessThresholdWindow__
-			>::Result 
-			, MenuItem
+		typedef TL::MkTlst<
+			MenuItem<CrossThresholdWindow__>
+			, MenuItem<LongThresholdWindow__>
+			, SubMenu<Thickness>
 		>::Result list;
 	};
-	
+
    // MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
-	MENU_TEXT(L"Пороги отбраковки", SubMenu<ThicknessTreshold>)
+	MENU_TEXT(L"Пороги отбраковки", SubMenu<Tresholds>)
 	MENU_ITEM(L"Поперечные пороги", CrossThresholdWindow__)
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
 
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
+	MENU_ITEM(L"Брак по стробу 2", BrackStrobe2__)
+	MENU_TEXT(L"Толщина", SubMenu<Thickness>)
+
+	
 
 	template<>struct TopMenu<MainOptionTypeSize>
 	{
 		typedef TL::MkTlst<
-		     SubMenu<ThicknessTreshold>
+		     SubMenu<Tresholds>
 			, MenuItem<DeadZones>
+			//, MenuItem<AllowableThickness>
 			, MenuItem<MedianFiltre>
+			//, MenuItem<RotationalSpeed>
+			//, Separator<0>
+			//, MenuItem<MainCreateTypesize>
+			//, MenuItem<MainDeleteTypeSize>
 		>::Result list;
 	 };
 	//--------------------------------------------------------------------------------
