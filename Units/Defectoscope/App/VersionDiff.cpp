@@ -51,7 +51,7 @@ namespace Version
 	{
 		unsigned t = __magic_word__ | __version__;
 		fwrite(&t, sizeof(unsigned), 1, f);
-//		TL::foreach<ParametersBase::type_list, __store__>()(f);
+		TL::foreach<ParametersBase::type_list, __store__>()(f);
 		TL::foreach<unit_list, __unit__>()(__set__unit_data__(fwrite, f));
 	}
 
@@ -77,7 +77,7 @@ namespace Version
 			{
 			case __version__:
 				{
-				//	TL::foreach<ParametersBase::type_list, __load__>()(f);
+					TL::foreach<ParametersBase::type_list, __load__>()(f);
 					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
 				}
 				return true;
