@@ -54,6 +54,7 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 		{
 			wsprintf(buffer, L"Файл существует %s", dest);
 			MessageBox(h, buffer, L"Предупреждение!!!", MB_ICONHAND);
+			return true;
 		}
 		else if(FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
                        NULL, 

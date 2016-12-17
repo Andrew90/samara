@@ -133,8 +133,17 @@ void AddTypeSizeDlg::Do(HWND h)
 	   )
 	{
 		wchar_t *s = t.items.get<NameParam>().value;
-		Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
-		NewUSPCFile(h, s);
+
+		if(NewUSPCFile(h, s))
+		{
+			Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
+			wchar_t b[256];
+			wcscpy(b, s);
+			ExistCurrentUSPCFile(b);
+			wchar_t bb[256];
+			wsprintf(bb, L"%s %s", App::TitleApp(),b);
+			SetWindowText(h, bb);
+		}
 	}
 }
 

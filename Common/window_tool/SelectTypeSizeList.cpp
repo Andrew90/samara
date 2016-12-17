@@ -77,10 +77,11 @@ void SelectTypeSizeList::Do(TCommand &m)
 				SetFocus(m.hwnd);
 				wchar_t b[256];
 				wchar_t bb[512];
-                ExistCurrentUSPCFile(b);
-				wsprintf(bb, L"%s %s", App::TitleApp(), b);
-				SetWindowText(m.hwnd, bb);
-				//Singleton<USPCIniFile>::Instance().Init();
+				if(ExistCurrentUSPCFile(b))
+				{
+					wsprintf(bb, L"%s %s", App::TitleApp(), b);
+					SetWindowText(m.hwnd, bb);
+				}
 			}
 		}
 	}
