@@ -364,7 +364,7 @@ namespace
 	};
 	
 	template<class T>struct __first__;
-	template<template<class, class, class, class>class W, class A, class B, class C, class D>struct __first__<W<A, B, C, D>>
+	template<template<class, class, class, class, class>class W, class A, class B, class C, class D, class E>struct __first__<W<A, B, C, D, E>>
 	{
 		typedef A Result;
 	};

@@ -230,9 +230,9 @@ template<class O, class P>struct __set_color_bar__
 };
 
 template<class T>struct GetFirst;
-template<template<class, class, class, class>class X, class A, class B, class C, class D>struct GetFirst<X<A, B, C, D> >
+template<template<class, class, class, class, class>class X, class A, class B, class C, class D, class E>struct GetFirst<X<A, B, C, D, E> >
 {
-	typedef X<A, NullType, NullType, NullType> Result;
+	typedef X<A, NullType, NullType, NullType, NullType> Result;
 };
 template<class O, class P>struct __set_color_bar_next__
 {

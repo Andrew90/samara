@@ -103,17 +103,17 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Clr;
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Xlr;
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Clr;
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Xlr;
 //{
 //	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
 //};
 
 template<class T>struct GetItemsList;
 
-template<template<class, class, class, class>class W, class _0, class _1, class _2, class _3>struct	GetItemsList<W<_0, _1, _2, _3>>
+template<template<class, class, class, class, class>class W, class _0, class _1, class _2, class _3, class _4>struct	GetItemsList<W<_0, _1, _2, _3, _4>>
 {
-	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result Result;
+	typedef typename TL::MkTlst<_0, _1, _2, _3, _4>::Result Result;
 };
 
 struct Undefined{};
