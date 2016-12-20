@@ -45,6 +45,7 @@ namespace Protocols.Models
         public string Long      { get; set; }
         public string Cross     { get; set; }
         public string Thickness { get; set; }
+        public string StrobeBit2 { get; set; }
     }
 
     public class TubesView

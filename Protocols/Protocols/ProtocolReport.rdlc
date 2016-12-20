@@ -77,13 +77,21 @@
           <DataField>Cross</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Length">
+          <DataField>Length</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="Long">
           <DataField>Long</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NumTube">
           <DataField>NumTube</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StrobeBit2">
+          <DataField>StrobeBit2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Thickness">
           <DataField>Thickness</DataField>
@@ -96,8 +104,8 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>Protocols.Models</rd:DataSetName>
-        <rd:TableName>TubesPacketResultList</rd:TableName>
-        <rd:ObjectDataSourceType>Protocols.Models.TubesPacketResultList, Protocols, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>TubesPacketResult</rd:TableName>
+        <rd:ObjectDataSourceType>Protocols.Models.TubesPacketResult, Protocols, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -134,7 +142,7 @@
               <Width>1.03125in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.45858in</Width>
+              <Width>1.3544in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -939,7 +947,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -1556,7 +1563,7 @@
         <Top>0.08522in</Top>
         <Left>0.78834in</Left>
         <Height>2.18413in</Height>
-        <Width>7.0625in</Width>
+        <Width>6.95832in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1583,7 +1590,7 @@
         <Top>2.37689in</Top>
         <Left>0.78834in</Left>
         <Height>0.25in</Height>
-        <Width>7.06249in</Width>
+        <Width>6.95832in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -1602,13 +1609,16 @@
               <Width>0.35416in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.05903in</Width>
+              <Width>1.52778in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.20647in</Width>
+              <Width>1.55023in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.44283in</Width>
+              <Width>1.78658in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.73958in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1728,6 +1738,38 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox110</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox6">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Брак строб 2</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox6</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1866,12 +1908,43 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="StrobeBit2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!StrobeBit2.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>StrobeBit2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -1892,7 +1965,7 @@
         <Top>2.75189in</Top>
         <Left>0.78834in</Left>
         <Height>0.5in</Height>
-        <Width>7.06249in</Width>
+        <Width>6.95832in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -1901,10 +1974,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>24.18927cm</Height>
+    <Height>28.7401cm</Height>
     <Style />
   </Body>
-  <Width>20.40383cm</Width>
+  <Width>20.85361cm</Width>
   <Page>
     <PageHeader>
       <Height>2cm</Height>
@@ -1917,7 +1990,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.17326cm</Height>
+      <Height>1.04098cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1957,7 +2030,7 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageHeight>29cm</PageHeight>
+    <PageHeight>279cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
