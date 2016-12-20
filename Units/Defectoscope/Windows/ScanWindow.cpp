@@ -106,7 +106,6 @@ void ScanWindow::Line::Draw()
 		int y0 = int(yOffs - (data[0] - minY) * dY);
 		double x = x0;
 		int y = y0;
-		dprint("offset %d\n", offset);
 		for(int i = offset; i < count; ++i)
 		{
 			x += dX;

@@ -3,56 +3,99 @@
 #include "DebugMess.h"
 //-----------------------------------------------------------------
 	typedef TL::MkTlst<	
-/*0*/	Clr<Undefined   >
-/*1*/	, Clr<DeathZone>
-/*2*/	, Clr<Nominal	>
-/*3*/	, Clr<BorderAbove<Thickness> >
-/*4*/	, Clr<BorderLower<Thickness> >
-/*5*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-/*6*/	, Clr<BorderKlass2<Long> > 
-/*7*/	, Clr<BorderDefect<Long> >
-/*8*/	, Clr<BorderKlass2<Cross>>
-/*9*/	, Clr<BorderDefect<Cross>>
+/*0*/		Clr<Undefined   >
+/*1*/		, Clr<DeathZone>
+/*2*/		, Clr<Nominal	>
+/*3*/	    , Clr<BorderAbove<Thickness> >
+/*4*/	    , Clr<BorderLower<Thickness> >
+/*5*/	    , Clr<BorderKlass2<Long> > 
+/*6*/	    , Clr<BorderDefect<Long> >
+/*7*/	    , Clr<BorderKlass2<Cross>>
+/*8*/	    , Clr<BorderDefect<Cross>>
+/*9*/       , Clr<BrakStrobe2<Thickness>>
 
-/*10*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-/*11*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*13*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-/*14*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*16*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-/*17*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 
-/*20*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*21*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>>
-/*22*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
-/*23*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-/*24*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>>
-/*25*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
-/*26*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-/*27*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*28*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
-/*29*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+/*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+/*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
+/*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+/*20*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
 
-/*30*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*34*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
-/*38*/  , Xlr<BrackStrobe>
+/*21*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+/*22*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>>
+/*23*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
+/*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+/*25*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>>
+/*26*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
+/*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+/*29*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
+/*30*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+
+/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+/*34*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
+/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+/*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+
+/*39*/	, Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >
+
+/*40*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >
+/*41*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*42*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> > 
+/*43*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> >
+/*44*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>>
+/*45*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>>
+//			
+/*46*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>>
+/*47*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>>
+/*48*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+
+/*49*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>>
+/*50*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>>
+/*51*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*52*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long> >
+/*53*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+/*54*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+/*55*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+			
+/*56*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>>
+/*57*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>>
+/*58*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
+/*59*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*60*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>>
+
+/*61*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
+/*62*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long> >
+/*63*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+/*64*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
+/*65*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+			
+/*66*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long> >
+/*67*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+/*68*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+/*69*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+/*70*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross> >
+/*71*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+/*72*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+/*73*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
 //------------------------------------------------------------------------------
-	>::Result label_message_list;
+>::Result label_message_list;
 //-------------------------------------------------------------------
 #define	JOIN2(a, b) a##,##b
 #define	JOIN3(a, b, c) a##,##b##,##c
 #define	JOIN4(a, b, c, d) a##,##b##,##c,##d
+#define	JOIN5(a, b, c, d, e) a##,##b##,##c,##d,##e
 
-//DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xffff0000)
 DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
@@ -88,9 +131,46 @@ DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thi
 DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xffff0000)
 DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000) 
 
+
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >																), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> > 																	), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderDefect<Long> >																	), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>>																	), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>>																	), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>>												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>>												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long> >												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>>											), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>					), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>>												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross> >												), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xff1681f4)
+DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
 #undef	JOIN2
 #undef	JOIN3
 #undef	JOIN4
+#undef	JOIN5
 //---------------------------------------------------------------------
 template<class O>struct __status_label__
 {
@@ -146,15 +226,15 @@ namespace
 		typedef NullType Result;
 	};
 
-	template<class  _0, class _1, class _2, class _3>struct __first_color__<Clr<_0, _1, _2, _3>>
+	template<class  _0, class _1, class _2, class _3, class _4>struct __first_color__<Clr<_0, _1, _2, _3, _4>>
 	{
-		typedef Clr<_0, _1, _2, _3> O;
+		typedef Clr<_0, _1, _2, _3, _4> O;
 		typedef typename TL::_if<(TL::Length<typename __xel__<ColorTable::items_list>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
 	};
-	template<class  _0, class _1, class _2, class _3>struct __first_color__<Xlr<_0, _1, _2, _3>>
-	{
-		typedef Xlr<_0, _1, _2, _3> Result;
-	};
+	//template<class  _0, class _1, class _2, class _3>struct __first_color__<Xlr<_0, _1, _2, _3>>
+	//{
+	//	typedef Xlr<_0, _1, _2, _3> Result;
+	//};
 	template<class O, class P>struct __select__
 	{
 		bool operator()(P *p)
@@ -186,14 +266,14 @@ namespace
 	//};
 }
 
-STATUS_LABEL(Clr<Undefined>, "\"Результат не определён\"")
-STATUS_LABEL(Clr<DeathZone>, "\"Мёртвая зона\"")
+STATUS_LABEL(Clr<Undefined>, "\"результат не определён\"")
+STATUS_LABEL(Clr<DeathZone>, "\"мёртвая зона\"")
 
-STATUS_LABEL(Clr<Nominal>, "\"Норма\"")
-STATUS_LABEL(Xlr<BrackStrobe>, "\"Брак по стробу\"")
+STATUS_LABEL(Clr<Nominal>, "\"норма\"")
+STATUS_LABEL(Clr<BrakStrobe2<Thickness>>, "\"брак по стробу\"")
 
-STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"Толщина выше нормы\"") 
-STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"Толщина меньше нормы\"")
+STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"толщина больше нормы\"") 
+STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"толщина меньше нормы\"")
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__;
 
@@ -310,14 +390,47 @@ COLOR_DATA(Clr<DeathZone>)
 	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d;}\
 };
 
-#define BorderDefect_Cross "\"поперечный дефект\", "
-#define BorderDefect_Long "\"продольный дефект\", "
+#define STATUS_LABEL_5(a, b, c, d, e)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e>>\
+{\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d##PARAM_TXT##e;}\
+};
 
-#define BorderKlass2_Cross "\"поперечный 2 класс\", "
-#define BorderKlass2_Long "\"продольный 2 класс\", "
+//-------------------------------
+#define ASTATUS_LABEL_2(a, b)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b>>\
+{\
+	static const int ID = TL::IndexOf<brack_strobe_list, Clr<PARAM_STR##a, PARAM_STR##b>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b;}\
+};
 
-#define BorderLower_Thickness "\"толщина меньше нормы\", "
-#define BorderAbove_Thickness "\"толщина больше нормы\", "
+#define ASTATUS_LABEL_3(a, b, c)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c>>\
+{\
+	static const int ID = TL::IndexOf<brack_strobe_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c;};\
+};
+
+#define ASTATUS_LABEL_4(a, b, c, d)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d>>\
+{\
+	static const int ID = TL::IndexOf<brack_strobe_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d;}\
+};
+
+#define ASTATUS_LABEL_5(a, b, c, d, e)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e>>\
+{\
+	static const int ID = TL::IndexOf<brack_strobe_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d##PARAM_TXT##e;}\
+};
+
+#define BorderDefect_Cross "\"поперечный дефект\""
+#define BorderDefect_Long "\"продольный дефект\""
+
+#define BorderKlass2_Cross "\"поперечный 2 класс\""
+#define BorderKlass2_Long "\"продольный 2 класс\""
+
+#define BorderLower_Thickness "\"толщина меньше нормы\""
+#define BorderAbove_Thickness "\"толщина больше нормы\""
+
+#define BrakStrobe2_Thickness "\"брак по стробу\""
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))
@@ -356,16 +469,48 @@ STATUS_LABEL_3((BorderLower, Thickness), (BorderKlass2, Cross), (BorderKlass2, L
 STATUS_LABEL_4((BorderLower, Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
 //--------------------
 STATUS_LABEL_2((BorderDefect, Cross), (BorderKlass2, Long))
-				
 STATUS_LABEL_3((BorderDefect, Cross), (BorderKlass2, Long), (BorderAbove, Thickness))
 STATUS_LABEL_3((BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness))
 STATUS_LABEL_4((BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
-//---------------------------------------
-STATUS_LABEL_2((BorderDefect, Long), (BorderKlass2, Cross))
-													
+STATUS_LABEL_2((BorderDefect, Long), (BorderKlass2, Cross))												
 STATUS_LABEL_3((BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness))
 STATUS_LABEL_3((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness))
 STATUS_LABEL_4((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderLower , Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderKlass2, Long)) 
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderDefect, Long))
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderKlass2, Cross))
+STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderDefect, Cross))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderLower, Thickness))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderLower, Thickness))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderAbove, Thickness))   
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness)) 
+STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Cross))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderKlass2, Long), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Long))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Long))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (BorderAbove, Thickness))   
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
+STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderAbove, Thickness))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness))
+STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness))
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross))
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness))   
+STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness))      
+STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
 
 #undef COLOR_DATA
 #undef STATUS_LABEL
@@ -405,10 +550,5 @@ struct ColorBar
 		{
 			TL::find<label_message_list, __set_color_bar_next__>()(&d);
 		}
-		//else if(id == TL::IndexOf<label_message_list, Clr<BrackStrobe> >::value)
-		//{
-		//	 data = 10.0;
-		//	 color = Singleton<Clr<BrackStrobe>>::Instance().value;
-		//}
 	}
 };

@@ -26,36 +26,34 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	if(stop > maxOffs) stop = maxOffs;
 	int i = start + offs;
 	ItemData<Thickness> &d = Singleton<ItemData<Thickness> >::Instance();
-	double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrackStrobe2>().value;
+	double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrakStrobe2<Thickness>>().value;
 	if(!medianFiltreOn)
-	{
+	{		
 		for(; i < stop; ++i)
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = nominalBorder[zone];
+				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
+				char st = StatusId<Clr<Undefined>>();
+				data[cnt] = 0;//nominalBorder[zone];
 				bool errorStrobe = true;
 				if(s[i].hdr.G1Tof)
 				{
 					double val = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 					data[cnt] = val;
-					errorStrobe = false;
 					if(s[i].hdr.G2Tof)
 					{
 						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
 						double t = val - val2;
-						if(t < brackStrobe)
+						if(t > brackStrobe)
 						{
-							data[cnt] = val2;
+							st = Status;
 						}
-						else
-						{
-							errorStrobe = true;
-						}
+						data[cnt] = val2;
 					}
 				}
 				scan[cnt] = &s[i];
-				if(!errorStrobe)
+				if(Status != st)
 				{
 					StatusZoneThickness(offs, data[cnt], zone
 						, aboveBorder  
@@ -65,10 +63,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				}
 				else
 				{
-					status[cnt] = s[i].hdr.G1Tof 
-						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
-						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
-						;
+					status[cnt] = st;
 				}
 				if(++cnt >= dimention_of(data)) break;
 			}
@@ -102,32 +97,28 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		f.Init(medianFiltreWidth, tmp);
 		
 		for(; i < stop; ++i)
-		{
-			double t = nominalBorder[zone];
-			bool errorStrobe = true;
+		{			
 			if(channel == s[i].Channel)
 			{
-				bool errorStrobe = true;
+				double t = 0;//nominalBorder[zone];
+				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
+				char st = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
 				{
 					t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
-					errorStrobe = false;
 					if(s[i].hdr.G2Tof)
 					{
 						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
 						double tt = t - val2;
-						if(tt < brackStrobe)
+						if(tt > brackStrobe)
 						{
-							t = val2;
+							st = Status;
 						}
-						else
-						{
-							errorStrobe = true;
-						}
+						t = val2;
 					}
 				}
-				char st;
-				if(!errorStrobe)
+				
+				if(Status != st)
 				{
 					StatusZoneThickness(offs, t, zone
 						, aboveBorder  
@@ -135,13 +126,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						, nominalBorder
 						, st);
 				}
-				else
-				{
-					st = s[i].hdr.G1Tof 
-						? TL::IndexOf<label_message_list, Xlr<BrackStrobe>>::value
-						: TL::IndexOf<label_message_list, Clr<Undefined>>::value
-						;
-				}
+				
 				int ind = f.index % f.width;
 				sk[ind] = &s[i];
 				stat[ind] = st;
