@@ -12,7 +12,8 @@ namespace ConstData{
 	{
 		void operator()(O *o, P *p)
 		{
-			p[TL::IndexOf<ColorTable::items_list, O>::value] = o->value;
+			static const int i = TL::IndexOf<ColorTable::items_list, O>::value;
+			p[i] = o->value;
 		}
 	};
 
@@ -22,10 +23,11 @@ namespace ConstData{
 	}
 
 	unsigned ZoneColor(unsigned c)
-	{
-		if(c < dimention_of(buf)) return buf[c];
-		if(c == TL::IndexOf<label_message_list, Xlr<BrackStrobe> >::value) 
-			return Singleton<ColorTable>::Instance().items.get<Xlr<BrackStrobe>>().value;
+	{		
+		if(c < dimention_of(buf))
+		{
+				return buf[c];
+		}
 		return 0xBADC0105;
 	}
 }

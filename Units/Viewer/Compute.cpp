@@ -51,6 +51,13 @@ namespace
 			MedianFiltre &ff = f[i];
 			return ff.buf[ff.Add(data)];
 		}
+		inline double operator()(int i, double data, int &status)
+		{
+			MedianFiltre &ff = f[i];
+			int index = ff.Add(data, status);
+			status = ff.status[index];
+			return ff.buf[index];
+		}
 		inline double AddX(int i, double data)
 		{
 			MedianFiltre &ff = f[i];
@@ -62,6 +69,10 @@ namespace
 		FiltreOff( MedianFiltre (&f)[App::count_sensors])
 		{}
 		inline double operator()(int i, double data)
+		{
+			return data;
+		}
+		inline double operator()(int i, double data, int &status)
 		{
 			return data;
 		}
@@ -158,7 +169,7 @@ namespace
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
-		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrackStrobe2>().value;
+		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
 			d.bufferMin[i] = 1000;
@@ -186,27 +197,25 @@ namespace
 							}
 						}
 						double val = maxThickness[i];
-						bool strobeErr = true;
+						//bool strobeErr = true;
+						static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
+						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
 							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-							strobeErr = false;
+						//	strobeErr = false;
 							if(b[j].hdr.G2Tof)
 							{
 								double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
 								double t = val - val2;
-								if(t < brackStrobe)
+								if(t > brackStrobe)
 								{
-									val = val2;
+									status = Status;
 								}
-								else
-								{
-									strobeErr = true;
-									val = maxThickness[i];
-								}
+								val = val2;
 							}
 						}
-						double t = filtre(channel, val);
+						double t = filtre(channel, val, status);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -219,19 +228,31 @@ namespace
 						}
 						else
 						{	
-							if(!strobeErr)
-							{
-								if(t > d.bufferMax[i])
-								{													
-									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-									d.bufferMax[i] = t;
-								}
-								if(0 == val) val = 999999;
-								t = filtre.AddX(channel, val);	
-								if(999999 == t) t = 0;
-								if(0 != t &&  t < d.bufferMin[i])
+							if(t > d.bufferMax[i])
+							{													
+								if(status == Status)
 								{
-									d.bufferMin[i] = t;	
+									d.statusMax[i] = Status;
+								}
+								else
+								{
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+								}
+								
+								d.bufferMax[i] = t;
+							}
+							if(0 == val) val = 999999;
+							t = filtre.AddX(channel, val);	
+							if(999999 == t) t = 0;
+							if(0 != t &&  t < d.bufferMin[i])
+							{
+								d.bufferMin[i] = t;	
+								if(status == Status)
+								{
+									d.statusMin[i] = Status;
+								}
+								else
+								{
 									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
 								}
 							}
@@ -364,7 +385,7 @@ namespace
 	};
 	
 	template<class T>struct __first__;
-	template<template<class, class, class, class>class W, class A, class B, class C, class D>struct __first__<W<A, B, C, D>>
+	template<template<class, class, class, class, class>class W, class A, class B, class C, class D, class E>struct __first__<W<A, B, C, D, E>>
 	{
 		typedef A Result;
 	};

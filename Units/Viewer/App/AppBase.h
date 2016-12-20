@@ -50,12 +50,17 @@ struct ThresholdsTable
 	const wchar_t *name(){return L"ThresholdsTable";}
 };
 
-DEFINE_PARAM(BrackStrobe2, double, 1.0)
+//template<class>struct BrakStrobe2;
+//DEFINE_PARAM_WAPPER(BrackStrobe2, Thickness, double, 1)
+//DEFINE_PARAM_WAPPER(AxesYMax, Thickness, double, 25)
+
+template<class T>struct BrakStrobe2;
+DEFINE_PARAM_WAPPER(BrakStrobe2, Thickness, double, 1)
 
 struct BrackStrobe2Table
 {
 	typedef TL::MkTlst<
-		 BrackStrobe2
+		 BrakStrobe2<Thickness>
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
@@ -103,23 +108,26 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Clr;
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType>struct Xlr;
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Clr
+{
+	typedef typename TL::MkTlst<_0, _1, _2, _3, _4>::Result items_list;
+};
+//template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Xlr;
 //{
 //	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
 //};
 
 template<class T>struct GetItemsList;
 
-template<template<class, class, class, class>class W, class _0, class _1, class _2, class _3>struct	GetItemsList<W<_0, _1, _2, _3>>
+template<template<class, class, class, class, class>class W, class _0, class _1, class _2, class _3, class _4>struct	GetItemsList<W<_0, _1, _2, _3, _4>>
 {
-	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result Result;
+	typedef typename TL::MkTlst<_0, _1, _2, _3, _4>::Result Result;
 };
 
 struct Undefined{};
 struct Nominal{};
 struct DeathZone{typedef NullType items_list;};
-struct BrackStrobe{};
+
 
 #define	JOIN2(a, b) a##,##b
 DEFINE_WAPPER(Clr<Undefined>, int, 0xff555555)
@@ -131,8 +139,8 @@ DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(Xlr<BrackStrobe>, int, 0xff1681f4)
+//DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
+DEFINE_WAPPER( Clr<BrakStrobe2<Thickness>>, int, 0xff1681f4)
 #undef	JOIN2
 
 
@@ -144,12 +152,11 @@ struct ColorTable
 /*2*/		, Clr<Nominal	>
 /*3*/	    , Clr<BorderAbove<Thickness> >
 /*4*/	    , Clr<BorderLower<Thickness> >
-/*5*/	    , Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-/*6*/	    , Clr<BorderKlass2<Long> > 
-/*7*/	    , Clr<BorderDefect<Long> >
-/*8*/	    , Clr<BorderKlass2<Cross>>
-/*9*/	    , Clr<BorderDefect<Cross>>
-/*xxx*/     , Xlr<BrackStrobe>
+/*5*/	    , Clr<BorderKlass2<Long> > 
+/*6*/	    , Clr<BorderDefect<Long> >
+/*7*/	    , Clr<BorderKlass2<Cross>>
+/*8*/	    , Clr<BorderDefect<Cross>>
+/*9*/       , Clr<BrakStrobe2<Thickness>>
 ///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 ///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
 ///*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
