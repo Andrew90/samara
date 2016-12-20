@@ -284,70 +284,14 @@ namespace Stored
 			return false;
 		}
 	};
-#if 0
-	void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
-	{
-		path = path_;
-		offsPath= offsPath_;
-		base = &b;
-		if(count > 10000)
-		{
-			COleDateTime tme;
-			CMD(b).CommandText(
-				L"SELECT max([Date_Time]) as TME FROM [StoredBase].[dbo].[TubesTable]"\
-				L"WHERE [Date_Time] "\
-				L"IN (SELECT TOP(100)[Date_Time] FROM [StoredBase].[dbo].[TubesTable] ORDER BY [Date_Time] ASC)"
-				).GetValue(L"TME", tme);
-			Select<TubesTable>(b).op<Date_Time>(L"<", tme).ExecuteLoop<__list__>(*this);
 
-			//unsigned id = 0;
-			//CMD(b).CommandText(
-			//	L"SELECT ID FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time=?"
-			//	).Param(tme).GetValue(L"ID", id);
-			//
-			//CMD(b).CommandText(
-			//	L"DELETE FROM [StoredBase].[dbo].[StoredMeshureTable] WHERE Tube<?"
-			//	).Param(id).Execute();
-
-			CMD(b).CommandText(
-				L"DELETE FROM [StoredBase].[dbo].[StoredMeshureTable] WHERE Tube IN(SELECT ID FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time<?)"
-				).Param(tme).Execute();
-
-			CMD(b).CommandText(
-				L"DELETE FROM [StoredBase].[dbo].[ProtocolsTable] WHERE ID IN(SELECT IDProtocolsTable FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time<?)"
-				).Param(tme).Execute();
-
-			CMD(b).CommandText(
-				L"DELETE FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time<?"
-				).Param(tme).Execute();
-
-			CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
-			return;
-		}
-		if(count > 0)
-		{
-			++count;
-		}
-		else
-		{
-			CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
-		}
-	}
-#else	
 #pragma message("Проверить удаление при заполнении базы данных")
 	void DeleteLast::operator()(CBase &b, wchar_t *path_, wchar_t *offsPath_)
 	{
 		path = path_;
 		offsPath= offsPath_;
 		base = &b;
-		/*
-		BOOL WINAPI GetDiskFreeSpaceEx(
-		_In_opt_  LPCTSTR         lpDirectoryName,
-		_Out_opt_ PULARGE_INTEGER lpFreeBytesAvailable,
-		_Out_opt_ PULARGE_INTEGER lpTotalNumberOfBytes,
-		_Out_opt_ PULARGE_INTEGER lpTotalNumberOfFreeBytes
-		);
-		*/
+		
 		ULARGE_INTEGER freeBytesAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
 
 		wchar_t path[1024];
@@ -404,5 +348,5 @@ namespace Stored
 		}
 		catch(...){}
 	}
-#endif
+
 }
