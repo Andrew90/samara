@@ -201,6 +201,35 @@ namespace Stored
 		}
 	};
 
+	void StoredProtectiveThickeningTable(CBase &base, int tubeID)
+	{
+		 ProtectiveThickeningTable &protectiveThickeningTable = Singleton<ProtectiveThickeningTable>::Instance();
+		 int protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
+		 if(0 == protectiveThickeningTableID)
+		 {
+			 Insert_Into<ProtectiveThickeningTable>(protectiveThickeningTable, base).Execute();
+			 protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
+		 }
+
+		ThicknessTable tt;
+		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMin, sizeof(MinMaxThickness::type_value));
+		Insert_Into<ThicknessTable>(tt, base).Execute();
+		int minID = 0;
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").GetValue(L"C", minID);
+
+		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMax, sizeof(MinMaxThickness::type_value));
+		Insert_Into<ThicknessTable>(tt, base).Execute();
+		int maxID = 0;
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").GetValue(L"C", maxID);
+
+		StoredThicknessTable st;
+		st.items.get<ID<ProtectiveThickeningTable>>().value = protectiveThickeningTableID;
+		st.items.get<MinThicknessID>().value = minID;
+		st.items.get<MaxThicknessID>().value = maxID;
+		st.items.get<ID<TubesTable>>().value = tubeID;
+		Insert_Into<StoredThicknessTable>(st, base).Execute();
+	}
+
 	bool Do()
 	{
 		COleDateTime tme = COleDateTime::GetCurrentTime();
@@ -239,10 +268,16 @@ namespace Stored
 			if(0 == data.id)
 			{
 				Insert_Into<TubesTable>(tt, base).Execute();
+				id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
 			}
 			else
 			{
 				UpdateWhere<TubesTable>(tt, base).ID(data.id).Execute();
+				id = data.id;
+			}
+			if(id)
+			{
+				StoredProtectiveThickeningTable(base, id);
 			}
 			dprint("database stored\n");
 		}

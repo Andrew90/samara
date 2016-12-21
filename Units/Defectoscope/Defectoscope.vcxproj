@@ -161,6 +161,7 @@
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp" />
     <ClCompile Include="Dialogs\NumberTubeDlg.cpp" />
     <ClCompile Include="Dialogs\OffsetsSensors.cpp" />
+    <ClCompile Include="Dialogs\ProtectiveThickeningDlg.cpp" />
     <ClCompile Include="Dialogs\StoredLoadData.cpp" />
     <ClCompile Include="Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="Dialogs\TypeSizeDlg.cpp" />

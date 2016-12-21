@@ -42,6 +42,7 @@ DLG(AnalogPlateDlg)
 DLG(BaseLengthDlg)
 
 DLG(BrackStrobe2Dlg)
+DLG(ProtectiveThickeningDlg)
 
 #undef DLG
 

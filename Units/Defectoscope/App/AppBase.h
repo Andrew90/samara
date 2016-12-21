@@ -293,12 +293,14 @@ struct AdditionalSettingsTable
  };
 //-------------------------------------------------------------------------------------------------------
 struct AxesTable;
+struct ProtectiveThickeningTable;
 DEFINE_PARAM_ID(ThresholdsTable            , int, 1)
 DEFINE_PARAM_ID(DeadAreaTable			   , int, 1)
 DEFINE_PARAM_ID(AxesTable	   , int, 1)
 DEFINE_PARAM_ID(MedianFiltreTable, int, 1)
 DEFINE_PARAM_ID(BrackStrobe2Table, int, 1)
 STR_PARAM(NameParam, 128, L"NONAME")
+DEFINE_PARAM_ID(ProtectiveThickeningTable, int, 1)
  struct ParametersTable
  {
 	typedef TL::MkTlst<
@@ -307,6 +309,7 @@ STR_PARAM(NameParam, 128, L"NONAME")
 		, ID<AxesTable	   	>
 		, ID<MedianFiltreTable>
 		, ID<BrackStrobe2Table>
+		, ID<ProtectiveThickeningTable>
 		, NameParam
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
@@ -470,6 +473,22 @@ struct PathUSPCTable
 	const wchar_t *name(){return L"PathUSPCTable";}
 };
 //------------------------------------------------------------------------------------------------------------
+DEFINE_PARAM(N0, unsigned, 200)
+DEFINE_PARAM(N1, unsigned, 1200)
+DEFINE_PARAM(N2, unsigned, 2200)
+DEFINE_PARAM(N3, unsigned, 3200)
+
+struct ProtectiveThickeningTable
+{
+	typedef TL::MkTlst<
+	  N0, N1, N2, N3 
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"ProtectiveThickeningTable";}
+};
+//-----------------------------------------------------------------
  struct ParametersBase
  {
 	 typedef TL::MkTlst<
@@ -495,6 +514,7 @@ struct PathUSPCTable
 		 , MedianFiltreTable
 		 , AxesTable
 		 , BrackStrobe2Table
+		 , ProtectiveThickeningTable
 	 >::Result multy_row_table_list;
 
 	 typedef TL::MkTlst<

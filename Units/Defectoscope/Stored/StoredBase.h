@@ -127,6 +127,44 @@ struct StoredMeshureTable
 	const wchar_t *name(){return L"StoredMeshureTable";}
 };
 
+struct  MinMaxThickness
+{
+	typedef double type_value[App::count_zones];
+	type_value value;	
+	const wchar_t *name(){return L"MinMaxThickness";}
+};
+
+struct ThicknessTable
+{
+	typedef TL::MkTlst<
+	   MinMaxThickness 
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"ThicknessTable";}
+};
+
+//DEFINE_PARAM_WAPPER(ID, ProtectiveThickeningTable, unsigned, 0)
+DEFINE_PARAM_WAPPER(ID, TubesTable, unsigned, 0)
+
+DEFINE_PARAM(MinThicknessID, unsigned, 0)
+DEFINE_PARAM(MaxThicknessID, unsigned, 0)
+
+struct StoredThicknessTable
+{
+	typedef TL::MkTlst<
+		ID<TubesTable>
+		, MinThicknessID
+		, MaxThicknessID
+		, ID<ProtectiveThickeningTable >
+	>::Result items_list;
+	typedef NullType unique_list;
+	typedef TL::Factory<items_list> TItems;
+	TItems items;
+	const wchar_t *name(){return L"StoredThicknessTable";}
+};
+
 struct StoredBase
  {
 	 typedef TL::MkTlst<		
@@ -135,6 +173,9 @@ struct StoredBase
 		 , StoredThresholdsTable
 		 , StoredMeshureTable
 		 , ProtocolsTable
+		 , ThicknessTable
+		 , ProtectiveThickeningTable
+		 , StoredThicknessTable
 	 >::Result type_list;
 	 typedef TL::Factory<type_list> TTables;
 	 TTables tables;

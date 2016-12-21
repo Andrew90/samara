@@ -458,6 +458,9 @@
     <ClCompile Include="Dialogs\BrackStrobe2Dlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogs\ProtectiveThickeningDlg.cpp">
+      <Filter>Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
