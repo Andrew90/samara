@@ -146,7 +146,7 @@ struct ThicknessTable
 };
 
 //DEFINE_PARAM_WAPPER(ID, ProtectiveThickeningTable, unsigned, 0)
-DEFINE_PARAM_WAPPER(ID, TubesTable, unsigned, 0)
+DEFINE_PARAM_ID(TubesTable, unsigned, 1)
 
 DEFINE_PARAM(MinThicknessID, unsigned, 0)
 DEFINE_PARAM(MaxThicknessID, unsigned, 0)
