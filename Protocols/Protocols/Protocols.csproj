@@ -99,6 +99,7 @@
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\Protocols.Models.TubesPacketResult.datasource" />
     <None Include="Properties\DataSources\Protocols.Models.TubesPacketResultList.datasource" />
     <None Include="Properties\DataSources\Protocols.Models.UltrasonicControlProductModels.datasource" />
     <None Include="Properties\Settings.settings">

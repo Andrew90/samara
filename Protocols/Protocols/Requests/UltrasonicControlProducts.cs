@@ -164,21 +164,21 @@ namespace Protocols.Requests
         {
             IList<TubesPacketResult> t = new List<TubesPacketResult>();
 
-            string queryString = "SELECT t.[NumberTube],s.[LengthTube],s.[Status]"
-               + " FROM [StoredBase].[dbo].[StoredMeshureTable] AS s,"
-               + " [StoredBase].[dbo].[TubesTable] as t"
-               + " WHERE  t.[IDProtocolsTable] = @IDProtocols AND t.[IDStoredMeshureTable] = s.[ID]"
-               + " ORDER BY s.[ID] ASC"
-            ;
-
-//            SELECT t.NumberTube, s.LengthTube, s.Status
-//      , p.N0, p.N1, p.N1, p.N3
-//      ,(SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MinThicknessID)as mn
-//      ,(SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MaxThicknessID)as mx
-//  FROM ((TubesTable as t INNER JOIN StoredMeshureTable as s ON t.IDStoredMeshureTable = s.ID)
-//  INNER JOIN StoredThicknessTable as st ON st.TubesTableID = t.ID), ProtectiveThickeningTable as p
-//  WHERE t.IDProtocolsTable = 28 AND p.ID = st.ProtectiveThickeningTableID
-
+            string queryString =
+                // "SELECT t.[NumberTube],s.[LengthTube],s.[Status]"
+                //+ " FROM [StoredBase].[dbo].[StoredMeshureTable] AS s,"
+                //+ " [StoredBase].[dbo].[TubesTable] as t"
+                //+ " WHERE  t.[IDProtocolsTable] = @IDProtocols AND t.[IDStoredMeshureTable] = s.[ID]"
+                //+ " ORDER BY s.[ID] ASC"
+                  "SELECT t.NumberTube, s.LengthTube, s.Status"
+                + ", p.N0, p.N1, p.N1, p.N3"
+                + ", (SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MinThicknessID)as mn"
+                + ", (SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MaxThicknessID)as mx"
+                + ", FROM ((TubesTable as t INNER JOIN StoredMeshureTable as s ON t.IDStoredMeshureTable = s.ID)"
+                + ", INNER JOIN StoredThicknessTable as st ON st.TubesTableID = t.ID), ProtectiveThickeningTable as p"
+                + ", WHERE t.IDProtocolsTable = 28 AND p.ID = st.ProtectiveThickeningTableID"
+                + " ORDER BY s.ID ASC"
+                ;
 
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
             {
@@ -189,9 +189,11 @@ namespace Protocols.Requests
 
                 command.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader(CommandBehavior.SequentialAccess);
-                long count;
+                int count;
                 byte[] buffer = new byte[300];
-
+                double[] minBuf = new double[300];
+                double[] maxBuf = new double[300];
+                byte[] tmpBuf = new byte[300 * sizeof(double)];
 //*0*/		Clr<Undefined   >
 //*1*/		, Clr<DeathZone>
 //*2*/		, Clr<Nominal	>
@@ -490,7 +492,25 @@ namespace Protocols.Requests
                     packet.StrobeBit2 = strobeDef;
 
                     //-минимум максимум в зоне
-
+                    int n0 = (int)reader[3];
+                    int n1 = (int)reader[4];
+                    int n2 = (int)reader[5];
+                    int n3 = (int)reader[6];
+                    int bytesCount = count * sizeof(double);
+                    reader.GetBytes(7, 0, tmpBuf, 0, bytesCount);
+                    for (int i = 0; i < count; ++i )
+                    {
+                        minBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
+                    }
+                    double findT = FindMin(n0, n1, n2, n3, minBuf, count);
+                    packet.MinThickness = findT.ToString();
+                    reader.GetBytes(8, 0, tmpBuf, 0, bytesCount);
+                    for (int i = 0; i < count; ++i)
+                    {
+                        maxBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
+                    }
+                    findT = FindMax(n0, n1, n2, n3, maxBuf, count);
+                    packet.MaxThickness = findT.ToString();
                     //-минимум максимум в зоне конец
                     t.Add(packet);
                 }
