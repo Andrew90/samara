@@ -174,9 +174,9 @@ namespace Protocols.Requests
                 + ", p.N0, p.N1, p.N1, p.N3"
                 + ", (SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MinThicknessID)as mn"
                 + ", (SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MaxThicknessID)as mx"
-                + ", FROM ((TubesTable as t INNER JOIN StoredMeshureTable as s ON t.IDStoredMeshureTable = s.ID)"
-                + ", INNER JOIN StoredThicknessTable as st ON st.TubesTableID = t.ID), ProtectiveThickeningTable as p"
-                + ", WHERE t.IDProtocolsTable = 28 AND p.ID = st.ProtectiveThickeningTableID"
+                + " FROM ((TubesTable as t INNER JOIN StoredMeshureTable as s ON t.IDStoredMeshureTable = s.ID)"
+                + " INNER JOIN StoredThicknessTable as st ON st.TubesTableID = t.ID), ProtectiveThickeningTable as p"
+                + " WHERE t.IDProtocolsTable = @IDProtocols AND p.ID = st.ProtectiveThickeningTableID"
                 + " ORDER BY s.ID ASC"
                 ;
 

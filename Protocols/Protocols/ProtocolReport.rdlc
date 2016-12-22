@@ -1617,13 +1617,13 @@
               <Width>0.35416in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.87501in</Width>
+              <Width>0.48983in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.24653in</Width>
+              <Width>1.36111in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.34165in</Width>
+              <Width>1.61224in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.50533in</Width>
@@ -1675,7 +1675,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>Минимальная максимальная толщины</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
