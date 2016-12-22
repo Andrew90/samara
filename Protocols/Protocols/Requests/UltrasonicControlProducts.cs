@@ -134,6 +134,32 @@ namespace Protocols.Requests
             }
             return res;
         }
+        private static double FindMin(int n0, int n1, int n2, int n3, double[] arr, int len)
+        {
+            double t = arr[n0];
+            for (int i = 1 + n0; i < n1; ++i)
+            {
+                if (t > arr[i]) t = arr[i];
+            }
+            for (int i = n3; i < n3; ++i)
+            {
+                if (t > arr[i]) t = arr[i];
+            }
+            return t;
+        }
+        private static double FindMax(int n0, int n1, int n2, int n3, double[] arr, int len)
+        {
+            double t = arr[n0];
+            for (int i = 1 + n0; i < n1; ++i)
+            {
+                if (t < arr[i]) t = arr[i];
+            }
+            for (int i = n3; i < n3; ++i)
+            {
+                if (t < arr[i]) t = arr[i];
+            }
+            return t;
+        }
         public static IList<TubesPacketResult> BodyProtocol(int id)
         {
             IList<TubesPacketResult> t = new List<TubesPacketResult>();
@@ -144,6 +170,15 @@ namespace Protocols.Requests
                + " WHERE  t.[IDProtocolsTable] = @IDProtocols AND t.[IDStoredMeshureTable] = s.[ID]"
                + " ORDER BY s.[ID] ASC"
             ;
+
+//            SELECT t.NumberTube, s.LengthTube, s.Status
+//      , p.N0, p.N1, p.N1, p.N3
+//      ,(SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MinThicknessID)as mn
+//      ,(SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MaxThicknessID)as mx
+//  FROM ((TubesTable as t INNER JOIN StoredMeshureTable as s ON t.IDStoredMeshureTable = s.ID)
+//  INNER JOIN StoredThicknessTable as st ON st.TubesTableID = t.ID), ProtectiveThickeningTable as p
+//  WHERE t.IDProtocolsTable = 28 AND p.ID = st.ProtectiveThickeningTableID
+
 
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
             {
@@ -454,6 +489,9 @@ namespace Protocols.Requests
                     packet.Thickness = thickDef;
                     packet.StrobeBit2 = strobeDef;
 
+                    //-минимум максимум в зоне
+
+                    //-минимум максимум в зоне конец
                     t.Add(packet);
                 }
             }
