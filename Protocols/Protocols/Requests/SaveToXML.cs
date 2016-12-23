@@ -13,7 +13,7 @@ namespace Protocols.Requests
 {
     public class SaveToXML
     {
-        static public void Save(int id, string tubeParty, string path)
+        static public void Save(long id, string tubeParty, string path)
         {
             string queryString =
                  "SELECT t.NumberTube, s.LengthTube"
