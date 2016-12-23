@@ -173,11 +173,19 @@ namespace
 			o.viewerData.currentOffsetZones = 0;
 		}
 	};
+
 }
 void MainWindow::ClearCharts()
 {
 	TL::foreach<viewers_list, __clear__>()(viewers);
 	RepaintWindow(hWnd);
+}
+
+void MainWindow::UpdateCheck()
+{
+	crossCheckBox	 .SetCheck(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Cross>>().value);
+	longCheckBox	 .SetCheck(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Long>>().value);
+	thicknessCheckBox.SetCheck(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<Thickness>>().value);
 }
 
 

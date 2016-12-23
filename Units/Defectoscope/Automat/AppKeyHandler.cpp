@@ -68,7 +68,6 @@ namespace AppKeyHandler
 
 	void Init()
 	{		
-		//__btn__<__all_button_xx__<button_list, On>::Result>()();
 		__btn__<
 			__all_button_OnOff__<
 			  button_list
@@ -98,7 +97,6 @@ namespace AppKeyHandler
 	}
 	void Stop()
 	{
-		//__btn__<__all_button_xx__<button_list, On>::Result>()();
 		Init();
 	}
 

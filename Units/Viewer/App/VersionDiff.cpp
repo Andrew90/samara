@@ -67,6 +67,14 @@ namespace Version
 	   double gate1_level    [8];
 	};
 
+	template<class O, class P>struct __set_check_box__
+	{
+		void operator()(O &o)
+		{
+			o.value = true;
+		}
+	};
+
 	bool LoadFromFile(unsigned ver, FILE *f)
 	{
 		if(__magic_word__ == (ver & 0xffff0000))
@@ -78,6 +86,8 @@ namespace Version
 				{
 					TL::foreach<ParametersBase::type_list, __load__>()(f);
 					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
+
+					TL::foreach<OnTheJobTable::items_list, __set_check_box__>()(Singleton<OnTheJobTable>::Instance().items);
 				}
 				return true;
 			case 5:

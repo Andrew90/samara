@@ -93,6 +93,7 @@ void App::MainWindowBottomLabel(int n, wchar_t *text)
 
 void App::MainWindowUpdate()
 {
+	mainWindow.UpdateCheck();
 	RepaintWindow(mainWindow.hWnd);
 }
 HWND App::MainWindowHWND()

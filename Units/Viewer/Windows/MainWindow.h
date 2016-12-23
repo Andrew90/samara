@@ -56,4 +56,5 @@ public:
 	static void CheckBoxStateStoreInBase();
 
 	void ClearCharts();
+	void UpdateCheck();
 };

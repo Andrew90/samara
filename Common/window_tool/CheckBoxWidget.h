@@ -36,6 +36,7 @@ public:
 		MoveWindow(hWnd, left, top, width, height, true);
 	}
 	bool GetCheck(){return  BST_CHECKED == Button_GetCheck(hWnd);}
+	void SetCheck(bool b){Button_SetCheck(hWnd, b ? BST_CHECKED : BST_UNCHECKED);}
 private:
 	/**
 	* \brief выполняется при снятии или установки галочки 

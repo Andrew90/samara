@@ -149,8 +149,8 @@ namespace LogMess
 							          
 	MESS(TimeoutPipe		          , void  , "Превышенно время ожидания", red  , yellow)
 	//MESS(AlarmUSPC                    , void  , "Авария!!! Плата ультрозвукового контроля не исправна", red, yellow)
-	MESS(AlarmUSPC                    , void  , "Авария!!! Платы ультразвукового контроля", red, yellow)
-	MESS(AlarmSensorReadError         , void  , "Авария!!! Чтения данных с платы ультразвукового контроля", red, yellow)
+	MESSX(AlarmUSPC                    , void  , "Авария!!! Платы ультразвукового контроля %X", red, yellow)
+	MESSX(AlarmSensorReadError         , void  , "Авария!!! Чтения данных с платы ультразвукового контроля %X", red, yellow)
 
 	MESS(AlarmRestartServiceError     , void  , "Авария!!! Сервис \"USPS7100WinService\" не перезапускается", red, yellow)
 							          

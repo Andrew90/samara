@@ -1,6 +1,6 @@
 #pragma once
 #include "DebugMess.h"
-#include "AppBase.h"
+#include "..\Defectoscope\App\AppBase.h"
 #include "EmptyWindow.h"
 #include "WindowsPosition.h"
 
