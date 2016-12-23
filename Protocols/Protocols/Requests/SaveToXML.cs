@@ -8,12 +8,13 @@ using System.Data;
 using Protocols.Models;
 using System.Xml.Serialization;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Protocols.Requests
 {
     public class SaveToXML
     {
-        static public void Save(long id, string tubeParty, string path)
+        static public void Save(int id, string tubeParty, string path)
         {
             string queryString =
                  "SELECT t.NumberTube, s.LengthTube"
@@ -37,22 +38,24 @@ namespace Protocols.Requests
                 byte[] tmpBuf1 = new byte[300 * sizeof(double)];
                 PacketXML packet = new PacketXML();
                 packet.TubeParty = tubeParty;
+                packet.Tubes = new List<Tube>();
                 while (reader.Read())
                 {
                     Tube tube = new Tube();
-                    tube.Number = (int)reader[0];
+                    tube.NumberTube = (string)reader[0];
                     int length = (int)reader[1];
+                    length /= 50;
                     List<Zone> zones = new List<Zone>();
                     tube.Zones = zones;
                     reader.GetBytes(2, 0, tmpBuf0, 0, length * sizeof(double));
-                    reader.GetBytes(3, 0, tmpBuf0, 1, length * sizeof(double));
+                    reader.GetBytes(3, 0, tmpBuf1, 0, length * sizeof(double));
 
                     for (int i = 0; i < length; ++i)
                     {
                         Zone zone = new Zone();
                         zone.MinVal = BitConverter.ToDouble(tmpBuf0, i * sizeof(double));
                         zone.MaxVal = BitConverter.ToDouble(tmpBuf1, i * sizeof(double));
-                        zone.Number = i;
+                        zone.NumberZone = i;
                         zones.Add(zone);
                     }
 
@@ -63,6 +66,7 @@ namespace Protocols.Requests
                 TextWriter WriteFileStream  = new StreamWriter(path);
                 o.Serialize(WriteFileStream, packet);
                 WriteFileStream.Close();
+                MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButtons.OK);
             }
         }
     }

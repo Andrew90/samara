@@ -192,7 +192,7 @@ namespace Protocols
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-                long id = (long)row.Cells[1].Value;
+                int id = (int)row.Cells[0].Value;
                 SaveToXML.Save(id, tubeParty, saveFileDialog1.FileName);
             }
         }

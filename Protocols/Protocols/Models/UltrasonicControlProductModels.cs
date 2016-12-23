@@ -58,14 +58,14 @@ namespace Protocols.Models
 
     public class Zone
     {
-        public int Number { get; set; }
+        public int NumberZone { get; set; }
         public double MinVal { get; set; }
         public double MaxVal { get; set; }
     }
 
     public class Tube
     {
-        public int Number { get; set;}
+        public string NumberTube { get; set;}
         public List<Zone> Zones { get; set; }
     }
 
