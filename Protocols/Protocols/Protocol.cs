@@ -25,12 +25,16 @@ namespace Protocols
        
         protected void SelectTube(Point p)
         {
-            var row = MainGridView.Rows[currentRow];
-            string param = ((DateTime)row.Cells[3].Value).ToString("yyMMddHHmmss");
-            param += " " + row.Cells[0].Value.ToString();
-            param += " " + row.Cells[1].Value.ToString();
-            param += " " + row.Cells[2].Value.ToString();
-            Process.Start(".\\ViewerData.exe", param);
+            try
+            {
+                var row = MainGridView.Rows[currentRow];
+                string param = ((DateTime)row.Cells[3].Value).ToString("yyMMddHHmmss");
+                param += " " + row.Cells[0].Value.ToString();
+                param += " " + row.Cells[1].Value.ToString();
+                param += " " + row.Cells[2].Value.ToString();
+                Process.Start(".\\ViewerData.exe", param);
+            }
+            catch { }
         }
 
         public MainForm()
@@ -169,9 +173,19 @@ namespace Protocols
 
         private void listToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            doProc = SelectTube;
-            var row = MainGridView.Rows[currentRow];
-            ListTubes((long)row.Cells[1].Value, (string)row.Cells[3].Value);
+            try
+            {
+                doProc = SelectTube;
+                var row = MainGridView.Rows[currentRow];
+                ListTubes((long)row.Cells[1].Value, (string)row.Cells[3].Value);
+            }
+            catch{}
+        }
+
+        private void сохранитьExelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tubeParty = (string)MainGridView.Rows[currentRow].Cells[3].Value;
+            Text = tubeParty;
         }
     }
 }

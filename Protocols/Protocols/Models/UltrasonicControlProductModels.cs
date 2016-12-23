@@ -55,4 +55,23 @@ namespace Protocols.Models
         public string NumTube { get; set; }
         public DateTime TteTme { get; set; }
     }
+
+    public class Zone
+    {
+        public int Number { get; set; }
+        public double MinVal { get; set; }
+        public double MaxVal { get; set; }
+    }
+
+    public class Tube
+    {
+        public int Number { get; set;}
+        public List<Zone> Zones { get; set; }
+    }
+
+    public class PacketXML
+    {
+        public string TubeParty{get; set;}
+        public List<Tube> Tubes { get; set; }
+    }
 }

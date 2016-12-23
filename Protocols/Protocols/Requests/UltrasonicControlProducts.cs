@@ -165,11 +165,6 @@ namespace Protocols.Requests
             IList<TubesPacketResult> t = new List<TubesPacketResult>();
 
             string queryString =
-                // "SELECT t.[NumberTube],s.[LengthTube],s.[Status]"
-                //+ " FROM [StoredBase].[dbo].[StoredMeshureTable] AS s,"
-                //+ " [StoredBase].[dbo].[TubesTable] as t"
-                //+ " WHERE  t.[IDProtocolsTable] = @IDProtocols AND t.[IDStoredMeshureTable] = s.[ID]"
-                //+ " ORDER BY s.[ID] ASC"
                   "SELECT t.NumberTube, s.LengthTube, s.Status"
                 + ", p.N0, p.N1, p.N1, p.N3"
                 + ", (SELECT TOP 1 MinMaxThickness FROM ThicknessTable WHERE ID = st.MinThicknessID)as mn"

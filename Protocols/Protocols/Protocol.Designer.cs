@@ -38,6 +38,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.protocol_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьExelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGridView)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -97,23 +98,31 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listToolStripMenuItem,
-            this.protocol_ToolStripMenuItem});
+            this.protocol_ToolStripMenuItem,
+            this.сохранитьExelToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 92);
             // 
             // listToolStripMenuItem
             // 
             this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.listToolStripMenuItem.Text = "Список труб";
             this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
             // protocol_ToolStripMenuItem
             // 
             this.protocol_ToolStripMenuItem.Name = "protocol_ToolStripMenuItem";
-            this.protocol_ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.protocol_ToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.protocol_ToolStripMenuItem.Text = "Протокол";
             this.protocol_ToolStripMenuItem.Click += new System.EventHandler(this.protocol_ToolStripMenuItem_Click);
+            // 
+            // сохранитьExelToolStripMenuItem
+            // 
+            this.сохранитьExelToolStripMenuItem.Name = "сохранитьExelToolStripMenuItem";
+            this.сохранитьExelToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.сохранитьExelToolStripMenuItem.Text = "Сохранить Exel";
+            this.сохранитьExelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьExelToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -145,6 +154,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem protocol_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьExelToolStripMenuItem;
     }
 }
 
