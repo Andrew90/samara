@@ -39,6 +39,7 @@
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.protocol_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьExelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGridView)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -155,6 +156,7 @@
         private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem protocol_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьExelToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

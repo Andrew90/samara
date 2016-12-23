@@ -40,6 +40,8 @@ namespace Protocols
         public MainForm()
         {
             InitializeComponent();
+            saveFileDialog1.Filter = "xml|*.xml|*|*.*";
+            saveFileDialog1.Title = "Сохранить Excel";           
         }
 
         private void UltrasonicControlProductsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,8 +186,14 @@ namespace Protocols
 
         private void сохранитьExelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var tubeParty = (string)MainGridView.Rows[currentRow].Cells[3].Value;
+            var row = MainGridView.Rows[currentRow];
+            var tubeParty = (string)row.Cells[3].Value;
             Text = tubeParty;
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                SaveToXML.Save((int)row.Cells[1].Value, tubeParty, saveFileDialog1.FileName);
+            }
         }
     }
 }

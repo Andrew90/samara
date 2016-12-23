@@ -13,7 +13,7 @@ namespace Protocols.Requests
 {
     public class SaveToXML
     {
-        public SaveToXML(int id, string path)
+        static public void Save(int id, string tubeParty, string path)
         {
             string queryString =
                  "SELECT t.NumberTube, s.LengthTube"
@@ -36,6 +36,7 @@ namespace Protocols.Requests
                 byte[] tmpBuf0 = new byte[300 * sizeof(double)];
                 byte[] tmpBuf1 = new byte[300 * sizeof(double)];
                 PacketXML packet = new PacketXML();
+                packet.TubeParty = tubeParty;
                 while (reader.Read())
                 {
                     Tube tube = new Tube();
