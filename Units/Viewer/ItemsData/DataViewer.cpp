@@ -52,24 +52,14 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 	{
 		MedianFiltre f;
 		int offs = i - medianFiltreWidth * App::count_sensors;
-		if(offs < 0) offs = 0;
-		int z = 0;
-		double tmp[dimention_of(f.buf)];
-		USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
-		char stat[dimention_of(f.buf)];
-		for(offs; offs < i; ++offs)
+		cnt = -medianFiltreWidth;
+		if(offs < 0)
 		{
-			if(channel == s[offs].Channel)
-			{
-				tmp[z] = s[offs].hdr.G1Amp;
-				sk[z] = &s[offs];
-				(*StatusZoneDefect)(offs, tmp[z], zone, brackThreshold, klass2Threshold, stat[z]);
-				if(++z >= medianFiltreWidth) break;
-			} 
+			offs = 0;
+			cnt = 0;
 		}
-		
-		f.Init(medianFiltreWidth, tmp);
-		
+	
+		f.Clear(medianFiltreWidth);
 		for(; i < stop; ++i)
 		{
 			if(channel == s[i].Channel)
@@ -77,23 +67,24 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 				double t = s[i].hdr.G1Amp;
 				char st;
 				(*StatusZoneDefect)(offs, t, zone, brackThreshold, klass2Threshold, st);
-				int ind = f.index % f.width;
-				sk[ind] = &s[i];
-				stat[ind] = st;
-				int ret = f.Add(t);
-				if(StatusId<Clr<DeathZone>>() != st)
+				
+				int ret = f.Add(t, st, (void *)&s[i]);
+				if(cnt >= 0)
 				{
-					data[cnt] = f.buf[ret];
-					scan[cnt] = sk[ret];
-					status[cnt] = stat[ret];
+					if(StatusId<Clr<DeathZone>>() != st)
+					{
+						data[cnt] = f.buf[ret];
+						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
+						status[cnt] = f.status[ret];
+					}
+					else
+					{
+						data[cnt] = t;
+						scan[cnt] = &s[i];
+						status[cnt] = st;
+					}
 				}
-				else
-				{
-					data[cnt] = t;
-					scan[cnt] = &s[i];
-					status[cnt] = st;
-				}
-				if(++cnt >= dimention_of(data)) break;
+				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}
 	}
