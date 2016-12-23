@@ -85,6 +85,35 @@ int MedianFiltre::Add(double d, int st)
 	}
 	return 0;
 }
+int MedianFiltre::Add(double d, int st, void *p)
+{
+	int index_ = index % width;
+	++index;
+	double x = buf[index_];
+	for(int i = 0; i < width; ++i)
+	{
+		if(x < buf[i]) --ind[i];
+	}
+
+	int cnt = 0;
+	buf[index_] = d;
+	status[index_] = st;
+	data[index_] = p;
+
+	for(int i = 0; i < width; ++i)
+	{
+		if(i != index_)
+		{
+			if(d > buf[i]) ++cnt; else ++ind[i];
+		}
+	}
+	ind[index_] = cnt;
+	for(int i = 0; i < width; ++i)
+	{
+		if(medianIndex == ind[i]) return i;
+	}
+	return 0;
+}
 //--------------------------------------------------------------------
 void MedianFiltre::Clear(int width_)
 {

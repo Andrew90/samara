@@ -49,21 +49,20 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						{
 							st = Status;
 						}
-						data[cnt] = val2;
 					}
 				}
 				scan[cnt] = &s[i];
-				if(Status != st)
+				if(Status == st)
 				{
+					status[cnt] = st;
+				}
+				else
+				{					
 					StatusZoneThickness(offs, data[cnt], zone
 						, aboveBorder  
 						, lowerBorder  
 						, nominalBorder
 						, status[cnt]);
-				}
-				else
-				{
-					status[cnt] = st;
 				}
 				if(++cnt >= dimention_of(data)) break;
 			}
@@ -73,28 +72,35 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	{
 		MedianFiltre f;
 		int offs = i - medianFiltreWidth * App::count_sensors;
-		if(offs < 0) offs = 0;
-		int z = 0;
-		double tmp[dimention_of(f.buf)];
-		USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
-		char stat[dimention_of(f.buf)];
-		for(offs; offs < i; ++offs)
+		cnt = -medianFiltreWidth;
+		if(offs < 0)
 		{
-			if(channel == s[offs].Channel)
-			{
-				tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-				sk[z] = &s[offs];
-				
-				StatusZoneThickness(offs, tmp[z], zone
-					, aboveBorder  
-					, lowerBorder  
-					, nominalBorder
-					, stat[z]);
-				if(++z >= medianFiltreWidth) break;
-			} 
+			offs = 0;
+			cnt = 0;
 		}
 		
-		f.Init(medianFiltreWidth, tmp);
+		//int z = 0;
+		//double tmp[dimention_of(f.buf)];
+		//USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
+		//char stat[dimention_of(f.buf)];
+		//for(offs; offs < i; ++offs)
+		//{
+		//	if(channel == s[offs].Channel)
+		//	{
+		//		tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+		//		sk[z] = &s[offs];
+		//		stat[z] =  StatusId<Clr<Undefined>>();
+		//		//StatusZoneThickness(offs, tmp[z], zone
+		//		//	, aboveBorder  
+		//		//	, lowerBorder  
+		//		//	, nominalBorder
+		//		//	, stat[z]);
+		//		if(++z >= medianFiltreWidth) break;
+		//	} 
+		//}
+		
+		//f.Init(medianFiltreWidth, tmp);
+		f.Clear(medianFiltreWidth);
 		
 		for(; i < stop; ++i)
 		{			
@@ -114,10 +120,9 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						{
 							st = Status;
 						}
-						t = val2;
 					}
 				}
-				
+
 				if(Status != st)
 				{
 					StatusZoneThickness(offs, t, zone
@@ -126,21 +131,22 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						, nominalBorder
 						, st);
 				}
-				
-				int ind = f.index % f.width;
-				sk[ind] = &s[i];
-				stat[ind] = st;
+
 				if(0 == t) t = 999999;
-				int ret = f.Add(t);
+				int ret = f.Add(t, st, (void *)&s[i]);
 				{
 					t = f.buf[ret];
 					if(999999 == t) t = 0;
 					
-					data[cnt] = t;
-					scan[cnt] = sk[ret];
-					status[cnt] = stat[ret];
+					if(cnt >= 0)
+					{
+						data[cnt] = t;
+						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
+						status[cnt] = f.status[ret];
+					}
 				}
-				if(++cnt >= dimention_of(data)) break;
+				
+				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}
 	}

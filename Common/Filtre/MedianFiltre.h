@@ -7,10 +7,12 @@ struct MedianFiltre
 	int medianIndex;
 	double buf[16];
 	int status[16];
+	void *data[16];
 	int ind[16];
 	int Init(int , double *);
 	int Add(double);
 	int Add(double, int);
+	int Add(double d, int st, void *p);
 	void Clear(int);
 	void SetVal(int, double );
 public:

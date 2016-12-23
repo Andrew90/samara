@@ -196,14 +196,12 @@ namespace
 								}
 							}
 						}
-						double val = maxThickness[i];
-						//bool strobeErr = true;
+						double val = 0;
 						static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
 							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-						//	strobeErr = false;
 							if(b[j].hdr.G2Tof)
 							{
 								double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
@@ -212,10 +210,11 @@ namespace
 								{
 									status = Status;
 								}
-								val = val2;
 							}
 						}
+						if(0 == val) val = 999999;
 						double t = filtre(channel, val, status);
+						if(999999 == t) t = 0;
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -241,9 +240,9 @@ namespace
 								
 								d.bufferMax[i] = t;
 							}
-							if(0 == val) val = 999999;
-							t = filtre.AddX(channel, val);	
-							if(999999 == t) t = 0;
+							//if(0 == val) val = 999999;
+							//t = filtre.AddX(channel, val);	
+							//if(999999 == t) t = 0;
 							if(0 != t &&  t < d.bufferMin[i])
 							{
 								d.bufferMin[i] = t;	
