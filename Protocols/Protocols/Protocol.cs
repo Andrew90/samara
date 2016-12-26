@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Protocols.Requests;
 using Protocols.Models;
@@ -194,6 +191,52 @@ namespace Protocols
             {
                 int id = (int)row.Cells[0].Value;
                 SaveToXML.Save(id, tubeParty, saveFileDialog1.FileName);
+            }
+        }
+
+        private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form f = new Form();
+            f.Width = 280;
+            f.Height = 110;
+            f.Text = "Пароль";
+            f.FormBorderStyle = FormBorderStyle.FixedDialog;
+            f.StartPosition = FormStartPosition.CenterScreen;
+            f.MaximizeBox = false;
+            f.MinimizeBox = false;
+            f.ControlBox = false;
+
+            TextBox t = new TextBox();
+            t.PasswordChar = '*';
+            t.Left = 10;
+            t.Top = 20;
+            t.Width = 260;
+
+            int offs = 25;
+
+            Button ok = new Button();
+            ok.Text = "Применить";
+            ok.Left = 20 + offs;
+            ok.Top = 50;
+            ok.Width = 80;
+            ok.Click += (xsender, xe) => { f.DialogResult = DialogResult.OK; f.Close(); };
+
+            Button cansel = new Button();
+            cansel.Text = "Закрыть";
+            cansel.Left = 130 + offs;
+            cansel.Top = 50;
+            cansel.Width = 80;
+            cansel.Click += (xsender, xe) => { f.Close(); };
+
+            f.Controls.Add(t);
+            f.Controls.Add(ok);
+            f.Controls.Add(cansel);
+
+            f.AcceptButton = ok;
+
+            if (DialogResult.OK == f.ShowDialog() && "cbybxrf" == t.Text)
+            {
+                var row = MainGridView.Rows[currentRow];
             }
         }
     }

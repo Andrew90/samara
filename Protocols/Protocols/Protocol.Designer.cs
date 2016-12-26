@@ -39,6 +39,8 @@
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.protocol_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьExelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGridView)).BeginInit();
@@ -100,9 +102,11 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listToolStripMenuItem,
             this.protocol_ToolStripMenuItem,
-            this.сохранитьExelToolStripMenuItem});
+            this.сохранитьExelToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.RemoveToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 120);
             // 
             // listToolStripMenuItem
             // 
@@ -124,6 +128,18 @@
             this.сохранитьExelToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.сохранитьExelToolStripMenuItem.Text = "Сохранить Exel";
             this.сохранитьExelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьExelToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
+            // 
+            // RemoveToolStripMenuItem
+            // 
+            this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
+            this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.RemoveToolStripMenuItem.Text = "Удалить";
+            this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -157,6 +173,8 @@
         private System.Windows.Forms.ToolStripMenuItem protocol_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьExelToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem RemoveToolStripMenuItem;
     }
 }
 
