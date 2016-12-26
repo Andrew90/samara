@@ -369,6 +369,22 @@ namespace Stored
 					L" WHERE b.IDProtocolsTable IS NULL"
 					).Execute();
 
+				CMD(b).CommandText(
+					L"DELETE a"\
+					L" FROM [StoredBase].[dbo].[StoredThicknessTable] AS a"\
+					L" LEFT JOIN [StoredBase].[dbo].[TubesTable] AS b"\
+					L" ON a.TubesTableID = b.ID"\
+					L" WHERE b.ID IS NULL"
+					).Execute();
+
+				CMD(b).CommandText(
+					L"DELETE t"\
+					L" FROM ThicknessTable as t"\
+					L" LEFT JOIN StoredThicknessTable as s"\
+					L" ON t.ID = s.MinThicknessID OR t.ID = s.MaxThicknessID"\
+					L" WHERE s.ID IS NULL"
+					).Execute();
+
 				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
 				return;
 			}
