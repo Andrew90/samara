@@ -398,15 +398,59 @@ namespace Stored
 			offsPath = &path[wcslen(path)];
 		}
 	};
+	void Dir(wchar_t *path, wchar_t *offs, COleDateTime tme)
+	{
+		wchar_t b[64];
+		wsprintf(b, L"%02d%02d%02d%02d%02d%02d"
+			, tme.GetYear()	- 2000
+			, tme.GetMonth()
+			, tme.GetDay()
+			, tme.GetHour()
+			, tme.GetMinute()
+			, tme.GetSecond()
+			);
+		double t = _wtof(b);
+
+		wcscpy(offs, L"????????????.*");
+		WIN32_FIND_DATA d;
+		HANDLE hFind = FindFirstFile(path, &d);
+		if(INVALID_HANDLE_VALUE == hFind) return;
+		do
+		{
+			if (FILE_ATTRIBUTE_ARCHIVE == d.dwFileAttributes)
+			{
+				double i = _wtof(d.cFileName);
+				if(t > i)
+				{
+					wcscpy(offs, d.cFileName);
+					DeleteFile(path);
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		while(0 != FindNextFile(hFind, &d));
+        FindClose(hFind);
+	}
 	void RemoveNULLTables(CBase &b)
 	{
+		__x_list_data__ data;
 		CMD(b).CommandText(
 			L"SELECT t.Date_Time AS Date_Time"\
 			L" FROM  TubesTable AS t"\
 			L" LEFT JOIN ProtocolsTable AS p"\
 			L" ON t.IDProtocolsTable = p.ID"\
 			L" WHERE p.ID IS NULL"
-			).ExecuteLoop<TL::MkTlst<Date_Time>::Result, __x_list__>(__x_list_data__());
+			).ExecuteLoop<TL::MkTlst<Date_Time>::Result, __x_list__>(data);
+
+        COleDateTime tme;
+		CMD(b).CommandText(
+			L"SELECT MIN(t.Date_Time) AS Date_Time FROM TubesTable t"
+			).Execute().GetValue(L"Date_Time", tme);
+		if(tme.m_status == COleDateTime::valid)Dir(data.path, data.offsPath, tme);
+
 		CMD(b).CommandText(
 			L"DELETE t"\
 			L" FROM  TubesTable AS t"\
