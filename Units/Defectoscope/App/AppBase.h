@@ -473,10 +473,10 @@ struct PathUSPCTable
 	const wchar_t *name(){return L"PathUSPCTable";}
 };
 //------------------------------------------------------------------------------------------------------------
-DEFINE_PARAM(N0, unsigned, 50)
-DEFINE_PARAM(N1, unsigned, 110)
-DEFINE_PARAM(N2, unsigned, 130)
-DEFINE_PARAM(N3, unsigned, 190)
+DEFINE_PARAM(N0, unsigned, 5)
+DEFINE_PARAM(N1, unsigned, 96)
+DEFINE_PARAM(N2, unsigned, 139)
+DEFINE_PARAM(N3, unsigned, 237)
 
 struct ProtectiveThickeningTable
 {

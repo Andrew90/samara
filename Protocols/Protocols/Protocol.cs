@@ -14,6 +14,7 @@ namespace Protocols
         protected int currentRow;
         protected delegate void TDo(Point p);
         protected TDo doProc;
+        DuringPeriodForm duringPeriodForm__;
 
         protected void SelectProtocolListTubes(Point p)
         {
@@ -51,9 +52,10 @@ namespace Protocols
                 doProc = SelectProtocolListTubes;
             }
         }
-
+       
         private void MainGridUpdate(DuringPeriodForm duringPeriodForm)
         {
+            duringPeriodForm__ = duringPeriodForm;
             var l = UltrasonicControlProducts.IDProtocolsTable(duringPeriodForm.from, duringPeriodForm.to);
             DataTable table = new DataTable();
 
@@ -234,9 +236,12 @@ namespace Protocols
 
             f.AcceptButton = ok;
 
-            if (DialogResult.OK == f.ShowDialog() && "cbybxrf" == t.Text)
+            if (DialogResult.OK == f.ShowDialog() && "buranburan" == t.Text)
             {
                 var row = MainGridView.Rows[currentRow];
+                int id = (int)row.Cells[0].Value;
+                RemoveProtocol.Do(id);
+                MainGridUpdate(duringPeriodForm__);
             }
         }
     }

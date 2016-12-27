@@ -145,7 +145,6 @@ struct ThicknessTable
 	const wchar_t *name(){return L"ThicknessTable";}
 };
 
-//DEFINE_PARAM_WAPPER(ID, ProtectiveThickeningTable, unsigned, 0)
 DEFINE_PARAM_ID(TubesTable, unsigned, 1)
 
 DEFINE_PARAM(MinThicknessID, unsigned, 0)

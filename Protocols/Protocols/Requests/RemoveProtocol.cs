@@ -28,15 +28,15 @@ namespace Protocols.Requests
             }
         }
 
-        protected static void RemoveNULLTable(string queryString)
-        {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
+        //protected static void RemoveNULLTable(string queryString)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.StoredBaseConnectionString))
+        //    {
+        //        SqlCommand command = new SqlCommand(queryString, connection);
+        //        command.Connection.Open();
+        //        command.ExecuteNonQuery();
+        //    }
+        //}
 
         public static void Do(int id)
         {

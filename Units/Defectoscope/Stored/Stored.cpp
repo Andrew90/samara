@@ -88,7 +88,7 @@ namespace Stored
 				longData.currentOffsetFrames = 0;
 				thicknessData.currentOffsetFrames = 0;
 				compute.lengthTube = 0;
-		
+
 				MessageBox(App::MainWindowHWND(), L"Файл имеет неизвесный формат", L"Ошибка !!!", MB_ICONERROR);
 				fclose(f);
 				return false;
@@ -97,7 +97,7 @@ namespace Stored
 			__Load__(crossData.ascanBuffer, crossData.currentOffsetFrames, f);
 			__Load__(longData.ascanBuffer, longData.currentOffsetFrames, f);
 			__Load__(thicknessData.ascanBuffer, thicknessData.currentOffsetFrames, f);
-		
+
 			fclose(f);
 			return true;
 		}
@@ -156,7 +156,7 @@ namespace Stored
 		unsigned id = 0;
 		CMD(base).CommandText(
 			L"SELECT max([ID]) as ID_LAST FROM [StoredBase].[dbo].[StoredMeshureTable]"
-			).GetValue(L"ID_LAST", id);
+			).Execute().GetValue(L"ID_LAST", id);
 		return id;
 	}
 
@@ -203,24 +203,24 @@ namespace Stored
 
 	void StoredProtectiveThickeningTable(CBase &base, int tubeID)
 	{
-		 ProtectiveThickeningTable &protectiveThickeningTable = Singleton<ProtectiveThickeningTable>::Instance();
-		 int protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
-		 if(0 == protectiveThickeningTableID)
-		 {
-			 Insert_Into<ProtectiveThickeningTable>(protectiveThickeningTable, base).Execute();
-			 protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
-		 }
+		ProtectiveThickeningTable &protectiveThickeningTable = Singleton<ProtectiveThickeningTable>::Instance();
+		int protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
+		if(0 == protectiveThickeningTableID)
+		{
+			Insert_Into<ProtectiveThickeningTable>(protectiveThickeningTable, base).Execute();
+			protectiveThickeningTableID = Select<ProtectiveThickeningTable>(base).eq_all<ProtectiveThickeningTable::items_list>(&protectiveThickeningTable.items).Execute();
+		}
 
 		ThicknessTable tt;
 		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMin, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int minID = 0;
-		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").GetValue(L"C", minID);
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").Execute().GetValue(L"C", minID);
 
 		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMax, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int maxID = 0;
-		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").GetValue(L"C", maxID);
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").Execute().GetValue(L"C", maxID);
 
 		StoredThicknessTable st;
 		st.items.get<ID<ProtectiveThickeningTable>>().value = protectiveThickeningTableID;
@@ -238,70 +238,76 @@ namespace Stored
 		GetModuleFileName(0, path, dimention_of(path));
 		PathRemoveFileSpec(path);
 		int len = wcslen(path);
-
-		StoredBase parameters;
-
-		CExpressBase base(
-			parameters.name()
-			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
-			, parameters.tables
-			);
-
-		if(base.IsOpen())
+		try
 		{
-			TubesTable tt;
-			tt.items.get<Date_Time>().value = tme;
-			tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
-			unsigned protocolID = GetProtocolID(base);
-			tt.items.get<ID<ProtocolsTable>>().value = protocolID;
+			StoredBase parameters;
 
-			tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
-			wchar_t *num = Singleton<NumberTube>::Instance().value;
-			tt.items.get<NumberTube>().value = Singleton<NumberTube>::Instance().value;
+			CExpressBase base(
+				parameters.name()
+				, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+				, parameters.tables
+				);
 
-			__delete_data__ data(base);
-			int id = Select<TubesTable>(base)
-				.eq<NumberTube>(Singleton<NumberTube>::Instance().value)
-				.eq<ID<ProtocolsTable>>(protocolID)
-				.ExecuteLoop<__delete__>(data);
-
-			if(0 == data.id)
+			if(base.IsOpen())
 			{
-				Insert_Into<TubesTable>(tt, base).Execute();
-				id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
+				TubesTable tt;
+				tt.items.get<Date_Time>().value = tme;
+				tt.items.get<ID<Operator>>().value = __get_id__<OperatorsTable, Operator>()(base, Singleton<Operator>::Instance());
+				unsigned protocolID = GetProtocolID(base);
+				tt.items.get<ID<ProtocolsTable>>().value = protocolID;
+
+				tt.items.get<ID<StoredMeshureTable>>().value = StoredStatus(base);
+				wchar_t *num = Singleton<NumberTube>::Instance().value;
+				tt.items.get<NumberTube>().value = Singleton<NumberTube>::Instance().value;
+
+				__delete_data__ data(base);
+				int id = Select<TubesTable>(base)
+					.eq<NumberTube>(Singleton<NumberTube>::Instance().value)
+					.eq<ID<ProtocolsTable>>(protocolID)
+					.ExecuteLoop<__delete__>(data);
+
+				if(0 == data.id)
+				{
+					Insert_Into<TubesTable>(tt, base).Execute();
+					id = Select<TubesTable>(base).eq<Date_Time>(tme).Execute();
+				}
+				else
+				{
+					UpdateWhere<TubesTable>(tt, base).ID(data.id).Execute();
+					id = data.id;
+				}
+				if(id)
+				{
+					StoredProtectiveThickeningTable(base, id);
+				}
+				dprint("database stored\n");
 			}
 			else
 			{
-				UpdateWhere<TubesTable>(tt, base).ID(data.id).Execute();
-				id = data.id;
+				MessageBox(mainWindow.hWnd, L"Не могу открыть базу", L"Ошибка !!!", MB_ICONERROR);
+				return false;
 			}
-			if(id)
-			{
-				StoredProtectiveThickeningTable(base, id);
-			}
-			dprint("database stored\n");
+
+			wchar_t *c = &path[len];
+
+			wcscpy(c, L"\\..\\Stored\\");
+
+			CreateDirectory(path, NULL);
+
+			c = &c[wcslen(c)];
+			Path(c, tme);
+			DataToFile(path);
+
+			deleteLast(base, path, c);
+
+			Zip::ZipAll();
+
+			return true;
 		}
-		else
+		catch(...)
 		{
-			MessageBox(mainWindow.hWnd, L"Не могу открыть базу", L"Ошибка !!!", MB_ICONERROR);
-			return false;
 		}
-
-		wchar_t *c = &path[len];
-
-		wcscpy(c, L"\\..\\Stored\\");
-
-		CreateDirectory(path, NULL);
-
-		c = &c[wcslen(c)];
-		Path(c, tme);
-		DataToFile(path);
-
-		deleteLast(base, path, c);
-
-		Zip::ZipAll();
-
-		return true;
+		return false;
 	}
 
 	struct __list_data__
@@ -326,7 +332,7 @@ namespace Stored
 		path = path_;
 		offsPath= offsPath_;
 		base = &b;
-		
+
 		ULARGE_INTEGER freeBytesAvailable, totalNumberOfBytes, totalNumberOfFreeBytes;
 
 		wchar_t path[1024];
@@ -369,69 +375,92 @@ namespace Stored
 		}
 		catch(...){}
 	}
+	template<class Table, class Data>struct __x_list__
+	{
+		bool operator()(Table &t, Data &d)
+		{		
+			Path(d.offsPath, t.get<Date_Time>().value);
+			DeleteFile(d.path);
+			wcscat(d.path, L".bz2");
+			DeleteFile(d.path);
+			return false;
+		}
+	};
+	struct __x_list_data__
+	{
+		wchar_t *offsPath;
+		wchar_t path[1024];
+		__x_list_data__()
+		{
+			GetModuleFileName(0, path, dimention_of(path));
+			PathRemoveFileSpec(path);
+			wcscat(path, L"\\..\\Stored\\");
+			offsPath = &path[wcslen(path)];
+		}
+	};
 	void RemoveNULLTables(CBase &b)
 	{
-		 CMD(b).CommandText(
-                        L"SELECT t.Date_Time"\
-                        L" FROM  TubesTable AS t"\
-                        L" LEFT JOIN ProtocolsTable AS p"\
-                        L" ON t.IDProtocolsTable = p.ID"\
-                        L" WHERE p.ID IS NULL"
-                        ).Execute();
-		 CMD(b).CommandText(
-                        L"DELETE t"\
-                        L" FROM  TubesTable AS t"\
-                        L" LEFT JOIN ProtocolsTable AS p"\
-                        L" ON t.IDProtocolsTable = p.ID"\
-                        L" WHERE p.ID IS NULL"
-                        ).Execute();
-            CMD(b).CommandText(
-                        L" DELETE s"\
-                        L" FROM StoredThicknessTable AS s"\
-                        L" LEFT JOIN TubesTable AS t"\
-                        L" ON t.IDProtocolsTable = s.TubesTableID"\
-                        L" WHERE t.ID IS NULL"
-                        ).Execute();
-           CMD(b).CommandText(
-                        L"DELETE s"\
-                        L" FROM StoredMeshureTable AS s"\
-                        L" LEFT JOIN TubesTable AS t"\
-                        L" ON t.IDStoredMeshureTable = s.ID"\
-                        L" WHERE t.ID IS NULL"
-                        ).Execute();
-          CMD(b).CommandText(
-                       L"DELETE t"\
-                       L" FROM ThicknessTable AS t"\
-                       L" LEFT JOIN StoredThicknessTable AS s"\
-                       L" ON t.ID = s.MaxThicknessID OR t.ID = s.MinThicknessID"\
-                       L" WHERE s.ID IS NULL"
-                       ).Execute();
-            CMD(b).CommandText(
-                        L"DELETE st"\
-                        L" FROM StoredThresholdsTable AS st"\
-                        L" LEFT JOIN StoredMeshureTable AS sm"\
-                        L" ON st.ID = sm.IDBorderAboveThickness"\
-                        L" OR st.ID = sm.IDBorderDefectCross"\
-                        L" OR st.ID = sm.IDBorderDefectLong"\
-                        L" OR st.ID = sm.IDBorderKlass2Cross"\
-                        L" OR st.ID = sm.IDBorderKlass2Long"\
-                        L" OR st.ID = sm.IDBorderLowerThickness"\
-                        L" OR st.ID = sm.IDBorderNominalThickness"\
-                        L" WHERE sm.ID IS NULL"
-                        ).Execute();
-            CMD(b).CommandText(
-                       L"DELETE o"\
-                       L" FROM OperatorsTable AS o"\
-                       L" LEFT JOIN TubesTable AS t"\
-                       L" ON o.ID = t.IDOperator"\
-                       L" WHERE t.ID IS NULL"
-                       ).Execute();
-			 CMD(b).CommandText(
-						L"DELETE p"\
-						L" FROM ProtocolsTable AS p"\
-						L" LEFT JOIN TubesTable AS t"\
-						L" ON p.ID = t.IDProtocolsTable"\
-						L" WHERE t.ID IS NULL"
-						).Execute();
+		CMD(b).CommandText(
+			L"SELECT t.Date_Time AS Date_Time"\
+			L" FROM  TubesTable AS t"\
+			L" LEFT JOIN ProtocolsTable AS p"\
+			L" ON t.IDProtocolsTable = p.ID"\
+			L" WHERE p.ID IS NULL"
+			).ExecuteLoop<TL::MkTlst<Date_Time>::Result, __x_list__>(__x_list_data__());
+		CMD(b).CommandText(
+			L"DELETE t"\
+			L" FROM  TubesTable AS t"\
+			L" LEFT JOIN ProtocolsTable AS p"\
+			L" ON t.IDProtocolsTable = p.ID"\
+			L" WHERE p.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L" DELETE s"\
+			L" FROM StoredThicknessTable AS s"\
+			L" LEFT JOIN TubesTable AS t"\
+			L" ON t.IDProtocolsTable = s.TubesTableID"\
+			L" WHERE t.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L"DELETE s"\
+			L" FROM StoredMeshureTable AS s"\
+			L" LEFT JOIN TubesTable AS t"\
+			L" ON t.IDStoredMeshureTable = s.ID"\
+			L" WHERE t.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L"DELETE t"\
+			L" FROM ThicknessTable AS t"\
+			L" LEFT JOIN StoredThicknessTable AS s"\
+			L" ON t.ID = s.MaxThicknessID OR t.ID = s.MinThicknessID"\
+			L" WHERE s.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L"DELETE st"\
+			L" FROM StoredThresholdsTable AS st"\
+			L" LEFT JOIN StoredMeshureTable AS sm"\
+			L" ON st.ID = sm.IDBorderAboveThickness"\
+			L" OR st.ID = sm.IDBorderDefectCross"\
+			L" OR st.ID = sm.IDBorderDefectLong"\
+			L" OR st.ID = sm.IDBorderKlass2Cross"\
+			L" OR st.ID = sm.IDBorderKlass2Long"\
+			L" OR st.ID = sm.IDBorderLowerThickness"\
+			L" OR st.ID = sm.IDBorderNominalThickness"\
+			L" WHERE sm.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L"DELETE o"\
+			L" FROM OperatorsTable AS o"\
+			L" LEFT JOIN TubesTable AS t"\
+			L" ON o.ID = t.IDOperator"\
+			L" WHERE t.ID IS NULL"
+			).Execute();
+		CMD(b).CommandText(
+			L"DELETE p"\
+			L" FROM ProtocolsTable AS p"\
+			L" LEFT JOIN TubesTable AS t"\
+			L" ON p.ID = t.IDProtocolsTable"\
+			L" WHERE t.ID IS NULL"
+			).Execute();
 	}
 }
