@@ -498,14 +498,14 @@ namespace Protocols.Requests
                         minBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
                     }
                     double findT = FindMin(n0, n1, n2, n3, minBuf, count);
-                    packet.MinThickness = findT.ToString();
+                    packet.MinThickness = Math.Round(findT, 1).ToString();
                     reader.GetBytes(8, 0, tmpBuf, 0, bytesCount);
                     for (int i = 0; i < count; ++i)
                     {
                         maxBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
                     }
                     findT = FindMax(n0, n1, n2, n3, maxBuf, count);
-                    packet.MaxThickness = findT.ToString();
+                    packet.MaxThickness = Math.Round(findT, 1).ToString();
                     //-минимум максимум в зоне конец
                     t.Add(packet);
                 }

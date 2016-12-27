@@ -16,6 +16,10 @@
 #include "HookKey.h"
 #include "LogUSPC.h"
 #include "ZipAll.h"
+#include "StoredBase.h"
+#include "ExpressBase.hpp"
+#include "Stored.h"
+
 
 HANDLE App::ProgrammExitEvent;
 HANDLE App::ProgrammContinueEvent;
@@ -73,7 +77,21 @@ void App::Init()
 		return;
 #endif
 	}
-	
+	StoredBase parameters;
+	CExpressBase base(
+			parameters.name()
+			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+			, parameters.tables
+			);
+
+	if(base.IsOpen())
+	{
+		Stored::RemoveNULLTables(base);
+	}
+	else
+	{
+		MessageBox(h, L"Не могу открыть базу сохранения результатов измерений", L"Ошибка !!!", MB_ICONERROR);
+	}
 	automat.Init();
 	Zip::ZipAll();
 }
