@@ -353,37 +353,7 @@ namespace Stored
 					L"DELETE FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time<?"
 					).Param(tme).Execute();
 
-				CMD(b).CommandText(
-					L"DELETE a"\
-					L" FROM [StoredBase].[dbo].[StoredMeshureTable] AS a"\
-					L" LEFT JOIN [StoredBase].[dbo].[TubesTable] AS b"\
-					L" ON a.ID = b.IDStoredMeshureTable"\
-					L" WHERE b.ID IS NULL"
-					).Execute();
-
-				CMD(b).CommandText(
-					L"DELETE a"\
-					L" FROM [StoredBase].[dbo].[ProtocolsTable] AS a"\
-					L" LEFT JOIN [StoredBase].[dbo].[TubesTable] AS b"\
-					L" ON a.ID = b.IDProtocolsTable"\
-					L" WHERE b.IDProtocolsTable IS NULL"
-					).Execute();
-
-				CMD(b).CommandText(
-					L"DELETE a"\
-					L" FROM [StoredBase].[dbo].[StoredThicknessTable] AS a"\
-					L" LEFT JOIN [StoredBase].[dbo].[TubesTable] AS b"\
-					L" ON a.TubesTableID = b.ID"\
-					L" WHERE b.ID IS NULL"
-					).Execute();
-
-				CMD(b).CommandText(
-					L"DELETE t"\
-					L" FROM ThicknessTable as t"\
-					L" LEFT JOIN StoredThicknessTable as s"\
-					L" ON t.ID = s.MinThicknessID OR t.ID = s.MaxThicknessID"\
-					L" WHERE s.ID IS NULL"
-					).Execute();
+				RemoveNULLTables(b);
 
 				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
 				return;
@@ -399,5 +369,69 @@ namespace Stored
 		}
 		catch(...){}
 	}
-
+	void RemoveNULLTables(CBase &b)
+	{
+		 CMD(b).CommandText(
+                        L"SELECT t.Date_Time"\
+                        L" FROM  TubesTable AS t"\
+                        L" LEFT JOIN ProtocolsTable AS p"\
+                        L" ON t.IDProtocolsTable = p.ID"\
+                        L" WHERE p.ID IS NULL"
+                        ).Execute();
+		 CMD(b).CommandText(
+                        L"DELETE t"\
+                        L" FROM  TubesTable AS t"\
+                        L" LEFT JOIN ProtocolsTable AS p"\
+                        L" ON t.IDProtocolsTable = p.ID"\
+                        L" WHERE p.ID IS NULL"
+                        ).Execute();
+            CMD(b).CommandText(
+                        L" DELETE s"\
+                        L" FROM StoredThicknessTable AS s"\
+                        L" LEFT JOIN TubesTable AS t"\
+                        L" ON t.IDProtocolsTable = s.TubesTableID"\
+                        L" WHERE t.ID IS NULL"
+                        ).Execute();
+           CMD(b).CommandText(
+                        L"DELETE s"\
+                        L" FROM StoredMeshureTable AS s"\
+                        L" LEFT JOIN TubesTable AS t"\
+                        L" ON t.IDStoredMeshureTable = s.ID"\
+                        L" WHERE t.ID IS NULL"
+                        ).Execute();
+          CMD(b).CommandText(
+                       L"DELETE t"\
+                       L" FROM ThicknessTable AS t"\
+                       L" LEFT JOIN StoredThicknessTable AS s"\
+                       L" ON t.ID = s.MaxThicknessID OR t.ID = s.MinThicknessID"\
+                       L" WHERE s.ID IS NULL"
+                       ).Execute();
+            CMD(b).CommandText(
+                        L"DELETE st"\
+                        L" FROM StoredThresholdsTable AS st"\
+                        L" LEFT JOIN StoredMeshureTable AS sm"\
+                        L" ON st.ID = sm.IDBorderAboveThickness"\
+                        L" OR st.ID = sm.IDBorderDefectCross"\
+                        L" OR st.ID = sm.IDBorderDefectLong"\
+                        L" OR st.ID = sm.IDBorderKlass2Cross"\
+                        L" OR st.ID = sm.IDBorderKlass2Long"\
+                        L" OR st.ID = sm.IDBorderLowerThickness"\
+                        L" OR st.ID = sm.IDBorderNominalThickness"\
+                        L" WHERE sm.ID IS NULL"
+                        ).Execute();
+            CMD(b).CommandText(
+                       L"DELETE o"\
+                       L" FROM OperatorsTable AS o"\
+                       L" LEFT JOIN TubesTable AS t"\
+                       L" ON o.ID = t.IDOperator"\
+                       L" WHERE t.ID IS NULL"
+                       ).Execute();
+			 CMD(b).CommandText(
+						L"DELETE p"\
+						L" FROM ProtocolsTable AS p"\
+						L" LEFT JOIN TubesTable AS t"\
+						L" ON p.ID = t.IDProtocolsTable"\
+						L" WHERE t.ID IS NULL"
+						).Execute();
+	}
 }

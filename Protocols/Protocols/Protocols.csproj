@@ -72,6 +72,7 @@
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Requests\ListTubes.cs" />
+    <Compile Include="Requests\RemoveProtocol.cs" />
     <Compile Include="Requests\SaveToXML.cs" />
     <Compile Include="Requests\UltrasonicControlProducts.cs" />
     <Compile Include="StoredBaseDataSet.Designer.cs">
