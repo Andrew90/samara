@@ -225,6 +225,8 @@ template<>struct __gates__<Thickness>
 {
 	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 	{
+		try
+		{
 		ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 		
 		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
@@ -311,6 +313,8 @@ template<>struct __gates__<Thickness>
 				}
 			}
 		}
+		}
+		catch(...){}
 	}
 };
 #undef USPC
