@@ -186,7 +186,7 @@ template<class T>struct __gates__
 
 		USPC(gate1_level);
 
-		g1.x = _gate1_position;//(_gate1_position + _scope_offset);
+		g1.x = _gate1_position + _scope_offset;
 		g1.width = _gate1_width;
 		double offs = 0.005 * d->hdr.G1Tof;
 		g1.y = _gate1_level;
@@ -195,16 +195,22 @@ template<class T>struct __gates__
 		int count = d->DataSize;
 		if(0 == count) count = 500;
 		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
-		s.chart.items.get<ScanWindow::Line>().count = count;
+		s.chart.items.get<ScanWindow::Line>().count = int(_scope_range / mash);
         s.chart.items.get<ScanWindow::Line>().offset = 0;
 
 		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - _scope_offset;
 		int gate1Amp = d->hdr.G1Amp;
 
-		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
 		int beg = int((_gate1_position - _scope_offset) / mash);
-		if(end > count)	end = count;
-		if(beg < 0) beg = 0;
+		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+		if(beg < 0 || end < 0)
+		{
+			beg = int((_gate1_position) / mash);
+		    end = int((_gate1_position + _gate1_width) / mash);
+		}		
+		
+		/////if(end > count)	end = count;
+		//if(beg < 0) beg = 0;
 		wchar_t buf[128];
 		buf[0] = 0;
 		int amp = 0;
