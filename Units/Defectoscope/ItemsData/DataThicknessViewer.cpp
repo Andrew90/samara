@@ -37,7 +37,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 			{
 				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 				char st = StatusId<Clr<Undefined>>();
-				data[cnt] = 0;//nominalBorder[zone];
+				data[cnt] = 0;
 				bool errorStrobe = true;
 				if(s[i].hdr.G1Tof)
 				{

@@ -28,20 +28,40 @@ DefectData::DefectData(int &filterWidth, bool &filterOn, double (&brak)[App::cou
 {}
 
 void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s
-	, void (*StatusZoneDefect)(int , double , int , double (&)[App::count_zones], double (&)[App::count_zones], char &))
+	, void (*StatusZoneDefect)(int , double , int , double (&)[App::count_zones], double (&)[App::count_zones], char &)
+	, USPCViewerData &d
+	)
 {
 	zone = zone_;
 	stop += offs;
 	int cnt = 0;
 	if(stop > maxOffs) stop = maxOffs;
 	int i = start + offs;
+	double _gate1_position = d.param[channel].get<gate1_position>().value;
+	double _gate1_width = d.param[channel].get<gate1_width>().value;
+	double _scope_offset = d.param[channel].get<scope_offset>().value;
+
+	double mash = 0.001 * s[i].TimeEqu / s[i].DataSize;
+	int beg = int((_gate1_position - _scope_offset) / mash);
+	int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+	if(beg < 0 || end < 0)
+	{
+		beg = int((_gate1_position) / mash);
+		end = int((_gate1_position + _gate1_width) / mash);
+	}	
+
 	if(!medianFiltreOn)
 	{
 		for(; i < stop; ++i)
 		{
 			if(channel == s[i].Channel)
 			{
-				data[cnt] = s[i].hdr.G1Amp;
+				double t = 0;
+				for(int z = beg; z < end; ++z)
+				{
+					if(s[i].Point[z] > t) t = s[i].Point[z];
+				}
+				data[cnt] = t;
 				scan[cnt] = &s[i];
 				(*StatusZoneDefect)(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
 				if(++cnt >= dimention_of(data)) break;
@@ -64,7 +84,11 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 		{
 			if(channel == s[i].Channel)
 			{
-				double t = s[i].hdr.G1Amp;
+				double t = 0;
+				for(int z = beg; z < end; ++z)
+				{
+					if(s[i].Point[z] > t) t = s[i].Point[z];
+				}
 				char st;
 				(*StatusZoneDefect)(offs, t, zone, brackThreshold, klass2Threshold, st);
 				

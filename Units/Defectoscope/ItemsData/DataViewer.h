@@ -24,7 +24,8 @@ struct DefectData
 	double (&klass2Threshold)[App::count_zones];
 	DefectData(int &, bool &, double (&)[App::count_zones], double (&)[App::count_zones]);
 	void Set(int zone, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s
-		, void (*)(int , double , int , double (&)[App::count_zones], double (&)[App::count_zones], char &));
+		, void (*)(int , double , int , double (&)[App::count_zones], double (&)[App::count_zones], char &)
+		,  USPCViewerData &);
 };
 
 class OffsetChannel
@@ -82,7 +83,9 @@ template<class T>struct DataViewer: DefectData
 		stop += d.offsSensor[channel];//samplesOffset;
 		if(stop < 0) start = stop = 0;
 
-		Set(zone, start, stop, channel, offs, maxOffs, s, StatusZoneDefect<T>);
+		Set(zone, start, stop, channel, offs, maxOffs, s, StatusZoneDefect<T>
+			, Singleton<ItemData<T> >::Instance()
+			);
 	}
 };
 

@@ -99,7 +99,6 @@ void ScanWindow::Line::Draw()
 		double yOffs = chart.rect.bottom - chart.offsetAxesBottom;
 
 		int width = chart.rect.right - chart.rect.left - chart.offsetAxesRight - chart.offsetAxesLeft;
-		//double dX = (double)width / (count - 1);
 		double dX = mash * width /(chart.maxAxesX - chart.minAxesX);
 		int x0 = chart.rect.left + chart.offsetAxesLeft;
 		double minY = chart.minAxesY;
@@ -137,7 +136,6 @@ ScanWindow::ScanWindow()
 	chart.items.get<LineSeries>().data = data;
 
 	label.fontHeight = 12;
-	//chart.items.get<ThickBorder>().color = 0xff00ffff;
 }
 void ScanWindow::operator()(TSize &l)
 {
@@ -174,7 +172,6 @@ void ScanWindow::operator()(TSize &l)
 		chart.rect.bottom = l.Height;
 		chart.maxAxesY = maxY;
 		chart.items.get<LineSeries>().SetData(data, maxX, 0, maxX - 1);
-		//chart.items.get<ThickBorder>().value = g1Tof;
 		chart.Draw(g);
 		label.Draw(g);
 	}

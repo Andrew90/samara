@@ -3,7 +3,6 @@
 #include "AppBase.h"
 #include "uspc7100_exports.h"
 
-
 ///	Хранит данные с платы USPC
 class USPCData
 {
@@ -54,9 +53,6 @@ public:
 	typedef TL::MkTlst<
 		scope_range    
 		, scope_offset   
-	//	, gateIF_position
-	//	, gateIF_width   
-	//	, gateIF_level   
 		, gate1_width    
 		, gate1_position 
 		, gate1_level 	  
@@ -73,7 +69,6 @@ public:
 	double bufferMax[App::count_zones];	///<Вычисленные данные разбитые по датчикам и зонам
 	char statusMin[App::count_zones];
 	char statusMax[App::count_zones];	
-	//double scope_velocity[App::count_sensors];
 	typedef TL::MkTlst<
 		scope_range    
 		, scope_offset   
