@@ -113,21 +113,33 @@ namespace
 								}
 							}
 						}
-						DWORD g1Amp = b[j].hdr.G1Amp;
-						double g1Beg = d.param[channel].get<gate1_position>().value  - d.param[channel].get<scope_offset>().value;
-						double g1End = g1Beg + d.param[channel].get<gate1_width>().value;//  - d.param[channel].get<scope_offset>().value;
-						double g1Tof = 0.005 * b[j].hdr.G1Tof - d.param[channel].get<scope_offset>().value;
-						if(g1Tof < g1Beg || g1Tof > g1End)
-						{
-							g1Amp = 0;
-							double k = 1000.0 * b[j].DataSize / b[j].TimeEqu;
-							int beg = int(k * g1Beg);
-							int end = int(k * g1End);
-							for(int i = beg; i < end; ++i)
+						double _gate1_position = d.param[channel].get<gate1_position>().value;
+						double _gate1_width = d.param[channel].get<gate1_width>().value;
+						double _scope_offset = d.param[channel].get<scope_offset>().value;
+						//double g1Beg = gate1_position_;//  +  d.param[channel].get<scope_offset>().value;
+						//double g1End = gate1_position_ + gate1_width_;// g1Beg + d.param[channel].get<gate1_width>().value;//  - d.param[channel].get<scope_offset>().value;
+					//	double g1Tof = 0.005 * b[j].hdr.G1Tof - d.param[channel].get<scope_offset>().value;
+				//		if(g1Tof < g1Beg || g1Tof > g1End)
+					//	{
+							DWORD g1Amp = 0;
+							//double k = 1000.0 * b[j].DataSize / b[j].TimeEqu;
+							////g1Beg -= d.param[channel].get<scope_offset>().value;
+							////g1End -= d.param[channel].get<scope_offset>().value;
+							//int beg = int(k * g1Beg);
+							//int end = int(k * g1End);
+							double mash = 0.001 * b[j].TimeEqu / b[j].DataSize;
+							int beg = int((_gate1_position - _scope_offset) / mash);
+		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+		if(beg < 0 || end < 0)
+		{
+			beg = int((_gate1_position) / mash);
+		    end = int((_gate1_position + _gate1_width) / mash);
+		}	
+							for(int z = beg; z < end; ++z)
 							{
-								if(b[j].Point[i] > g1Amp) g1Amp = b[j].Point[i];
+								if(b[j].Point[z] > g1Amp) g1Amp = b[j].Point[z];
 							}
-						}
+					//	}
 						double t = filtre(channel, g1Amp);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
