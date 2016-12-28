@@ -27,6 +27,8 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	int i = start + offs;
 	ItemData<Thickness> &d = Singleton<ItemData<Thickness> >::Instance();
 	double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrakStrobe2<Thickness>>().value;
+	double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[zone_];
+	int ret = 0;
 	if(!medianFiltreOn)
 	{		
 		for(; i < stop; ++i)
@@ -79,34 +81,13 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 			cnt = 0;
 		}
 		
-		//int z = 0;
-		//double tmp[dimention_of(f.buf)];
-		//USPC7100_ASCANDATAHEADER *sk[dimention_of(f.buf)];
-		//char stat[dimention_of(f.buf)];
-		//for(offs; offs < i; ++offs)
-		//{
-		//	if(channel == s[offs].Channel)
-		//	{
-		//		tmp[z] = 2.5e-6 * s[offs].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-		//		sk[z] = &s[offs];
-		//		stat[z] =  StatusId<Clr<Undefined>>();
-		//		//StatusZoneThickness(offs, tmp[z], zone
-		//		//	, aboveBorder  
-		//		//	, lowerBorder  
-		//		//	, nominalBorder
-		//		//	, stat[z]);
-		//		if(++z >= medianFiltreWidth) break;
-		//	} 
-		//}
-		
-		//f.Init(medianFiltreWidth, tmp);
 		f.Clear(medianFiltreWidth);
 		
 		for(; i < stop; ++i)
 		{			
 			if(channel == s[i].Channel)
 			{
-				double t = 0;//nominalBorder[zone];
+				double t = 999999;
 				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 				char st = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
@@ -123,21 +104,10 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					}
 				}
 
-				if(Status != st)
-				{
-					StatusZoneThickness(offs, t, zone
-						, aboveBorder  
-						, lowerBorder  
-						, nominalBorder
-						, st);
-				}
-
-				if(0 == t) t = 999999;
-				int ret = f.Add(t, st, (void *)&s[i]);
+				if(999999 != t) ret = f.Add(t, st, (void *)&s[i]);
 				{
 					t = f.buf[ret];
-					if(999999 == t) t = 0;
-					
+
 					if(cnt >= 0)
 					{
 						data[cnt] = t;
@@ -145,7 +115,16 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						status[cnt] = f.status[ret];
 					}
 				}
-				
+
+				if(Status != status[cnt] && cnt >= 0)
+				{
+					StatusZoneThickness(offs, t, zone
+						, aboveBorder  
+						, lowerBorder  
+						, nominalBorder
+						, status[cnt]);
+				}
+
 				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}

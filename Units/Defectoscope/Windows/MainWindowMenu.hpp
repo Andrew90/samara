@@ -117,16 +117,16 @@ namespace MainWindowMenu
 	struct Options{};
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct WindowPosition__    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct IOportsView       : IOportsDlg{};
 
-	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
+	MENU_ITEM(L"Сохранить координаты окна", WindowPosition__)
     MENU_ITEM(L"Просмотр дискретных портов", IOportsView)
 
 	template<>struct TopMenu<Options>
 	{
 		typedef TL::MkTlst<
-			MenuItem<WindowPosition>
+			MenuItem<WindowPosition__>
 			, Separator<0>
 			, MenuItem<IOportsView>
 		>::Result list;		

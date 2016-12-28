@@ -170,8 +170,10 @@ namespace
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
+		
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
+			double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
 			d.statusMin[i] = StatusId<Clr<Undefined>>();
@@ -196,7 +198,7 @@ namespace
 								}
 							}
 						}
-						double val = 0;
+						double val = 999999;
 						static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
@@ -212,9 +214,11 @@ namespace
 								}
 							}
 						}
-						if(0 == val) val = 999999;
-						double t = filtre(channel, val, status);
-						if(999999 == t) t = 0;
+						double t = nominal;
+						if(999999 != val)
+						{
+							nominal = t = filtre(channel, val, status);
+						}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -240,9 +244,7 @@ namespace
 								
 								d.bufferMax[i] = t;
 							}
-							//if(0 == val) val = 999999;
-							//t = filtre.AddX(channel, val);	
-							//if(999999 == t) t = 0;
+							
 							if(0 != t &&  t < d.bufferMin[i])
 							{
 								d.bufferMin[i] = t;	
