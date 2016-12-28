@@ -42,7 +42,7 @@ namespace
 {
 	struct FiltreOn
 	{
-		 MedianFiltre (&f)[App::count_sensors];
+		MedianFiltre (&f)[App::count_sensors];
 		FiltreOn( MedianFiltre (&f)[App::count_sensors])
 			: f(f)
 		{}
@@ -116,30 +116,20 @@ namespace
 						double _gate1_position = d.param[channel].get<gate1_position>().value;
 						double _gate1_width = d.param[channel].get<gate1_width>().value;
 						double _scope_offset = d.param[channel].get<scope_offset>().value;
-						//double g1Beg = gate1_position_;//  +  d.param[channel].get<scope_offset>().value;
-						//double g1End = gate1_position_ + gate1_width_;// g1Beg + d.param[channel].get<gate1_width>().value;//  - d.param[channel].get<scope_offset>().value;
-					//	double g1Tof = 0.005 * b[j].hdr.G1Tof - d.param[channel].get<scope_offset>().value;
-				//		if(g1Tof < g1Beg || g1Tof > g1End)
-					//	{
-							DWORD g1Amp = 0;
-							//double k = 1000.0 * b[j].DataSize / b[j].TimeEqu;
-							////g1Beg -= d.param[channel].get<scope_offset>().value;
-							////g1End -= d.param[channel].get<scope_offset>().value;
-							//int beg = int(k * g1Beg);
-							//int end = int(k * g1End);
-							double mash = 0.001 * b[j].TimeEqu / b[j].DataSize;
-							int beg = int((_gate1_position - _scope_offset) / mash);
-		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
-		if(beg < 0 || end < 0)
-		{
-			beg = int((_gate1_position) / mash);
-		    end = int((_gate1_position + _gate1_width) / mash);
-		}	
-							for(int z = beg; z < end; ++z)
-							{
-								if(b[j].Point[z] > g1Amp) g1Amp = b[j].Point[z];
-							}
-					//	}
+						DWORD g1Amp = 0;
+						double mash = 0.001 * b[j].TimeEqu / b[j].DataSize;
+						int beg = int((_gate1_position - _scope_offset) / mash);
+						int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+						if(beg < 0 || end < 0)
+						{
+							beg = int((_gate1_position) / mash);
+							end = int((_gate1_position + _gate1_width) / mash);
+						}	
+						for(int z = beg; z < end; ++z)
+						{
+							if(b[j].Point[z] > g1Amp) g1Amp = b[j].Point[z];
+						}
+						//	}
 						double t = filtre(channel, g1Amp);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
@@ -171,7 +161,7 @@ namespace
 				buf[j] = d.status[j][i];
 			}
 			int t = 0;
-		    SelectMessage(buf, t);
+			SelectMessage(buf, t);
 			d.commonStatus[i] = t;
 		}
 	}
@@ -182,7 +172,7 @@ namespace
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
-		
+
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
 			double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
@@ -253,10 +243,10 @@ namespace
 								{
 									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
 								}
-								
+
 								d.bufferMax[i] = t;
 							}
-							
+
 							if(0 != t &&  t < d.bufferMin[i])
 							{
 								d.bufferMin[i] = t;	
@@ -274,7 +264,7 @@ namespace
 				}				
 			}
 		}
-		
+
 		int buf[3];
 		buf[2] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
@@ -340,7 +330,7 @@ namespace
 			}
 		}
 	};
-	
+
 	template<class P>struct __recalculation__<Thickness, P>
 	{
 		typedef Thickness O;
@@ -396,7 +386,7 @@ namespace
 	{
 		bool operator()(){return false;}
 	};
-	
+
 	template<class T>struct __first__;
 	template<template<class, class, class, class, class>class W, class A, class B, class C, class D, class E>struct __first__<W<A, B, C, D, E>>
 	{
@@ -456,7 +446,7 @@ namespace
 			if(crossOnJob    ) buf[k++] = crossStatus[i]    ;
 			if(longOnJob     ) buf[k++] = longStatus[i]     ;
 			if(thicknessOnJob) buf[k  ] = thicknessStatus[i];
-			
+
 			int t = 0;
 
 			SelectMessage(buf, t);
@@ -472,11 +462,11 @@ template<class O, class P>struct __collection_data_ok__
 {
 	bool operator()()
 	{
-        if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
+		if(Singleton<OnTheJobTable>::Instance().items.get<OnTheJob<O> >().value)
 		{
 			if(0 == Singleton<ItemData<O> >::Instance().currentOffsetFrames)
 			{
-                Log::Mess<LogMess::AlarmNoDataCollection>();
+				Log::Mess<LogMess::AlarmNoDataCollection>();
 				return false;
 			}
 		}
@@ -558,9 +548,9 @@ void Compute::Recalculation()
 
 void Compute::LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime)
 {
-   double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
-   lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
-   lengthTube -= App::lengthCaretka;
+	double offs = Singleton<AdditionalSettingsTable>::Instance().items.get<ReferenceOffset1>().value; 
+	lengthTube = int(offs * (stopTime - startTime) /(baseTime - startTime));
+	lengthTube -= App::lengthCaretka;
 }
 
 Compute compute;

@@ -174,7 +174,6 @@ template<class T>struct __gates__
 		ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
 		USPC(scope_range);
 		USPC(scope_offset);
-		//_scope_offset = 0.5 * int(_scope_offset / 0.5);
 		s.chart.minAxesX = _scope_offset;
 		s.chart.maxAxesX = _scope_offset + _scope_range;
 
@@ -186,7 +185,7 @@ template<class T>struct __gates__
 
 		USPC(gate1_level);
 
-		g1.x = _gate1_position;//(_gate1_position + _scope_offset);
+		g1.x = _gate1_position;
 		g1.width = _gate1_width;
 		double offs = 0.005 * d->hdr.G1Tof;
 		g1.y = _gate1_level;
@@ -242,7 +241,6 @@ template<>struct __gates__<Thickness>
 // todo  расчёт гайтов для отрисовки
 		USPC(scope_range);
 		USPC(scope_offset);
-		//_scope_offset = 0.5 * int(_scope_offset / 0.5);
 		s.chart.minAxesX = _scope_offset;
 		s.chart.maxAxesX = _scope_offset + _scope_range;
 
@@ -296,7 +294,7 @@ template<>struct __gates__<Thickness>
 				s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
 				s.chart.items.get<ScanWindow::Gate1>().visible = true;
 				double x = 5e-3 * d->hdr.GIFTof;
-				g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+				g1.x = _gate1_position + x;
 				g1.width = _gate1_width;
 				g1.y = _gate1_level;
 				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
@@ -306,7 +304,7 @@ template<>struct __gates__<Thickness>
 					s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
 					s.chart.items.get<ScanWindow::Gate2>().visible = true;
 					double x = 5e-3 * d->hdr.GIFTof;
-					g2.x = _gate2_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+					g2.x = _gate2_position + x;
 					g2.width = _gate2_width;
 					g2.y = _gate2_level;
 					s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
