@@ -507,4 +507,25 @@ namespace Stored
 			L" WHERE t.ID IS NULL"
 			).Execute();
 	}
+
+	DWORD WINAPI  __CleanStoredBase__(LPVOID)
+	{
+		StoredBase parameters;
+		CExpressBase base(
+			parameters.name()
+			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+			, parameters.tables
+			);
+
+		if(base.IsOpen())
+		{
+			Stored::RemoveNULLTables(base);
+		}
+		return 0;
+	}
+
+	void CleanStoredBase()
+	{
+		QueueUserWorkItem(__CleanStoredBase__, NULL, WT_EXECUTEDEFAULT);
+	}
 }

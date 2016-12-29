@@ -8,7 +8,7 @@
 
 struct DataVieverConst
 {
-	static const int buf_size = 2048;
+	static const int buf_size = 2 * 2048;
 };
 
 struct DefectData
@@ -67,6 +67,7 @@ template<class T>struct DataViewer: DefectData
 	{}
 	void Do(int zone, int channel)
 	{
+		memset(scan, 0, sizeof(scan));
 		ItemData<T> &d = Singleton<ItemData<T> >::Instance();
 		int start = d.offsets[zone];
 		int stop = d.offsets[1 + zone];
@@ -74,10 +75,6 @@ template<class T>struct DataViewer: DefectData
 		int maxOffs = d.currentOffsetFrames;
 		USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
 
-		//int samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
-		//	* offs
-		//	/ App::zone_length
-		//	);
 		start += d.offsSensor[channel];//samplesOffset;
 		if(start < 0) start = 0;
 		stop += d.offsSensor[channel];//samplesOffset;
@@ -118,6 +115,7 @@ template<>struct DataViewer<Thickness>: ThicknessData
 	{}
 	void Do(int zone, int channel)
 	{
+	   memset(scan, 0, sizeof(scan));
 	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();
 	   int start = d.offsets[zone];
 	   int stop = d.offsets[1 + zone];
