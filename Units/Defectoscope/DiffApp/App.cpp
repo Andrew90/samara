@@ -76,7 +76,8 @@ void App::Init()
 		return;
 #endif
 	}
-	Stored::CleanStoredBase();
+#pragma message("После отладки востановить")
+	//Stored::CleanStoredBase();
 	automat.Init();
 	Zip::ZipAll();
 }
