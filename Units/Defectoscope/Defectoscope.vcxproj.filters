@@ -137,9 +137,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="App\App.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
     <ClCompile Include="App\AppBase.cpp">
       <Filter>App</Filter>
     </ClCompile>
@@ -172,12 +169,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp">
       <Filter>Common\Ini</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\MainWindow.cpp">
-      <Filter>Windows\MainWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\MainWindowToolBar.cpp">
-      <Filter>Windows\MainWindow</Filter>
     </ClCompile>
     <ClCompile Include="Windows\TopLabelViewer.cpp">
       <Filter>Windows\MainWindow</Filter>
@@ -461,6 +452,15 @@
     <ClCompile Include="Dialogs\ProtectiveThickeningDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="DiffApp\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffWindows\MainWindow.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffWindows\MainWindowToolBar.cpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -477,9 +477,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\Base\tables.hpp">
       <Filter>Common\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="App\App.h">
-      <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="App\AppBase.h">
       <Filter>App</Filter>
@@ -541,13 +538,7 @@
     <ClInclude Include="..\..\Common\Ini\WindowsPosition.h">
       <Filter>Common\Ini</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\MainWindow.h">
-      <Filter>Windows\MainWindow</Filter>
-    </ClInclude>
     <ClInclude Include="Windows\MainWindowToolBar.h">
-      <Filter>Windows\MainWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\MainWindowMenu.hpp">
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
     <ClInclude Include="Windows\TopLabelViewer.h">
@@ -864,6 +855,18 @@
     </ClInclude>
     <ClInclude Include="App\VersionDiff.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffApp\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffWindows\MainWindow.h">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffWindows\MainWindowMenu.hpp">
+      <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffWindows\MainWindowToolBar.h">
+      <Filter>Windows\MainWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

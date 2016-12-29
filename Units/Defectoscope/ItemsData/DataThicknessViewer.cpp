@@ -104,8 +104,9 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					}
 				}
 
-				if(999999 != t) ret = f.Add(t, st, (void *)&s[i]);
+				if(999999 != t) 
 				{
+					ret = f.Add(t, st, (void *)&s[i]);
 					t = f.buf[ret];
 
 					if(cnt >= 0)
@@ -113,6 +114,16 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						data[cnt] = t;
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
 						status[cnt] = f.status[ret];
+					}
+				}
+				else
+				{
+					t = 0;
+					if(cnt >= 0)
+					{					
+						data[cnt] = t;
+						scan[cnt] = &s[i];
+						status[cnt] = StatusId<Clr<Undefined>>();
 					}
 				}
 

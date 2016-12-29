@@ -279,7 +279,7 @@ namespace
 			int count = d->DataSize;
 			if(0 == count) count = 500;
 			double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
-			s.chart.items.get<ScanWindow::Line>().count = count;
+			s.chart.items.get<ScanWindow::Line>().count = int(_scope_range / mash);
 			s.chart.items.get<ScanWindow::Line>().offset = 0;
 
 			s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
