@@ -66,7 +66,6 @@ void App::Init()
 	wchar_t bb[512];
 	ExistCurrentUSPCFile(b);
 	wsprintf(bb, L"%s %s", App::TitleApp(), b);
-//	Singleton<USPCIniFile>::Instance().Init();
 	HWND h = WindowTemplate(&mainWindow, bb, r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
 	StartKeyHook(h);
@@ -77,21 +76,7 @@ void App::Init()
 		return;
 #endif
 	}
-	StoredBase parameters;
-	CExpressBase base(
-			parameters.name()
-			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
-			, parameters.tables
-			);
-
-	if(base.IsOpen())
-	{
-		Stored::RemoveNULLTables(base);
-	}
-	else
-	{
-		MessageBox(h, L"Не могу открыть базу сохранения результатов измерений", L"Ошибка !!!", MB_ICONERROR);
-	}
+	Stored::CleanStoredBase();
 	automat.Init();
 	Zip::ZipAll();
 }

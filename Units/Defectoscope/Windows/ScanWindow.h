@@ -11,7 +11,7 @@
 class ScanWindow
 {
 	void *owner;
-	void (*ptrScan)(int, int, int, void *, void(*)());
+	bool (*ptrScan)(int, int, int, void *, void(*)());
 public:
 	class GateIF: public Gate
 	{
@@ -93,7 +93,7 @@ public:
 	void operator()(TGetMinMaxInfo &);
 	unsigned operator()(TCreate &);
 	void operator()(TLButtonDown &);
-
+	void operator()(TMouseWell &);
 	void Open(int zone, int sensor, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *data, void *, void(*)());
 	bool CursorDraw(TMouseMove &, VGraphics &);
 

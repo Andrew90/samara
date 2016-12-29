@@ -8,4 +8,5 @@ namespace Stored
 	void DataToFile(wchar_t *path);
 	bool DataFromFile(wchar_t *path);
 	void RemoveNULLTables(CBase &);
+	void CleanStoredBase();
 }

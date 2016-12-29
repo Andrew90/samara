@@ -91,268 +91,274 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 
 namespace
 {
-template<class O, class P>struct __scan__
-{
-	bool operator()(O *o, P *p)
+	template<class O, class P>struct __scan__
 	{
-		return true;
-	}
-};
-
-struct __scan_data__
-{
-	int channel;
-	int zone;
-	int offs;
-	 USPC7100_ASCANDATAHEADER *scan;
-};
-
-template<template<class, int>class L, class T, int N, class P>struct __scan__<L<T, N>, P>
-{
-	typedef typename L<T, N> O;
-	bool operator()(O *o, P *p)
-	{
-		if(N == p->channel)
+		bool operator()(O *o, P *p)
 		{
-			o->dataViewer.Do(p->zone, p->channel);
-			p->scan = o->dataViewer.scan[p->offs];
-			typedef typename O::Parent::Parent TWhell;
-			
-			o->offsetX = p->offs;
-			TMouseWell w = {o->hWnd, WM_MOUSEWHEEL};
-			(*(TWhell *)o)(w);
-			return false;
+			return true;
 		}
-		return true;
-	}
-};
+	};
 
-template<class T>struct __for_label__
-{
-	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
+	struct __scan_data__
 	{
-		return s.label.buffer;
-	}
-};
+		int channel;
+		int zone;
+		int offs;
+		USPC7100_ASCANDATAHEADER *scan;
+	};
 
-template<>struct __for_label__<Thickness>
-{
-	wchar_t buffer[128];
-	wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
+	template<template<class, int>class L, class T, int N, class P>struct __scan__<L<T, N>, P>
 	{
-		ItemData<Thickness> &t = Singleton<ItemData<Thickness> >::Instance();
-		wchar_t s1[256];
-		wchar_t s2[256];
-		s1[0] = '\0';
-		s2[0] = '\0';
-		if(d->hdr.G1Tof)
+		typedef typename L<T, N> O;
+		bool operator()(O *o, P *p)
 		{
-			double tmp = 2.5e-6 * d->hdr.G1Tof * t.param[d->Channel].get<gate1_TOF_WT_velocity>().value;
-			wsprintf(s1, L"<ff>толщина1 <ffffff>%s", Wchar_from<double>(tmp)());
-			if(d->hdr.G2Tof)
+			if(N == p->channel)
 			{
-				double tmp = 2.5e-6 * d->hdr.G2Tof * t.param[d->Channel].get<gate2_TOF_WT_velocity>().value;
-				wsprintf(s2, L"<ff>толщина2 <ffffff>%s", Wchar_from<double>(tmp)());
+				o->dataViewer.Do(p->zone, p->channel);
+				p->scan = o->dataViewer.scan[p->offs];
+				typedef typename O::Parent::Parent TWhell;
+
+				o->offsetX = p->offs;
+				TMouseWell w = {o->hWnd, WM_MOUSEWHEEL};
+				(*(TWhell *)o)(w);
+				return false;
 			}
+			return true;
 		}
-		wsprintf(buffer, L"%s %s" , s1, s2);
-		return buffer;
-	}
-};
+	};
+
+	template<class T>struct __for_label__
+	{
+		wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
+		{
+			return s.label.buffer;
+		}
+	};
+
+	template<>struct __for_label__<Thickness>
+	{
+		wchar_t buffer[128];
+		wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
+		{
+			ItemData<Thickness> &t = Singleton<ItemData<Thickness> >::Instance();
+			wchar_t s1[256];
+			wchar_t s2[256];
+			s1[0] = '\0';
+			s2[0] = '\0';
+			if(d->hdr.G1Tof)
+			{
+				double tmp = 2.5e-6 * d->hdr.G1Tof * t.param[d->Channel].get<gate1_TOF_WT_velocity>().value;
+				wsprintf(s1, L"<ff>толщина1 <ffffff>%s", Wchar_from<double>(tmp)());
+				if(d->hdr.G2Tof)
+				{
+					double tmp = 2.5e-6 * d->hdr.G2Tof * t.param[d->Channel].get<gate2_TOF_WT_velocity>().value;
+					wsprintf(s2, L"<ff>толщина2 <ffffff>%s", Wchar_from<double>(tmp)());
+				}
+			}
+			wsprintf(buffer, L"%s %s" , s1, s2);
+			return buffer;
+		}
+	};
 #define USPC(name) double _##name = uspc.param[d->Channel].get<name>().value;
-template<class T>struct __gates__
-{
-	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
+	template<class T>struct __gates__
 	{
-		s.chart.items.get<ScanWindow::Gate1>().visible = true;
-		s.chart.items.get<ScanWindow::GateIF>().visible = false;
-		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
-		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
-		s.chart.items.get<ScanWindow::Gate2>().visible = false;
-		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
-// todo  расчёт гайтов для отрисовки
-		ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
-		USPC(scope_range);
-		USPC(scope_offset);
-		//_scope_offset = 0.5 * int(_scope_offset / 0.5);
-		s.chart.minAxesX = _scope_offset;
-		s.chart.maxAxesX = _scope_offset + _scope_range;
-
-		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
-
-		USPC(gate1_width);
-
-		USPC(gate1_position);
-
-		USPC(gate1_level);
-
-		g1.x = _gate1_position + _scope_offset;
-		g1.width = _gate1_width;
-		double offs = 0.005 * d->hdr.G1Tof;
-		g1.y = _gate1_level;
-
-		
-		int count = d->DataSize;
-		if(0 == count) count = 500;
-		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
-		s.chart.items.get<ScanWindow::Line>().count = int(_scope_range / mash);
-        s.chart.items.get<ScanWindow::Line>().offset = 0;
-
-		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - _scope_offset;
-		int gate1Amp = d->hdr.G1Amp;
-
-		int beg = int((_gate1_position - _scope_offset) / mash);
-		int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
-		if(beg < 0 || end < 0)
+		void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 		{
-			beg = int((_gate1_position) / mash);
-		    end = int((_gate1_position + _gate1_width) / mash);
-		}		
-		
-		/////if(end > count)	end = count;
-		//if(beg < 0) beg = 0;
-		wchar_t buf[128];
-		buf[0] = 0;
-		int amp = 0;
-		for(int i = beg; i < end; ++i)
-		{
-			if(d->Point[i] > amp)
+			try
 			{
-				amp	= d->Point[i];	
-			}
-		}
-		
-		wsprintf(buf, L"<ff>Амплитуда %d", amp);
-		s.label = buf;
-	}
-};
 
-template<>struct __gates__<Thickness>
-{
-	void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
-	{
-		ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
-		
-		s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
-		s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
-		s.chart.items.get<ScanWindow::GateIF>().visible = false;
-		s.chart.items.get<ScanWindow::Gate1>().visible = false;
-		s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
-		s.chart.items.get<ScanWindow::Gate2>().visible = false;
-
-		ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
-		gif.visible = true;
-
-// todo  расчёт гайтов для отрисовки
-		USPC(scope_range);
-		USPC(scope_offset);
-		//_scope_offset = 0.5 * int(_scope_offset / 0.5);
-		s.chart.minAxesX = _scope_offset;
-		s.chart.maxAxesX = _scope_offset + _scope_range;
-
-		USPC(gateIF_position);
-		USPC(gateIF_width);
-
-		USPC(gateIF_level);
-
-		gif.x = _gateIF_position;
-		gif.width = _gateIF_width;
-		gif.y = _gateIF_level;
-
-		ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
-
-		USPC(gate1_width);
-
-		USPC(gate1_position);
-
-		USPC(gate1_level);
-
-		ScanWindow::Gate2 &g2 = s.chart.items.get<ScanWindow::Gate2>();
-
-		USPC(gate2_width);
-
-		USPC(gate2_position);
-
-		USPC(gate2_level);
-
-		int count = d->DataSize;
-		if(0 == count) count = 500;
-		double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
-		s.chart.items.get<ScanWindow::Line>().count = count;
-        s.chart.items.get<ScanWindow::Line>().offset = 0;
-
-		s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
-		s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
-		if(0 != d->hdr.GIFTof)
-		{
-			int i = 0;
-			for(; i < count; ++i)
-			{
-				if(d->Point[i] > _gateIF_level)
-				{
-					s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
-					s.chart.items.get<ScanWindow::GateIF>().visible = true;
-					break;
-				}
-			}
-			if(0 != d->hdr.G1Tof)
-			{
-				s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
 				s.chart.items.get<ScanWindow::Gate1>().visible = true;
-				double x = 5e-3 * d->hdr.GIFTof;
-				g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
-				g1.width = _gate1_width;
-				g1.y = _gate1_level;
-				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+				s.chart.items.get<ScanWindow::GateIF>().visible = false;
+				s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+				s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
+				s.chart.items.get<ScanWindow::Gate2>().visible = false;
+				s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
+				// todo  расчёт гайтов для отрисовки
+				ItemData<T> &uspc = Singleton<ItemData<T>>::Instance();
+				USPC(scope_range);
+				USPC(scope_offset);
+				s.chart.minAxesX = _scope_offset;
+				s.chart.maxAxesX = _scope_offset + _scope_range;
 
-				if(0 != d->hdr.G2Tof)
+				ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
+
+				USPC(gate1_width);
+
+				USPC(gate1_position);
+
+				USPC(gate1_level);
+
+				g1.x = _gate1_position + _scope_offset;
+				g1.width = _gate1_width;
+				double offs = 0.005 * d->hdr.G1Tof;
+				g1.y = _gate1_level;
+
+
+				int count = d->DataSize;
+				if(0 == count) count = 500;
+				double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
+				s.chart.items.get<ScanWindow::Line>().count = int(_scope_range / mash);
+				s.chart.items.get<ScanWindow::Line>().offset = 0;
+
+				s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * d->hdr.G1Tof - _scope_offset;
+				int gate1Amp = d->hdr.G1Amp;
+
+				int beg = int((_gate1_position - _scope_offset) / mash);
+				int end = int((_gate1_position + _gate1_width - _scope_offset) / mash);
+				if(beg < 0 || end < 0)
 				{
-					s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
-					s.chart.items.get<ScanWindow::Gate2>().visible = true;
+					beg = int((_gate1_position) / mash);
+					end = int((_gate1_position + _gate1_width) / mash);
+				}		
+
+				wchar_t buf[128];
+				buf[0] = 0;
+				int amp = 0;
+				for(int i = beg; i < end; ++i)
+				{
+					if(d->Point[i] > amp)
+					{
+						amp	= d->Point[i];	
+					}
+				}
+
+				wsprintf(buf, L"<ff>Амплитуда %d", amp);
+				s.label = buf;
+			}
+			catch(...){}
+		}
+	};
+
+	template<>struct __gates__<Thickness>
+	{
+		void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
+		{
+			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
+
+			s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
+			s.chart.items.get<ScanWindow::Gate1Border>().visible = false;
+			s.chart.items.get<ScanWindow::GateIF>().visible = false;
+			s.chart.items.get<ScanWindow::Gate1>().visible = false;
+			s.chart.items.get<ScanWindow::Gate2Border>().visible = false;
+			s.chart.items.get<ScanWindow::Gate2>().visible = false;
+
+			ScanWindow::GateIF &gif = s.chart.items.get<ScanWindow::GateIF>();
+			gif.visible = true;
+
+			// todo  расчёт гайтов для отрисовки
+			USPC(scope_range);
+			USPC(scope_offset);
+			s.chart.minAxesX = _scope_offset;
+			s.chart.maxAxesX = _scope_offset + _scope_range;
+
+			USPC(gateIF_position);
+			USPC(gateIF_width);
+
+			USPC(gateIF_level);
+
+			gif.x = _gateIF_position;
+			gif.width = _gateIF_width;
+			gif.y = _gateIF_level;
+
+			ScanWindow::Gate1 &g1 = s.chart.items.get<ScanWindow::Gate1>();
+
+			USPC(gate1_width);
+
+			USPC(gate1_position);
+
+			USPC(gate1_level);
+
+			ScanWindow::Gate2 &g2 = s.chart.items.get<ScanWindow::Gate2>();
+
+			USPC(gate2_width);
+
+			USPC(gate2_position);
+
+			USPC(gate2_level);
+
+			int count = d->DataSize;
+			if(0 == count) count = 500;
+			double mash = s.chart.items.get<ScanWindow::Line>().mash = 0.001 * d->TimeEqu / count;
+			s.chart.items.get<ScanWindow::Line>().count = count;
+			s.chart.items.get<ScanWindow::Line>().offset = 0;
+
+			s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
+			s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+			if(0 != d->hdr.GIFTof)
+			{
+				int i = 0;
+				for(; i < count; ++i)
+				{
+					if(d->Point[i] > _gateIF_level)
+					{
+						s.chart.items.get<ScanWindow::GateIFBorder>().visible = true;
+						s.chart.items.get<ScanWindow::GateIF>().visible = true;
+						break;
+					}
+				}
+				if(0 != d->hdr.G1Tof)
+				{
+					s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
+					s.chart.items.get<ScanWindow::Gate1>().visible = true;
 					double x = 5e-3 * d->hdr.GIFTof;
-					g2.x = _gate2_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
-					g2.width = _gate2_width;
-					g2.y = _gate2_level;
-					s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
+					g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+					g1.width = _gate1_width;
+					g1.y = _gate1_level;
+					s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+
+					if(0 != d->hdr.G2Tof)
+					{
+						s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
+						s.chart.items.get<ScanWindow::Gate2>().visible = true;
+						double x = 5e-3 * d->hdr.GIFTof;
+						g2.x = _gate2_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
+						g2.width = _gate2_width;
+						g2.y = _gate2_level;
+						s.chart.items.get<ScanWindow::Gate2Border>().value = 0.005 * (d->hdr.G2Tof + d->hdr.GIFTof);
+					}
 				}
 			}
 		}
-	}
-};
+	};
 #undef USPC
 
-template<class T> struct Scan
-{
-	static void Do(int zone, int sens, int offs, void *o, void(*ptr)())
+	template<class T> struct Scan
 	{
-        if(NULL == FindWindow(WindowClass<T>()(), 0))return;
-		typedef typename T::sub_type Ascan;
-		ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
-		if(data.currentOffsetZones <= zone) return;
-		int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors - 1;
-		if(of < offs)
+		static bool Do(int zone, int sens, int offs, void *o, void(*ptr)())
 		{
-			offs = of;
+			if(NULL == FindWindow(WindowClass<T>()(), 0))return false;
+			typedef typename T::sub_type Ascan;
+			ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
+			if(data.currentOffsetZones <= zone) return false;
+			int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors;
+			if(of < offs)
+			{
+				offs = of;
+			}
+			if(offs < 0)
+			{
+				offs = 0;
+			}
+			__scan_data__ d = {sens, zone, offs, NULL};
+			TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
+			if(NULL != d.scan)
+			{
+				ScanWindow &s = Singleton<ScanWindow>::Instance();
+				__gates__<Ascan>()(s,  d.scan);
+				s.Open(
+					zone
+					, sens
+					, offs
+					, Title<Ascan>()()
+					, __for_label__<Ascan>()(d.scan, s)
+					, d.scan
+					, o
+					, ptr
+					);
+				return true;
+			}
+			return false;
 		}
-		if(offs < 0)
-		{
-			offs = 0;
-		}
-		__scan_data__ d = {sens, zone, offs, NULL};
-		TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
-		ScanWindow &s = Singleton<ScanWindow>::Instance();
-		__gates__<Ascan>()(s,  d.scan);
-		s.Open(
-			zone
-			, sens
-			, offs
-			, Title<Ascan>()()
-			, __for_label__<Ascan>()(d.scan, s)
-			, d.scan
-			, o
-			, ptr
-			);
-	}
-};
+	};
 }
 
