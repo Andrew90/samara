@@ -1,7 +1,7 @@
 #pragma once
 
-#include "message.h"
-#include "DebugMess.h"
+#include "window_tool/message.h"
+#include "debug_tools/DebugMess.h"
 #include "ParamDlg.h"
 
 template<class BaseParam, class TableParam, class List>class TabPage

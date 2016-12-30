@@ -1,10 +1,10 @@
 #pragma once
-#include "App.h"
+#include "DiffApp/App.h"
 #include "AppBase.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "typelist.hpp"
 #include "USPCData.h"
-#include "Compute.h"
+#include "Compute/Compute.h"
 
 struct DataVieverConst
 {

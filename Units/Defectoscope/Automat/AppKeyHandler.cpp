@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "AppKeyHandler.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "MainWindow.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 namespace AppKeyHandler
 {

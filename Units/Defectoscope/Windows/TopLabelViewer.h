@@ -1,6 +1,6 @@
 #pragma once
-#include "message.h"
-#include "ColorLabel.h"
+#include "window_tool/message.h"
+#include "Graphics/ColorLabel.h"
 
 class TopLabelViewer
 {

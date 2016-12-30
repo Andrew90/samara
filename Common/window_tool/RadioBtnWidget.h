@@ -1,7 +1,7 @@
 #pragma once
-#include "message.h"
+#include "window_tool/message.h"
 #include "MessagesInterface.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 /**
 * \brief Шаблон для чекбокса 

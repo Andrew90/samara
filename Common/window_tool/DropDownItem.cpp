@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DropDownItem.h"
 #include <WindowsX.h>
-#include "message.h"
+#include "window_tool/message.h"
 #include "typelist.hpp"
 
 extern HINSTANCE hInstance;

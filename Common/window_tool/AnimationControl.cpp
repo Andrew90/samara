@@ -5,7 +5,7 @@
 #include <WindowsX.h>
 #include "AnimationControl.h"
 #include "resource.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 namespace AnimationWindow
 {

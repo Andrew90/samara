@@ -1,7 +1,7 @@
 #pragma once
-#include "typelist.hpp"
-#include "Base.hpp"
-#include "templates.hpp"
+//#include "templates/typelist.hpp"
+#include "Base/Base.hpp"
+#include "templates/templates.hpp"
 #include <ATLComTime.h>
 #pragma warning(disable:4995 4996)
 #define ARG_TO_STR(x) #x

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "message.h"
+#include "window_tool/message.h"
 #include "Chart.h"
 #include "Chart.hpp"
 #include "GridChart.h"
@@ -8,7 +8,7 @@
 #include "BarSeries.h"
 #include "FixedGridSeries.h"
 #include "StepSeries.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "CheckBoxWidget.h"
 #include "RadioBtnWidget.h"
 

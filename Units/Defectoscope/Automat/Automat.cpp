@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Automat.h"
 #include <MMSystem.h>
-#include "App.h"
+#include "DiffApp/App.h"
 #include "AppBase.h"
 #include "Device1730.h"
 #include "LogMessages.h"
@@ -9,7 +9,7 @@
 #include "LogMessageToTopLabel.h"
 #include "AutomatAdditional.h"
 #include "USPC.h"
-#include "Compute.h"
+#include "Compute/Compute.h"
 #include "AppKeyHandler.h"
 #include "MainWindow.h"
 #include "LogUSPCWindow.h"

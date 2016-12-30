@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <CommCtrl.h>
 #include "GridItems.h"
-#include "message.h"
+#include "window_tool/message.h"
 template<class T>class SetGridHeader
 {
 	HWND hWnd;

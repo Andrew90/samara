@@ -1,6 +1,6 @@
 #pragma once
-#include "uspc7100_exports.h"
-#include "typelist.hpp"
+#include "USPC\uspc7100_exports.h"
+#include "templates/typelist.hpp"
 class MainWindow;
 
 struct Long{};

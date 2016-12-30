@@ -2,7 +2,7 @@
 #pragma warning (disable : 4995)
 #include <windows.h>
 #include <commctrl.h>
-#include "message.h"
+#include "window_tool/message.h"
 //----------------------------------------------------------------------
 template<class T>struct header_table;
 #define HEADER_TABLE(T, width_, txt)template<>struct header_table<T>\

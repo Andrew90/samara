@@ -2,7 +2,7 @@
 #include "VersionDiff.h"
 #include "AppBase.h"
 #include "USPCData.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 
 namespace Version

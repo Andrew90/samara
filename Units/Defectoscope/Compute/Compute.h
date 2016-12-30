@@ -1,5 +1,5 @@
 #pragma once
-#include "App.h"
+#include "DiffApp/App.h"
 
 template<class T>void StatusZoneDefect(int offs, double data, int zone, double (&brakThreshold)[App::count_zones], double (&klass2Threshold)[App::count_zones], char &status)
 {

@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "ThicknessThresholdWindow.h"
-#include "EmptyWindow.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "ConstData.h"
 //#include "MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 #include "Common.h"
-#include "InitToolBar.hpp"
+#include "window_tool/InitToolBar.hpp"
 #include "AxesDlg.hpp"
-#include "App.h"
+#include "DiffApp/App.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------

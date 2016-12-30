@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Gate.h"
 #include "Chart.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 using namespace Gdiplus;
 Gate::Gate(Chart &c)

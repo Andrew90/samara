@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "LogUSPCWindowGrid.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "LogBuffer.h"
 #include "LogUSPCWindow.h"
 //------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "AppBase.h"
 #include <typeinfo>
-#include "App.h"
-#include "DebugMess.h"
+#include "DiffApp/App.h"
+#include "debug_tools/DebugMess.h"
 //-----------------------------------------------------------------------
 namespace
 {

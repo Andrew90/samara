@@ -3,8 +3,8 @@
 #include "typelist.hpp"
 #include "MedianFiltre.h"
 #include "AppBase.h"
-#include "Compute.h"
-#include "App.h"
+#include "Compute/Compute.h"
+#include "DiffApp/App.h"
 
 
 namespace

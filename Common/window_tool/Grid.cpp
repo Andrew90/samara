@@ -4,7 +4,7 @@
 #include <windowsx.h>
 #include "typelist.hpp"
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 //-----------------------------------------------------------------------------------------
 void SetGridHeaderArray(HWND h, HeaderData *header, int count)
 {

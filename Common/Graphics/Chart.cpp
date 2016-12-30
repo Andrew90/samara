@@ -2,7 +2,7 @@
 #include <math.h>
 #include <limits>
 #include "Chart.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 using namespace Gdiplus;
 const int COLOR_AXES = 0xff777777;
 const int COLOR_AXES_FONT = 0xff000000;

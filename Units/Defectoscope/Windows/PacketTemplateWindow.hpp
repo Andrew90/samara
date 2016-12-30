@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "ViewersMenu.hpp"
 #include "PacketBase.h"
 #include "MessagesInterface.h"

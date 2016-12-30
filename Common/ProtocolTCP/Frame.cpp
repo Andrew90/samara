@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Frame.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 CRITICAL_SECTION cs;
 Frame *head = NULL;

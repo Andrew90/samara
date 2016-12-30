@@ -2,7 +2,7 @@
 #include "LogUSPC.h"
 #include <stdio.h>
 #include "Registry.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 #include "Config.h"
 #ifdef DEBUG_ITEMS

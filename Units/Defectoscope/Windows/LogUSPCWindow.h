@@ -1,5 +1,5 @@
 #pragma once
-#include "message.h"
+#include "window_tool/message.h"
 #include "LogUSPCWindowGrid.h"
 #include "LogUSPC.h"
 

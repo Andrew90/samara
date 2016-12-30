@@ -2,7 +2,7 @@
 #include "typelist.hpp"
 #include "MedianFiltre.h"
 #include "AppBase.h"
-#include "Compute.h"
+#include "Compute/Compute.h"
 #include "DataViewer.h"
 #include "LabelMessage.h"
 

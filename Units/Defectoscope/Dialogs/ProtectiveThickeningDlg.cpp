@@ -3,7 +3,7 @@
 #include "ParamDlg.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 
 DO_NOT_CHECK(N0)
 PARAM_TITLE(N0, L"Первая граница")

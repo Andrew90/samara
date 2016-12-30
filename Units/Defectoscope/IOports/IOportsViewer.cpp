@@ -5,7 +5,7 @@
 #include "DebugMess.h"
 #include "Chart.h"
 #include "Device1730.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "InputOutputDlg.h"
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------
