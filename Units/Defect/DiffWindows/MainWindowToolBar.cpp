@@ -1,19 +1,23 @@
 #include "stdafx.h"
 #include "MainWindowToolBar.h"
-#include "Config.h"
-#include "DebugMess.h"
-#include "../Resource.h"
-#include "InitToolBar.hpp"
-#include "message.h"
-#include "Emptywindow.h"
+#include "App/Config.h"
+#include "debug_tools/DebugMess.h"
+#include "Resource.h"
+#include "window_tool/InitToolBar.hpp"
+#include "window_tool/message.h"
+#include "window_tool\Emptywindow.h"
 #include "MainWindow.h"
-#include "Common.h"
-#include "PacketWindow.h"
+#include "Windows/Common.h"
+#include "Windows/PacketWindow.h"
 #include <gdiplus.h>
-#include "AppKeyHandler.h"
-#include "Stored.h"
-#include "ToolBarButton.h"
+#include "Automat/AppKeyHandler.h"
+#include "Stored\Stored.h"
+#include "LogUSPCWindow.h"
+#include "Automat/Automat.h"
+#include "AutomatAdditional.h"
+#include "window_tool\ToolBarButton.h"
 #include "Config.h"
+#include "NumberTubeDlg.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -36,11 +40,11 @@ namespace
 #define BUTTON_KEY(ID)ButtonToolbar<ID, Key<ID> > 
 		typedef TL::MkTlst<
 		SeparatorToolbar<0>
-		//, BUTTON_KEY(IDB_CycleBtn)
-		//, BUTTON_KEY(IDB_Continue)
-		//, BUTTON_KEY(IDB_Reset)
-		//, BUTTON_KEY(IDB_QueryBtn) 		
-		//, SeparatorToolbar<1>
+		, BUTTON_KEY(IDB_CycleBtn)
+		, BUTTON_KEY(IDB_Continue)
+		, BUTTON_KEY(IDB_Reset)
+		, BUTTON_KEY(IDB_QueryBtn) 		
+		, SeparatorToolbar<1>
 #ifdef DEBUG_ITEMS
 		, BUTTON_KEY(IDB_arrow_down) 
 		, BUTTON_KEY(IDB_arrow_up)
@@ -55,30 +59,51 @@ namespace
 	static bool run_once_per_sycle = false;
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
-		
+		if(closed_packet_dialog)
+		{
+			closed_packet_dialog = false;
+			if(run_once_per_sycle || PacketWindowDlg(h)) 
+			{
+				CloseAllWindows();
+				run_once_per_sycle = true;
+				SetEvent(App::ProgrammRunEvent);
+				AppKeyHandler::Run();
+				AutomatAdditional::SetToBottomLabel();
+				MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+				SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Повтор");
+			}
+			closed_packet_dialog = true;
+		}
 	}
 	void Key<IDB_Continue>::Click(HWND h)
 	{
-		//SetEvent(App::ProgrammContinueEvent);
-		//AppKeyHandler::Run();
+		SetEvent(App::ProgrammContinueEvent);
+		AppKeyHandler::Run();
 	}
 //-------------------------------------------------------------------------------
 	void Key<IDB_QueryBtn>::Click(HWND h)
 	{
+		if(USPC_Test())AppKeyHandler::Run();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_down>::Click(HWND h)
 	{
+		LogUSPCWindow::Open();		
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_up>::Click(HWND h)
 	{
 		zprint("\n");
+//test
+	//	NumberTubeDlg::Do();
+		Stored::Do();
+//test
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_left>::Click(HWND h)
 	{
 		zprint("\n");	
+		LogUSPCWindow::Open();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_right>::Click(HWND h)
@@ -89,11 +114,11 @@ namespace
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)
 	{
-		//run_once_per_sycle = false;
-		//SetEvent(App::ProgrammStopEvent);
-		//MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
-		//SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
-		//AppKeyHandler::Stop();
+		run_once_per_sycle = false;
+		SetEvent(App::ProgrammStopEvent);
+		MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+		SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
+		AppKeyHandler::Stop();
 	}
 }
 //--------------------------------------------------------------------------------------------

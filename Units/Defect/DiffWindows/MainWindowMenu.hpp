@@ -33,7 +33,7 @@ namespace MainWindowMenu
 	{
 		typedef TL::MkTlst<
 			MenuItem<LoadDateFile>
-			//, MenuItem<SaveDateFile>
+			, MenuItem<SaveDateFile>
 			, Separator<0>
 			, MenuItem<Compute>
 			, Separator<1>
@@ -50,14 +50,28 @@ namespace MainWindowMenu
 	//struct AllowableThickness{static void Do(HWND h){zprint("");}};
 	//struct RotationalSpeed   {static void Do(HWND h){zprint("");}};
 							 						
+	struct MainCreateTypesize: AddTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
+	struct MainDeleteTypeSize: DelTypeSizeDlg{};//{static void Do(HWND h){zprint("");}};
 
 	struct CrossThresholdWindow__: Common::OpenWindow<CrossThresholdWindow>{};
 	struct LongThresholdWindow__: Common::OpenWindow<LongThresholdWindow>{};
 	struct ThicknessThresholdWindow__: Common::OpenWindow<ThicknessThresholdWindow>{};
 
 	struct BrackStrobe2__: BrackStrobe2Dlg{};//{static void Do(HWND h){zprint("");}};
+	struct ProtectiveThickening__: ProtectiveThickeningDlg{};
 
 	struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
+
+	template<>struct SubMenu<Thickness>
+	{
+		typedef TL::MkTlst<
+			MenuItem<ThicknessThresholdWindow__>
+			, Separator<0>
+			, MenuItem<BrackStrobe2__>
+			, Separator<1>
+			, MenuItem<ProtectiveThickening__>
+		>::Result list;
+	};
 
 	template<>struct SubMenu<Tresholds>
 	{
@@ -67,17 +81,22 @@ namespace MainWindowMenu
 			, SubMenu<Thickness>
 		>::Result list;
 	};
-
+	
    // MENU_ITEM(L"Пороги отбраковки", ThicknessTreshold)
 	MENU_TEXT(L"Пороги отбраковки", SubMenu<Tresholds>)
 	MENU_ITEM(L"Поперечные пороги", CrossThresholdWindow__)
 	MENU_ITEM(L"Продольные пороги", LongThresholdWindow__)
 	MENU_ITEM(L"Пороги толщины", ThicknessThresholdWindow__)
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
+	//MENU_ITEM(L"Допустимая толщина", AllowableThickness)
+	//MENU_ITEM(L"Скорость вращения", RotationalSpeed)
+	MENU_ITEM(L"Создать типоразмер", MainCreateTypesize)
+	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
 
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
 	MENU_ITEM(L"Брак по стробу 2", BrackStrobe2__)
 	MENU_TEXT(L"Толщина", SubMenu<Thickness>)
+	MENU_ITEM(L"Границы тела трубы", ProtectiveThickening__)
 
 	
 
@@ -89,23 +108,27 @@ namespace MainWindowMenu
 			//, MenuItem<AllowableThickness>
 			, MenuItem<MedianFiltre>
 			//, MenuItem<RotationalSpeed>
-			//, Separator<0>
-			//, MenuItem<MainCreateTypesize>
-			//, MenuItem<MainDeleteTypeSize>
+			, Separator<0>
+			, MenuItem<MainCreateTypesize>
+			, MenuItem<MainDeleteTypeSize>
 		>::Result list;
 	 };
 	//--------------------------------------------------------------------------------
 	struct Options{};
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct WindowPosition__    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct IOportsView       : IOportsDlg{};
 
-	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
+	MENU_ITEM(L"Сохранить координаты окна", WindowPosition__)
+    MENU_ITEM(L"Просмотр дискретных портов", IOportsView)
 
 	template<>struct TopMenu<Options>
 	{
 		typedef TL::MkTlst<
-			MenuItem<WindowPosition>
+			MenuItem<WindowPosition__>
+			, Separator<0>
+			, MenuItem<IOportsView>
 		>::Result list;		
 	};
 	//-------------------------------------------------------------------------------------------------------
@@ -117,6 +140,7 @@ namespace MainWindowMenu
 	struct DiscretePlateInputs    : InputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct DiscretePlateOutputs   : OutputsDlg{};//{static void Do(HWND h){zprint("");}};
 	struct ColorItems             : ColorItemsDlg{};//{static void Do(HWND h){zprint("");}};
+	struct DiscretePlateDescriptor: Descriptor1730Dlg{};//{static void Do(HWND h){zprint("");}};
 	struct Coefficient            {static void Do(HWND h){zprint("");}};
 	//struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Signal                 {static void Do(HWND h){zprint("");}};
@@ -128,6 +152,7 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Дискретная плата", SubMenu<DiscretePlate>)
 	MENU_ITEM(L"Входные порты", DiscretePlateInputs)
 	MENU_ITEM(L"Выодные порты", DiscretePlateOutputs)
+	MENU_ITEM(L"Дискриптор платы", DiscretePlateDescriptor)
 	MENU_ITEM(L"Коэффициенты пересчёта", Coefficient)
 	
 	MENU_ITEM(L"Аналоговая плата", AnalogPlate)
@@ -138,13 +163,26 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Смещение датчиков", OffsetsSensors)
 	MENU_ITEM(L"Базовое расстояние", BaseLength)
 	
+	template<>struct SubMenu<DiscretePlate>
+	{
+		typedef TL::TypeToTypeLst<
+			typename TL::MkTlst<DiscretePlateDescriptor, DiscretePlateInputs, DiscretePlateOutputs>::Result 
+			, MenuItem
+		>::Result list;
+	};
 
 	template<>struct TopMenu<Setting>
 	{
 		typedef TL::MkTlst<
-			MenuItem<OffsetsSensors>
+		//	MenuItem<AnalogPlate>
+			 SubMenu<DiscretePlate>	
+			//, MenuItem<Coefficient>
+			, MenuItem<OffsetsSensors>
 			, MenuItem<BaseLength>
+		//	, MenuItem<Signal>
+		//	, MenuItem<ACFBorder>
 			, MenuItem<ColorItems>
+			//, MenuItem<TestTab>
 		>::Result list;		
 	};
 	// ----------------------------------------------------------------------------------------------------
