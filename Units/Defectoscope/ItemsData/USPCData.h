@@ -1,7 +1,7 @@
 #pragma once
 #include "DiffApp/App.h"
-#include "AppBase.h"
-#include "uspc7100_exports.h"
+#include "App/AppBase.h"
+#include "USPC\uspc7100_exports.h"
 
 ///	Хранит данные с платы USPC
 class USPCData

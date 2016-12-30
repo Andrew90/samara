@@ -1,9 +1,9 @@
 #pragma once
 
-#include "typelist.hpp"
-#include "TablesDefine.h"
-#include "tables.hpp"
-#include "AppBase.h"
+#include "templates/typelist.hpp"
+#include "App/TablesDefine.h"
+#include "base/tables.hpp"
+#include "App/AppBase.h"
 
 DEFINE_PARAM(Hash, unsigned, -1)
 

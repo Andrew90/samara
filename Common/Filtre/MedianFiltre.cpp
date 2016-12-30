@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MedianFiltre.h"
+#include "Filtre\MedianFiltre.h"
 #include <windows.h>
 
 int MedianFiltre::Init(int width_, double *d)

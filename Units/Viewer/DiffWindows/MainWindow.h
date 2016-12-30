@@ -10,7 +10,7 @@
 #include "Windows/CrossViewer.h"
 #include "Windows/LongViewer.h"
 #include "Windows/ResultViewer.h"
-#include "MessagesInterface.h"
+//#include "MessagesInterface.h"
 
 template<class T, class Parent>struct OnTheJobCheckBox
 {

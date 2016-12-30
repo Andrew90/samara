@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "WindowsPosition.h"
+#include "Ini/WindowsPosition.h"
 #include <Shlwapi.h>
 #include "ItemIni.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 
 #pragma warning(disable : 4996)
 namespace {

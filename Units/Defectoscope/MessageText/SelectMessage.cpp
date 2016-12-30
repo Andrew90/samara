@@ -1,9 +1,9 @@
 #include "StdAfx.h"
 #include "SelectMessage.h"
-#include "AppBase.h"
-#include "LabelMessage.h"
+#include "App/AppBase.h"
+#include "MessageText\LabelMessage.h"
 #include "debug_tools/DebugMess.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 
 //namespace
 //{

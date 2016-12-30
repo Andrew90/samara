@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Dialogs.h"
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
-#include "AppBase.h"
+#include "Dialogs/Dialogs.h"
+#include "DlgTemplates\ParamDlg.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
 
 MIN_EQUAL_VALUE(MedianFiltreWidth<Cross>, 3)

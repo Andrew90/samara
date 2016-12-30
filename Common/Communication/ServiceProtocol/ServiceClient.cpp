@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include <stdio.h>
 #include "ServiceProtocol.h"
-#include "Frame.h"
-#include "NetClient.h"
-#include "typelist.hpp"
+#include "ProtocolTCP/Frame.h"
+#include "ProtocolTCP/NetClient.h"
+#include "templates/typelist.hpp"
 #include "..\IPprotocolProcedureList.hpp"
 #include "debug_tools/DebugMess.h"
 

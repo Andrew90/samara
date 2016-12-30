@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LogUSPCWindowGrid.h"
 #include "debug_tools/DebugMess.h"
-#include "LogBuffer.h"
+#include "Log\LogBuffer.h"
 #include "LogUSPCWindow.h"
 //------------------------------------------------------------------------
 extern HINSTANCE hInstance;

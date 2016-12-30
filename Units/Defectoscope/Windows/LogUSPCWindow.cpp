@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "LogUSPCWindow.h"
-#include "MenuApi.h"
+#include "window_tool/MenuApi.h"
 #include "debug_tools/DebugMess.h"
-#include "LogBuffer.h"
+#include "Log\LogBuffer.h"
 #include "LogUSPCWindowMenu.hpp"
 #include "debug_tools/DebugMess.h"
 #include "DiffApp/App.h"
-
+#include "window_tool\Emptywindow.h"
 #include "debug_tools/DebugMess.h"
 #pragma warning(disable : 4355)
 //------------------------------------------------------------------------

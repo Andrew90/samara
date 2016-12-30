@@ -1,8 +1,8 @@
 #pragma once
-//#include "GridItems.h"
+//#include "window_tool\GridItems.h"
 #include <Windows.h>
 #include <CommCtrl.h>
-#include "GridItems.h"
+#include "window_tool\GridItems.h"
 #include "window_tool/message.h"
 template<class T>class SetGridHeader
 {

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <atlsimpstr.h>
-#include "LogBuffer.h"
+#include "Log\LogBuffer.h"
 #include "debug_tools/DebugMess.h"
 wchar_t name[] = L"Parallel hatch in log space ";
 

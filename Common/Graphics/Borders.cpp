@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Borders.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 using namespace Gdiplus;
 //------------------------------------------------------------------
 VBorder::VBorder(Chart &c) : chart(c), color(0xffffff00),  widthPen(2), value(0.0)

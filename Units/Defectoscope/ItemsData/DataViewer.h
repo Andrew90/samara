@@ -1,9 +1,9 @@
 #pragma once
 #include "DiffApp/App.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "debug_tools/DebugMess.h"
-#include "typelist.hpp"
-#include "USPCData.h"
+#include "templates/typelist.hpp"
+#include "ItemsData/USPCData.h"
 #include "Compute/Compute.h"
 
 struct DataVieverConst

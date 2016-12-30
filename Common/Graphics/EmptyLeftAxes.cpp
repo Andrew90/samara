@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Chart.h"
+#include "Graphics/Chart.h"
 #include "EmptyLeftAxes.h"
 
 using namespace Gdiplus;

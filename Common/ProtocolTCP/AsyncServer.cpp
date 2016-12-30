@@ -2,7 +2,7 @@
 #include "AsyncServer.h"
 #include "Frame.h"
 #include "NetFrame.h"
-#include "..\ServerHandler.h"
+#include "Communication\ServerHandler.h"
 #include "debug_tools/DebugMess.h"
 
 namespace

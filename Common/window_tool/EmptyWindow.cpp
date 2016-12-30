@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Emptywindow.h"
 #include "debug_tools/DebugMess.h"
  
 ATOM MyRegisterClass(WNDPROC WndProc

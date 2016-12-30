@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TopLabelViewer.h"
 #include "debug_tools/DebugMess.h"
+#include "window_tool\Emptywindow.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 

@@ -4,7 +4,7 @@
 #include "Registry.h"
 #include "debug_tools/DebugMess.h"
 
-#include "Config.h"
+#include "App/Config.h"
 #ifdef DEBUG_ITEMS
 wchar_t *path = L"D:\\Shared\\USPC7100log.txt";
 #endif

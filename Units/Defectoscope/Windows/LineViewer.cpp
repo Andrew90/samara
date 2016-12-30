@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "LineViewer.h"
-#include "FixedGridSeries.h"
+#include "Graphics/FixedGridSeries.h"
 #include "debug_tools/DebugMess.h"
-#include "debug_tools/DebugMess.h"
-#include "templates.hpp"
+#include "templates/templates.hpp"
 
 using namespace Gdiplus;
 LineViewer::LineViewer()

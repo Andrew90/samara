@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "ThicknessWindow.h"
-#include "MenuApi.h"
+#include "window_tool/MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "debug_tools/DebugMess.h"
 #include "Common.h"
 #include "debug_tools/DebugMess.h"
 #include "DiffApp/App.h"
-#include "LabelMessage.h"
+#include "MessageText\LabelMessage.h"
 //------------------------------------------------------------------------------------------------------------
 ThicknessWindow::ThicknessWindow()
     : viewer(viewers.get<ThicknessViewer>())

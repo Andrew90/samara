@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Grid.h"
+#include "window_tool\Grid.h"
 #include <strsafe.h>
 #include <windowsx.h>
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 
 #include "debug_tools/DebugMess.h"
 //-----------------------------------------------------------------------------------------

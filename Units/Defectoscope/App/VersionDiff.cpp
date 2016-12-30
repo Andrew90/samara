@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "VersionDiff.h"
-#include "AppBase.h"
-#include "USPCData.h"
+#include "App/AppBase.h"
+#include "ItemsData/USPCData.h"
 #include "debug_tools/DebugMess.h"
 
 

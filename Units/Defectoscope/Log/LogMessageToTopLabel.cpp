@@ -2,7 +2,7 @@
 #include "LogMessageToTopLabel.h"
 #include "DiffApp/App.h"
 #include "LogMessages.h"
-#include "LogBuffer.h"
+#include "Log\LogBuffer.h"
 
 LogMessageToTopLabel::LogMessageToTopLabel()
 	: hTimer(INVALID_HANDLE_VALUE)

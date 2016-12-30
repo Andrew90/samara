@@ -2,7 +2,7 @@
 
 #include "window_tool/message.h"
 #include "debug_tools/DebugMess.h"
-#include "ParamDlg.h"
+#include "DlgTemplates\ParamDlg.h"
 
 template<class BaseParam, class TableParam, class List>class TabPage
 {

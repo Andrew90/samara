@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "PacketBase.h"
+#include "Stored/PacketBase.h"
 
 const wchar_t *PacketBase::name()
 {

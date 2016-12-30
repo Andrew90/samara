@@ -2,9 +2,9 @@
 #include "Windows/ThicknessViewer.h"
 #include <stdio.h>
 #include "debug_tools/DebugMess.h"
-#include "LabelMessage.h"
+#include "MessageText\LabelMessage.h"
 #include "debug_tools/DebugMess.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
 #include "ThicknessWindow.h"
 #include "ViewersMenu.hpp"

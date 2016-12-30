@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Dialogs.h"
-#include "typelist.hpp"
+#include "Dialogs/Dialogs.h"
+#include "templates/typelist.hpp"
 #include "Version.h"
 namespace{
 static const wchar_t *about_text[] = {

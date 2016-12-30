@@ -1,7 +1,7 @@
 #pragma once
-#include "WindowsPosition.h"
-#include "Dialogs.h"
-#include "MenuApi.h"
+#include "ini/WindowsPosition.h"
+#include "Dialogs/Dialogs.h"
+#include "window_tool/MenuApi.h"
 #include "AxesDlg.hpp"
 
 #define VIEWERS_MENU(name)namespace ViewersMenu##name		\

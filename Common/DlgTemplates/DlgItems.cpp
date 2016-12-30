@@ -2,7 +2,7 @@
 #include "DlgItems.h"
 #include <windowsx.h>
 #include <commctrl.h>
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
  
 //------------------------------------------------------------------------------------------------
 HWND CheckItem(int dx, int dy, HWND h, wchar_t *buttonTxt, bool value)

@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "ProtocolTable.h"
-#include "PacketBase.h"
-#include "ExpressBase.hpp"
+#include "Stored/ProtocolTable.h"
+#include "Stored/PacketBase.h"
+#include "Base/ExpressBase.hpp"
 
 namespace
 {

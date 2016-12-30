@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "AutomatAdditional.h"
-#include "AppBase.h"
-#include "templates.hpp"
-#include "PacketBase.h"
+#include "App/AppBase.h"
+#include "templates/templates.hpp"
+#include "Stored/PacketBase.h"
 
 namespace AutomatAdditional
 {

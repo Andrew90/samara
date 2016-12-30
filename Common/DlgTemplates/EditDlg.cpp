@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EditDlg.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 #include <commctrl.h>
 extern HINSTANCE hInstance;
 #pragma warning(disable : 4996)

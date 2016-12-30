@@ -407,12 +407,6 @@
     <ClCompile Include="..\Defectoscope\MessageText\SelectMessage.cpp">
       <Filter>Common\MessageText</Filter>
     </ClCompile>
-    <ClCompile Include="..\Defect\Defectoscope.cpp">
-      <Filter>Common\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defect\stdafx.cpp">
-      <Filter>Common\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Defectoscope\Stored\PacketBase.cpp">
       <Filter>Common\Stored</Filter>
     </ClCompile>

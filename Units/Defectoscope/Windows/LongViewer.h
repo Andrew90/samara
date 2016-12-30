@@ -1,12 +1,12 @@
 #pragma once
 #include "window_tool/message.h"
-#include "Chart.h"
-#include "Chart.hpp"
-#include "GridChart.h"
-#include "ColorLabel.h"
-#include "BarSeries.h"
-#include "FixedGridSeries.h"
-#include "USPCData.h"
+#include "Graphics/Chart.h"
+#include "Graphics/Chart.hpp"
+#include "Graphics/GridChart.h"
+#include "Graphics/ColorLabel.h"
+#include "Graphics/BarSeries.h"
+#include "Graphics/FixedGridSeries.h"
+#include "ItemsData/USPCData.h"
 
 class LongViewer
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include <windows.h>
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 //-----------------------------------------------------------------
 class CopyFactory
 {

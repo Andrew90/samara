@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "SelectTypeSizeList.h"
 #include <WindowsX.h>
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
 #include "window_tool/message.h"
-#include "MainWindow.h"
-#include "ut_files.h"
+#include "DiffWindows/MainWindow.h"
+#include "USPC/ut_files.h"
 
 namespace
 {

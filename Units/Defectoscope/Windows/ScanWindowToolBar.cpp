@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ScanWindowToolBar.h"
-#include "../Resource.h"
-#include "InitToolBar.hpp"
+#include "Resource.h"
+#include "window_tool/InitToolBar.hpp"
 #include "debug_tools/DebugMess.h"
 #include "ScanWindow.h"
 

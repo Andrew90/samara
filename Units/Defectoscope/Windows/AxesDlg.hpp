@@ -1,9 +1,10 @@
 #pragma once
 
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
-#include "AppBase.h"
+#include "DlgTemplates\ParamDlg.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "App/AppBase.h"
 #include "debug_tools/DebugMess.h"
+#include "window_tool\Emptywindow.h"
 
 namespace AxesSpace
 {

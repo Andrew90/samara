@@ -1,11 +1,11 @@
 #pragma once
-#include "config.h"
-#include "WindowsPosition.h"
-#include "Dialogs.h"
-#include "CrossThresholdWindow.h"
-#include "LongThresholdWindow.h"
-#include "ThicknessThresholdWindow.h"
-#include "Common.h"
+#include "App/config.h"
+#include "Ini/WindowsPosition.h"
+#include "Dialogs/Dialogs.h"
+#include "Windows/CrossThresholdWindow.h"
+#include "Windows/LongThresholdWindow.h"
+#include "Windows/ThicknessThresholdWindow.h"
+#include "Windows/Common.h"
 
 namespace MainWindowMenu
 {
