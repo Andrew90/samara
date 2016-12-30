@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <math.h>
-#include "FixedGridSeries.h"
-#include "Chart.h"
+#include "Graphics/FixedGridSeries.h"
+#include "Graphics/Chart.h"
 #include "debug_tools/DebugMess.h"
 #include "DiffApp/App.h"
 

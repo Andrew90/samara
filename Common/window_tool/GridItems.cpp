@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GridItems.h"
+#include "window_tool\GridItems.h"
 #include "CommCtrl.h"
 void SetRow(HWND hWnd, int count)
 {

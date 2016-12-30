@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "DlgFiles.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 //-------------------------------------------------------------------------------
 SaveData::SaveData(HWND h, wchar_t *title)
 {

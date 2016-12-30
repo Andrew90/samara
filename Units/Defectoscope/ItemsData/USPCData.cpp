@@ -1,14 +1,14 @@
 #include "stdafx.h"
-#include "USPCData.h"
-#include "ConstData.h"
-#include "AppBase.h"
+#include "ItemsData/USPCData.h"
+#include "ItemsData/ConstData.h"
+#include "App/AppBase.h"
 #include <math.h>
 #include <Mmsystem.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "debug_tools/DebugMess.h"
-#include "ut_files.h"
-#include "ItemIni.h"
+#include "USPC/ut_files.h"
+#include "Ini\ItemIni.h"
 
 #pragma comment(lib, "Winmm.lib")
 

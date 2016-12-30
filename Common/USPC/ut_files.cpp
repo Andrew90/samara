@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "ut_files.h"
+#include "USPC/ut_files.h"
 #include <Shlwapi.h>
 #include <direct.h>
 #include "DiffApp/App.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "Registry.h"
-#include "Config.h"
+#include "App/Config.h"
 
 namespace
 {

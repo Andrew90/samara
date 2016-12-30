@@ -7,13 +7,13 @@
 #include "window_tool/message.h"
 #include "window_tool/Emptywindow.h"
 #include "MainWindow.h"
-#include "Common.h"
-#include "PacketWindow.h"
+#include "Windows/Common.h"
+#include "Windows/PacketWindow.h"
 #include <gdiplus.h>
-#include "AppKeyHandler.h"
-#include "Stored.h"
-#include "ToolBarButton.h"
-#include "Config.h"
+#include "Automat\AppKeyHandler.h"
+#include "Stored\Stored.h"
+#include "window_tool\ToolBarButton.h"
+#include "App/Config.h"
 using namespace Gdiplus;
 namespace 
 {

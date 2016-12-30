@@ -1,5 +1,5 @@
 #pragma once
-#include "GridNotify.hpp"
+#include "window_tool\GridNotify.hpp"
 
 class LogUSPCWindow;
 class LogUSPCWindowGrid

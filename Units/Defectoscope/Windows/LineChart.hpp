@@ -1,8 +1,8 @@
 #pragma once
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "ScanWindow.h"
-#include "ItemIni.h"
-#include "templates.hpp"
+#include "Ini/ItemIni.h"
+#include "templates/templates.hpp"
 
 namespace
 {

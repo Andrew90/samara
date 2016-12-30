@@ -2,11 +2,11 @@
 
 #include "debug_tools/DebugMess.h"
 #include "ViewersMenu.hpp"
-#include "PacketBase.h"
-#include "MessagesInterface.h"
+#include "Stored/PacketBase.h"
+#include "window_tool\MessagesInterface.h"
 #include "GridWindow.h"
-#include "Grid.h"
-#include "PacketTemplateData.hpp"
+#include "window_tool\Grid.h"
+#include "GridData/PacketTemplateData.hpp"
 
 template<class Table, class Col>class PacketTemplateWindow
 {

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <CommCtrl.h>
-#include "MenuAPI.h"
-#include "typelist.hpp"
+#include "window_tool/MenuApi.h"
+#include "templates/typelist.hpp"
 #include "MessagesInterface.h"
 //---------------------------------------------------------------------------
 void EventDo(TCommand &m)

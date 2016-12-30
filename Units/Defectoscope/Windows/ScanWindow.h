@@ -1,12 +1,12 @@
 #pragma once
 #include "window_tool/message.h"
-#include "Chart.h"
-#include "Chart.hpp"
-#include "ColorLabel.h"
+#include "Graphics/Chart.h"
+#include "Graphics/Chart.hpp"
+#include "Graphics/ColorLabel.h"
 #include "ScanWindowToolBar.h"
-#include "USPCData.h"
-#include "Gate.h"
-#include "Borders.h"
+#include "ItemsData/USPCData.h"
+#include "Graphics/Gate.h"
+#include "Graphics/Borders.h"
 
 class ScanWindow
 {

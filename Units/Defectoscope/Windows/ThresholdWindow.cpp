@@ -2,12 +2,12 @@
 #include "ThresholdWindow.h"
 #include "debug_tools/DebugMess.h"
 #include "debug_tools/DebugMess.h"
-#include "ConstData.h"
-#include "MenuApi.h"
+#include "ItemsData/ConstData.h"
+#include "window_tool/MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 #include "Common.h"
-#include "InitToolBar.hpp"
+#include "window_tool/InitToolBar.hpp"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------

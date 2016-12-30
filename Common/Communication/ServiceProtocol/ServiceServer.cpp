@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ServiceProtocol.h"
-#include "Frame.h"
-#include "NetFrame.h"
-#include "Config.h"
+#include "ProtocolTCP/Frame.h"
+#include "ProtocolTCP/NetFrame.h"
+#include "App/Config.h"
 #ifndef CLIENT
 #include "Services.h"
 

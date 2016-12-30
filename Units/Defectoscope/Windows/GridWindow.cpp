@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "GridWindow.h"
-#include "TableData.h"
-#include "typelist.hpp"
+#include "GridData\TableData.h"
+#include "templates/typelist.hpp"
 #include <strsafe.h>
-#include "Grid.h"
+#include "window_tool\Grid.h"
 
 GridWindow::GridWindow()
 	: oRClick(NULL)

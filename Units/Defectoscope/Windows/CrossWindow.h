@@ -1,9 +1,9 @@
 #pragma once
 #include "CrossViewer.h"
 #include "LineViewer.h"
-#include "typelist.hpp"
-#include "DataViewer.h"
-#include "ConstData.h"
+#include "templates/typelist.hpp"
+#include "ItemsData\DataViewer.h"
+#include "ItemsData/ConstData.h"
 #include "LineChart.hpp"
 #include "Common.h"
 

@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "ConstData.h"
-#include "AppBase.h"
+#include "ItemsData/ConstData.h"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
-#include "LabelMessage.h"
+#include "MessageText\LabelMessage.h"
 #include "debug_tools/DebugMess.h"
 namespace ConstData{
 	

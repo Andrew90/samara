@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "LoadFromBase.h"
 #include <ATLComTime.h>
-#include "StoredBase.h"
-#include "ExpressBase.hpp"
-#include "AnimationControl.h"
-#include "Stored.h"
-#include "Compute.h"
+#include "Stored/StoredBase.h"
+#include "Base/ExpressBase.hpp"
+#include "window_tool\AnimationControl.h"
+#include "Stored\Stored.h"
+#include "Compute/Compute.h"
 #include "debug_tools/DebugMess.h"
-#include "Zip.h"
+#include "window_tool\Zip.h"
 
 namespace FromBase
 {

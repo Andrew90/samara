@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Registry.h"
-#include "Config.h"
+#include "App/Config.h"
 
 #pragma warning(disable: 4996)
 RegistryPathLogFile::RegistryPathLogFile()

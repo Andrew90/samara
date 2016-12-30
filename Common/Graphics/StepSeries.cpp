@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "StepSeries.h"
-#include "Chart.h"
+#include "Graphics/Chart.h"
 
 using namespace Gdiplus;
 

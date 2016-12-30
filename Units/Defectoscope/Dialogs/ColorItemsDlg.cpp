@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "Dialogs.h"
+#include "Dialogs/Dialogs.h"
 #include "debug_tools/DebugMess.h"
-#include "Dlgfiles.h"
-#include "ParamDlg.hpp"
-#include "AppBase.h"
-#include "ConstData.h"
+#include "window_tool\Dlgfiles.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "App/AppBase.h"
+#include "ItemsData/ConstData.h"
 
 namespace{
 void __color_wm_paint(HWND hwnd, int color)

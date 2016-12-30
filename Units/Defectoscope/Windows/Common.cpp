@@ -4,7 +4,7 @@
 #include "ThicknessWindow.h"
 #include "LongWindow.h"
 #include "CrossWindow.h"
-#include "MainWindow.h"
+#include "DiffWindows/MainWindow.h"
 
 void CloseAllWindows()
 {

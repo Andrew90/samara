@@ -2,12 +2,12 @@
 #include "CrossViewer.h"
 #include "debug_tools/DebugMess.h"
 #include "debug_tools/DebugMess.h"
-#include "ConstData.h"
-#include "MenuApi.h"
+#include "ItemsData/ConstData.h"
+#include "window_tool/MenuApi.h"
 #include "ViewersMenu.hpp"
 #include "CrossWindow.h"
 #include "Common.h"
-#include "LabelMessage.h"
+#include "MessageText\LabelMessage.h"
 
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------------------

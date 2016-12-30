@@ -1,9 +1,9 @@
 #pragma once
 //#include "Notify.h"
 #include "CommCtrl.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 #include <strsafe.h>
-#include "Grid.h"
+#include "window_tool\Grid.h"
 #include "debug_tools/DebugMess.h"
 
 struct TCellColor

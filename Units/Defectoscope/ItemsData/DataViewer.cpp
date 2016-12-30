@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "DataViewer.h"
-#include "typelist.hpp"
-#include "MedianFiltre.h"
-#include "AppBase.h"
+#include "ItemsData\DataViewer.h"
+#include "templates/typelist.hpp"
+#include "Filtre\MedianFiltre.h"
+#include "App/AppBase.h"
 #include "Compute/Compute.h"
 #include "DiffApp/App.h"
 

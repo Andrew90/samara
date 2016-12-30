@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "typelist.hpp"
-#include "MedianFiltre.h"
-#include "AppBase.h"
+#include "templates/typelist.hpp"
+#include "Filtre\MedianFiltre.h"
+#include "App/AppBase.h"
 #include "Compute/Compute.h"
-#include "DataViewer.h"
-#include "LabelMessage.h"
+#include "ItemsData\DataViewer.h"
+#include "MessageText\LabelMessage.h"
 
 ThicknessData::ThicknessData(int &filterWidth, bool &filterOn
 	, double (&aboveBorder)[App::count_zones]

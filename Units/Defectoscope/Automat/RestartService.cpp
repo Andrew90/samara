@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RestartService.h"
-#include "GetHostByName.h"
-#include "ServiceProtocol.h"
+#include "ProtocolTCP\GetHostByName.h"
+#include "Communication/ServiceProtocol\ServiceProtocol.h"
 
 namespace
 {

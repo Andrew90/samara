@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CommonTCP.h"
+#include "ProtocolTCP\CommonTCP.h"
 
 namespace StatusProtocol
 {

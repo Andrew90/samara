@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ResultData.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 
 ResultViewerData::ResultViewerData()
 	: currentOffsetZones(0)

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <math.h>
 #include <limits>
-#include "Chart.h"
+#include "Graphics/Chart.h"
 #include "debug_tools/DebugMess.h"
 using namespace Gdiplus;
 const int COLOR_AXES = 0xff777777;

@@ -1,7 +1,7 @@
 #pragma once
 #include "window_tool/message.h"
 #include "LogUSPCWindowGrid.h"
-#include "LogUSPC.h"
+#include "USPC/LogUSPC.h"
 
 class LogUSPCWindow
 {

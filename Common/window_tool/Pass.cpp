@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Pass.h"
-#include "config.h"
+#include "App/Config.h"
 #if 0
 template<class List, int offs = 0>struct MkPass;
 template<class Head, class Tail, int offs>struct MkPass<Tlst<Head, Tail>, offs>: MkPass<Tail, offs + 1>

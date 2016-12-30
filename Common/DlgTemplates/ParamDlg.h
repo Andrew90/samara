@@ -1,10 +1,10 @@
 #pragma once
-#include "typelist.hpp"
-#include "Base.hpp"
-#include "AppBase.h"
+#include "templates/typelist.hpp"
+#include "Base/Base.hpp"
+#include "App/AppBase.h"
 #include "window_tool/message.h"
-#include "ParamDlg.hpp"
-#include "Pass.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "window_tool\Pass.h"
 #include "debug_tools/DebugMess.h"
 //-------------------------------------------------------------------------------------------------------------------------------
 template<class T>struct DlgItem;

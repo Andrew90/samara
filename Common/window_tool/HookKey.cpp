@@ -1,12 +1,12 @@
 #include "StdAfx.h"
-#include "HookKey.h"
+#include "window_tool/HookKey.h"
 
 #include <windows.h>
 #include <winuser.h>
 #include <stdio.h>
 #include "debug_tools/DebugMess.h"
 
-#include "AppKeyHandler.h"
+#include "Automat/AppKeyHandler.h"
 #include "window_tool/message.h"
 
 HHOOK hKeyHook;

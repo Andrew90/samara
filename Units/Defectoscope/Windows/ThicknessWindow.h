@@ -1,10 +1,10 @@
 #pragma once
-#include "DataViewer.h"
-#include "LineViewer.h"
-#include "typelist.hpp"
-#include "ConstData.h"
+#include "ItemsData\DataViewer.h"
+#include "Windows/LineViewer.h"
+#include "templates/typelist.hpp"
+#include "ItemsData/ConstData.h"
 #include "LineChart.hpp"
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "ThicknessViewer.h"
 
 //class XThicknessViewer: public ThicknessViewer

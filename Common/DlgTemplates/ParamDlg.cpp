@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ParamDlg.h"
+#include "DlgTemplates\ParamDlg.h"
 #include "debug_tools/DebugMess.h"
 #ifdef XDEBUG
 #define dprint debug.print

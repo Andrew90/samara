@@ -7,7 +7,7 @@
 #include "Graphics/FixedGridSeries.h"
 #include "Graphics/GridChart.h"
 #include "Common.h"
-#include "USPCData.h"
+#include "ItemsData/USPCData.h"
 
 class ThicknessViewer
 {

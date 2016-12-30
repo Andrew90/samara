@@ -172,8 +172,6 @@
     <ClCompile Include="..\Defectoscope\Windows\ThicknessWindow.cpp" />
     <ClCompile Include="..\Defectoscope\Windows\ThresholdWindow.cpp" />
     <ClCompile Include="..\Defectoscope\Windows\TopLabelViewer.cpp" />
-    <ClCompile Include="..\Defect\Defectoscope.cpp" />
-    <ClCompile Include="..\Defect\stdafx.cpp" />
     <ClCompile Include="DiffApp\App.cpp" />
     <ClCompile Include="DiffStored\LoadFromBase.cpp" />
     <ClCompile Include="DiffWindows\MainWindow.cpp" />

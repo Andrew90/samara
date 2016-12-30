@@ -1,12 +1,12 @@
 #pragma once
 #include "window_tool/message.h"
-#include "ColorLabel.h"
-#include "Chart.h"
-#include "ResultData.h"
-#include "Chart.hpp"
-#include "BarSeries.h"
-#include "FixedGridSeries.h"
-#include "EmptyLeftAxes.h"
+#include "Graphics/ColorLabel.h"
+#include "Graphics/Chart.h"
+#include "ItemsData\ResultData.h"
+#include "Graphics/Chart.hpp"
+#include "Graphics/BarSeries.h"
+#include "Graphics/FixedGridSeries.h"
+#include "Graphics/EmptyLeftAxes.h"
 
 class ResultViewer
 {

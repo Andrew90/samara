@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "USPC.h"
-#include "USPCData.h"
-#include "AppBase.h"
-#include "ut_files.h"
+#include "ItemsData/USPCData.h"
+#include "App/AppBase.h"
+#include "USPC/ut_files.h"
 #include "debug_tools/DebugMess.h"		
-#include "Config.h"
-#include "VersionDiff.h"
+#include "App/Config.h"
+#include "App/VersionDiff.h"
 #ifndef DEBUG_ITEMS
 #pragma comment(lib, "..\\..\\Common\\USPC\\USPC7100.lib")
 #else

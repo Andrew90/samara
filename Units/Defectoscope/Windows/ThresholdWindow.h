@@ -1,16 +1,16 @@
 #pragma once
 
 #include "window_tool/message.h"
-#include "Chart.h"
-#include "Chart.hpp"
-#include "GridChart.h"
-#include "ColorLabel.h"
-#include "BarSeries.h"
-#include "FixedGridSeries.h"
-#include "StepSeries.h"
+#include "Graphics/Chart.h"
+#include "Graphics/Chart.hpp"
+#include "Graphics/GridChart.h"
+#include "Graphics/ColorLabel.h"
+#include "Graphics/BarSeries.h"
+#include "Graphics/FixedGridSeries.h"
+#include "Graphics/StepSeries.h"
 #include "DiffApp/App.h"
-#include "CheckBoxWidget.h"
-#include "RadioBtnWidget.h"
+#include "window_tool/CheckBoxWidget.h"
+#include "window_tool/RadioBtnWidget.h"
 
 class TresholdWindow
 {

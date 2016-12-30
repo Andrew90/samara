@@ -1,6 +1,6 @@
 #pragma once
 #include "resource.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 
 namespace AppKeyHandler
 {

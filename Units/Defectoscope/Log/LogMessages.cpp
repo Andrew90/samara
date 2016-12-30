@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LogMessages.h"
 #include <Windows.h>
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 #include <stdio.h>
 
 #pragma warning(disable : 4996)

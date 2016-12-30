@@ -2,7 +2,7 @@
 #include "DropDownItem.h"
 #include <WindowsX.h>
 #include "window_tool/message.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 
 extern HINSTANCE hInstance;
 

@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "Dialogs.h"
-#include "DlgFiles.h"
-#include "Stored.h"
+#include "Dialogs/Dialogs.h"
+#include "window_tool/DlgFiles.h"
+#include "Stored\Stored.h"
 #include "Compute/Compute.h"
-#include "AnimationControl.h"
-#include "Zip.h"
+#include "window_tool\AnimationControl.h"
+#include "window_tool/Zip.h"
 #pragma warning(disable: 4996)
 namespace
 {

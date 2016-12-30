@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "PacketWindow.h"
-#include "typelist.hpp"
-#include "StoredBase.h"
-#include "ParamDlg.h"
-#include "PacketBase.h"
-#include "Common.h"
+#include "templates/typelist.hpp"
+#include "Stored/StoredBase.h"
+#include "DlgTemplates\ParamDlg.h"
+#include "Stored/PacketBase.h"
+#include "Windows/Common.h"
 #include "PacketTemplateWindow.hpp"
 
 struct PacketWindow

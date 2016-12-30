@@ -1,9 +1,9 @@
 #pragma once
-#include "ParamDlg.h"
+#include "DlgTemplates\ParamDlg.h"
 #include <windowsx.h>
 #include<clocale>
 #include <CommCtrl.h>
-#include "tables.hpp"
+#include "Base/tables.hpp"
 #include "debug_tools/DebugMess.h"
  
 //-----------------------------------------------------------------------

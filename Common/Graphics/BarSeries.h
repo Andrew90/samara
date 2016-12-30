@@ -1,5 +1,5 @@
 #pragma once
-#include "Chart.h"
+#include "Graphics/Chart.h"
 
 class BarSeries
 {

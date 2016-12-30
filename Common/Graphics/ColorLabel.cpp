@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ColorLabel.h"
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 using namespace Gdiplus;
 //---------------------------------------------------------------------------
 wchar_t *ColorLabel::operator=(wchar_t *b)

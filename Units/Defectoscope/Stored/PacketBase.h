@@ -1,5 +1,5 @@
 #pragma once
-#include "StoredBase.h"
+#include "Stored/StoredBase.h"
 
 DEFINE_PARAM_WAPPER(ID, NumberPacket, unsigned, 0)
 

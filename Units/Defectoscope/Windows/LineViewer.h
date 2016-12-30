@@ -1,10 +1,10 @@
 #pragma once
 #include "window_tool/message.h"
-#include "Chart.h"
-#include "Chart.hpp"
-#include "ColorLabel.h"
-#include "BarSeries.h"
-#include "Borders.h"
+#include "Graphics/Chart.h"
+#include "Graphics\Chart.hpp"
+#include "Graphics\ColorLabel.h"
+#include "Graphics\BarSeries.h"
+#include "Graphics\Borders.h"
 #include "DiffApp/App.h"
 
 class LineViewer

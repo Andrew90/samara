@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "MainWindow.h"
-#include "MenuApi.h"
+#include "window_tool/MenuApi.h"
 #include "MainWindowMenu.hpp"
 #include "debug_tools/DebugMess.h"
 #include <CommCtrl.h>
-#include "Common.h"
-#include "AppKeyHandler.h"
+#include "Windows/Common.h"
+#include "Automat/AppKeyHandler.h"
 #include "DiffApp/App.h"
 
 #include "debug_tools/DebugMess.h"
