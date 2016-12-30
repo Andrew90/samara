@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GridChart.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 using namespace Gdiplus;
 //------------------------------------------------------------------------

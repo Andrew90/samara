@@ -3,7 +3,7 @@
 #include "ParamDlg.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 
 namespace AxesSpace
 {

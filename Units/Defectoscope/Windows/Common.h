@@ -1,8 +1,8 @@
 #pragma once
-#include "DebugMess.h"
-#include "..\Defectoscope\App\AppBase.h"
-#include "EmptyWindow.h"
-#include "WindowsPosition.h"
+#include "debug_tools/DebugMess.h"
+#include "App\AppBase.h"
+#include "window_tool\EmptyWindow.h"
+#include "Ini\WindowsPosition.h"
 
 
 namespace Common

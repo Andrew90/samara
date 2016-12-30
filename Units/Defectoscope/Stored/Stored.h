@@ -1,5 +1,5 @@
 #pragma once
-#include "App.h"
+#include "DiffApp/App.h"
 
 class CBase;
 namespace Stored

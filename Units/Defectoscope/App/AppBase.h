@@ -1,7 +1,7 @@
 #pragma once
-#include "tables.hpp"
-#include "TablesDefine.h"
-#include "App.h"
+#include "DiffApp/App.h"
+#include "Base/tables.hpp"
+#include "App/TablesDefine.h"
 //-------------------------------------------------------------------------------------------
 void TrimTypeList(wchar_t *, wchar_t *);
 //-------------------------------------------------------------------------------------------

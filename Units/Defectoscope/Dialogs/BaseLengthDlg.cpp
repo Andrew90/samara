@@ -3,7 +3,7 @@
 #include "ParamDlg.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 
 MIN_EQUAL_VALUE(ReferenceOffset1, 1000)
 MAX_EQUAL_VALUE(ReferenceOffset1, 10000)

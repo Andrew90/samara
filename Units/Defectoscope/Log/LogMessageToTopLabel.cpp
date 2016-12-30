@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "LogMessageToTopLabel.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "LogMessages.h"
 #include "LogBuffer.h"
 

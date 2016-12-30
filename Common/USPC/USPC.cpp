@@ -3,7 +3,7 @@
 #include "USPCData.h"
 #include "AppBase.h"
 #include "ut_files.h"
-#include "DebugMess.h"		
+#include "debug_tools/DebugMess.h"		
 #include "Config.h"
 #include "VersionDiff.h"
 #ifndef DEBUG_ITEMS

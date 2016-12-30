@@ -3,7 +3,7 @@
 #include "Frame.h"
 #include "NetFrame.h"
 #include "..\ServerHandler.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 namespace
 {

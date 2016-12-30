@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <ShellAPI.h>
-#include "App.h"
+#include "DiffApp/App.h"
 #include "Config.h"
 #include "DebugMess.h"
 #include "MainWindow.h"

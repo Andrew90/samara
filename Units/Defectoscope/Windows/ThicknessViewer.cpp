@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "ThicknessViewer.h"
+#include "Windows/ThicknessViewer.h"
 #include <stdio.h>
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 #include "LabelMessage.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "ThicknessWindow.h"
 #include "ViewersMenu.hpp"
 //------------------------------------------------------------------------------------------------------

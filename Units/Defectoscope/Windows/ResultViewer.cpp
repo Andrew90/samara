@@ -2,9 +2,9 @@
 #include "ResultViewer.h"
 #include <math.h>  
 #include <stdio.h>
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 #include "LabelMessage.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "Common.h"
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;

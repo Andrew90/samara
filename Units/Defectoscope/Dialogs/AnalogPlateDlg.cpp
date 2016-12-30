@@ -3,7 +3,7 @@
 #include "ParamDlg.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "ProcessRun.h"
 #include "ut_files.h"
 

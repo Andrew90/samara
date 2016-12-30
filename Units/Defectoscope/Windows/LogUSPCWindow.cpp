@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "LogUSPCWindow.h"
 #include "MenuApi.h"
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 #include "LogBuffer.h"
 #include "LogUSPCWindowMenu.hpp"
-#include "Emptywindow.h"
-#include "App.h"
+#include "debug_tools/DebugMess.h"
+#include "DiffApp/App.h"
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #pragma warning(disable : 4355)
 //------------------------------------------------------------------------
 LogUSPCWindow::LogUSPCWindow()

@@ -2,7 +2,7 @@
 #include "NetClient.h"
 #include "NetFrame.h"
 #include "Frame.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include <stdlib.h>
 
 #pragma warning(disable : 4996)

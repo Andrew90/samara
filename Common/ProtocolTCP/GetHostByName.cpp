@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GetHostByName.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include <stdlib.h>
 
 //gethostbyname

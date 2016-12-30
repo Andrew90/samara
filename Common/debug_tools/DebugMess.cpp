@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #ifdef XDEBUG
 #include <stdio.h>
 #define d_mess debug.print

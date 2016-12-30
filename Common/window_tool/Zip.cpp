@@ -4,7 +4,7 @@
 #include <Shlwapi.h>
 #include "typelist.hpp"
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 #pragma warning(disable: 4996)
 

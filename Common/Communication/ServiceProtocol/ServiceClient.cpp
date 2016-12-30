@@ -5,7 +5,7 @@
 #include "NetClient.h"
 #include "typelist.hpp"
 #include "..\IPprotocolProcedureList.hpp"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 #pragma warning(disable : 4996)
 

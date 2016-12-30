@@ -2,10 +2,10 @@
 #include "ThicknessWindow.h"
 #include "MenuApi.h"
 #include "ViewersMenu.hpp"
-#include "Emptywindow.h"
+#include "debug_tools/DebugMess.h"
 #include "Common.h"
-#include "DebugMess.h"
-#include "App.h"
+#include "debug_tools/DebugMess.h"
+#include "DiffApp/App.h"
 #include "LabelMessage.h"
 //------------------------------------------------------------------------------------------------------------
 ThicknessWindow::ThicknessWindow()

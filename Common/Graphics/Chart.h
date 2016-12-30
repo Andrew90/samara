@@ -1,6 +1,6 @@
 #pragma once
-#include "typelist.hpp"
-#include "message.h"
+#include "templates/typelist.hpp"
+#include "window_tool/message.h"
 
 struct VGraphics
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "AppBase.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 //-----------------------------------------------------------------
 	typedef TL::MkTlst<	
 /*0*/		Clr<Undefined   >

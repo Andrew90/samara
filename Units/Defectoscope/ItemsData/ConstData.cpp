@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "ConstData.h"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "LabelMessage.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 namespace ConstData{
 	
 	unsigned buf[TL::Length<ColorTable::items_list>::value];	

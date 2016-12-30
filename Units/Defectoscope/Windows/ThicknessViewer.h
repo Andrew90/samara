@@ -1,11 +1,11 @@
 #pragma once
-#include "message.h"
-#include "ColorLabel.h"
-#include "Chart.h"
-#include "Chart.hpp"
-#include "BarSeries.h"
-#include "FixedGridSeries.h"
-#include "GridChart.h"
+#include "window_tool/message.h"
+#include "Graphics/ColorLabel.h"
+#include "Graphics/Chart.h"
+#include "Graphics/Chart.hpp"
+#include "Graphics/BarSeries.h"
+#include "Graphics/FixedGridSeries.h"
+#include "Graphics/GridChart.h"
 #include "Common.h"
 #include "USPCData.h"
 

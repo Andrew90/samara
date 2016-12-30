@@ -2,10 +2,10 @@
 #include "typelist.hpp"
 #include "Base.hpp"
 #include "AppBase.h"
-#include "message.h"
+#include "window_tool/message.h"
 #include "ParamDlg.hpp"
 #include "Pass.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 //-------------------------------------------------------------------------------------------------------------------------------
 template<class T>struct DlgItem;
 bool TemplDlg_Do(HWND hWnd, wchar_t *title, DLGPROC proc, LPARAM param);

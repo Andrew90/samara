@@ -2,8 +2,8 @@
 #include <math.h>
 #include "FixedGridSeries.h"
 #include "Chart.h"
-#include "DebugMess.h"
-#include "App.h"
+#include "debug_tools/DebugMess.h"
+#include "DiffApp/App.h"
 
 using namespace Gdiplus;
 //----------------------------------------------------------

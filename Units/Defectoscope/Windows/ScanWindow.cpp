@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ScanWindow.h"
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 #include "ViewersMenu.hpp"
 
 using namespace Gdiplus;

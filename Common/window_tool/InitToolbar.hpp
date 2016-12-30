@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <commctrl.h>
-#include "typelist.hpp"
+#include "templates/typelist.hpp"
 #include "Resource.h"
  
 

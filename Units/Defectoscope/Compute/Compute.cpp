@@ -3,7 +3,7 @@
 #include "USPCData.h"
 #include "Dialogs.h"
 #include "MedianFiltre.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "AppBase.h"
 #include "ResultData.h"
 #include "SelectMessage.h"

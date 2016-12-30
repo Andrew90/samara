@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ParamDlg.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #ifdef XDEBUG
 #define dprint debug.print
 #else	

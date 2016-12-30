@@ -1,5 +1,5 @@
 #pragma once
-#include "message.h"
+#include "window_tool/message.h"
 #include "Chart.h"
 #include "Chart.hpp"
 #include "ColorLabel.h"

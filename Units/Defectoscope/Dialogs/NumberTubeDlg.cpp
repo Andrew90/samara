@@ -6,7 +6,7 @@
 #include "PacketBase.h"
 #include "Common.h"
 #include "Dialogs.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "Automat.h"
 #include "ProtocolTable.h"
 #include "StoredBase.h"

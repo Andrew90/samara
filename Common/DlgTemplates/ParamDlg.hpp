@@ -4,7 +4,7 @@
 #include<clocale>
 #include <CommCtrl.h>
 #include "tables.hpp"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
  
 //-----------------------------------------------------------------------
 template<class T>struct ParamTitle

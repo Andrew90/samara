@@ -3,7 +3,7 @@
 #include "ParamDlg.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 
 MIN_EQUAL_VALUE(Offset<0>, 0)
 MIN_EQUAL_VALUE(Offset<1>, 0)

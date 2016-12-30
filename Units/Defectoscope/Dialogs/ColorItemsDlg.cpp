@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Dialogs.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "Dlgfiles.h"
 #include "ParamDlg.hpp"
 #include "AppBase.h"

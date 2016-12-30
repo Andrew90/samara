@@ -2,7 +2,7 @@
 #include "ut_files.h"
 #include <Shlwapi.h>
 #include <direct.h>
-#include "App.h"
+#include "DiffApp/App.h"
 #include "AppBase.h"
 #include "Registry.h"
 #include "Config.h"

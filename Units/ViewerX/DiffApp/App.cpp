@@ -1,31 +1,21 @@
 #include "stdafx.h"
-#include "App.h"
+#include <ShellAPI.h>
+#include "DiffApp/App.h"
 #include "Config.h"
 #include "DebugMess.h"
 #include "MainWindow.h"
 #include "WindowsPosition.h"
 #include "EmptyWindow.h"
-#include "Device1730.h"
 #include "AppBase.h"
-#include "Automat.h"
 #include "USPCData.h"
 #include "ConstData.h"
 #include "Compute.h"
 #include "ut_files.h"
-#include "Automat.h"
 #include "HookKey.h"
 #include "LogUSPC.h"
-#include "ZipAll.h"
-#include "StoredBase.h"
-#include "ExpressBase.hpp"
-#include "Stored.h"
+#include "LoadFromBase.h"
+#include "USPC.h"
 
-
-HANDLE App::ProgrammExitEvent;
-HANDLE App::ProgrammContinueEvent;
-HANDLE App::ProgrammStopEvent;
-HANDLE App::ProgrammRunEvent;
-bool App::measurementOfRunning = false;
 int __lengthCaretka = 0;
 const int &App::lengthCaretka = __lengthCaretka;
 //---------------------------------------------------------------
@@ -54,39 +44,41 @@ void App::Init()
 {
 	AppBase().Init();
 	ConstData::Init();
-	App::ProgrammExitEvent		= CreateEvent(NULL, TRUE, FALSE, NULL);
-	App::ProgrammContinueEvent	= CreateEvent(NULL, TRUE, FALSE, NULL);
-	App::ProgrammStopEvent		= CreateEvent(NULL, FALSE, FALSE, NULL);
-	App::ProgrammRunEvent   = CreateEvent(NULL, FALSE, FALSE, NULL);
 	InitCaretka();
-	LogUSPC::Clear();
+
+	//USPC::Open();
+
 	RECT r;
-	WindowPosition::Get<MainWindow>(r);
-	wchar_t b[256];
-	wchar_t bb[512];
-	ExistCurrentUSPCFile(b);
-	wsprintf(bb, L"%s %s", App::TitleApp(), b);
-	HWND h = WindowTemplate(&mainWindow, bb, r.left, r.top, r.right, r.bottom);
+	WindowPosition::Get<MainWindow>(r);	
+	HWND h = WindowTemplate(&mainWindow, (wchar_t *)App::TitleApp(), r.left, r.top, r.right, r.bottom);
 	ShowWindow(h, SW_SHOWNORMAL);
-	StartKeyHook(h);
-	if(!device1730.Init(Singleton<Descriptor1730Table>::Instance().items.get<Descriptor1730>().value))
-	{
-		MessageBox(h, L"Не могу инициировать плату 1730", L"Ошибка !!!", MB_ICONERROR);
-#ifndef DEBUG_ITEMS
-		return;
-#endif
-	}
-#pragma message("После отладки востановить")
-	//Stored::CleanStoredBase();
-	automat.Init();
-	Zip::ZipAll();
+////tartKeyHook(h);
+	//int num = 0;
+	//wchar_t *buf = CommandLineToArgvW(GetCommandLineW(), &num)[1];
+////romBase::Load(h, arg[num - 1]);
+	////FromBase::Load(h, buf);
+	//wchar_t txt[512];
+	//wchar_t *protocol = &buf[1 + wcslen(buf)];
+	//wchar_t *party = &protocol[1 + wcslen(protocol)];
+	//wchar_t *number = &party[1 + wcslen(party)];
+	//wsprintf(txt, L"Протокол %s партия %s номер трубы %s", protocol, party, number);
+	//SetWindowText(h, txt);
+}
+
+void App::WindowUp(HWND h, wchar_t *buf)
+{	
+	app.InitCaretka();
+	FromBase::Load(h, buf);
+	wchar_t txt[512];
+	wchar_t *protocol = &buf[1 + wcslen(buf)];
+	wchar_t *party = &protocol[1 + wcslen(protocol)];
+	wchar_t *number = &party[1 + wcslen(party)];
+	wsprintf(txt, L"Протокол %s партия %s номер трубы %s", protocol, party, number);
+	SetWindowText(h, txt);
 }
 
 void App::Destroy()
 {
-	device1730.Write(0);
-	SetEvent(ProgrammExitEvent);
-	Sleep(2000);
 }
 
 void App::MainWindowTopLabel(wchar_t *txt)
@@ -101,6 +93,7 @@ void App::MainWindowBottomLabel(int n, wchar_t *text)
 
 void App::MainWindowUpdate()
 {
+	mainWindow.UpdateCheck();
 	RepaintWindow(mainWindow.hWnd);
 }
 HWND App::MainWindowHWND()
@@ -108,11 +101,8 @@ HWND App::MainWindowHWND()
 	return app.mainWindow.hWnd;
 }
 
-Device1730 device1730;
-
 App app;
 
-Automat automat;
 
 
 

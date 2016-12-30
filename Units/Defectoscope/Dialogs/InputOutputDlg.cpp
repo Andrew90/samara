@@ -3,7 +3,7 @@
 #include "ParamDlg.hpp"
 #include "Dialogs.h"
 #include "AppBase.h"
-#include "App.h"
+#include "DiffApp/App.h"
 #include "Device1730.h"
 #include "InputOutputDlg.h"
 

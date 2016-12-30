@@ -85,9 +85,6 @@
     <Filter Include="Windows\ThresholdWindow">
       <UniqueIdentifier>{c8199b39-32e0-48da-861e-3e007d5a5523}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Filtre">
-      <UniqueIdentifier>{f4e25430-5a7b-4f78-af80-ccf33a227b99}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MessageText">
       <UniqueIdentifier>{bfa08a7b-a7e4-4c58-ba53-623daca776db}</UniqueIdentifier>
     </Filter>
@@ -123,6 +120,9 @@
     </Filter>
     <Filter Include="Common\arch_bin">
       <UniqueIdentifier>{364b6f41-d785-46b7-8cee-50633ac8966d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\tools\Filtre">
+      <UniqueIdentifier>{f4e25430-5a7b-4f78-af80-ccf33a227b99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -287,9 +287,6 @@
     <ClCompile Include="Windows\Common.cpp">
       <Filter>Windows\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Compute.cpp">
-      <Filter>Compute</Filter>
-    </ClCompile>
     <ClCompile Include="ItemsData\DataViewer.cpp">
       <Filter>ItemsData</Filter>
     </ClCompile>
@@ -309,7 +306,7 @@
       <Filter>Windows\ThresholdWindow</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp">
-      <Filter>Filtre</Filter>
+      <Filter>Common\tools\Filtre</Filter>
     </ClCompile>
     <ClCompile Include="Dialogs\MedianFiltreDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
@@ -452,14 +449,17 @@
     <ClCompile Include="Dialogs\ProtectiveThickeningDlg.cpp">
       <Filter>Windows\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="DiffApp\App.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
     <ClCompile Include="DiffWindows\MainWindow.cpp">
       <Filter>Windows\MainWindow</Filter>
     </ClCompile>
     <ClCompile Include="DiffWindows\MainWindowToolBar.cpp">
       <Filter>Windows\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffApp\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Compute\Compute.cpp">
+      <Filter>Compute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -685,9 +685,6 @@
     <ClInclude Include="Windows\Common.h">
       <Filter>Windows\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Compute.h">
-      <Filter>Compute</Filter>
-    </ClInclude>
     <ClInclude Include="ItemsData\DataViewer.h">
       <Filter>ItemsData</Filter>
     </ClInclude>
@@ -716,7 +713,7 @@
       <Filter>Common\templates</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h">
-      <Filter>Filtre</Filter>
+      <Filter>Common\tools\Filtre</Filter>
     </ClInclude>
     <ClInclude Include="Windows\LongWindow.h">
       <Filter>Windows\CrossWindow</Filter>
@@ -856,9 +853,6 @@
     <ClInclude Include="App\VersionDiff.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="DiffApp\App.h">
-      <Filter>App</Filter>
-    </ClInclude>
     <ClInclude Include="DiffWindows\MainWindow.h">
       <Filter>Windows\MainWindow</Filter>
     </ClInclude>
@@ -867,6 +861,12 @@
     </ClInclude>
     <ClInclude Include="DiffWindows\MainWindowToolBar.h">
       <Filter>Windows\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffApp\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Compute\Compute.h">
+      <Filter>Compute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,8 @@
 #pragma once
 #include <windows.h>
-#include "message.h"
+#include "window_tool/message.h"
 #include "typelist.hpp"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 //------------------------------------------------------------------------------------------
 template<class T>struct MenuListItem{};
 template<class T>struct MenuItem{};

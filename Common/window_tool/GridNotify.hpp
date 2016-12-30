@@ -4,7 +4,7 @@
 #include "typelist.hpp"
 #include <strsafe.h>
 #include "Grid.h"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 struct TCellColor
 {

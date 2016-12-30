@@ -1,9 +1,9 @@
 #pragma once
 #include <typeinfo>
 #include <windows.h>
-#include "message.h"
+#include "window_tool/message.h"
 #include "resource.h"
-#include "WindowsEventTemplate.hpp"
+#include "templates/WindowsEventTemplate.hpp"
 //---------------------------------------------------------------------------------
 ATOM MyRegisterClass(WNDPROC WndProc
 	, const wchar_t *windowClassName

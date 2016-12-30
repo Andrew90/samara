@@ -2,7 +2,7 @@
 #include "ScanWindowToolBar.h"
 #include "../Resource.h"
 #include "InitToolBar.hpp"
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "ScanWindow.h"
 
 namespace

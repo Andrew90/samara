@@ -2,7 +2,7 @@
 #include "Dialogs.h"
 #include "AppBase.h"
 #include "TabWidgets.h"
-#include "App.h"
+#include "DiffApp/App.h"
 /*
 namespace
 {

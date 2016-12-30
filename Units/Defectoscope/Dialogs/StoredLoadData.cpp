@@ -2,7 +2,7 @@
 #include "Dialogs.h"
 #include "DlgFiles.h"
 #include "Stored.h"
-#include "Compute.h"
+#include "Compute/Compute.h"
 #include "AnimationControl.h"
 #include "Zip.h"
 #pragma warning(disable: 4996)

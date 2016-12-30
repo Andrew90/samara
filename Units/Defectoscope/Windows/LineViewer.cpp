@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "LineViewer.h"
 #include "FixedGridSeries.h"
-#include "DebugMess.h"
-#include "EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
+#include "debug_tools/DebugMess.h"
 #include "templates.hpp"
 
 using namespace Gdiplus;

@@ -4,10 +4,10 @@
 #include <windows.h>
 #include <winuser.h>
 #include <stdio.h>
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 #include "AppKeyHandler.h"
-#include "message.h"
+#include "window_tool/message.h"
 
 HHOOK hKeyHook;
 HWND hWnd;
