@@ -1,6 +1,6 @@
 #pragma once
 #include <GdiPlus.h>
-#include "message.h"
+#include "window_tool/message.h"
 class IOportsViewer
 {
 	HANDLE hTimer;	

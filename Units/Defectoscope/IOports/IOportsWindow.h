@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-#include "message.h"
+#include "window_tool/message.h"
 #include "IOportsViewer.h"
 class IOportsWindow
 {
