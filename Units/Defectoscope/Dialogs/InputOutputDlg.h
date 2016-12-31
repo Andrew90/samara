@@ -1,5 +1,5 @@
 #pragma once
-#include "ParamDlg.hpp"
+#include "DlgTemplates\ParamDlg.hpp"
 
 PARAM_TITLE(iСontrolСircuits, L"Цепи управления")
 PARAM_TITLE(iCycle          , L"Цикл")

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Device1730.h"
-#include "Config.h"
-#include "DebugMess.h"
+#include "App/Config.h"
+#include "debug_tools/DebugMess.h"
 
 using namespace Automation::BDaq;
 

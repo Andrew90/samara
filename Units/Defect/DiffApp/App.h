@@ -1,5 +1,5 @@
 #pragma once
-#include "USPC\uspc7100_exports.h"
+#include "USPC/uspc7100_exports.h"
 #include "templates/typelist.hpp"
 class MainWindow;
 
@@ -24,25 +24,29 @@ public:
 	static const int number_tube       =  2;
 	static const int operator_name      = 3;
 
-	static const int count_frames = 600000;
+	static const int count_frames = 900000;
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static const int thickness_number = 0;
 	static const int long_number = 1;
-	static const int cross_number = 2;						
+	static const int cross_number = 2;
+	static HANDLE ProgrammExitEvent;
+	static HANDLE ProgrammContinueEvent;
+	static HANDLE ProgrammStopEvent;
+	static HANDLE ProgrammRunEvent;
+	static bool measurementOfRunning;									
 public:
 	MainWindow &mainWindow;
 	static const int &lengthCaretka;
 public:
 	App();
 	void Init();
-	static void WindowUp(HWND, wchar_t *);
 	void Destroy();
 	void MainWindowTopLabel(wchar_t *);
 	void MainWindowBottomLabel(int, wchar_t *);  
 	void MainWindowUpdate();
 	static HWND MainWindowHWND();
 	static void InitCaretka();
-	static const wchar_t *TitleApp(){return L"Просмотр данных";}
+	static const wchar_t *TitleApp(){return L"ЛБТ \"Буран-5000\"";}
 };
 
 extern App app;

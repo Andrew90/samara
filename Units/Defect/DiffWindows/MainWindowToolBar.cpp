@@ -5,19 +5,19 @@
 #include "Resource.h"
 #include "window_tool/InitToolBar.hpp"
 #include "window_tool/message.h"
-#include "window_tool\Emptywindow.h"
-#include "MainWindow.h"
+#include "window_tool/Emptywindow.h"
+#include "DiffWindows/MainWindow.h"
 #include "Windows/Common.h"
 #include "Windows/PacketWindow.h"
 #include <gdiplus.h>
 #include "Automat/AppKeyHandler.h"
-#include "Stored\Stored.h"
-#include "LogUSPCWindow.h"
+#include "Stored/Stored.h"
+#include "windows/LogUSPCWindow.h"
 #include "Automat/Automat.h"
-#include "AutomatAdditional.h"
-#include "window_tool\ToolBarButton.h"
-#include "Config.h"
-#include "NumberTubeDlg.h"
+#include "Automat/AutomatAdditional.h"
+#include "window_tool/ToolBarButton.h"
+#include "App/Config.h"
+#include "Dialogs/NumberTubeDlg.h"
 using namespace Gdiplus;
 namespace 
 {

@@ -115,6 +115,12 @@
     <Filter Include="Common\Stored">
       <UniqueIdentifier>{b3fdcf00-bb48-4199-a4d2-3e8b20e8bbb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Common\Device\1730">
+      <UniqueIdentifier>{673f2b51-c98c-47b2-a783-ae64212c4ed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Common\Device\1730\Inc">
+      <UniqueIdentifier>{9faad079-3f31-4400-a184-29f6f5ca34c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Defectoscope\Windows\CrossViewer.cpp">
@@ -131,39 +137,6 @@
     </ClCompile>
     <ClCompile Include="..\Defectoscope\Windows\TopLabelViewer.cpp">
       <Filter>Common\Windows\MainWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\AboutWindow.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\AnalogPlateDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\BaseLengthDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\BrackStrobe2Dlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\ColorItemsDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\DeadZonesDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\MedianFiltreDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\NumberTubeDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\OffsetsSensors.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\ProtectiveThickeningDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\StoredLoadData.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\Defectoscope\Windows\CrossWindow.cpp">
       <Filter>Common\Windows\CrossWindow</Filter>
@@ -426,6 +399,54 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\1730\Device1730.cpp">
+      <Filter>Common\Common\Device\1730</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Automat\Automat.cpp">
+      <Filter>Common\Automat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\AboutWindow.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\TypeSizeDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\AnalogPlateDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\BaseLengthDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\BrackStrobe2Dlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\ColorItemsDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\DeadZonesDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\InputOutputDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\MedianFiltreDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\NumberTubeDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\OffsetsSensors.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\ProtectiveThickeningDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\StoredLoadData.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Dialogs\TestTabsDlg.cpp">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Defectoscope\Windows\CrossViewer.h">
@@ -442,12 +463,6 @@
     </ClInclude>
     <ClInclude Include="..\Defectoscope\Windows\TopLabelViewer.h">
       <Filter>Common\Windows\MainWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Defectoscope\Dialogs\Dialogs.h">
-      <Filter>Common\Windows\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Defectoscope\Dialogs\NumberTubeDlg.h">
-      <Filter>Common\Windows\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\Defectoscope\Windows\CrossWindow.h">
       <Filter>Common\Windows\CrossWindow</Filter>
@@ -811,6 +826,24 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\Device1730.h">
+      <Filter>Common\Common\Device\1730</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h">
+      <Filter>Common\Common\Device\1730\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\Automat\Automat.h">
+      <Filter>Common\Automat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\Dialogs\Dialogs.h">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\Dialogs\InputOutputDlg.h">
+      <Filter>Common\Windows\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\Dialogs\NumberTubeDlg.h">
+      <Filter>Common\Windows\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
