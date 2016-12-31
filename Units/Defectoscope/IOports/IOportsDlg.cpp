@@ -1,14 +1,14 @@
 #pragma once
 #include "stdafx.h"
-#include "Dialogs.h"
+#include "Dialogs/Dialogs.h"
 #include "IOportsWindow.h"
-#include "EmptyWindow.h"
-#include "AppBase.h"
-#include "mainwindow.h"
-#include "Pass.h"
+#include "window_tool\EmptyWindow.h"
+#include "App/AppBase.h"
+#include "DiffWindows/mainwindow.h"
+#include "window_tool\Pass.h"
 #include <CommCtrl.h>
 #include <WindowsX.h>
-#include "WindowsPosition.h"
+#include "ini/WindowsPosition.h"
 
 void IOportsDlg::Do(HWND h)
 {

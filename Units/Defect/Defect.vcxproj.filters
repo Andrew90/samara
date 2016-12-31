@@ -121,6 +121,9 @@
     <Filter Include="Common\Common\Device\1730\Inc">
       <UniqueIdentifier>{9faad079-3f31-4400-a184-29f6f5ca34c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Windows\IOports">
+      <UniqueIdentifier>{6016f826-a8ab-4e0e-88e3-582a61eca52c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Defectoscope\Windows\CrossViewer.cpp">
@@ -444,8 +447,14 @@
     <ClCompile Include="..\Defectoscope\Dialogs\StoredLoadData.cpp">
       <Filter>Common\Windows\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\Defectoscope\Dialogs\TestTabsDlg.cpp">
-      <Filter>Common\Windows\Dialogs</Filter>
+    <ClCompile Include="..\Defectoscope\IOports\IOportsDlg.cpp">
+      <Filter>Common\Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\IOports\IOportsViewer.cpp">
+      <Filter>Common\Windows\IOports</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\IOports\IOportsWindow.cpp">
+      <Filter>Common\Windows\IOports</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -844,6 +853,15 @@
     </ClInclude>
     <ClInclude Include="..\Defectoscope\Dialogs\NumberTubeDlg.h">
       <Filter>Common\Windows\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\IOports\IOportsViewer.h">
+      <Filter>Common\Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\IOports\IOportsWindow.h">
+      <Filter>Common\Windows\IOports</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\IOports\IOportsWindowMenu.hpp">
+      <Filter>Common\Windows\IOports</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

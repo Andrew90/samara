@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "IOportsViewer.h"
-#include "ColorLabel.h"
-#include "AppBase.h"
-#include "DebugMess.h"
-#include "Chart.h"
-#include "Device1730.h"
+#include "Graphics\ColorLabel.h"
+#include "App/AppBase.h"
+#include "debug_tools/DebugMess.h"
+#include "Graphics/Chart.h"
+#include "1730/Device1730.h"
 #include "DiffApp/App.h"
-#include "InputOutputDlg.h"
+#include "Dialogs/InputOutputDlg.h"
 using namespace Gdiplus;
 //-----------------------------------------------------------------------------
 namespace

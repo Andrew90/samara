@@ -144,8 +144,10 @@
     <ClCompile Include="..\Defectoscope\Dialogs\OffsetsSensors.cpp" />
     <ClCompile Include="..\Defectoscope\Dialogs\ProtectiveThickeningDlg.cpp" />
     <ClCompile Include="..\Defectoscope\Dialogs\StoredLoadData.cpp" />
-    <ClCompile Include="..\Defectoscope\Dialogs\TestTabsDlg.cpp" />
     <ClCompile Include="..\Defectoscope\Dialogs\TypeSizeDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\IOports\IOportsDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\IOports\IOportsViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\IOports\IOportsWindow.cpp" />
     <ClCompile Include="..\Defectoscope\ItemsData\ConstData.cpp" />
     <ClCompile Include="..\Defectoscope\ItemsData\DataThicknessViewer.cpp" />
     <ClCompile Include="..\Defectoscope\ItemsData\DataViewer.cpp" />
@@ -272,6 +274,9 @@
     <ClInclude Include="..\Defectoscope\Dialogs\InputOutputDlg.h" />
     <ClInclude Include="..\Defectoscope\Dialogs\NumberTubeDlg.h" />
     <ClInclude Include="..\Defectoscope\GridData\PacketTemplateData.hpp" />
+    <ClInclude Include="..\Defectoscope\IOports\IOportsViewer.h" />
+    <ClInclude Include="..\Defectoscope\IOports\IOportsWindow.h" />
+    <ClInclude Include="..\Defectoscope\IOports\IOportsWindowMenu.hpp" />
     <ClInclude Include="..\Defectoscope\ItemsData\ConstData.h" />
     <ClInclude Include="..\Defectoscope\ItemsData\DataViewer.h" />
     <ClInclude Include="..\Defectoscope\ItemsData\ResultData.h" />

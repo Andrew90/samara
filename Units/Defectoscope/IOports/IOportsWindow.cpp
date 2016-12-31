@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "IOportsWindow.h"
-#include "MenuApi.h"
+#include "window_tool/MenuApi.h"
 #include "IOportsWindowMenu.hpp"
-#include "EmptyWindow.h"
-#include "DebugMess.h"
+#include "window_tool\EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
 
 using namespace Gdiplus;
 //------------------------------------------------------------------------
