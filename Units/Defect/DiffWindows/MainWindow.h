@@ -4,13 +4,13 @@
 #include "window_tool/message.h"
 #include "Windows/TopLabelViewer.h"
 #include "window_tool/CheckBoxWidget.h"
-#include "DiffWindows\MainWindowToolBar.h"
+#include "MainWindowToolBar.h"
 #include <CommCtrl.h>
 #include "Windows/ThicknessViewer.h"
 #include "Windows/CrossViewer.h"
 #include "Windows/LongViewer.h"
 #include "Windows/ResultViewer.h"
-#include "window_tool\MessagesInterface.h"
+#include "window_tool/MessagesInterface.h"
 
 /*
 template<int N>class TestCheckBoxX

@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
+#include "DlgTemplates\ParamDlg.h"
+#include "DlgTemplates\ParamDlg.hpp"
 #include "Dialogs.h"
-#include "AppBase.h"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
-#include "Device1730.h"
+#include "1730/Device1730.h"
 #include "InputOutputDlg.h"
 
 namespace

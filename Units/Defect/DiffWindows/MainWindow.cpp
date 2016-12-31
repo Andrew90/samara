@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "MainWindow.h"
-#include "MenuApi.h"
+#include "window_tool/MenuApi.h"
 #include "MainWindowMenu.hpp"
-#include "EmptyWindow.h"
+#include "window_tool\EmptyWindow.h"
 #include <CommCtrl.h>
-#include "Common.h"
-#include "AppKeyHandler.h"
+#include "Windows/Common.h"
+#include "Automat/AppKeyHandler.h"
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 namespace {
 	static const int resultViewerHeight = 100;
 	struct __move_window_data__

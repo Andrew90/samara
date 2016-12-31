@@ -1,11 +1,11 @@
 #pragma once
-#include "config.h"
-#include "WindowsPosition.h"
-#include "Dialogs.h"
-#include "CrossThresholdWindow.h"
-#include "LongThresholdWindow.h"
-#include "ThicknessThresholdWindow.h"
-#include "Common.h"
+#include "App/config.h"
+#include "Ini/WindowsPosition.h"
+#include "Dialogs/Dialogs.h"
+#include "Windows/CrossThresholdWindow.h"
+#include "Windows/LongThresholdWindow.h"
+#include "Windows/ThicknessThresholdWindow.h"
+#include "Windows/Common.h"
 
 namespace MainWindowMenu
 {
@@ -117,16 +117,16 @@ namespace MainWindowMenu
 	struct Options{};
 	MENU_TEXT(L"Настройки", TopMenu<Options>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	struct WindowPosition__    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
+	struct WindowPosition    : WindowPositionDlg<MainWindow>{};//{static void Do(HWND h){zprint("");}};
 	struct IOportsView       : IOportsDlg{};
 
-	MENU_ITEM(L"Сохранить координаты окна", WindowPosition__)
+	MENU_ITEM(L"Сохранить координаты окна", WindowPosition)
     MENU_ITEM(L"Просмотр дискретных портов", IOportsView)
 
 	template<>struct TopMenu<Options>
 	{
 		typedef TL::MkTlst<
-			MenuItem<WindowPosition__>
+			MenuItem<WindowPosition>
 			, Separator<0>
 			, MenuItem<IOportsView>
 		>::Result list;		

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "Dialogs.h"
-#include "ParamDlg.h"
-#include "ParamDlg.hpp"
-#include "AppBase.h"
+#include "DlgTemplates\ParamDlg.h"
+#include "DlgTemplates\ParamDlg.hpp"
+#include "App/AppBase.h"
 #include "DiffApp/App.h"
-#include "MainWindow.h"
-#include "ut_files.h"
+#include "DiffWindows/MainWindow.h"
+#include "USPC/ut_files.h"
 
 namespace
 {
