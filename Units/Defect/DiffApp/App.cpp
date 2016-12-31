@@ -85,7 +85,7 @@ void App::Destroy()
 {
 	device1730.Write(0);
 	SetEvent(ProgrammExitEvent);
-	Sleep(2000);
+	Sleep(1000);
 }
 
 void App::MainWindowTopLabel(wchar_t *txt)

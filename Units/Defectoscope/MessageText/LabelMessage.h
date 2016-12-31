@@ -91,87 +91,6 @@
 //------------------------------------------------------------------------------
 >::Result label_message_list;
 //-------------------------------------------------------------------
-#define	JOIN2(a, b) a##,##b
-#define	JOIN3(a, b, c) a##,##b##,##c
-#define	JOIN4(a, b, c, d) a##,##b##,##c,##d
-#define	JOIN5(a, b, c, d, e) a##,##b##,##c,##d,##e
-
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderAbove<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderLower<Thickness>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderDefect<Long> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderKlass2<Cross>>											), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>					), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderKlass2<Long>>												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>						), int, 0xffff0000)
-
-DEFINE_WAPPER(JOIN2(Clr<BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xffffff00)
-
-DEFINE_WAPPER(JOIN3(Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xffffff00)
-DEFINE_WAPPER(JOIN3(Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
-DEFINE_WAPPER(JOIN2(Clr<BorderDefect<Long>, BorderKlass2<Cross> >												), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   						), int, 0xffff0000)
-DEFINE_WAPPER(JOIN3(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xffff0000)
-DEFINE_WAPPER(JOIN4(Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000) 
-
-
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >																), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>>											), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> > 																	), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderDefect<Long> >																	), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>>																	), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN2(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>>																	), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>>											), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>>											), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>					), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>>												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>>												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long> >												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>>											), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>>											), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>					), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>>												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>>												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long> >												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long> >												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    					), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN3(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross> >												), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   						), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN4(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      					), int, 0xff1681f4)
-DEFINE_WAPPER(JOIN5(Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xff1681f4)
-#undef	JOIN2
-#undef	JOIN3
-#undef	JOIN4
-#undef	JOIN5
-//---------------------------------------------------------------------
 template<class O>struct __status_label__
 {
 	typedef typename O::__template_must_be_overridded__ noused;
@@ -231,10 +150,7 @@ namespace
 		typedef Clr<_0, _1, _2, _3, _4> O;
 		typedef typename TL::_if<(TL::Length<typename __xel__<ColorTable::items_list>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
 	};
-	//template<class  _0, class _1, class _2, class _3>struct __first_color__<Xlr<_0, _1, _2, _3>>
-	//{
-	//	typedef Xlr<_0, _1, _2, _3> Result;
-	//};
+	
 	template<class O, class P>struct __select__
 	{
 		bool operator()(P *p)
@@ -249,21 +165,6 @@ namespace
 			return true;
 		}
 	};
-	//template<class P>struct __select__<Clr<BrackStrobe>, P>
-	//{
-	//	typedef Clr<BrackStrobe> O;
-	//	bool operator()(P *p)
-	//	{
-	//		if(TL::IndexOf<label_message_list, O>::value == p->id)
-	//		{
-	//			p->text = __status_label__<O>::text();
-	//			p->color = Singleton<ColorTable>::Instance().items.get<typename __first_color__<Clr<BorderLower<Thickness>>>::Result>().value;
-	//			p->visibleVal = ValueVisible<O>::value;
-	//			return false;
-	//		}
-	//		return true;
-	//	}
-	//};
 }
 
 STATUS_LABEL(Clr<Undefined>, "\"результат не определён\"")
@@ -326,19 +227,6 @@ template<class O, class P>struct __set_color_bar_next__
 		return true;
     }
 };
-//template<class P>struct __set_color_bar_next__<Clr<BrackStrobe>, P>
-//{
-//	typedef Clr<BrackStrobe> O;
-//	bool operator()(P *p)
-//    {
-//		if(TL::IndexOf<label_message_list, O>::value == p->id)
-//		{
-//			p->color = Singleton<Clr<BrackStrobe>>::Instance().value;
-//            return false;
-//		}
-//		return true;
-//    }
-//};
 
 #define COLOR_DATA(O)template<class P>struct __set_color_bar__<O, P>\
 {\

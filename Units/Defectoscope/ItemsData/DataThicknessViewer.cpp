@@ -88,11 +88,12 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 			if(channel == s[i].Channel)
 			{
 				double t = 999999;
+				double bit = 0;
 				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 				char st = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
 				{
-					t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+					bit = t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
 					if(s[i].hdr.G2Tof)
 					{
 						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
@@ -100,13 +101,14 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						if(tt > brackStrobe)
 						{
 							st = Status;
+							t = val2;
 						}
 					}
 				}
 
 				if(999999 != t) 
 				{
-					ret = f.Add(t, st, (void *)&s[i]);
+					ret = f.Add(t, bit, st, (void *)&s[i]);
 					t = f.buf[ret];
 
 					if(cnt >= 0)
@@ -114,6 +116,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						data[cnt] = t;
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
 						status[cnt] = f.status[ret];
+						if(Status == status[cnt]) data[cnt] = f.bit2[ret];
 					}
 				}
 				else

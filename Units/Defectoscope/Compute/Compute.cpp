@@ -51,7 +51,7 @@ namespace
 			MedianFiltre &ff = f[i];
 			return ff.buf[ff.Add(data)];
 		}
-		inline double operator()(int i, double data, int &status)
+		inline double operator()(int i, double data, double &bit, int &status)
 		{
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
@@ -72,7 +72,7 @@ namespace
 		{
 			return data;
 		}
-		inline double operator()(int i, double data, int &status)
+		inline double operator()(int i, double data, double &, int &)
 		{
 			return data;
 		}
@@ -129,7 +129,6 @@ namespace
 						{
 							if(b[j].Point[z] > g1Amp) g1Amp = b[j].Point[z];
 						}
-						//	}
 						double t = filtre(channel, g1Amp);
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
@@ -201,6 +200,7 @@ namespace
 							}
 						}
 						double val = 999999;
+						double bit = 0;
 						static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
@@ -213,13 +213,15 @@ namespace
 								if(t > brackStrobe)
 								{
 									status = Status;
+									bit = val; 
+									val = val2;
 								}
 							}
 						}
 						double t = nominal;
 						if(999999 != val)
 						{
-							nominal = t = filtre(channel, val, status);
+							nominal = t = filtre(channel, val, bit, status);
 						}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
@@ -234,17 +236,17 @@ namespace
 						else
 						{	
 							if(t > d.bufferMax[i])
-							{													
+							{	
+								d.bufferMax[i] = t;
 								if(status == Status)
 								{
 									d.statusMax[i] = Status;
+									d.bufferMax[i] = bit;
 								}
 								else
 								{
 									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
 								}
-
-								d.bufferMax[i] = t;
 							}
 
 							if(0 != t &&  t < d.bufferMin[i])
@@ -253,6 +255,7 @@ namespace
 								if(status == Status)
 								{
 									d.statusMin[i] = Status;
+									d.bufferMax[i] = bit;
 								}
 								else
 								{
