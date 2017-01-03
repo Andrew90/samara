@@ -140,6 +140,7 @@ namespace
 		wchar_t buffer[128];
 		wchar_t *operator()(USPC7100_ASCANDATAHEADER *d, ScanWindow &s)
 		{
+			if(0 != IsBadReadPtr(d, sizeof(d))) return L"";
 			ItemData<Thickness> &t = Singleton<ItemData<Thickness> >::Instance();
 			wchar_t s1[256];
 			wchar_t s2[256];
@@ -166,7 +167,7 @@ namespace
 		{
 			try
 			{
-
+                if(0 != IsBadReadPtr(d, sizeof(d))) return;
 				s.chart.items.get<ScanWindow::Gate1>().visible = true;
 				s.chart.items.get<ScanWindow::GateIF>().visible = false;
 				s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
@@ -188,7 +189,7 @@ namespace
 
 				USPC(gate1_level);
 
-				g1.x = _gate1_position + _scope_offset;
+				g1.x = _gate1_position;// + _scope_offset;
 				g1.width = _gate1_width;
 				double offs = 0.005 * d->hdr.G1Tof;
 				g1.y = _gate1_level;
@@ -233,6 +234,7 @@ namespace
 	{
 		void operator()(ScanWindow &s, USPC7100_ASCANDATAHEADER *d)
 		{
+			if(0 != IsBadReadPtr(d, sizeof(d))) return;
 			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 
 			s.chart.items.get<ScanWindow::GateIFBorder>().visible = false;
@@ -257,6 +259,7 @@ namespace
 			USPC(gateIF_level);
 
 			gif.x = _gateIF_position;
+			dprint("gif %f\n", gif.x);
 			gif.width = _gateIF_width;
 			gif.y = _gateIF_level;
 
@@ -282,7 +285,8 @@ namespace
 			s.chart.items.get<ScanWindow::Line>().count = int(_scope_range / mash);
 			s.chart.items.get<ScanWindow::Line>().offset = 0;
 
-			s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
+			double GIFTof = s.chart.items.get<ScanWindow::GateIFBorder>().value = 0.005 * d->hdr.GIFTof;
+			dprint("GateIFBorder %f\n", GIFTof);
 			s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
 			if(0 != d->hdr.GIFTof)
 			{
@@ -304,7 +308,8 @@ namespace
 					g1.x = _gate1_position + x;// - s.chart.items.get<ScanWindow::Line>().offset * mash;
 					g1.width = _gate1_width;
 					g1.y = _gate1_level;
-					s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+					double g1B = s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
+					dprint("g1B %f\n", g1B);
 
 					if(0 != d->hdr.G2Tof)
 					{

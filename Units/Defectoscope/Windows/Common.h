@@ -143,7 +143,7 @@ namespace Common
 			{
 				RECT r;
 				WindowPosition::Get<T>(r);
-				dprint("l %d t %d r %d  b %d\n", r.left, r.top, r.right, r.bottom);
+				//dprint("l %d t %d r %d  b %d\n", r.left, r.top, r.right, r.bottom);
 				hh = WindowTemplate(new T, T::Title(), r.left, r.top, r.right, r.bottom);
 				ShowWindow(hh, SW_SHOWNORMAL);
 			}
