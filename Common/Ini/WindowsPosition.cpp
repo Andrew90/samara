@@ -10,7 +10,7 @@ bool TestWindowRect(RECT &inp)
 {
 	RECT r;
 	GetWindowRect(GetDesktopWindow(), &r);
-	return (unsigned)inp.left < (unsigned)r.right && (unsigned)inp.top < (unsigned)r.bottom;
+	return inp.left < r.right && inp.top < r.bottom;
 }
 void GetPath(wchar_t (&path)[1024])
 {

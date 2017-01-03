@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <clocale>
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])

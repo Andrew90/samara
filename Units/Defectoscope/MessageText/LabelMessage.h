@@ -171,7 +171,7 @@ STATUS_LABEL(Clr<Undefined>, "\"результат не определён\"")
 STATUS_LABEL(Clr<DeathZone>, "\"мёртвая зона\"")
 
 STATUS_LABEL(Clr<Nominal>, "\"норма\"")
-STATUS_LABEL(Clr<BrakStrobe2<Thickness>>, "\"брак по стробу\"")
+STATUS_LABEL(Clr<BrakStrobe2<Thickness>>, "\"расслоение\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"толщина больше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"толщина меньше нормы\"")
@@ -318,7 +318,7 @@ COLOR_DATA(Clr<DeathZone>)
 #define BorderLower_Thickness "\"толщина меньше нормы\""
 #define BorderAbove_Thickness "\"толщина больше нормы\""
 
-#define BrakStrobe2_Thickness "\"брак по стробу\""
+#define BrakStrobe2_Thickness "\"расслоение\""
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))

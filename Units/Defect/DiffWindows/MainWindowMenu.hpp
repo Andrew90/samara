@@ -94,7 +94,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Удалить типоразмер", MainDeleteTypeSize)
 
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
-	MENU_ITEM(L"Брак по стробу 2", BrackStrobe2__)
+	MENU_ITEM(L"Расслоение", BrackStrobe2__)
 	MENU_TEXT(L"Толщина", SubMenu<Thickness>)
 	MENU_ITEM(L"Границы тела трубы", ProtectiveThickening__)
 
