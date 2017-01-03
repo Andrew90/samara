@@ -8,7 +8,7 @@
 namespace
 {
 DO_NOT_CHECK( BrakStrobe2<Thickness>)
-PARAM_TITLE( BrakStrobe2<Thickness>, L"Брак по стробу(mm)")
+PARAM_TITLE( BrakStrobe2<Thickness>, L"Расслоение(mm)")
 }
 
 void BrackStrobe2Dlg::Do(HWND h)

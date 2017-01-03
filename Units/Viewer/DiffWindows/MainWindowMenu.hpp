@@ -76,7 +76,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Мёртвые зоны", DeadZones)
 
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
-	MENU_ITEM(L"Брак по стробу 2", BrackStrobe2__)
+	MENU_ITEM(L"Расслоение", BrackStrobe2__)
 	MENU_TEXT(L"Толщина", SubMenu<Thickness>)
 
 	
