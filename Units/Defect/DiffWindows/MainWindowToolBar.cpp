@@ -54,11 +54,28 @@ namespace
 #endif
 		>::Result tool_button_list;
 #undef BUTTON_KEY
+	namespace closed_window
+	{
+		const wchar_t *const name[] = {
+			L"CrossWindow"
+			, L"LongWindow"
+			, L"ThicknessWindow"
+			, L"ScanWindow"
+		};
+	}
 //----------------------------------------------------------------------------------
 	static bool closed_packet_dialog = true;
 	static bool run_once_per_sycle = false;
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
+		HWND hh = NULL;
+		for(int i = 0; i < dimention_of(closed_window::name); ++i)
+		{
+			hh = FindWindow(closed_window::name[i], NULL);
+			if(NULL != hh) DestroyWindow(hh);
+		}
+
+
 		if(closed_packet_dialog)
 		{
 			closed_packet_dialog = false;
