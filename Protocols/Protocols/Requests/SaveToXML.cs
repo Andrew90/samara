@@ -53,8 +53,14 @@ namespace Protocols.Requests
                     for (int i = 0; i < length; ++i)
                     {
                         Zone zone = new Zone();
+
                         zone.MinVal = BitConverter.ToDouble(tmpBuf0, i * sizeof(double));
+                        Math.Round(zone.MinVal, 1);
                         zone.MaxVal = BitConverter.ToDouble(tmpBuf1, i * sizeof(double));
+                        Math.Round(zone.MaxVal, 1);
+                        if (1000 == zone.MinVal) zone.MinVal = 0;
+                        if (-1 == zone.MaxVal) zone.MaxVal = 0;
+
                         zone.NumberZone = i;
                         zones.Add(zone);
                     }

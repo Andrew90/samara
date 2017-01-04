@@ -188,8 +188,8 @@ namespace Protocols
             var row = MainGridView.Rows[currentRow];
             var tubeParty = (string)row.Cells[3].Value;
             Text = tubeParty;
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
+            saveFileDialog1.FileName = tubeParty + ".xml";
+            if (DialogResult.OK == saveFileDialog1.ShowDialog() && "" != saveFileDialog1.FileName)
             {
                 int id = (int)row.Cells[0].Value;
                 SaveToXML.Save(id, tubeParty, saveFileDialog1.FileName);
