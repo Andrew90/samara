@@ -55,9 +55,9 @@ namespace Protocols.Requests
                         Zone zone = new Zone();
 
                         zone.MinVal = BitConverter.ToDouble(tmpBuf0, i * sizeof(double));
-                        Math.Round(zone.MinVal, 1);
+                        zone.MinVal = Math.Round(zone.MinVal, 1);
                         zone.MaxVal = BitConverter.ToDouble(tmpBuf1, i * sizeof(double));
-                        Math.Round(zone.MaxVal, 1);
+                        zone.MaxVal = Math.Round(zone.MaxVal, 1);
                         if (1000 == zone.MinVal) zone.MinVal = 0;
                         if (-1 == zone.MaxVal) zone.MaxVal = 0;
 
