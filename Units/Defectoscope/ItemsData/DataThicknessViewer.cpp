@@ -38,18 +38,23 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 				char st = StatusId<Clr<Undefined>>();
 				data[cnt] = 0;
-				bool errorStrobe = true;
 				if(s[i].hdr.G1Tof)
 				{
-					double val = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-					data[cnt] = val;
-					if(s[i].hdr.G2Tof)
+					double gate1_position_ = d.param[channel].get<gate1_position>().value;
+					double gate1_width_ = d.param[channel].get<gate1_width>().value;
+					double strob = 0.005 * s[i].hdr.G1Tof;
+					if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 					{
-						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-						double t = val - val2;
-						if(t > brackStrobe)
+						double val = 2.5e-6 * s[i].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+						data[cnt] = val;
+						if(s[i].hdr.G2Tof)
 						{
-							st = Status;
+							double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+							double t = val - val2;
+							if(t > brackStrobe)
+							{
+								st = Status;
+							}
 						}
 					}
 				}
@@ -93,15 +98,21 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 				char st = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
 				{
-					bit = t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
-					if(s[i].hdr.G2Tof)
+					double gate1_position_ = d.param[channel].get<gate1_position>().value;
+					double gate1_width_ = d.param[channel].get<gate1_width>().value;
+					double strob = 0.005 * s[i].hdr.G1Tof;
+					if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 					{
-						double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-						double tt = t - val2;
-						if(tt > brackStrobe)
+						bit = t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+						if(s[i].hdr.G2Tof)
 						{
-							st = Status;
-							t = val2;
+							double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+							double tt = t - val2;
+							if(tt > brackStrobe)
+							{
+								st = Status;
+								t = val2;
+							}
 						}
 					}
 				}
