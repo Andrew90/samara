@@ -169,12 +169,12 @@ namespace
 	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-		if(b->CycleAlarm || b->PrfAlarm || b->PowerAlarm)
-		{
-			dprint("b->CycleAlarm %d b->PrfAlarm %d b->PowerAlarm %d\n"
-				, b->CycleAlarm, b->PrfAlarm, b->PowerAlarm
-				);
-		}
+		//if(b->CycleAlarm || b->PrfAlarm || b->PowerAlarm)
+		//{
+		//	dprint("b->CycleAlarm %d b->PrfAlarm %d b->PowerAlarm %d\n"
+		//		, b->CycleAlarm, b->PrfAlarm, b->PowerAlarm
+		//		);
+		//}
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
 
@@ -274,7 +274,8 @@ namespace
 									}
 									else
 									{
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+										if(Status != d.statusMin[i])
+											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
 									}
 								}
 							}
