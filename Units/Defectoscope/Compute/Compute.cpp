@@ -208,7 +208,8 @@ namespace
 						}
 						double val = 999999;
 						double bit = 0;
-						static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
+						static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
+						//TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
@@ -217,7 +218,7 @@ namespace
 							double strob = 0.005 * b[j].hdr.G1Tof;
 							if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 							{
-								val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+								bit = val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 								if(b[j].hdr.G2Tof)
 								{
 									double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
@@ -225,10 +226,9 @@ namespace
 									if(t > brackStrobe)
 									{
 										status = Status;
-										bit = val; 
-										val = val2;
+										val = val2;										
 									}
-								}
+								}								
 							}
 						}
 						double t = nominal;
@@ -248,31 +248,34 @@ namespace
 						}
 						else
 						{	
-							if(t > d.bufferMax[i])
-							{	
-								d.bufferMax[i] = t;
-								if(status == Status)
-								{
-									d.statusMax[i] = Status;
-									d.bufferMax[i] = bit;
-								}
-								else
-								{
-									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-								}
-							}
-
-							if(0 != t &&  t < d.bufferMin[i])
+							if(999999 != val)
 							{
-								d.bufferMin[i] = t;	
-								if(status == Status)
-								{
-									d.statusMin[i] = Status;
-									d.bufferMax[i] = bit;
+								if(t > d.bufferMax[i])
+								{	
+									d.bufferMax[i] = t;
+									if(status == Status)
+									{
+										d.statusMax[i] = Status;
+										d.bufferMax[i] = bit;
+									}
+									else
+									{
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+									}
 								}
-								else
+
+								if(0 != t &&  t < d.bufferMin[i])
 								{
-									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+									d.bufferMin[i] = t;	
+									if(status == Status)
+									{
+										d.statusMin[i] = Status;
+										d.bufferMin[i] = bit;
+									}
+									else
+									{
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+									}
 								}
 							}
 						}

@@ -120,7 +120,7 @@ PARAM_TITLE(Clr<BorderDefect<Long>      > , L"продольный дефект брак")
 PARAM_TITLE(Clr<BorderKlass2<Cross>     > , L"\"2 класс\" поперечный дефект")
 PARAM_TITLE(Clr<BorderDefect<Cross>     > , L"поперечный дефект брак")
 PARAM_TITLE(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), L"Толщина меньше и больше нормы")
-PARAM_TITLE(Clr<BrakStrobe2<Thickness>>, L"ошибка строб 2")
+PARAM_TITLE(Clr<BrakStrobe2<Thickness>>, L"Расслоение")
 
 DO_NOT_CHECK(Clr<Undefined>			)
 DO_NOT_CHECK(Clr<Nominal  >			)
