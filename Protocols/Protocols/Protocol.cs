@@ -30,7 +30,7 @@ namespace Protocols
                 param += " " + row.Cells[0].Value.ToString();
                 param += " " + row.Cells[1].Value.ToString();
                 param += " " + row.Cells[2].Value.ToString();
-                Process.Start(".\\ViewerData.exe", param);
+                Process.Start(".\\Viewer.exe", param);
             }
             catch { }
         }
