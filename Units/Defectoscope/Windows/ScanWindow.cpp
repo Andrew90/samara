@@ -216,11 +216,12 @@ void ScanWindow::operator()(TSize &l)
 
 	void ScanWindow::Open(int zone_, int sensor_, int offset_, wchar_t *mess, wchar_t *mess1, USPC7100_ASCANDATAHEADER *uspc, void *o, void(*ptr)())
 	{
+		if(IsBadReadPtr(uspc, sizeof(uspc))) return;
 		owner = o;
 		zone = zone_;
 		sensor = sensor_;
 		offsetInZone = offset_;
-		ptrScan = (bool(*)(int, int, int, void *, void(*)()))ptr;
+		ptrScan = (bool(*)(int, int, int, void *, void(*)()))ptr;		
 		for(int i = 0; i < 512; ++i)  data[i] = uspc->Point[i];
 		maxX = uspc->DataSize > 0 ?  uspc->DataSize : dimention_of(uspc->Point);
 		 maxY = 100;
@@ -281,6 +282,6 @@ void ScanWindow::operator()(TSize &l)
 
 	void ScanWindow::operator()(TMouseWell &l)
 	{
-		if(l.delta > 0) OffsPlus(); else OffsMinus();
+		if(l.delta < 0) OffsPlus(); else OffsMinus();
 	}
 

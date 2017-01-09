@@ -3,6 +3,7 @@
 #include "templates/typelist.hpp"
 class MainWindow;
 
+#define DEFECT_APP
 struct Long{};
 struct Cross{};
 struct Thickness{};

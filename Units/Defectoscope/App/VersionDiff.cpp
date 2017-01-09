@@ -3,6 +3,7 @@
 #include "App/AppBase.h"
 #include "ItemsData/USPCData.h"
 #include "debug_tools/DebugMess.h"
+#include "DiffApp/App.h"
 
 
 namespace Version
@@ -17,7 +18,17 @@ namespace Version
 			fwrite(&Singleton<O>::Instance(), sizeof(O), 1, p); 
 		}
 	};
+#ifdef VIEWER_APP
+	template<class O, class P>struct __load__
+	{
+		void operator()(P *p)
+		{
+			fread(&Singleton<O>::Instance(), sizeof(O), 1, p); 
+		}
+	};
+#endif
 
+#ifdef DEFECT_APP
 	template<class O, class P>struct __load__
 	{
 		void operator()(P *p)
@@ -26,33 +37,57 @@ namespace Version
 			fread(&o, sizeof(O), 1, p); 
 		}
 	};
+#endif
+
 
 	typedef TL::MkTlst<Thickness, Long, Cross>::Result unit_list;
-	template<class T>struct __unit_data__
+	//template<class T>
+	struct __unit_data__
 	{
-		T proc;
+	//	T proc;
 		FILE *file;
-		__unit_data__(T proc, FILE *file)
-			: proc(proc)
-			, file(file)
+		__unit_data__(/*T proc,*/ FILE *file)
+			//: proc(proc)
+			: file(file)
 		{}
 	};
-	template<class T>__unit_data__<T>__set__unit_data__(T t, FILE *f){return __unit_data__<T>(t, f);};
-	template<class O, class P>struct __unit__
+	//template<class T>__unit_data__<T>__set__unit_data__(T t, FILE *f){return __unit_data__<T>(t, f);};
+	template<class O, class P>struct __unit_store__
 	{
 		void operator()(P p)
 		{
 			ItemData<O> &d = Singleton<ItemData<O>>::Instance();
-			p.proc(d.param, sizeof(d.param), 1, p.file);
+			fwrite(d.param, sizeof(d.param), 1, p.file);
 		}
 	};
+#ifdef VIEWER_APP
+	template<class O, class P>struct __unit_load__
+	{
+		void operator()(P p)
+		{
+			ItemData<O> &d = Singleton<ItemData<O>>::Instance();
+			fread(d.param, sizeof(d.param), 1, p.file);
+		}
+	};
+#endif
+#ifdef DEFECT_APP
+	template<class O, class P>struct __unit_load__
+	{
+		void operator()(P p)
+		{
+			//ItemData<O> &d = Singleton<ItemData<O>>::Instance();
+			ItemData<O>::TParam param[App::count_sensors]; 
+			fread(param, sizeof(param), 1, p.file);
+		}
+	};
+#endif
 
 	void SaveToFile(FILE *f)
 	{
 		unsigned t = __magic_word__ | __version__;
 		fwrite(&t, sizeof(unsigned), 1, f);
 		TL::foreach<ParametersBase::type_list, __store__>()(f);
-		TL::foreach<unit_list, __unit__>()(__set__unit_data__(fwrite, f));
+		TL::foreach<unit_list, __unit_store__>()(__unit_data__(f));
 	}
 
 	class USPCIniFile
@@ -78,12 +113,12 @@ namespace Version
 			case __version__:
 				{
 					TL::foreach<ParametersBase::type_list, __load__>()(f);
-					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
+					TL::foreach<unit_list, __unit_load__>()(__unit_data__(f));
 				}
 				return true;
 			case 5:
 				{
-					TL::foreach<unit_list, __unit__>()(__set__unit_data__(fread, f));
+					TL::foreach<unit_list, __unit_load__>()(__unit_data__(f));
 				}
 				return true;
 			case 4:

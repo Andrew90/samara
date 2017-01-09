@@ -3,6 +3,7 @@
 #include "templates\typelist.hpp"
 class MainWindow;
 
+#define VIEWER_APP
 struct Long{};
 struct Cross{};
 struct Thickness{};

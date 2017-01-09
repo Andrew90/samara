@@ -185,6 +185,7 @@ namespace
 			d.bufferMax[i] = -1;
 			d.statusMin[i] = StatusId<Clr<Undefined>>();
 			d.statusMax[i] = StatusId<Clr<Undefined>>();
+			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
 				WORD channel = b[jj].Channel;	
@@ -211,16 +212,22 @@ namespace
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
-							val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
-							if(b[j].hdr.G2Tof)
+							double gate1_position_ = uspc.param[b[j].Channel].get<gate1_position>().value;
+							double gate1_width_ = uspc.param[b[j].Channel].get<gate1_width>().value;
+							double strob = 0.005 * b[j].hdr.G1Tof;
+							if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 							{
-								double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-								double t = val - val2;
-								if(t > brackStrobe)
+								val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+								if(b[j].hdr.G2Tof)
 								{
-									status = Status;
-									bit = val; 
-									val = val2;
+									double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+									double t = val - val2;
+									if(t > brackStrobe)
+									{
+										status = Status;
+										bit = val; 
+										val = val2;
+									}
 								}
 							}
 						}
