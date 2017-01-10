@@ -7,29 +7,6 @@
 #include "Registry.h"
 #include "App/Config.h"
 
-namespace
-{
-	//const wchar_t *ut_files = L"ut_files";
-	//struct CurrentDir
-	//{
-	//	int len;
-	//	wchar_t path[1024];
-	//	CurrentDir()
-	//	{
-	//		DWORD length = GetModuleFileName( NULL, path, 1024);
-	//		PathRemoveFileSpec(path);
-	//		len = wcslen(path);
-	//	}
-	//};
-}
-
-//void MkDir(const wchar_t *dir)
-//{
-//	CurrentDir d;
-//	wsprintf(&d.path[d.len], L"\\%s", dir);
-//	_wmkdir(d.path);
-//}
-
 bool NewUSPCFile(HWND h, wchar_t *file)
 {
 	RegistryPathUTFile appPath;
@@ -57,14 +34,14 @@ bool NewUSPCFile(HWND h, wchar_t *file)
 			return true;
 		}
 		else if(FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
-                       NULL, 
-                       err,
-                       MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                       buffer, 
-                       1024, 
-                       NULL))
+			NULL, 
+			err,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			buffer, 
+			1024, 
+			NULL))
 		{
-			 MessageBox(h, buffer, L"Ошибка!!!", MB_ICONHAND);
+			MessageBox(h, buffer, L"Ошибка!!!", MB_ICONHAND);
 		}		
 	}
 	return b;
@@ -93,4 +70,54 @@ bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 		MessageBox(App::MainWindowHWND(), buf, L"Ошибка!!!", MB_ICONERROR);
 	}
 	return b;
+}
+
+bool GetUsFileParam(double &value, int board, int sensor, wchar_t *name, wchar_t *path)
+{
+	wchar_t b[] = L"[Board 0]";
+	b[dimention_of(b) - 3] = '0' + board;
+
+	wchar_t s[] = L"[Test 0]";
+	s[dimention_of(s) - 3] = '0' + sensor;
+
+	wchar_t buf[256];
+	FILE *f = _wfopen(path, L"rt");
+	bool ok = false;
+	wchar_t *res;
+	if(f)
+	{
+		while(res = fgetws(buf, dimention_of(buf), f))
+		{
+			if(0 == wcsncmp(res, b, dimention_of(b) - 1))	{ok = true; break;}
+		}
+
+		if(ok)
+		{
+			ok = false;
+			while(res = fgetws(buf, dimention_of(buf), f))
+			{
+				if(0 == wcsncmp(res, s, dimention_of(s) - 1))	{ok = true; break;}
+			}
+		}
+
+		if(ok)
+		{
+			ok = false;
+			int n = wcslen(name);
+			while(res = fgetws(buf, dimention_of(buf), f))
+			{
+				if(0 == wcsncmp(res, name, n))
+				{
+					res = &res[1 + wcslen(name)];
+					value = _wtof(res);
+					ok = true; 
+					break;
+				}
+			}
+		}
+
+		fclose(f);
+	}
+
+	return ok;
 }

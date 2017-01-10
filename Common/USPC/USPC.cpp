@@ -146,32 +146,6 @@ namespace USPC
 		__test_data__(): status(0), err(0), board(-1){}
 	};
 
-//	template<class T>struct __read_param__{template<class P>int operator()(P *){return 0;}};
-//	///< Для толщиномера необходима скорость звука в среде
-//	template<>struct __read_param__<Thickness>
-//	{
-//		typedef Thickness O;
-//		template<class P>int operator()(P *p)
-//		{
-//			int id = __board__<O>::value;
-//			ItemData<O> &data = Singleton<ItemData<Thickness> >::Instance();
-//			int err = 0;
-//			for(int i = 0; i < dimention_of(data.scope_velocity)&&(!err); ++i)
-//			{
-//				err = USPC7100_Read(id, i, 400, (LPCSTR)"gate1_TOF_WT_velocity", &data.scope_velocity[i], NULL, NULL, NULL);
-//			//	Version::StoreScopeVelocity(i, data.scope_velocity[i]); ///< для востановления(портится при загрузке данных для просмотра. Востанавливать в начале цикла)
-//				double scope_offset = 0;
-//				err = USPC7100_Read(id, i, 0, (LPCSTR)"scope_offset", &scope_offset, NULL, NULL, NULL);
-//				double gateIF_position = 0;
-//				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_position", &gateIF_position, NULL, NULL, NULL);
-//				double gateIF_width = 0;
-//				err = USPC7100_Read(id, i, 0, (LPCSTR)"gateIF_width", &gateIF_position, NULL, NULL, NULL);
-//				dprint("\n");
-//			}
-//			return err;
-//		}
-//	};
-
 	struct __uspc_read_data__
 	{
 		int unit;
@@ -282,7 +256,6 @@ namespace USPC
 				if(numberRead > 0)
 				{
 					item.OffsetCounter(numberRead);
-				//	dprint("plata %d count %d\n", id, numberRead);
 				}
 				p.err = err;
 				p.sensor = id;
@@ -373,5 +346,66 @@ struct __err__
 		bool b = TL::find<items_list, __do__>()(err);	
 		if(err.err) dprint("USPC7100_Acq_Read err %x  sensor %d\n", err.err, err.sensor);
 		return b;
+	}
+
+	struct __data_file__
+	{
+	   int unit;
+	   int sensor;
+	   wchar_t path[256];
+	};
+
+	template<class O, class P>struct __param_file__
+	{
+		bool operator()(O &o, P &p)
+		{
+			wchar_t dest[128];
+			mbstowcs (dest, o.Name(), 128);
+			return GetUsFileParam(o.value, p.unit, p.sensor, dest, p.path);
+		}
+	};
+
+	bool ConfigFromFile()
+	{
+		__data_file__ data;
+		bool res = ExistCurrentUSPCFile(data.path);
+		
+		if(res)
+		{
+			typedef Thickness Unit;
+			ItemData<Unit> &unit = Singleton<ItemData<Unit> >::Instance();
+			data.unit = __board__<Unit>::value;
+			for(int i = 0; i < App::count_sensors; ++i)
+			{
+				data.sensor = i;
+				res = TL::find<ItemData<Unit>::param_list, __param_file__>()(unit.param[i], data);
+			}
+		}
+
+		if(res)
+		{
+			typedef Long Unit;
+			ItemData<Unit> &unit = Singleton<ItemData<Unit> >::Instance();
+			data.unit = __board__<Unit>::value;
+			for(int i = 0; i < App::count_sensors; ++i)
+			{
+				data.sensor = i;
+				res = TL::find<ItemData<Unit>::param_list, __param_file__>()(unit.param[i], data);
+			}
+		}
+
+		if(res)
+		{
+			typedef Cross Unit;
+			ItemData<Unit> &unit = Singleton<ItemData<Unit> >::Instance();
+			data.unit = __board__<Unit>::value;
+			for(int i = 0; i < App::count_sensors; ++i)
+			{
+				data.sensor = i;
+				res = TL::find<ItemData<Unit>::param_list, __param_file__>()(unit.param[i], data);
+			}
+		}
+
+		return res;
 	}
 }

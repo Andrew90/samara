@@ -19,6 +19,7 @@
 #include "Stored/StoredBase.h"
 #include "Base/ExpressBase.hpp"
 #include "Stored/Stored.h"
+#include "USPC\USPC.h"
 
 
 HANDLE App::ProgrammExitEvent;
@@ -76,6 +77,7 @@ void App::Init()
 		return;
 #endif
 	}
+	USPC::ConfigFromFile();
 	Stored::CleanStoredBase();
 	automat.Init();
 	Zip::ZipAll();
