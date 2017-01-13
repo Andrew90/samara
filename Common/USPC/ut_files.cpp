@@ -53,11 +53,11 @@ bool ExistCurrentUSPCFile(wchar_t (&file)[256])
 	RegistryPathUTFile appPath;
 	wchar_t src[512];
 	wsprintf(src, L"%s\\%s.us", appPath(), s);
-#ifndef DEBUG_ITEMS
+//#ifndef DEBUG_ITEMS
 	bool b = 0 != PathFileExists(src);
-#else
-	bool b = true;
-#endif
+//#else
+//	bool b = true;
+//#endif
 	if(b)
 	{
 		wcscpy(file, src);
@@ -106,7 +106,9 @@ bool GetUsFileParam(double &value, int board, int sensor, wchar_t *name, wchar_t
 			int n = wcslen(name);
 			while(res = fgetws(buf, dimention_of(buf), f))
 			{
-				if(0 == wcsncmp(res, name, n))
+				int k = 0;
+				for(; res[k]; ++k) if('=' == res[k])break;
+				if(n == k && 0 == wcsncmp(res, name, n))
 				{
 					res = &res[1 + wcslen(name)];
 					value = _wtof(res);
