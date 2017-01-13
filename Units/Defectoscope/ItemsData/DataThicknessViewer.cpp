@@ -106,12 +106,18 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						bit = t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
 						if(s[i].hdr.G2Tof)
 						{
-							double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-							double tt = t - val2;
-							if(tt > brackStrobe)
+							double gate2_position_ = d.param[channel].get<gate2_position>().value;
+							double gate2_width_ = d.param[channel].get<gate2_width>().value;
+							double strob = 0.005 * s[i].hdr.G2Tof;
+							if(gate2_position_ < strob && (gate2_position_ + gate2_width_) >  strob)
 							{
-								st = Status;
-								t = val2;
+								double val2 = 2.5e-6 * s[i].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+								double tt = t - val2;
+								if(tt > brackStrobe)
+								{
+									st = Status;
+									t = val2;
+								}
 							}
 						}
 					}
