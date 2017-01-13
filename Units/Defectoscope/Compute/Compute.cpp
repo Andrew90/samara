@@ -230,14 +230,20 @@ namespace
 								bit = val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 								if(b[j].hdr.G2Tof)
 								{
-									double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-									double t = val - val2;
-									if(t > brackStrobe)
+									double gate2_position_ = uspc.param[b[j].Channel].get<gate2_position>().value;
+									double gate2_width_ = uspc.param[b[j].Channel].get<gate2_width>().value;
+									double strob = 0.005 * b[j].hdr.G2Tof;
+									if(gate2_position_ < strob && (gate2_position_ + gate2_width_) >  strob)
 									{
-										status = Status;
-										val = val2;										
+										double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
+										double t = val - val2;
+										if(t > brackStrobe)
+										{
+											status = Status;
+											val = val2;										
+										}
 									}
-								}								
+								}
 							}
 						}
 						double t = nominal;
