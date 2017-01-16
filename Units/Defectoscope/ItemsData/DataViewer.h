@@ -79,9 +79,8 @@ template<class T>struct DataViewer: DefectData
 		if(start < 0) start = 0;
 		stop += d.offsSensor[channel];//samplesOffset;
 		if(stop < 0) start = stop = 0;
-
 		Set(zone, start, stop, channel, offs, maxOffs, s, StatusZoneDefect<T>
-			, Singleton<ItemData<T> >::Instance()
+			, d
 			);
 	}
 };
@@ -115,23 +114,18 @@ template<>struct DataViewer<Thickness>: ThicknessData
 	{}
 	void Do(int zone, int channel)
 	{
-	   memset(scan, 0, sizeof(scan));
-	   ItemData<T> &d = Singleton<ItemData<T> >::Instance();
-	   int start = d.offsets[zone];
-	   int stop = d.offsets[1 + zone];
-	   int offs = 0;//OffsetChannel()(channel);
-	   int maxOffs = d.currentOffsetFrames;
-	   USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
+		memset(scan, 0, sizeof(scan));
+		ItemData<T> &d = Singleton<ItemData<T> >::Instance();
+		int start = d.offsets[zone];
+		int stop = d.offsets[1 + zone];
+		int offs = 0;
+		int maxOffs = d.currentOffsetFrames;
+		USPC7100_ASCANDATAHEADER *s = d.ascanBuffer;
 
-	  //t samplesOffset = int(Singleton<USPCData>::Instance().samplesPerZone 
-		//	* offs 
-		//	/ App::zone_length
-		////	);
 		start += d.offsSensor[channel];
 		if(start < 0) start = 0;
 		stop += d.offsSensor[channel];
 		if(stop < 0) start = stop = 0;
-
-	   Set(zone, start, stop, channel, offs, maxOffs, s);
+		Set(zone, start, stop, channel, offs, maxOffs, s);
 	}
 };

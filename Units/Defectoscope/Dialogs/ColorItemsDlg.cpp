@@ -107,8 +107,8 @@ DLG_SUB(Clr<BorderKlass2<Cross>     >)
 DLG_SUB(Clr<BorderDefect<Cross>     >)
 DLG_SUB(Clr<BorderAbove<Thickness>  >)
 DLG_SUB(Clr<BorderLower<Thickness>  >)
-//DLG_SUB(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>))
 DLG_SUB(Clr<BrakStrobe2<Thickness>>)
+DLG_SUB(Clr<Cancel<Projectionist>>)
 //------------------------------------------------------------------------------------------------
 PARAM_TITLE(Clr<Undefined>			 , L"Результат не определён")
 PARAM_TITLE(Clr<Nominal  >			 , L"\"1 класс\"")
@@ -121,7 +121,7 @@ PARAM_TITLE(Clr<BorderKlass2<Cross>     > , L"\"2 класс\" поперечный дефект")
 PARAM_TITLE(Clr<BorderDefect<Cross>     > , L"поперечный дефект брак")
 PARAM_TITLE(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), L"Толщина меньше и больше нормы")
 PARAM_TITLE(Clr<BrakStrobe2<Thickness>>, L"Расслоение")
-
+PARAM_TITLE(Clr<Cancel<Projectionist>>, L"Отключено оператором")
 DO_NOT_CHECK(Clr<Undefined>			)
 DO_NOT_CHECK(Clr<Nominal  >			)
 DO_NOT_CHECK(Clr<DeathZone>			)
@@ -133,6 +133,8 @@ DO_NOT_CHECK(Clr<BorderKlass2<Cross>    >)
 DO_NOT_CHECK(Clr<BorderDefect<Cross>    >)
 DO_NOT_CHECK(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>))
 DO_NOT_CHECK(Clr<BrakStrobe2<Thickness>>)
+DO_NOT_CHECK(Clr<Cancel<Projectionist>>)
+
 #undef	JOIN2
 
 struct DefaultBtn

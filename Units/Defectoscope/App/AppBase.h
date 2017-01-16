@@ -108,9 +108,9 @@ struct PointsOptionsTable
 	const wchar_t *name(){return L"PointsOptionsTable";}
 };
 //----------------------------------------------------------------------------------
-template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Clr
+template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType, class _5=NullType>struct Clr
 {
-	typedef typename TL::MkTlst<_0, _1, _2, _3, _4>::Result items_list;
+	typedef typename TL::MkTlst<_0, _1, _2, _3, _4, _5>::Result items_list;
 };
 //template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Xlr;
 //{
@@ -119,15 +119,16 @@ template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullT
 
 template<class T>struct GetItemsList;
 
-template<template<class, class, class, class, class>class W, class _0, class _1, class _2, class _3, class _4>struct	GetItemsList<W<_0, _1, _2, _3, _4>>
+template<template<class, class, class, class, class,class>class W, class _0, class _1, class _2, class _3, class _4, class _5>struct	GetItemsList<W<_0, _1, _2, _3, _4,_5>>
 {
-	typedef typename TL::MkTlst<_0, _1, _2, _3, _4>::Result Result;
+	typedef typename TL::MkTlst<_0, _1, _2, _3, _4, _5>::Result Result;
 };
 
 struct Undefined{};
 struct Nominal{};
 struct DeathZone{typedef NullType items_list;};
-
+template<class>struct Cancel;
+struct Projectionist{};
 
 #define	JOIN2(a, b) a##,##b
 DEFINE_WAPPER(Clr<Undefined>, int, 0xff555555)
@@ -141,6 +142,7 @@ DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
 //DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
 DEFINE_WAPPER( Clr<BrakStrobe2<Thickness>>, int, 0xffff8000)
+DEFINE_WAPPER( Clr<Cancel<Projectionist>>, int, 0xff56ff32)
 #undef	JOIN2
 
 
@@ -157,6 +159,7 @@ struct ColorTable
 /*7*/	    , Clr<BorderKlass2<Cross>>
 /*8*/	    , Clr<BorderDefect<Cross>>
 /*9*/       , Clr<BrakStrobe2<Thickness>>
+/*10*/      , Clr<Cancel<Projectionist>>
 ///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 ///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
 ///*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>

@@ -218,7 +218,6 @@ namespace
 						double val = 999999;
 						double bit = 0;
 						static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
-						//TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
 						int status = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
@@ -423,7 +422,7 @@ namespace
 	};
 
 	template<class T>struct __first__;
-	template<template<class, class, class, class, class>class W, class A, class B, class C, class D, class E>struct __first__<W<A, B, C, D, E>>
+	template<template<class, class, class, class, class,class>class W, class A, class B, class C, class D, class E,class F>struct __first__<W<A, B, C, D, E,F>>
 	{
 		typedef A Result;
 	};

@@ -2,7 +2,7 @@
 #include "App/AppBase.h"
 #include "debug_tools/DebugMess.h"
 //-----------------------------------------------------------------
-	typedef TL::MkTlst<	
+typedef TL::MkTlst<
 /*0*/		Clr<Undefined   >
 /*1*/		, Clr<DeathZone>
 /*2*/		, Clr<Nominal	>
@@ -13,6 +13,20 @@
 /*7*/	    , Clr<BorderKlass2<Cross>>
 /*8*/	    , Clr<BorderDefect<Cross>>
 /*9*/       , Clr<BrakStrobe2<Thickness>>
+/*10*/      , Clr<Cancel<Projectionist>>
+>::Result __first_color_list__;
+typedef TL::MkTlst<	
+/*0*/		Clr<Undefined   >
+/*1*/		, Clr<DeathZone>
+/*2*/		, Clr<Nominal	>
+/*3*/	    , Clr<BorderAbove<Thickness> >
+/*4*/	    , Clr<BorderLower<Thickness> >
+/*5*/	    , Clr<BorderKlass2<Long> > 
+/*6*/	    , Clr<BorderDefect<Long> >
+/*7*/	    , Clr<BorderKlass2<Cross>>
+/*8*/	    , Clr<BorderDefect<Cross>>
+/*9*/       , Clr<BrakStrobe2<Thickness>>
+ , Clr<Cancel<Projectionist>>
 
 /*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 
@@ -88,6 +102,49 @@
 /*71*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
 /*72*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
 /*73*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+, Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist> >
+
+///*74*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, Cancel<Projectionist> >
+///*75*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*76*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> , Cancel<Projectionist>> 
+///*77*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> , Cancel<Projectionist>>
+///*78*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+///*79*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, Cancel<Projectionist>>
+////			
+///*80*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*81*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
+///*82*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+//
+///*83*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*84*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
+///*85*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*86*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
+///*87*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+///*88*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
+///*89*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+//			
+///*90*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*91*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+///*92*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+///*93*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*94*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+//
+///*95*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+///*96*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+///*97*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+///*98*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
+///*99*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+//			
+///*100*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+///*101*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*102*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
+///*103*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+///*104*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
+///*105*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+///*106*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
+///*107*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
 //------------------------------------------------------------------------------
 >::Result label_message_list;
 //-------------------------------------------------------------------
@@ -148,7 +205,9 @@ namespace
 	template<class  _0, class _1, class _2, class _3, class _4>struct __first_color__<Clr<_0, _1, _2, _3, _4>>
 	{
 		typedef Clr<_0, _1, _2, _3, _4> O;
-		typedef typename TL::_if<(TL::Length<typename __xel__<ColorTable::items_list>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
+		//__first_color_list__
+		//	typedef typename TL::_if<(TL::Length<typename __xel__<ColorTable::items_list>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
+		typedef typename TL::_if<(TL::Length<typename __xel__<__first_color_list__>::Result>::value > TL::IndexOf<label_message_list, O>::value), O, Clr<_0>>::Result Result;
 	};
 	
 	template<class O, class P>struct __select__
@@ -175,6 +234,8 @@ STATUS_LABEL(Clr<BrakStrobe2<Thickness>>, "\"расслоение\"")
 
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"толщина больше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"толщина меньше нормы\"")
+
+STATUS_LABEL(Clr<Cancel<Projectionist>>, "\"отключено оператором\"")
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__;
 
@@ -211,9 +272,9 @@ template<class O, class P>struct __set_color_bar__
 };
 
 template<class T>struct GetFirst;
-template<template<class, class, class, class, class>class X, class A, class B, class C, class D, class E>struct GetFirst<X<A, B, C, D, E> >
+template<template<class, class, class, class, class,class>class X, class A, class B, class C, class D, class E, class F>struct GetFirst<X<A, B, C, D, E,F> >
 {
-	typedef X<A, NullType, NullType, NullType, NullType> Result;
+	typedef X<A, NullType, NullType, NullType, NullType, NullType> Result;
 };
 template<class O, class P>struct __set_color_bar_next__
 {
@@ -283,6 +344,11 @@ COLOR_DATA(Clr<DeathZone>)
 	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e>>::value;\
 	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d##PARAM_TXT##e;}\
 };
+#define STATUS_LABEL_6(a, b, c, d, e, f)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e, PARAM_STR##f>>\
+{\
+	static const int ID = TL::IndexOf<label_message_list, Clr<PARAM_STR##a, PARAM_STR##b, PARAM_STR##c, PARAM_STR##d, PARAM_STR##e, PARAM_STR##f>>::value;\
+	static char *text(){return PARAM_TXT##a##PARAM_TXT##b##PARAM_TXT##c##PARAM_TXT##d##PARAM_TXT##e##PARAM_TXT##f;}\
+};
 
 //-------------------------------
 #define ASTATUS_LABEL_2(a, b)template<>struct __status_label__<Clr<PARAM_STR##a, PARAM_STR##b>>\
@@ -319,6 +385,8 @@ COLOR_DATA(Clr<DeathZone>)
 #define BorderAbove_Thickness "\"толщина больше нормы\""
 
 #define BrakStrobe2_Thickness "\"расслоение\""
+
+#define Cancel_Projectionist "\"отмена оператора\""
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))
@@ -364,6 +432,7 @@ STATUS_LABEL_2((BorderDefect, Long), (BorderKlass2, Cross))
 STATUS_LABEL_3((BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness))
 STATUS_LABEL_3((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness))
 STATUS_LABEL_4((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
+
 STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderAbove, Thickness))
 STATUS_LABEL_2((BrakStrobe2, Thickness), (BorderLower , Thickness))
 STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness))
@@ -400,11 +469,49 @@ STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cr
 STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness))      
 STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness))
 
+STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderLower , Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderKlass2, Long), (Cancel, Projectionist)) 
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Long), (Cancel, Projectionist))
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderKlass2, Cross), (Cancel, Projectionist))
+//STATUS_LABEL_3((BrakStrobe2, Thickness), (BorderDefect, Cross), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderLower, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderLower, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderAbove, Thickness), (Cancel, Projectionist))   
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (Cancel, Projectionist)) 
+//STATUS_LABEL_6((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Cross), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))   
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_6((BrakStrobe2, Thickness), (BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_6((BrakStrobe2, Thickness), (BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+//STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (Cancel, Projectionist))
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))   
+//STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (Cancel, Projectionist))      
+//STATUS_LABEL_6((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+
 #undef COLOR_DATA
 #undef STATUS_LABEL
 #undef STATUS_LABEL_2
 #undef STATUS_LABEL_3
 #undef STATUS_LABEL_4
+#undef STATUS_LABEL_5
+#undef STATUS_LABEL_6
 #undef TXT
 #undef STR
 #undef PARAM_STR
