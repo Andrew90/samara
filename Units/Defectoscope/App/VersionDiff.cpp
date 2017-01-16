@@ -37,6 +37,16 @@ namespace Version
 			fread(&o, sizeof(O), 1, p); 
 		}
 	};
+#pragma message ("после отладки удалить")
+	template<class P>struct __load__<ColorTable, P>
+	{
+		typedef ColorTable O;
+		void operator()(P *p)
+		{
+			O o;
+			fread(&o, sizeof(O) - sizeof(Clr<Cancel<Projectionist>>), 1, p); 
+		}
+	};
 #endif
 
 
@@ -51,7 +61,6 @@ namespace Version
 			: file(file)
 		{}
 	};
-	//template<class T>__unit_data__<T>__set__unit_data__(T t, FILE *f){return __unit_data__<T>(t, f);};
 	template<class O, class P>struct __unit_store__
 	{
 		void operator()(P p)

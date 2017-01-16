@@ -29,6 +29,7 @@ typedef	TL::MkTlst<
 /*7*/	, BorderKlass2<Cross>
 /*8*/	, BorderDefect<Cross>
 /*9*/   , BrakStrobe2<Thickness>
+, Cancel<Projectionist>
 >::Result  __selected_list__;
 
 template<class O, class P>struct __set__

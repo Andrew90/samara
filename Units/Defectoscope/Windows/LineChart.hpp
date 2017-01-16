@@ -3,6 +3,7 @@
 #include "ScanWindow.h"
 #include "Ini/ItemIni.h"
 #include "templates/templates.hpp"
+#include "window_tool\MenuAPI.h"
 
 namespace
 {
@@ -37,7 +38,7 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 	Line()
 	{
 		((Parent::TChart *)chart)->items.get<BarSeries>().SetColorBarHandler(this, &Line::GetColorBar);
-		cursor->SetMouseMoveHandler(this, &Line<T, N>::CursorDraw);
+		cursor->SetMouseMoveHandler(this, &Line::CursorDraw);
 	}	
 	bool GetColorBar(int offs, double &data, unsigned &color)
 	{
@@ -83,11 +84,51 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 		return true;
 	}
 
-	void operator()(TRButtonDown &l)
+	void MenuItemScan()
 	{
 		Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);
 	}
+
+	void operator()(TRButtonDown &l);	
 };
+
+template<class T, int N>struct MenuNum{};
+
+template<class T, int N, int X>struct TopMenu<MenuNum<Line<T, N>, X> >
+{
+	typedef NullType list;	
+};
+
+template<class T, int N>struct NameMenu<TopMenu<MenuNum<Line<T, N>, 0> > >{wchar_t *operator()(HWND){return L"Просмотр сигнала";}};
+template<class T, int N>struct NameMenu<TopMenu<MenuNum<Line<T, N>, 1> > >{wchar_t *operator()(HWND){return L"Изменить статус датчика в зоне";}};
+
+template<class T, int N>struct Event<TopMenu<MenuNum<Line<T, N>, 0> > >	
+{										
+	static void Do(HWND h)				
+	{									
+		((Line<T, N> *)GetWindowLongPtr(h, GWLP_USERDATA))->MenuItemScan();
+	}									
+};										
+
+template<class T, int N>struct Event<TopMenu<MenuNum<Line<T, N>, 1> > >	
+{										
+	static void Do(HWND h)				
+	{									
+		//((Line<T, N> *)GetWindowLongPtr(h, GWLP_USERDATA))->MenuItemScan();
+	}									
+};	
+
+
+template<class T, int N>void Line<T, N>::operator()(TRButtonDown &l)
+{
+	//Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);
+	//owner->viewer.viewerData.changedOperators[N][owner->lastZone] = true;
+	typedef TL::MkTlst<	
+		TopMenu<MenuNum<Line<T, N>, 0> >	
+		, TopMenu<MenuNum<Line<T, N>, 1> >
+	>::Result items_list;
+	PopupMenu<items_list>::Do(l.hwnd, l.hwnd);
+}
 
 namespace
 {
