@@ -265,41 +265,33 @@ namespace
 						{	
 							if(999999 != val)
 							{
-								if(t > d.bufferMax[i])
+								if(t > d.bufferMax[i] && !d.cancelOperatorSensor[channel][i])
 								{										
 									d.bufferMax[i] = t;
-									if(!d.cancelOperatorSensor[channel][i])
+									if(status == Status)
 									{
-										if(status == Status)
-										{
-											d.statusMax[i] = Status;
-											d.bufferMax[i] = bit;
-										}
-										else
-										{
-											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-										}
+										d.statusMax[i] = Status;
+										d.bufferMax[i] = bit;
 									}
-									//if(d.cancelOperatorSensor[channel][i]) d.statusMax[i] = StatusId<Clr<Cancel<Projectionist>>>();
+									else
+									{
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+									}
 								}
 
-								if(0 != t &&  t < d.bufferMin[i])
+								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
 								{
 									d.bufferMin[i] = t;	
-									if(!d.cancelOperatorSensor[channel][i])
+									if(status == Status)
 									{
-										if(status == Status)
-										{
-											d.statusMin[i] = Status;
-											d.bufferMin[i] = bit;
-										}
-										else
-										{
-											if(Status != d.statusMin[i])
-												StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
-										}
+										d.statusMin[i] = Status;
+										d.bufferMin[i] = bit;
 									}
-									//if(d.cancelOperatorSensor[channel][i]) d.statusMin[i] = StatusId<Clr<Cancel<Projectionist>>>();
+									else
+									{
+										if(Status != d.statusMin[i])
+											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+									}
 								}
 							}
 						}
@@ -307,8 +299,6 @@ namespace
 				}				
 			}
 		}
-
-
 
 		int buf[3];
 		buf[2] = -1;
@@ -326,6 +316,9 @@ namespace
 				b = App::count_sensors != cnt;
 			}
 			d.commonStatus[i] = b ? t: StatusId<Clr<Cancel<Projectionist>>>();
+
+			if(1000 == d.bufferMin[i]) d.bufferMin[i] = maxThickness[i];
+			if(-1 == d.bufferMax[i])   d.bufferMax[i] = maxThickness[i];
 		}
 	}
 
