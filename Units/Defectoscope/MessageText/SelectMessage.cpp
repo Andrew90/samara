@@ -164,11 +164,11 @@ template<>struct __get_id__<NullType>
 	template<class O, class P>void operator()(O &o, P &p)
 	{
 		p.res = __sel_first__<typename P::items_list>::value;
-		char c = p.res;
-		if(-52 == c)
-		{
-		   dprint("%s  %d\n", typeid(p).name(), c);
-		}
+		//char c = p.res;
+		//if(-52 == c)
+		//{
+		//   dprint("%s  %d\n", typeid(p).name(), c);
+		//}
 	}
 };
 

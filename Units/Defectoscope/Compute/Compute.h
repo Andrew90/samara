@@ -28,6 +28,7 @@ public:
 	int lengthTube;
 	Compute();
 	void LengthTube(unsigned startTime, unsigned baseTime, unsigned stopTime);
+	void CancelOperatorClear();
 	void Recalculation();
 };
 

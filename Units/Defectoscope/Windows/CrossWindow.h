@@ -32,5 +32,5 @@ public:
 	void operator()(TDestroy &);
 	static wchar_t *Title();
 
-	bool DrawCursor(TMouseMove &, VGraphics &);
+	bool DrawCursor(TMouseMove &, VGraphics &);	
 };

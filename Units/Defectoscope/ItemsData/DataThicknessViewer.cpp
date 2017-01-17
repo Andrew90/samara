@@ -71,6 +71,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						, nominalBorder
 						, status[cnt]);
 				}
+				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -155,7 +156,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						, nominalBorder
 						, status[cnt]);
 				}
-
+				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}

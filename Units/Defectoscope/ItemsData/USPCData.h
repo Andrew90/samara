@@ -13,6 +13,7 @@ public:
 	int offsets[App::count_zones];  ///< смещение кадров по зонам
 	int offsSensor[App::count_sensors];
 	char commonStatus[App::count_zones];					///< общий статус по зонам
+	bool cancelOperatorSensor[App::count_sensors][App::count_zones];
 	double samplesPerZone;
 	int deadZoneSamplesBeg, deadZoneSamplesEnd;
 	void Start();///< ¬ыполнить перед началом цикла сбора кадров с платы

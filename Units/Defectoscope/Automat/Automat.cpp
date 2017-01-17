@@ -501,6 +501,7 @@ void Automat::Impl::Do()
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
 				Version::RestoreMemory();///< Востанавливает параметры которые могут измениться при загрузке и просмотре
+				compute.CancelOperatorClear();
 				compute.Recalculation();
 			//	double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)
@@ -714,6 +715,7 @@ DWORD WINAPI Test_USPC(LPVOID)
 		USPC::Stop();
 		unsigned stopTime = timeGetTime();
 		compute.LengthTube(startTime, baseTime, stopTime);
+		compute.CancelOperatorClear();
 		compute.Recalculation();
 		device1730.Write(0);
 		AppKeyHandler::Stop();

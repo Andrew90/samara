@@ -64,6 +64,7 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 				data[cnt] = t;
 				scan[cnt] = &s[i];
 				(*StatusZoneDefect)(offs, data[cnt], zone, brackThreshold, klass2Threshold, status[cnt]);
+				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -108,6 +109,7 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 						status[cnt] = st;
 					}
 				}
+				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}
