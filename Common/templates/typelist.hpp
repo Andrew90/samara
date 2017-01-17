@@ -14,12 +14,12 @@ namespace TL
 #define c(n) class n=NullType
 #define a(n) c(_##n##0),c(_##n##1),c(_##n##2),c(_##n##3),c(_##n##4),c(_##n##5),c(_##n##6),c(_##n##7),c(_##n##8),c(_##n##9)
 #define b(n) _##n##0,_##n##1,_##n##2,_##n##3,_##n##4,_##n##5,_##n##6,_##n##7,_##n##8,_##n##9
-	template<a(0),a(1),a(2),a(3),a(4),a(5),a(6),a(7),a(8),a(9),a(10),a(11)>struct MkTlst
+	template<a(0),a(1),a(2),a(3),a(4),a(5),a(6),a(7),a(8),a(9),a(10),a(11),a(12),a(13),a(14),a(15)>struct MkTlst
 	{
 		typedef Tlst<_00
 			, typename MkTlst<
 			_01,_02,_03,_04,_05,_06,_07,_08,_09
-			,b(1),b(2),b(3),b(4),b(5),b(6),b(7),b(8),b(9),b(10),b(11)
+			,b(1),b(2),b(3),b(4),b(5),b(6),b(7),b(8),b(9),b(10),b(11),b(12),b(13),b(14),b(15)
 			>::Result
 		> Result;
 	};

@@ -31,6 +31,7 @@ namespace
 
 			Stored::DataFromFile(path);		
 			if(deleteFile) DeleteFile(path);
+			compute.CancelOperatorClear();
 			compute.Recalculation();			
 			AnimationWindow::Destroy();
 			return 0;

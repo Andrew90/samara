@@ -88,44 +88,56 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 	{
 		Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);
 	}
+	/*
+
+	*/
+	void MenuZoneDisable()
+	{
+		ItemData<T::sub_type> &d = Singleton<ItemData<T::sub_type>>::Instance();
+		d.cancelOperatorSensor[N][owner->lastZone] ^= true;
+		compute.Recalculation();
+		RECT r;
+		GetClientRect(hWnd, &r);
+		{
+			TSize s = {hWnd, WM_SIZE, 0, (WORD)r.right, (WORD)r.bottom};
+			(*(Parent::Parent *)this)(s);
+		}
+		typedef TL::TypeAt<T::viewers_list, 0>::Result TopViewer;
+		TopViewer &x = owner->viewers.get<TopViewer>();
+		GetClientRect(x.hWnd, &r);
+		{
+			TSize s = {x.hWnd, WM_SIZE, 0, (WORD)r.right, (WORD)r.bottom};
+			(*(TopViewer::Parent *)&x)(s);
+		}
+		RepaintWindow(owner->hWnd);
+	}
 
 	void operator()(TRButtonDown &l);	
 };
 
-template<class T, int N>struct MenuNum{};
+template<class T, void(T::*)()>struct MenuNum{};
 
-template<class T, int N, int X>struct TopMenu<MenuNum<Line<T, N>, X> >
+template<class T, void(T::*X)()>struct TopMenu<MenuNum<T, X> >
 {
 	typedef NullType list;	
 };
 
-template<class T, int N>struct NameMenu<TopMenu<MenuNum<Line<T, N>, 0> > >{wchar_t *operator()(HWND){return L"Просмотр сигнала";}};
-template<class T, int N>struct NameMenu<TopMenu<MenuNum<Line<T, N>, 1> > >{wchar_t *operator()(HWND){return L"Изменить статус датчика в зоне";}};
+template<class T>struct NameMenu<TopMenu<MenuNum<T, &T::MenuItemScan> > >{wchar_t *operator()(HWND){return L"Просмотр сигнала";}};
+template<class T>struct NameMenu<TopMenu<MenuNum<T, &T::MenuZoneDisable> > >{wchar_t *operator()(HWND){return L"Изменить статус датчика в зоне";}};
 
-template<class T, int N>struct Event<TopMenu<MenuNum<Line<T, N>, 0> > >	
+template<class T, void(T::*X)()>struct Event<TopMenu<MenuNum<T, X> >> 	
 {										
 	static void Do(HWND h)				
 	{									
-		((Line<T, N> *)GetWindowLongPtr(h, GWLP_USERDATA))->MenuItemScan();
+		(((T *)GetWindowLongPtr(h, GWLP_USERDATA))->*X)();
 	}									
 };										
 
-template<class T, int N>struct Event<TopMenu<MenuNum<Line<T, N>, 1> > >	
-{										
-	static void Do(HWND h)				
-	{									
-		//((Line<T, N> *)GetWindowLongPtr(h, GWLP_USERDATA))->MenuItemScan();
-	}									
-};	
-
-
 template<class T, int N>void Line<T, N>::operator()(TRButtonDown &l)
 {
-	//Scan<T>::Do(owner->lastZone, N, offsetX, owner, (void(*)())Scan<T>::Do);
-	//owner->viewer.viewerData.changedOperators[N][owner->lastZone] = true;
 	typedef TL::MkTlst<	
-		TopMenu<MenuNum<Line<T, N>, 0> >	
-		, TopMenu<MenuNum<Line<T, N>, 1> >
+		TopMenu<MenuNum<Line<T, N>, &Line<T, N>::MenuItemScan> >	
+		, TopMenu<MenuNum<Line<T, N>, &Line<T, N>::MenuZoneDisable> >
 	>::Result items_list;
 	PopupMenu<items_list>::Do(l.hwnd, l.hwnd);
 }

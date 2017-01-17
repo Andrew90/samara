@@ -7,13 +7,6 @@
 #include "App/AppBase.h"
 #include "ThicknessViewer.h"
 
-//class XThicknessViewer: public ThicknessViewer
-//{
-//public:
-//	typedef ThicknessViewer Parent;
-//	void operator()(TRButtonDown &){}
-//};
-
 class ThicknessWindow
 {
 public:

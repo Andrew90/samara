@@ -61,6 +61,52 @@ typedef TL::MkTlst<
 /*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
 /*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
 
+
+
+/*74*/	, Clr<BorderLower<Thickness>, Cancel<Projectionist> >
+/*75*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*76*/	, Clr<BorderKlass2<Long> , Cancel<Projectionist>> 
+/*77*/	, Clr<BorderDefect<Long> , Cancel<Projectionist>>
+/*78*/	, Clr<BorderKlass2<Cross>, Cancel<Projectionist>>
+/*79*/	, Clr<BorderDefect<Cross>, Cancel<Projectionist>>
+//			
+/*80*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*81*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
+/*82*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+
+/*83*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*84*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
+/*85*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*86*/	, Clr<BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
+/*87*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+/*88*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
+/*89*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+			
+/*90*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*91*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+/*92*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+/*93*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*94*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+
+/*95*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+/*96*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+/*97*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+/*98*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
+/*99*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+			
+/*100*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+/*101*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*102*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
+/*103*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+/*104*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
+/*105*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+/*106*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
+/*107*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
+//------------------------------------------------------------------------------
+
+
+
+
 /*39*/	, Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >
 
 /*40*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >
@@ -230,7 +276,7 @@ STATUS_LABEL(Clr<BrakStrobe2<Thickness>>, "\"расслоение\"")
 STATUS_LABEL(Clr<BorderAbove<Thickness>>, "\"толщина больше нормы\"") 
 STATUS_LABEL(Clr<BorderLower<Thickness>>, "\"толщина меньше нормы\"")
 
-STATUS_LABEL(Clr<Cancel<Projectionist>>, "\"отключено оператором\"")
+STATUS_LABEL(Clr<Cancel<Projectionist>>, "\"отмена\"")
 //---------------------------------------------------------------------------
 template<class O, class P>struct __set_color_bar__;
 
@@ -381,7 +427,7 @@ COLOR_DATA(Clr<DeathZone>)
 
 #define BrakStrobe2_Thickness "\"расслоение\""
 
-#define Cancel_Projectionist "\"отмена оператора\""
+#define Cancel_Projectionist "\"отмена\""
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))
@@ -498,6 +544,43 @@ STATUS_LABEL_4((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cr
 STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))   
 STATUS_LABEL_5((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (Cancel, Projectionist))      
 STATUS_LABEL_6((BrakStrobe2, Thickness), (BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+
+
+STATUS_LABEL_2((BorderLower , Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderLower , Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_2((BorderKlass2, Long), (Cancel, Projectionist)) 
+STATUS_LABEL_2((BorderDefect, Long), (Cancel, Projectionist))
+STATUS_LABEL_2((BorderKlass2, Cross), (Cancel, Projectionist))
+STATUS_LABEL_2((BorderDefect, Cross), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Cross), (BorderLower, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Cross), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Long), (BorderLower, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Cross), (BorderDefect, Long), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Cross), (BorderDefect, Long), (BorderAbove, Thickness), (Cancel, Projectionist))   
+STATUS_LABEL_4((BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (Cancel, Projectionist)) 
+STATUS_LABEL_5((BorderDefect, Cross), (BorderDefect, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderKlass2, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderLower , Thickness), (BorderKlass2, Cross), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderLower , Thickness), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderKlass2, Cross), (BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))   
+STATUS_LABEL_4((BorderLower , Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_5((BorderLower , Thickness), (BorderAbove, Thickness), (BorderKlass2, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Cross), (BorderKlass2, Long), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Cross), (BorderKlass2, Long), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_5((BorderDefect, Cross), (BorderKlass2, Long), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+STATUS_LABEL_3((BorderDefect, Long), (BorderKlass2, Cross), (Cancel, Projectionist))
+STATUS_LABEL_4((BorderDefect, Long), (BorderKlass2, Cross), (BorderAbove, Thickness), (Cancel, Projectionist))   
+STATUS_LABEL_4((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (Cancel, Projectionist))      
+STATUS_LABEL_5((BorderDefect, Long), (BorderKlass2, Cross), (BorderLower, Thickness), (BorderAbove, Thickness), (Cancel, Projectionist))
+
 
 #undef COLOR_DATA
 #undef STATUS_LABEL

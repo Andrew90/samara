@@ -155,6 +155,7 @@ namespace
 								d.buffer[channel][i] = t;						
 								StatusZoneDefect<Data>(j, t, i, brakThreshold, klass2Threshold, d.status[channel][i]);
 							}
+							if(d.cancelOperatorSensor[channel][i]) d.status[channel][i] = StatusId<Clr<Cancel<Projectionist>>>();
 						}
 					}	
 				}
@@ -265,32 +266,40 @@ namespace
 							if(999999 != val)
 							{
 								if(t > d.bufferMax[i])
-								{	
+								{										
 									d.bufferMax[i] = t;
-									if(status == Status)
+									if(!d.cancelOperatorSensor[channel][i])
 									{
-										d.statusMax[i] = Status;
-										d.bufferMax[i] = bit;
+										if(status == Status)
+										{
+											d.statusMax[i] = Status;
+											d.bufferMax[i] = bit;
+										}
+										else
+										{
+											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
+										}
 									}
-									else
-									{
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-									}
+									//if(d.cancelOperatorSensor[channel][i]) d.statusMax[i] = StatusId<Clr<Cancel<Projectionist>>>();
 								}
 
 								if(0 != t &&  t < d.bufferMin[i])
 								{
 									d.bufferMin[i] = t;	
-									if(status == Status)
+									if(!d.cancelOperatorSensor[channel][i])
 									{
-										d.statusMin[i] = Status;
-										d.bufferMin[i] = bit;
+										if(status == Status)
+										{
+											d.statusMin[i] = Status;
+											d.bufferMin[i] = bit;
+										}
+										else
+										{
+											if(Status != d.statusMin[i])
+												StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
+										}
 									}
-									else
-									{
-										if(Status != d.statusMin[i])
-											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
-									}
+									//if(d.cancelOperatorSensor[channel][i]) d.statusMin[i] = StatusId<Clr<Cancel<Projectionist>>>();
 								}
 							}
 						}
@@ -298,6 +307,8 @@ namespace
 				}				
 			}
 		}
+
+
 
 		int buf[3];
 		buf[2] = -1;
@@ -307,7 +318,14 @@ namespace
 			buf[1] = d.statusMax[i];
 			int t = 0;
 			SelectMessage(buf, t);
-			d.commonStatus[i] = t;
+			bool b = true;
+			if(t == StatusId<Clr<Undefined>>())
+			{
+				int cnt = 0;
+				for(int channel = 0; channel < App::count_sensors; ++channel) if(d.cancelOperatorSensor[channel][i]) ++cnt;
+				b = App::count_sensors != cnt;
+			}
+			d.commonStatus[i] = b ? t: StatusId<Clr<Cancel<Projectionist>>>();
 		}
 	}
 
@@ -591,5 +609,21 @@ Compute compute;
 
 void RecalculationDlg::Do(HWND)
 {
+	compute.CancelOperatorClear();
 	compute.Recalculation();
+}
+namespace
+{
+	template<class O, class P>struct __clear__
+	{
+		void operator()()
+		{
+			ItemData<O> &o = Singleton<ItemData<O>>::Instance();
+			memset(o.cancelOperatorSensor, 0, sizeof(o.cancelOperatorSensor));
+		}
+	};
+}
+void Compute::CancelOperatorClear()
+{
+	TL::foreach<USPC::items_list, __clear__>()();
 }
