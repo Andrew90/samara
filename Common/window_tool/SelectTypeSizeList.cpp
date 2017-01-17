@@ -6,6 +6,7 @@
 #include "window_tool/message.h"
 #include "DiffWindows/MainWindow.h"
 #include "USPC/ut_files.h"
+#include "USPC\USPC.h"
 
 namespace
 {
@@ -81,6 +82,8 @@ void SelectTypeSizeList::Do(TCommand &m)
 				{
 					wsprintf(bb, L"%s %s", App::TitleApp(), b);
 					SetWindowText(m.hwnd, bb);
+
+					USPC::ConfigFromFile();
 				}
 			}
 		}

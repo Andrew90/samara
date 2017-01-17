@@ -365,7 +365,7 @@ struct __err__
 		}
 	};
 
-	bool ConfigFromFile()
+	DWORD WINAPI  __ConfigFromFile__(LPVOID)
 	{
 		__data_file__ data;
 		bool res = ExistCurrentUSPCFile(data.path);
@@ -406,6 +406,11 @@ struct __err__
 			}
 		}
 
-		return res;
+		return 0;
+	}
+
+	void ConfigFromFile()
+	{
+		QueueUserWorkItem(__ConfigFromFile__, NULL, WT_EXECUTEDEFAULT);
 	}
 }

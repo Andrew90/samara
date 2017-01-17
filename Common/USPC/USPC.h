@@ -10,5 +10,5 @@ namespace USPC
 	bool Do();
 	unsigned &Err();
 
-	bool ConfigFromFile();
+	void ConfigFromFile();
 }
