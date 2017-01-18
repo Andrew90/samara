@@ -228,7 +228,7 @@ public:
 		TL::foreach<typename Table::items_list, __tab_name__>()((HWND *)&hTab);
 
 		TL::foreach<ButtonsList, __make_btn__>()(&buttons, &__make_btn_data__(offs, height - 65, h));
-		((TabControl *)GetWindowLong(h, GWLP_USERDATA))->Show(true);
+		((TabControl *)GetWindowLongPtr(h, GWLP_USERDATA))->Show(true);
 	}
 	void Command(TMessage &h)
 	{
@@ -240,13 +240,13 @@ public:
 		{
 		case TCN_SELCHANGING:
 			{
-				((TabControl *)GetWindowLong(l.hwnd, GWLP_USERDATA))->Show(false);
+				((TabControl *)GetWindowLongPtr(l.hwnd, GWLP_USERDATA))->Show(false);
 			}
 			break;
 
 		case TCN_SELCHANGE:
 			{ 
-				((TabControl *)GetWindowLong(l.hwnd, GWLP_USERDATA))->Show(true);
+				((TabControl *)GetWindowLongPtr(l.hwnd, GWLP_USERDATA))->Show(true);
 			} 
 			break;
 		}		
@@ -257,12 +257,12 @@ public:
 		{
 		case WM_COMMAND:
 			{
-				((TabControl *)GetWindowLong(h, GWLP_USERDATA))->Command((TMessage &)h);
+				((TabControl *)GetWindowLongPtr(h, GWLP_USERDATA))->Command((TMessage &)h);
 			}
 			return TRUE;
 		case WM_INITDIALOG:
 			{	
-				SetWindowLong(h, GWLP_USERDATA, lParam);
+				SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 				((TabControl *)lParam)->Init(h);				
 			}
 			return TRUE;

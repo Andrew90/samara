@@ -34,9 +34,9 @@ void IOportsDlg::Do(HWND h)
 			);
 		ShowWindow(h, SW_SHOWNORMAL);
 		SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-		DWORD dwStyle = GetWindowLong(h, GWL_STYLE);
+		DWORD dwStyle = GetWindowLongPtr(h, GWL_STYLE);
 		dwStyle &= ~(WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
-		SetWindowLong(h, GWL_STYLE, dwStyle);
+		SetWindowLongPtr(h, GWL_STYLE, dwStyle);
 	}
 }
 

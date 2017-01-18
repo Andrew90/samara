@@ -86,7 +86,7 @@ template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkBtn
 	{
 	case WM_COMMAND:
 		{
-			TemplDialog *e = (TemplDialog *)GetWindowLong(h, GWLP_USERDATA);	
+			TemplDialog *e = (TemplDialog *)GetWindowLongPtr(h, GWLP_USERDATA);	
 			if(!TL::find<ButtonsList, __command__>()(&e->buttons
 				, &__command_data__(h, wParam, *e))
 				) return TRUE;
@@ -234,7 +234,7 @@ template<class BaseParam, class TableParam, class List, class ButtonsList = TL::
 	{
 	case WM_COMMAND:
 		{
-			TemplDialogList *e = (TemplDialogList *)GetWindowLong(h, GWLP_USERDATA);	
+			TemplDialogList *e = (TemplDialogList *)GetWindowLongPtr(h, GWLP_USERDATA);	
 			if(!TL::find<ButtonsList, __command__>()(&e->buttons
 				, &__command_data__(h, wParam, *e))
 				) return TRUE;
