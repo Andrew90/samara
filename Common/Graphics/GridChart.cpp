@@ -62,7 +62,7 @@ void LeftAxesGrid::Draw()
 	{
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
 		_itow((int)digit, wbuf, 10);
-		len = wcslen(wbuf);
+		len = (int)wcslen(wbuf);
 		chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
 		origin.Y = REAL(offs  - deltaTick);
 		chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
@@ -130,9 +130,9 @@ void BottomAxesGrid::Draw()
 		chart.g->DrawLine(&pen, int(offs), y, int(offs), y + 7);
 		_itow((int)digit, wbuf, 10);
 		size_t len = wcslen(wbuf);
-		chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
+		chart.g->MeasureString(wbuf, (int)len, &font, origin, &format, &rect);
 		origin.X = (REAL)(offs + (deltaTick - rect.Width) / 2);
-		chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
+		chart.g->DrawString(wbuf, (int)len, &font, origin, &fontColor);
 
         offs += deltaTick;
         digit += deltaDigit;

@@ -20,7 +20,8 @@ struct __ColorLabel__
 {
 	struct TData
 	{
-		int x, y, color;
+		__int64 x, y;
+		int color;
 	};
 	Graphics &g;
 	wchar_t *buf;
@@ -118,7 +119,7 @@ struct __ColorLabel__
 		labelRect.Y = (REAL)top;
 		for(int i = 0; i <= offs; ++i)
 		{
-			int len = point[i].y - point[i].x;
+			int len = int(point[i].y - point[i].x);
 			if(len > 0)
 			{
 				Color fc(Change(point[i].color));

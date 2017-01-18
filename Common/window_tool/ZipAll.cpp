@@ -14,7 +14,7 @@ namespace Zip
 		WIN32_FIND_DATA fd; 
 		ProgrammDir pd;
 		wchar_t *path = pd.Get();
-		int len = wcslen(path);
+		int len = (int)wcslen(path);
 		wcscat(path, L"\\..\\Stored\\*.dat");
 		HANDLE hFindFile = FindFirstFile(path, &fd); 
 		PROCESS_INFORMATION pi = {};

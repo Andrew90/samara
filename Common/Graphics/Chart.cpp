@@ -93,14 +93,14 @@ int Chart::GetCountDigit(double min, double max, double &height, Font &font, int
 	char buf[32];
 	wchar_t wbuf[32];
 	gcvt(min, 3, buf);
-	len = strlen(buf);
+	len = (int)strlen(buf);
 	mbstowcs(wbuf, buf, 32);
-	g->MeasureString(wbuf, wcslen(wbuf), &font, origin, &format, &rect);
+	g->MeasureString(wbuf, (int)wcslen(wbuf), &font, origin, &format, &rect);
 	int mn = (int)rect.Width; 
 	gcvt(max, 3, buf);
-	int lenMax = strlen(buf);
+	int lenMax = (int)strlen(buf);
 	mbstowcs(wbuf, buf, 32);
-	g->MeasureString(wbuf, wcslen(wbuf), &font, origin, &format, &rect);
+	g->MeasureString(wbuf, (int)wcslen(wbuf), &font, origin, &format, &rect);
 	int mx = (int)rect.Width; 
 	height = rect.Height;
 	if(len < lenMax) len = lenMax;
@@ -167,7 +167,7 @@ void LeftAxes::Draw()
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
-		len = wcslen(wbuf);
+		len = (int)wcslen(wbuf);
 		if(len <= maxLen)
 		{
 			chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
@@ -242,9 +242,9 @@ void BottomAxes::Draw()
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
 		size_t len = wcslen(wbuf);
-		chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
+		chart.g->MeasureString(wbuf, (int)len, &font, origin, &format, &rect);
 		origin.X = (REAL)offs;
-		chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
+		chart.g->DrawString(wbuf, (int)len, &font, origin, &fontColor);
 
         offs += deltaTick;
         digit += deltaDigit;
@@ -330,9 +330,9 @@ void BottomAxesMeters::Draw()
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
 		size_t len = wcslen(wbuf);
-		chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
+		chart.g->MeasureString(wbuf, (int)len, &font, origin, &format, &rect);
 		origin.X = REAL(offs + (deltaTick - rect.Width) / 2);
-		chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
+		chart.g->DrawString(wbuf, (int)len, &font, origin, &fontColor);
 
         offs += deltaTick;
         digit += deltaDigit;
@@ -418,9 +418,9 @@ void BottomAxesInt::Draw()
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
 		size_t len = wcslen(wbuf);
-		chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
+		chart.g->MeasureString(wbuf, (int)len, &font, origin, &format, &rect);
 		origin.X = (REAL)offs;
-		chart.g->DrawString(wbuf, len, &font, origin, &fontColor);
+		chart.g->DrawString(wbuf, (int)len, &font, origin, &fontColor);
 
         offs += deltaTick;
         digit += deltaDigit;

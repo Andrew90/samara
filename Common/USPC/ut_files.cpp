@@ -103,7 +103,7 @@ bool GetUsFileParam(double &value, int board, int sensor, wchar_t *name, wchar_t
 		if(ok)
 		{
 			ok = false;
-			int n = wcslen(name);
+			int n = (int)wcslen(name);
 			while(res = fgetws(buf, dimention_of(buf), f))
 			{
 				int k = 0;

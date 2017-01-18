@@ -15,7 +15,7 @@ bool TestWindowRect(RECT &inp)
 void GetPath(wchar_t (&path)[1024])
 {
 	GetModuleFileName(0, path, dimention_of(path));
-	int len = wcslen(path);
+	int len = (int)wcslen(path);
 	wcscpy(&path[len - 3], L"ini");
 }
 }

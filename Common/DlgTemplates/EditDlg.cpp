@@ -48,7 +48,7 @@ LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			EditDlg *e = (EditDlg *)lParam;			
 			e->hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
@@ -136,7 +136,7 @@ LRESULT CALLBACK EditDlgMultiLines::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			EditDlgMultiLines *e = (EditDlgMultiLines *)lParam;
 			int dy = 10;
 			for(int i = 0; i < e->count; ++i)
@@ -192,7 +192,7 @@ EditDlgComboBox::EditDlgComboBox(HWND hWnd
 }
 wchar_t *GetText(HWND h, wchar_t *b)
 {
-	int i = SendMessage(h, LB_GETCURSEL, 0, 0);
+	LRESULT i = SendMessage(h, LB_GETCURSEL, 0, 0);
 	if(LB_ERR != i)
 	{
 		SendMessage(h, LB_GETTEXT, i, (LPARAM)b);
@@ -236,7 +236,7 @@ LRESULT CALLBACK EditDlgComboBox::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM l
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			EditDlgComboBox *e = (EditDlgComboBox *)lParam;
 			e->hEdit = CreateWindow(L"listbox", NULL
 				,  WS_VISIBLE | WS_CHILD | LBS_NOTIFY | WS_VSCROLL | WS_BORDER
@@ -309,7 +309,7 @@ LRESULT CALLBACK UpDownDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			UpDownDlg *e = (UpDownDlg *)lParam;
 			
 			e->hwndUpDown = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf

@@ -165,7 +165,7 @@ void FixedLeftAxes::Draw()
 	{
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
 		_itow((int)digit, wbuf, 10);
-		len = wcslen(wbuf) + 1;
+		len = (int)wcslen(wbuf) + 1;
 		if(len <= maxLen)
 		{
 			chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
@@ -238,7 +238,7 @@ void NoOffsetLeftAxes::Draw()
 		chart.g->DrawLine(&pen, (REAL)x - 5, (REAL)offs, (REAL)x, (REAL)offs);
 		gcvt(digit, 5, buf);
 		mbstowcs(wbuf, buf, 32);
-		len = wcslen(wbuf) + 1;
+		len = (int)wcslen(wbuf) + 1;
 		if(len <= maxLen)
 		{
 			chart.g->MeasureString(wbuf, len, &font, origin, &format, &rect);
