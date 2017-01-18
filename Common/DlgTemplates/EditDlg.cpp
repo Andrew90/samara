@@ -31,14 +31,14 @@ LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 		case IDOK:
 			{
-				EditDlg *e = (EditDlg *)GetWindowLong(h, GWL_USERDATA);
+				EditDlg *e = (EditDlg *)GetWindowLong(h, GWLP_USERDATA);
 				GetWindowText(e->hEdit, e->buf, dimention_of(e->buf));
 				if((*e->OkBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
 			return TRUE;
 		case IDCANCEL: 
 			{
-				EditDlg *e = (EditDlg *)GetWindowLong(h, GWL_USERDATA);
+				EditDlg *e = (EditDlg *)GetWindowLong(h, GWLP_USERDATA);
 				GetWindowText(e->hEdit, e->buf, dimention_of(e->buf));
 				if((*e->CancelBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
@@ -48,7 +48,7 @@ LRESULT CALLBACK EditDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLong(h, GWLP_USERDATA, lParam);
 			EditDlg *e = (EditDlg *)lParam;			
 			e->hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP
@@ -119,14 +119,14 @@ LRESULT CALLBACK EditDlgMultiLines::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM
 		{
 		case IDOK:
 			{
-				EditDlgMultiLines *e = (EditDlgMultiLines *)GetWindowLong(h, GWL_USERDATA);
+				EditDlgMultiLines *e = (EditDlgMultiLines *)GetWindowLong(h, GWLP_USERDATA);
 				for(int i = 0; i < e->count; ++i) GetWindowText(e->hEdit[i], e->buf[i], 128);
 				if((*e->OkBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
 			return TRUE;
 		case IDCANCEL: 
 			{
-				EditDlgMultiLines *e = (EditDlgMultiLines *)GetWindowLong(h, GWL_USERDATA);
+				EditDlgMultiLines *e = (EditDlgMultiLines *)GetWindowLong(h, GWLP_USERDATA);
 				for(int i = 0; i < e->count; ++i) GetWindowText(e->hEdit[i], e->buf[i], 128);
 				if((*e->CancelBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
@@ -136,7 +136,7 @@ LRESULT CALLBACK EditDlgMultiLines::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLong(h, GWLP_USERDATA, lParam);
 			EditDlgMultiLines *e = (EditDlgMultiLines *)lParam;
 			int dy = 10;
 			for(int i = 0; i < e->count; ++i)
@@ -210,13 +210,13 @@ LRESULT CALLBACK EditDlgComboBox::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM l
 		{
 		case IDOK:
 			{
-				EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWL_USERDATA);
+				EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWLP_USERDATA);
 				if(GetText(e->hEdit, e->buf) && e->handlers.OkBtn(e->buf))EndDialog(h, TRUE);
 			}
 			return TRUE;
 		case IDCANCEL: 
 			{
-				EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWL_USERDATA);
+				EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWLP_USERDATA);
 				if(e->handlers.CancelBtn())EndDialog(h, FALSE);
 			}
 			return TRUE;
@@ -225,7 +225,7 @@ LRESULT CALLBACK EditDlgComboBox::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM l
 			{
 			case LBN_DBLCLK:
 				{
-					EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWL_USERDATA);
+					EditDlgComboBox *e = (EditDlgComboBox *)GetWindowLong(h, GWLP_USERDATA);
 					if(GetText(e->hEdit, e->buf) && e->handlers.OkBtn(e->buf))EndDialog(h, TRUE);
 				}
 				return 0;
@@ -236,7 +236,7 @@ LRESULT CALLBACK EditDlgComboBox::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM l
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLong(h, GWLP_USERDATA, lParam);
 			EditDlgComboBox *e = (EditDlgComboBox *)lParam;
 			e->hEdit = CreateWindow(L"listbox", NULL
 				,  WS_VISIBLE | WS_CHILD | LBS_NOTIFY | WS_VSCROLL | WS_BORDER
@@ -292,14 +292,14 @@ LRESULT CALLBACK UpDownDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 		case IDOK:
 			{
-				UpDownDlg *e = (UpDownDlg *)GetWindowLong(h, GWL_USERDATA);
+				UpDownDlg *e = (UpDownDlg *)GetWindowLong(h, GWLP_USERDATA);
 				GetWindowText(e->hwndUpDown, e->buf, dimention_of(e->buf));
 				if((*e->OkBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
 			return TRUE;
 		case IDCANCEL: 
 			{
-				UpDownDlg *e = (UpDownDlg *)GetWindowLong(h, GWL_USERDATA);
+				UpDownDlg *e = (UpDownDlg *)GetWindowLong(h, GWLP_USERDATA);
 				GetWindowText(e->hwndUpDown, e->buf, dimention_of(e->buf));
 				if((*e->CancelBtn)(h, e->buf))EndDialog(h, TRUE);
 			}
@@ -309,7 +309,7 @@ LRESULT CALLBACK UpDownDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLong(h, GWLP_USERDATA, lParam);
 			UpDownDlg *e = (UpDownDlg *)lParam;
 			
 			e->hwndUpDown = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", e->buf

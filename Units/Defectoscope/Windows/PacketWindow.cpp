@@ -159,7 +159,7 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 	{
 	case WM_COMMAND:
 		{
-			PacketWindow *e = (PacketWindow *)GetWindowLong(h, GWL_USERDATA);	
+			PacketWindow *e = (PacketWindow *)GetWindowLong(h, GWLP_USERDATA);	
 			switch(wParam)
 			{
 			case ID_OK:
@@ -178,7 +178,7 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 		break;
 	case WM_INITDIALOG:
 		{			
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			PacketWindow *e = (PacketWindow *)lParam;
 			
 			__init_item_data__ d(e, h);

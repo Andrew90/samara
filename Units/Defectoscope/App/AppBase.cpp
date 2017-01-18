@@ -75,7 +75,7 @@ void AppBase::Init()
 const wchar_t *ParametersBase::name()
 {
 	GetModuleFileName(0, path, dimention_of(path));
-	int len = wcslen(path);
+	int len = (int)wcslen(path);
 	path[len - 4] = 0;
 	return path;
 }
@@ -83,7 +83,7 @@ const wchar_t *ParametersBase::name()
 void TrimTypeList(wchar_t *buf, wchar_t *s)
 {
 	wchar_t *res = buf;
-	int len = wcslen(s);
+	int len = (int)wcslen(s);
 	for(int i = 0; i < len; ++i)
 	{
 		if(isalnum(s[i])) *res++ = s[i];

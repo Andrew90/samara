@@ -44,6 +44,6 @@ public:
 	void Size(int, int, int, int);
 	void Create(TCreate &, GridHandlers *);
 	LRESULT Notify(TNotify &);
-	static unsigned OwnerNotify(TNotify &);
+	static LRESULT OwnerNotify(TNotify &);
 };
 

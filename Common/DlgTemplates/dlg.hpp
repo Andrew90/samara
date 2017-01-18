@@ -59,7 +59,7 @@ template<class items_list>struct Dlg
 			{
 			case IDOK:
 				{
-					Dlg *e = (Dlg *)GetWindowLong(h, GWL_USERDATA);
+					Dlg *e = (Dlg *)GetWindowLong(h, GWLP_USERDATA);
 					if(TL::find<items_list, Test>()(e->factory, e))
 					{
 						TL::foreach<items_list, Ok>()(e->factory, e);
@@ -73,7 +73,7 @@ template<class items_list>struct Dlg
 			break;
 		case WM_INITDIALOG:
 			{
-				SetWindowLong(h, GWL_USERDATA, lParam);
+				SetWindowLong(h, GWLP_USERDATA, lParam);
 				Dlg *e = (Dlg *)lParam;
 				e->hDlg = h;
 				TL::foreach<items_list, Init>()(e->factory, e);

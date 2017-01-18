@@ -9,7 +9,7 @@
 struct TCellColor
 {
 	static const unsigned mess = NM_CUSTOMDRAW;
-	int col, row;
+	DWORD_PTR col, row;
 	COLORREF &textColor, &bkColor;
 	TCellColor(TNotify &m)
 		: col(((NMLVCUSTOMDRAW *)m.pnmh)->iSubItem)

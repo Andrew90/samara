@@ -191,7 +191,7 @@ template<int NUM>struct Wchar_from<double, NUM>
 	{
 		char c[128];
 		_gcvt_s(c, 64, data, NUM);
-		int len = strlen(c) - 1;
+		int len = (int)strlen(c) - 1;
 		if('.' == c[len]) c[len] = 0;
 		size_t ConvertedChars;
 		mbstowcs_s(&ConvertedChars, buf, c, 60);

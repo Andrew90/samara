@@ -237,7 +237,7 @@ namespace Stored
 		wchar_t path[1024];
 		GetModuleFileName(0, path, dimention_of(path));
 		PathRemoveFileSpec(path);
-		int len = wcslen(path);
+		int len = (int)wcslen(path);
 		try
 		{
 			StoredBase parameters;

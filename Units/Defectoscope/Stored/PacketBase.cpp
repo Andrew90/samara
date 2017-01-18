@@ -4,7 +4,7 @@
 const wchar_t *PacketBase::name()
 {
 	GetModuleFileName(0, path, dimention_of(path));
-	int len = wcslen(path) - 4;
+	int len = (int)wcslen(path) - 4;
 	wcscpy(&path[len], L"Packet");
 	return path;
 }

@@ -22,7 +22,7 @@ void SetGridHeaderArray(HWND h, HeaderData *header, int count)
 //------------------------------------------------------------------------------------
 GridNotify::~GridNotify()
 {
-	SetWindowLongPtr(hWnd, GWL_USERDATA, 0);
+	SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
 }
 //---------------------------------------------------------------------------------
 void GridNotify::Create(TCreate &m, GridHandlers *h)
@@ -90,7 +90,7 @@ LRESULT GridNotify::Notify(TNotify &m)
 	return DefWindowProc(m.hwnd, WM_NOTIFY, (WPARAM)m.idCtrl, (LPARAM)m.pnmh);
 }
 //---------------------------------------------------------------------------------------------
-unsigned GridNotify::OwnerNotify(TNotify &l)
+LRESULT GridNotify::OwnerNotify(TNotify &l)
 {
 	GridNotify *x = (GridNotify *)GetWindowLongPtr(l.pnmh->hwndFrom, GWLP_USERDATA);
 	if(0 == IsBadReadPtr(x, sizeof(x)))return x->Notify(l);

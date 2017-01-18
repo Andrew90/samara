@@ -60,7 +60,7 @@ namespace FromBase
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
 			AnimationWindow::Prepare();
-			int len = wcslen(__load_path);
+			int len = (int)wcslen(__load_path);
             wcscat(__load_path, L".bz2");
 			bool existZipFile = Zip::UnZipFile2(__load_path);
 			__load_path[len] = '\0';

@@ -1,5 +1,5 @@
 #pragma once
-#define XDEBUG
+#undef XDEBUG
 #ifdef XDEBUG
 #include <windows.h>
 #include <typeinfo> 
