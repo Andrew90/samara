@@ -481,6 +481,7 @@ void Automat::Impl::Do()
 				OUT_BITS(On<oWork>);
 				Log::Mess<LogMess::WaitControl>();
 				if(!USPC::Config()) throw Exception_USPC_ERROR_Proc();
+				compute.CancelOperatorClear();
 				AND_BITS(Ex<ExceptionStopProc>, On<iControl>, Proc<Off<iCycle>>, Proc<Off<iСontrolСircuits>>)(25 * 1000);
 				unsigned startTime = timeGetTime();
 				//сбор данных с ультразвуковых датчиков
@@ -500,8 +501,7 @@ void Automat::Impl::Do()
 				//расчёт данных, вывод на экран
 				unsigned stopTime = timeGetTime();
 				compute.LengthTube(startTime, baseTime, stopTime);
-				Version::RestoreMemory();///< Востанавливает параметры которые могут измениться при загрузке и просмотре
-				compute.CancelOperatorClear();
+				Version::RestoreMemory();///< Востанавливает параметры которые могут измениться при загрузке и просмотре				
 				compute.Recalculation();
 			//	double len = 0.001 * compute.lengthTube;
 				if(compute.tubeResult)
@@ -715,7 +715,6 @@ DWORD WINAPI Test_USPC(LPVOID)
 		USPC::Stop();
 		unsigned stopTime = timeGetTime();
 		compute.LengthTube(startTime, baseTime, stopTime);
-		compute.CancelOperatorClear();
 		compute.Recalculation();
 		device1730.Write(0);
 		AppKeyHandler::Stop();

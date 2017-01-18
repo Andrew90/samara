@@ -37,27 +37,24 @@ namespace Version
 			fread(&o, sizeof(O), 1, p); 
 		}
 	};
-#pragma message ("после отладки удалить")
-	template<class P>struct __load__<ColorTable, P>
-	{
-		typedef ColorTable O;
-		void operator()(P *p)
-		{
-			O o;
-			fread(&o, sizeof(O) - sizeof(Clr<Cancel<Projectionist>>), 1, p); 
-		}
-	};
+//#pragma message ("после отладки удалить")
+//	template<class P>struct __load__<ColorTable, P>
+//	{
+//		typedef ColorTable O;
+//		void operator()(P *p)
+//		{
+//			O o;
+//			fread(&o, sizeof(O) - sizeof(Clr<Cancel<Projectionist>>), 1, p); 
+//		}
+//	};
 #endif
 
 
 	typedef TL::MkTlst<Thickness, Long, Cross>::Result unit_list;
-	//template<class T>
 	struct __unit_data__
 	{
-	//	T proc;
 		FILE *file;
-		__unit_data__(/*T proc,*/ FILE *file)
-			//: proc(proc)
+		__unit_data__( FILE *file)
 			: file(file)
 		{}
 	};
@@ -84,12 +81,45 @@ namespace Version
 	{
 		void operator()(P p)
 		{
-			//ItemData<O> &d = Singleton<ItemData<O>>::Instance();
 			ItemData<O>::TParam param[App::count_sensors]; 
 			fread(param, sizeof(param), 1, p.file);
 		}
 	};
 #endif
+
+	template<class O, class P>struct __cancel_operator_store__
+	{
+		void operator()(P *p)
+		{
+			bool (&b)[App::count_sensors][App::count_zones] = Singleton<ItemData<O>>::Instance().cancelOperatorSensor;
+			unsigned char c[App::count_zones] = {};
+			for(int i = 0; i < App::count_zones; ++i)
+			{
+				for(int j = 0; j < App::count_sensors; ++j)
+				{
+					if(b[j][i]) c[i] |= 1 << j;
+				}
+			}
+			fwrite(c, sizeof(c), 1, p);
+		}
+	};
+
+	template<class O, class P>struct __cancel_operator_load__
+	{
+		void operator()(P *p)
+		{
+			bool (&b)[App::count_sensors][App::count_zones] = Singleton<ItemData<O>>::Instance().cancelOperatorSensor;
+			unsigned char c[App::count_zones];
+			fread(c, sizeof(c), 1, p);
+			for(int i = 0; i < App::count_zones; ++i)
+			{
+				for(int j = 0; j < App::count_sensors; ++j)
+				{
+					b[j][i] = 0 != ((1 << j) & c[i]);
+				}
+			}			
+		}
+	};
 
 	void SaveToFile(FILE *f)
 	{
@@ -97,6 +127,7 @@ namespace Version
 		fwrite(&t, sizeof(unsigned), 1, f);
 		TL::foreach<ParametersBase::type_list, __store__>()(f);
 		TL::foreach<unit_list, __unit_store__>()(__unit_data__(f));
+		TL::foreach<unit_list, __cancel_operator_store__>()(f);
 	}
 
 	class USPCIniFile
@@ -123,6 +154,7 @@ namespace Version
 				{
 					TL::foreach<ParametersBase::type_list, __load__>()(f);
 					TL::foreach<unit_list, __unit_load__>()(__unit_data__(f));
+					TL::foreach<unit_list, __cancel_operator_load__>()(f);
 				}
 				return true;
 			case 5:
