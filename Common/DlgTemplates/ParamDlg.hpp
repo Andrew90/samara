@@ -352,7 +352,7 @@ template<class T, int edit_width = 140>struct EditItems
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
-		SetWindowLong(hWnd, GWLP_USERDATA, (LONG)q);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)q);
 		dy += 25;
 		return hWnd;
 	}
@@ -370,7 +370,7 @@ template<class T, int edit_width = 140>struct EditReadOnlyItems
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, dlg_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
-		SetWindowLong(hWnd, GWLP_USERDATA, h);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, h);
 		dy += 25;
 		return hWnd;
 	}
@@ -451,7 +451,7 @@ template<class T>struct ComboBoxSubItem
 			, WS_VISIBLE | WS_CHILD
 			, 140 + 20, dy + 3, dlg_width, 20, h, 0,  (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
-		SetWindowLong(hWnd, GWLP_USERDATA, (LONG)hh);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)hh);
 		dy += 25;		
 		if(width < dlg_width) width = dlg_width;
 		FillComboboxList<T>()(hWnd, t);
@@ -472,7 +472,7 @@ template<class T>struct ComboEditSubItem
 			, WS_VISIBLE | WS_CHILD
 			, width_item + 20, dy + 3, dlg_width, 20, h, 0,  (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
-		SetWindowLong(hWnd, GWLP_USERDATA, h);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, h);
 		dy += 125;		
 		if(width < dlg_width) width = dlg_width;
 		FillComboboxList<T>()(hWnd, t);
@@ -494,12 +494,12 @@ template<class T,  int min = 0, int max = 31, int edit_width = 60>struct UpDownS
 			UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_WRAP | WS_CHILD | WS_VISIBLE, 
 			0, 0, 0, 0,
 			h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL);
-	    SetWindowLong(hWnd, GWLP_USERDATA, (LONG)hUpdown);
+	    SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)hUpdown);
 		HWND hh = CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, edit_width + 20, dy + 3, width - edit_width - 20, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL
 			);
-		SetWindowLong(hUpdown, GWLP_USERDATA, (LONG)hh);
+		SetWindowLongPtr(hUpdown, GWLP_USERDATA, (LONG)hh);
 		SendMessage(hUpdown, UDM_SETBUDDY, (WPARAM)hWnd, 0);
 		SendMessage(hUpdown, UDM_SETRANGE, 0, (LPARAM) MAKELONG((short)max, (short)min));
 		dy += 25;
@@ -519,7 +519,7 @@ struct ShowItem
 	void operator()(HWND h, bool b)
 	{
 		ShowWindow(h, b ? SW_SHOW : SW_HIDE);
-		while(0 != (h = (HWND)GetWindowLong(h, GWLP_USERDATA)))
+		while(0 != (h = (HWND)GetWindowLongPtr(h, GWLP_USERDATA)))
 		{
 			ShowWindow(h, b ? SW_SHOW : SW_HIDE);
 		}

@@ -118,7 +118,7 @@ struct TCommand
 	UINT uMsg;
 	WORD id;
 	WORD isAcselerator;
-	//NOUSED(DWORD)
+	NOUSED(DWORD)
 	HWND hControl;
 };
 struct TNotify

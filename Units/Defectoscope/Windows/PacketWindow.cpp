@@ -57,9 +57,9 @@ namespace
 				Window *x = (Window *)GetWindowLongPtr(hh, GWLP_USERDATA);
 				x->hResult = p->e->hItems[p->id];
 				SetWindowPos(hh, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-				DWORD dwStyle = GetWindowLong(hh, GWL_STYLE);
+				LONG_PTR dwStyle = GetWindowLongPtr(hh, GWL_STYLE);
 				dwStyle &= ~(WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
-				SetWindowLong(hh, GWL_STYLE, dwStyle);
+				SetWindowLongPtr(hh, GWL_STYLE, dwStyle);
 				return false;
 			}
 			return true;
@@ -159,7 +159,7 @@ LRESULT CALLBACK PacketWindow::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPar
 	{
 	case WM_COMMAND:
 		{
-			PacketWindow *e = (PacketWindow *)GetWindowLong(h, GWLP_USERDATA);	
+			PacketWindow *e = (PacketWindow *)GetWindowLongPtr(h, GWLP_USERDATA);	
 			switch(wParam)
 			{
 			case ID_OK:

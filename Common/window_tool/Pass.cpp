@@ -57,7 +57,7 @@ LRESULT CALLBACK PasswordDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPara
 			{
 				INT_PTR ret = FALSE;
 				wchar_t buf[256];
-				PasswordDlg *e = (PasswordDlg *)GetWindowLong(h, GWLP_USERDATA);
+				PasswordDlg *e = (PasswordDlg *)GetWindowLongPtr(h, GWLP_USERDATA);
 				GetWindowText(e->hEdit, buf, 256);
 				if(0 == wcscmp(buf, e->pass))
 				{

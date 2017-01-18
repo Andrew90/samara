@@ -29,7 +29,7 @@ namespace Common
 {
 	template<class T>void __set_param__(HWND h)
 	{
-		T &t = *(T *)GetWindowLong(h, GWLP_USERDATA);
+		T &t = *(T *)GetWindowLongPtr(h, GWLP_USERDATA);
 		typedef typename T::viewers_list::Head TViewer;
 		typedef typename TL::Inner<TViewer>::Result TMainViewer;
 		TViewer &viewer = t.viewers.get<TViewer>();

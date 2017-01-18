@@ -43,7 +43,7 @@ template<class T>struct __color__
 		{
 		case WM_PAINT:
 			{
-				T *t = (T *)GetWindowLong(hwnd, GWLP_USERDATA);
+				T *t = (T *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 				if(t)
 				{
 					__color_wm_paint(hwnd, t->value);
@@ -53,7 +53,7 @@ template<class T>struct __color__
 		case WM_LBUTTONDBLCLK:
 		case WM_LBUTTONDOWN:
 			{
-				T *t = (T *)GetWindowLong(hwnd, GWLP_USERDATA);
+				T *t = (T *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 				if(t)
 				{
 			    t->value = __color_l_button_down(hwnd);
