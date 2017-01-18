@@ -2,6 +2,11 @@
 #include <windows.h>
 #include <windowsx.h>
 //---------------------------------------------------------------------------
+#ifdef  _M_X64
+#define NOUSED(type) type noused;
+#else
+#define NOUSED(type)
+#endif
 #pragma pack(2)
 struct TMessage
 {
@@ -57,13 +62,13 @@ struct TPaint
 
 struct TActivate
 {
-  HWND hwnd;
-  UINT uMsg;
-  WORD fActive;
-  WORD fMinimized;
-  HWND hwndPrevious;
+	HWND hwnd;
+	UINT uMsg;
+	WORD fActive;
+	WORD fMinimized;
+	NOUSED(DWORD)
+	HWND hwndPrevious;
 };
-
 struct TSysKeyDown
 {
   HWND hwnd; UINT uMsg; WPARAM VirtKey; LPARAM KeyData;
@@ -113,13 +118,14 @@ struct TCommand
 	UINT uMsg;
 	WORD id;
 	WORD isAcselerator;
+	//NOUSED(DWORD)
 	HWND hControl;
 };
 struct TNotify
 {
   HWND hwnd;
   UINT message;
-  int idCtrl; 
+  WPARAM idCtrl; 
   LPNMHDR pnmh;
 };
 struct TUser
@@ -206,6 +212,7 @@ struct TMouseWell
 		WORD xButton2:1;
 	} flags;
 	short delta;
+	NOUSED(DWORD)
 	WORD x;
 	WORD y;
 };

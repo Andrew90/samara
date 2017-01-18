@@ -6,7 +6,7 @@ bool IsProcessRun( wchar_t *processName )
 {
 	HANDLE hSnapshot = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 );
 
-	int len = wcslen(processName);
+	int len = (int)wcslen(processName);
 	wchar_t *pn = &processName[len - 1];
 	for(int i = 0; i < len && ('\\' != *pn && '/' != *pn); --i, --pn);
 	++pn;
@@ -28,7 +28,7 @@ bool ProcessRun(wchar_t *processName, wchar_t *path)
 	PROCESS_INFORMATION pi;	
 	wchar_t buf[1024];
 	wcscpy(buf, processName);
-	int len = wcslen(buf);
+	int len = (int)wcslen(buf);
 	buf[len] = ' ';
 	wcscpy(&buf[len + 1], path);
 	return 0 != CreateProcess(

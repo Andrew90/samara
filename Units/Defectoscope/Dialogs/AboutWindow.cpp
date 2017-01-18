@@ -26,7 +26,7 @@ LRESULT CALLBACK Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_INITDIALOG:
 		{			
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			int width = 450;
 			int dy = 10;
 

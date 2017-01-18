@@ -76,7 +76,7 @@ LRESULT CALLBACK PasswordDlg::Proc(HWND h, UINT msg, WPARAM wParam, LPARAM lPara
 	case WM_INITDIALOG:
 		{
 			HWND hParent = GetParent(h);
-			SetWindowLong(h, GWLP_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			PasswordDlg *e = (PasswordDlg *)lParam;			
 			e->hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"edit", L""
 				, WS_BORDER | WS_VISIBLE | WS_CHILD | ES_LEFT | WS_TABSTOP | ES_PASSWORD
