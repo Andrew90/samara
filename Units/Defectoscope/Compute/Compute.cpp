@@ -300,25 +300,27 @@ namespace
 			}
 		}
 
-		int buf[3];
-		buf[2] = -1;
+		int buf[4];
+		buf[3] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
-		{			
+		{	
+			bool b = false;
+			for(int channel = 0; channel < App::count_sensors; ++channel) 
+				if(b = d.cancelOperatorSensor[channel][i]) break;
+
 			buf[0] = d.statusMin[i];		
 			buf[1] = d.statusMax[i];
+			buf[2] = b ? StatusId<Clr<Cancel<Projectionist>>>(): StatusId<Clr<Nominal>>();
+
+			//if(b)
+			//{
+			//	dprint("%d %d %d\n", buf[0], buf[1], buf[2]);
+			//}
+
 			int t = 0;
 			SelectMessage(buf, t);
-			bool b = true;
-			if(t == StatusId<Clr<Undefined>>())
-			{
-				int cnt = 0;
-				for(int channel = 0; channel < App::count_sensors; ++channel) if(d.cancelOperatorSensor[channel][i]) ++cnt;
-				b = App::count_sensors != cnt;
-			}
-			d.commonStatus[i] = b ? t: StatusId<Clr<Cancel<Projectionist>>>();
 
-			if(1000 == d.bufferMin[i]) d.bufferMin[i] = maxThickness[i];
-			if(-1 == d.bufferMax[i])   d.bufferMax[i] = maxThickness[i];
+			d.commonStatus[i] = t;
 		}
 	}
 
@@ -602,7 +604,6 @@ Compute compute;
 
 void RecalculationDlg::Do(HWND)
 {
-	compute.CancelOperatorClear();
 	compute.Recalculation();
 }
 namespace

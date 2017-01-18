@@ -28,6 +28,12 @@ typedef TL::MkTlst<
 /*9*/       , Clr<BrakStrobe2<Thickness>>
  , Clr<Cancel<Projectionist>>
 
+
+ /*74*/	, Clr< Nominal, Cancel<Projectionist>>
+/*3*/	, Clr<BorderAbove<Thickness>, Cancel<Projectionist>>
+/*39*/	, Clr<BrakStrobe2<Thickness>, Cancel<Projectionist> >
+
+
 /*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
 
 /*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
@@ -60,6 +66,11 @@ typedef TL::MkTlst<
 /*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
 /*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
 /*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+
+
+
+
+
 
 
 
@@ -428,6 +439,17 @@ COLOR_DATA(Clr<DeathZone>)
 #define BrakStrobe2_Thickness "\"расслоение\""
 
 #define Cancel_Projectionist "\"отмена\""
+
+//Clr<BorderAbove<Thickness>, Cancel<Projectionist>>
+
+STATUS_LABEL_2((BorderAbove, Thickness), (Cancel, Projectionist))
+template<>struct __status_label__<Clr<Nominal, Cancel<Projectionist>>>
+{
+	static const int ID = TL::IndexOf<label_message_list, Clr<Nominal, Cancel<Projectionist>>>::value;
+	static char *text(){return Cancel_Projectionist;}
+};
+
+STATUS_LABEL_2((BrakStrobe2, Thickness), (Cancel, Projectionist))
 
 STATUS_LABEL_1((BorderDefect, Cross))
 STATUS_LABEL_1((BorderDefect, Long))

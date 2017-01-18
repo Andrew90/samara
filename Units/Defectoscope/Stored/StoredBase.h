@@ -178,7 +178,7 @@ struct StoredBase
 	 >::Result type_list;
 	 typedef TL::Factory<type_list> TTables;
 	 TTables tables;
-	 const wchar_t *name(){return L"StoredBase";}
+	 const wchar_t *name(){return L"StoredBase0";}
  };
 
 
