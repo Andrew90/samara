@@ -86,7 +86,7 @@ namespace
 				SetEvent(App::ProgrammRunEvent);
 				AppKeyHandler::Run();
 				AutomatAdditional::SetToBottomLabel();
-				MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+				MainWindow *w = (MainWindow *)GetWindowLong(h, GWLP_USERDATA);
 				SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Повтор");
 			}
 			closed_packet_dialog = true;
@@ -133,7 +133,7 @@ namespace
 	{
 		run_once_per_sycle = false;
 		SetEvent(App::ProgrammStopEvent);
-		MainWindow *w = (MainWindow *)GetWindowLong(h, GWL_USERDATA);
+		MainWindow *w = (MainWindow *)GetWindowLong(h, GWLP_USERDATA);
 		SetToolButtonText(w->toolBar.hWnd, IDB_CycleBtn, L"F4 Цикл");
 		AppKeyHandler::Stop();
 	}

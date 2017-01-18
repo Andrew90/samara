@@ -43,7 +43,7 @@ template<class T>struct __color__
 		{
 		case WM_PAINT:
 			{
-				T *t = (T *)GetWindowLong(hwnd, GWL_USERDATA);
+				T *t = (T *)GetWindowLong(hwnd, GWLP_USERDATA);
 				if(t)
 				{
 					__color_wm_paint(hwnd, t->value);
@@ -53,7 +53,7 @@ template<class T>struct __color__
 		case WM_LBUTTONDBLCLK:
 		case WM_LBUTTONDOWN:
 			{
-				T *t = (T *)GetWindowLong(hwnd, GWL_USERDATA);
+				T *t = (T *)GetWindowLong(hwnd, GWLP_USERDATA);
 				if(t)
 				{
 			    t->value = __color_l_button_down(hwnd);
@@ -76,9 +76,9 @@ template<class T>struct ColorButtonItem
 			, WS_VISIBLE | WS_CHILD | WS_TABSTOP
 			,10, dy, 100, 30, h, (HMENU)0, (HINSTANCE)::GetModuleHandle(NULL), 0
 			);
-		__color__<T>::OldWndProc = (WNDPROC)GetWindowLong(hWnd, GWL_WNDPROC);
-		SetWindowLong(hWnd, GWL_WNDPROC, (long ) __color__<T>::Proc_);
-		SetWindowLong(hWnd, GWL_USERDATA, (long )&t);
+		__color__<T>::OldWndProc = (WNDPROC)GetWindowLongPtr(hWnd, GWLP_WNDPROC);
+		SetWindowLongPtr(hWnd, GWLP_WNDPROC, (long ) __color__<T>::Proc_);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (long )&t);
 		CreateWindow(L"static", ParamTitle<T>()()
 			, WS_VISIBLE | WS_CHILD
 			, 100 + 20, dy + 7, dlg_width, 20, h, 0, (HINSTANCE)::GetModuleHandle(NULL), NULL

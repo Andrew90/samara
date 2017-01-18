@@ -12,13 +12,13 @@ template<class Items>struct DlgTemplate
 			{
 			case IDOK:		
 				{			
-					TSelf *e = (TSelf *)GetWindowLong(h, GWL_USERDATA);
+					TSelf *e = (TSelf *)GetWindowLong(h, GWLP_USERDATA);
 					if(e->items->Ok(h)) EndDialog(h, IDOK);		
 				}						
 				return TRUE;
 			case IDCANCEL: 
 				{
-					TSelf *e = (TSelf *)GetWindowLong(h, GWL_USERDATA);
+					TSelf *e = (TSelf *)GetWindowLong(h, GWLP_USERDATA);
 					e->items->Cancel(h);
 					EndDialog(h, IDCANCEL);
 				}
@@ -27,7 +27,7 @@ template<class Items>struct DlgTemplate
 			break;
 		case WM_INITDIALOG:
 			{				
-                SetWindowLong(h, GWL_USERDATA, lParam);
+                SetWindowLong(h, GWLP_USERDATA, lParam);
 				TSelf *e = (TSelf *)lParam;	
 				
 				int width = 300;

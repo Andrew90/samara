@@ -37,11 +37,11 @@ void LogUSPCWindowGrid::Handlers::operator()(TCellData &l)
 #pragma warning(disable : 4996)
 	if(l.row < 128)
 	{
-		char *s = ((LogUSPCWindow *)GetWindowLong(l.h, GWL_USERDATA))->data[l.row];
+		char *s = ((LogUSPCWindow *)GetWindowLong(l.h, GWLP_USERDATA))->data[l.row];
 		if(0 == s[0]) return;
 		int z = 0;
 		int i = 0;
-		int len = strlen(s);
+		int len = (int)strlen(s);
 		int start = 0;
 		int count = 0;
 		switch(l.col)

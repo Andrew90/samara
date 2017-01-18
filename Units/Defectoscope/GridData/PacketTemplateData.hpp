@@ -91,7 +91,7 @@ template<class Table, class Col>const wchar_t *PacketTemplateData<Table, Col>::C
 
 template<class Table, class Col>unsigned PacketTemplateData<Table, Col>::Count()
 {
-	return data.size();
+	return (unsigned)data.size();
 }
 
 template<class Table, class Col>void PacketTemplateData<Table, Col>::Header(HWND h)

@@ -13,7 +13,7 @@ namespace Common
 		{
 			wchar_t name[256];
 			const char *s = &(typeid(O).name())[6];
-			int len = 1 + strlen(s);
+			int len = int(1 + strlen(s));
 			size_t converted;
 			mbstowcs_s(&converted, name, s, len);
 			o->hWnd = CreateChildWindow(*p, (WNDPROC)&Viewer<O>::Proc, name, o);

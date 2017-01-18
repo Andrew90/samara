@@ -39,9 +39,9 @@ template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkBtn
 	struct __command_data__
 	{
 		HWND hwnd;
-		unsigned id;
+		WPARAM id;
 		TemplDialog &owner;
-		__command_data__(HWND hwnd, unsigned id, TemplDialog &owner)
+		__command_data__(HWND hwnd, WPARAM id, TemplDialog &owner)
 			: hwnd(hwnd)
 			, id(id)
 			, owner(owner)
@@ -86,7 +86,7 @@ template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkBtn
 	{
 	case WM_COMMAND:
 		{
-			TemplDialog *e = (TemplDialog *)GetWindowLong(h, GWL_USERDATA);	
+			TemplDialog *e = (TemplDialog *)GetWindowLong(h, GWLP_USERDATA);	
 			if(!TL::find<ButtonsList, __command__>()(&e->buttons
 				, &__command_data__(h, wParam, *e))
 				) return TRUE;
@@ -94,7 +94,7 @@ template<class BaseParam, class TableParam, class ButtonsList = TL::MkTlst<OkBtn
 		break;
 	case WM_INITDIALOG:
 		{			
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			TemplDialog *e = (TemplDialog *)lParam;
 			int width = 450;
 			int height = 10;
@@ -187,9 +187,9 @@ template<class BaseParam, class TableParam, class List, class ButtonsList = TL::
 	struct __command_data__
 	{
 		HWND hwnd;
-		unsigned id;
+		WPARAM id;
 		TemplDialogList &owner;
-		__command_data__(HWND hwnd, unsigned id, TemplDialogList &owner)
+		__command_data__(HWND hwnd, WPARAM id, TemplDialogList &owner)
 			: hwnd(hwnd)
 			, id(id)
 			, owner(owner)
@@ -234,7 +234,7 @@ template<class BaseParam, class TableParam, class List, class ButtonsList = TL::
 	{
 	case WM_COMMAND:
 		{
-			TemplDialogList *e = (TemplDialogList *)GetWindowLong(h, GWL_USERDATA);	
+			TemplDialogList *e = (TemplDialogList *)GetWindowLong(h, GWLP_USERDATA);	
 			if(!TL::find<ButtonsList, __command__>()(&e->buttons
 				, &__command_data__(h, wParam, *e))
 				) return TRUE;
@@ -242,7 +242,7 @@ template<class BaseParam, class TableParam, class List, class ButtonsList = TL::
 		break;
 	case WM_INITDIALOG:
 		{			
-			SetWindowLong(h, GWL_USERDATA, lParam);
+			SetWindowLongPtr(h, GWLP_USERDATA, lParam);
 			TemplDialogList *e = (TemplDialogList *)lParam;
 			int width = 450;
 			int height = 10;

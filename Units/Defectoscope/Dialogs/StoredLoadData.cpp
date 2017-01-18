@@ -20,7 +20,7 @@ namespace
 		{
 			AnimationWindow::Prepare();
 
-			int offs = wcslen(path) - 4;
+			int offs = (int)wcslen(path) - 4;
 			bool deleteFile = false;
 			if(0 == wcscmp(&path[offs], L".bz2"))
 			{
@@ -46,7 +46,7 @@ namespace
 		static DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter)
 		{
 			AnimationWindow::Prepare();
-			int offs = wcslen(path) - 4;
+			int offs = (int)wcslen(path) - 4;
 			bool archive = 0 == wcscmp(&path[offs], L".bz2");
 			if(archive) path[offs] = '\0';
 			Stored::DataToFile(path);

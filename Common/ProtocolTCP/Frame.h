@@ -9,7 +9,7 @@ struct Frame: OVERLAPPED
 private:
 	struct Additional
 	{
-		char data[12];
+		char data[24];
 	} additional;
 public:
 	int length;
