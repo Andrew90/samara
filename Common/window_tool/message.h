@@ -118,8 +118,15 @@ struct TCommand
 	UINT uMsg;
 	WORD id;
 	WORD isAcselerator;
-	NOUSED(DWORD)
+	NOUSED(DWORD);
 	HWND hControl;
+	TCommand(HWND hwnd, WORD id, WORD isAcselerator, HWND hControl)
+		: hwnd(hwnd)
+		, uMsg (WM_COMMAND)
+		, id  (id)
+		, isAcselerator(isAcselerator)
+		, hControl 	   (hControl)
+	{}
 };
 struct TNotify
 {
