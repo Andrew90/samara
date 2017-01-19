@@ -418,8 +418,6 @@ COLOR_DATA(Clr<DeathZone>)
 
 #define Cancel_Projectionist "\"отмена\""
 
-//Clr<BorderAbove<Thickness>, Cancel<Projectionist>>
-
 STATUS_LABEL_2((BorderAbove, Thickness), (Cancel, Projectionist))
 template<>struct __status_label__<Clr<Nominal, Cancel<Projectionist>>>
 {

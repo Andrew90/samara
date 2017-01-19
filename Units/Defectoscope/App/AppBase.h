@@ -112,10 +112,6 @@ template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullT
 {
 	typedef typename TL::MkTlst<_0, _1, _2, _3, _4, _5>::Result items_list;
 };
-//template<class _0=NullType, class _1=NullType, class _2=NullType, class _3=NullType, class _4=NullType>struct Xlr;
-//{
-//	typedef typename TL::MkTlst<_0, _1, _2, _3>::Result items_list;
-//};
 
 template<class T>struct GetItemsList;
 
@@ -140,7 +136,6 @@ DEFINE_WAPPER(Clr<BorderKlass2<Long>      >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Long>      >, int, 0xffff0000)
 DEFINE_WAPPER(Clr<BorderKlass2<Cross>     >, int, 0xffffff00)
 DEFINE_WAPPER(Clr<BorderDefect<Cross>     >, int, 0xffff0000)
-//DEFINE_WAPPER(JOIN2(Clr<BorderLower<Thickness>, BorderAbove<Thickness>>), int, 0xffff0000)
 DEFINE_WAPPER( Clr<BrakStrobe2<Thickness>>, int, 0xffff8000)
 DEFINE_WAPPER( Clr<Cancel<Projectionist>>, int, 0xff56ff32)
 #undef	JOIN2
@@ -176,25 +171,11 @@ template<class T>struct Stat
 	static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
 };
 //-------------------------------------------------------------------------------------- 
-//DEFINE_PARAM(SupplySensorDelay, int, 150)
-//DEFINE_PARAM(RemoveSensorDelay, int,  150)
-//DEFINE_PARAM(FrequencyFrames, int,  100)
-
 DEFINE_PARAM(ReferenceOffset1, unsigned, 4835)
-//DEFINE_PARAM(ReferenceOffset2, unsigned, 4600)
-//
-//DEFINE_PARAM(ReferenceOffset3, unsigned, 1260)
-//DEFINE_PARAM(ReferenceOffset4, unsigned, 3030)
 struct AdditionalSettingsTable
 {
 	typedef TL::MkTlst<	
 		ReferenceOffset1
-		//, ReferenceOffset2
-		//, ReferenceOffset3
-		//, ReferenceOffset4
-		//, SupplySensorDelay
-		//, RemoveSensorDelay
-		//, FrequencyFrames
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
