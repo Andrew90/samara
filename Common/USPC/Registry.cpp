@@ -49,9 +49,9 @@ RegistryPathUTFile::~RegistryPathUTFile()
 }
 wchar_t *RegistryPathUTFile::operator()()
 {
-//#ifdef DEBUG_ITEMS
-//	wcscpy(buffer, L"e:\\uspc7100\\files\\UT");
-//#endif
+#ifdef DEBUG_ITEMS
+	wcscpy(buffer, L"d:\\uspc7100\\files\\UT");
+#endif
 	return buffer;
 }
 //-----------------------------------
