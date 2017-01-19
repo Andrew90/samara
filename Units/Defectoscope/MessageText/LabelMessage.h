@@ -15,192 +15,170 @@ typedef TL::MkTlst<
 /*9*/       , Clr<BrakStrobe2<Thickness>>
 /*10*/      , Clr<Cancel<Projectionist>>
 >::Result __first_color_list__;
+
 typedef TL::MkTlst<	
-/*0*/		Clr<Undefined   >
-/*1*/		, Clr<DeathZone>
-/*2*/		, Clr<Nominal	>
-/*3*/	    , Clr<BorderAbove<Thickness> >
-/*4*/	    , Clr<BorderLower<Thickness> >
-/*5*/	    , Clr<BorderKlass2<Long> > 
-/*6*/	    , Clr<BorderDefect<Long> >
-/*7*/	    , Clr<BorderKlass2<Cross>>
-/*8*/	    , Clr<BorderDefect<Cross>>
-/*9*/       , Clr<BrakStrobe2<Thickness>>
- , Clr<Cancel<Projectionist>>
+	/*0*/		Clr<Undefined   >
+	/*1*/		, Clr<DeathZone>
+	/*2*/		, Clr<Nominal	>
+	/*3*/	    , Clr<BorderAbove<Thickness> >
+	/*4*/	    , Clr<BorderLower<Thickness> >
+	/*5*/	    , Clr<BorderKlass2<Long> > 
+	/*6*/	    , Clr<BorderDefect<Long> >
+	/*7*/	    , Clr<BorderKlass2<Cross>>
+	/*8*/	    , Clr<BorderDefect<Cross>>
+	/*9*/       , Clr<BrakStrobe2<Thickness>>
 
+	/*10*/  , Clr<Cancel<Projectionist>>
+	/*11*/	, Clr< Nominal, Cancel<Projectionist>>
+	/*12*/	, Clr<BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*13*/	, Clr<BrakStrobe2<Thickness>, Cancel<Projectionist> >
+	/*14*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*15*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
+	/*16*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
+	/*17*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*18*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
+	/*19*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
 
- /*74*/	, Clr< Nominal, Cancel<Projectionist>>
-/*3*/	, Clr<BorderAbove<Thickness>, Cancel<Projectionist>>
-/*39*/	, Clr<BrakStrobe2<Thickness>, Cancel<Projectionist> >
+	/*20*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*21*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
+	/*22*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+	/*23*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+	/*24*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*25*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
+	/*26*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>>
+	/*27*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
+	/*28*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
+	/*29*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>>
 
+	/*30*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
+	/*31*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
+	/*32*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+	/*33*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
+	/*34*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+	/*35*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
+	/*36*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+	/*37*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+	/*38*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*39*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
 
-/*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*40*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
+	/*41*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+	/*42*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+	/*43*/	, Clr<BorderLower<Thickness>, Cancel<Projectionist> >
+	/*44*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*45*/	, Clr<BorderKlass2<Long> , Cancel<Projectionist>> 
+	/*46*/	, Clr<BorderDefect<Long> , Cancel<Projectionist>>
+	/*47*/	, Clr<BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*48*/	, Clr<BorderDefect<Cross>, Cancel<Projectionist>>		
+	/*49*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
 
-/*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-/*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-/*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-/*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-/*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-/*18*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-/*19*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-/*20*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*50*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
+	/*51*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*52*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*53*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
+	/*54*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*55*/	, Clr<BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
+	/*56*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*57*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
+	/*58*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*59*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
 
-/*21*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*22*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>>
-/*23*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
-/*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-/*25*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>>
-/*26*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
-/*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-/*28*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*29*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
-/*30*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+	/*60*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*61*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*62*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*63*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*64*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*65*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*66*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*67*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
+	/*68*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*69*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
 
-/*31*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-/*32*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*33*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-/*34*/  , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*35*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-/*36*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-/*37*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-/*38*/  , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+	/*70*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*71*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
+	/*72*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*73*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*74*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*75*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
+	/*76*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
+	/*77*/	, Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >
+	/*78*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >
+	/*79*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>>
 
+	/*80*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> > 
+	/*81*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> >
+	/*82*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>>
+	/*83*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>>
+	/*84*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>>
+	/*85*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>>
+	/*86*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*87*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>>
+	/*88*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>>
+	/*89*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
 
+	/*90*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long> >
+	/*91*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
+	/*92*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
+	/*93*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*94*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>>
+	/*95*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>>
+	/*96*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
+	/*97*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>>
+	/*98*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>>
+	/*99*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
 
+	/*100*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long> >
+	/*101*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
+	/*102*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
+	/*103*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
+	/*104*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long> >
+	/*105*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
+	/*106*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
+	/*107*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
+	/*108*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross> >
+	/*109*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>> 
 
+	/*110*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
+	/*111*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
+	/*112*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, Cancel<Projectionist> >
+	/*113*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*114*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> , Cancel<Projectionist>> 
+	/*115*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> , Cancel<Projectionist>>
+	/*116*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*117*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, Cancel<Projectionist>>
+	/*118*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*119*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
 
+	/*120*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*121*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*122*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
+	/*123*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*124*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
+	/*125*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*126*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
+	/*127*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*128*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*129*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
 
+	/*130*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*131*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*132*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*133*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*134*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*135*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*136*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
+	/*137*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*138*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
+	/*139*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
 
-
-/*74*/	, Clr<BorderLower<Thickness>, Cancel<Projectionist> >
-/*75*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*76*/	, Clr<BorderKlass2<Long> , Cancel<Projectionist>> 
-/*77*/	, Clr<BorderDefect<Long> , Cancel<Projectionist>>
-/*78*/	, Clr<BorderKlass2<Cross>, Cancel<Projectionist>>
-/*79*/	, Clr<BorderDefect<Cross>, Cancel<Projectionist>>
-//			
-/*80*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*81*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
-/*82*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-
-/*83*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*84*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
-/*85*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*86*/	, Clr<BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
-/*87*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*88*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
-/*89*/  , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-			
-/*90*/  , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*91*/	, Clr<BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*92*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*93*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*94*/	, Clr<BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
-
-/*95*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*96*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*97*/  , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*98*/  , Clr<BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
-/*99*/  , Clr<BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-			
-/*100*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*101*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*102*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
-/*103*/  , Clr< BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*104*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*105*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*106*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
-/*107*/  , Clr< BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
-//------------------------------------------------------------------------------
-
-
-
-
-/*39*/	, Clr<BrakStrobe2<Thickness>, BorderAbove<Thickness> >
-
-/*40*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness> >
-/*41*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*42*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> > 
-/*43*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> >
-/*44*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>>
-/*45*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>>
-//			
-/*46*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>>
-/*47*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>>
-/*48*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-
-/*49*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>>
-/*50*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>>
-/*51*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*52*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long> >
-/*53*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-/*54*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-/*55*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-			
-/*56*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>>
-/*57*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>>
-/*58*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>>
-/*59*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*60*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>>
-
-/*61*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>>
-/*62*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long> >
-/*63*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-/*64*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>> 
-/*65*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>>
-			
-/*66*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long> >
-/*67*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-/*68*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-/*69*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-/*70*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross> >
-/*71*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-/*72*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-/*73*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
-
-/*74*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, Cancel<Projectionist> >
-/*75*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*76*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long> , Cancel<Projectionist>> 
-/*77*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long> , Cancel<Projectionist>>
-/*78*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*79*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, Cancel<Projectionist>>
-//			
-/*80*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*81*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>
-/*82*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-
-/*83*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*84*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>>
-/*85*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*86*/	, Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, Cancel<Projectionist>>
-/*87*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*88*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, Cancel<Projectionist>> 
-/*89*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-			
-/*90*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*91*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*92*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*93*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*94*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
-
-/*95*/	, Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*96*/	, Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*97*/  , Clr<BrakStrobe2<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*98*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>> 
-/*99*/  , Clr<BrakStrobe2<Thickness>, BorderLower<Thickness>, BorderAbove<Thickness>, BorderKlass2<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-			
-/*100*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, Cancel<Projectionist>>
-/*101*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*102*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
-/*103*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
-/*104*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
-/*105*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
-/*106*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
-/*107*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
-//------------------------------------------------------------------------------
->::Result label_message_list;
+	/*140*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, Cancel<Projectionist>>    
+	/*141*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>>
+	/*142*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, Cancel<Projectionist>>
+	/*143*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>, Cancel<Projectionist>>   
+	/*144*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, Cancel<Projectionist>>      
+	/*145*/  , Clr<BrakStrobe2<Thickness>, BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>, Cancel<Projectionist>> 
+	//------------------------------------------------------------------------------
+	>::Result label_message_list;
 //-------------------------------------------------------------------
 template<class O>struct __status_label__
 {

@@ -86,6 +86,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -100,6 +101,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LargeAddressAware>false</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,13 +113,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)../Defectoscope/Compute;$(ProjectDir)..\..\Common\FFT;$(ProjectDir)..\..Common\Communication;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\ProtocolTCP;$(ProjectDir)..\..\Common\tools;$(ProjectDir)..\Defectoscope\GridData;$(ProjectDir)..\..\Common\Zip;$(ProjectDir)..\Defectoscope\ItemsData;$(ProjectDir)DiffStored;$(ProjectDir)..\Defectoscope\Stored;$(ProjectDir)..\Defectoscope\MessageText;$(ProjectDir)..\..\Common\Filtre;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)..\Defectoscope\Automat;$(ProjectDir)..\Defectoscope\Log;$(ProjectDir)..\..\Common\ArchiveEvents;$(ProjectDir)..\Defectoscope\IOports;$(ProjectDir)..\Defectoscope\Dialogs;$(ProjectDir)..\..\Common\DlgTemplates;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\Graphics;$(ProjectDir)..\..\Common\Ini;$(ProjectDir)..\..\Common\window_tool;$(ProjectDir)DiffWindows;$(ProjectDir)..\Defectoscope\Windows;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\debug_tools;$(ProjectDir);$(ProjectDir)..\Defectoscope\App;$(ProjectDir)..\..\Common\Base</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)../Defectoscope/;$(ProjectDir)..\..\Common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

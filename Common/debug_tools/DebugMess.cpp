@@ -53,7 +53,7 @@ void DebugMess::print(char *c, ...)
 		--i;
 		i &= 0xff;
 		char *b = map->data[i];
-		vsprintf(b, c, (char *)&c + 4);
+		vsprintf(b, c, (char *)&c + sizeof(void *));
 		b[strlen(b)] = '\0';
 		SetEvent(h);
 	}
@@ -116,7 +116,11 @@ class DebugMess::Initialization
 {
 	DebugMess debug;
 public:
-	static DebugMess &Instance(){static Initialization x; return x.debug;}
+	static DebugMess &Instance()
+	{
+		static Initialization x; 
+		return x.debug;
+	}
 };
 DebugMess &debug = DebugMess::Initialization::Instance();
 #endif

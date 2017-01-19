@@ -102,7 +102,7 @@ namespace AppKeyHandler
 
 	void VK_(unsigned id)
 	{
-		TCommand c = {app.mainWindow.hWnd, WM_COMMAND, id, 0, 0, app.mainWindow.toolBar.hWnd};
+		TCommand c(app.mainWindow.hWnd, id, 0, app.mainWindow.toolBar.hWnd);
 		SendMessage(MESSAGE(c));
 	}
 

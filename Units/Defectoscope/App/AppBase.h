@@ -160,36 +160,6 @@ struct ColorTable
 /*8*/	    , Clr<BorderDefect<Cross>>
 /*9*/       , Clr<BrakStrobe2<Thickness>>
 /*10*/      , Clr<Cancel<Projectionist>>
-///*10*/	, Clr<BorderLower<Thickness>, BorderAbove<Thickness>>
-///*11*/	, Clr<BorderDefect<Cross>, BorderAbove<Thickness>>
-///*12*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>>
-///*13*/	, Clr<BorderDefect<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*14*/	, Clr<BorderDefect<Long>, BorderAbove<Thickness>>
-///*15*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>>
-///*16*/	, Clr<BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*17*/	, Clr<BorderDefect<Cross>, BorderDefect<Long> >
-///*18*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderAbove<Thickness>>   
-///*19*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>> 
-///*20*/    , Clr<BorderDefect<Cross>, BorderDefect<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*21*/    , Clr<BorderKlass2<Cross>, BorderAbove<Thickness>>
-///*22*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>>
-///*23*/	, Clr<BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*24*/	, Clr<BorderKlass2<Long>, BorderAbove<Thickness>>
-///*25*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>>
-///*26*/	, Clr<BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*27*/	, Clr<BorderKlass2<Cross>, BorderKlass2<Long> >
-///*28*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>   
-///*29*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>> 
-///*30*/    , Clr<BorderKlass2<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*31*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long> >
-///*32*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderAbove<Thickness>>
-///*33*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>>    
-///*34*/    , Clr<BorderDefect<Cross>, BorderKlass2<Long>, BorderLower<Thickness>, BorderAbove<Thickness>>
-///*35*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross> >
-///*36*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderAbove<Thickness>>   
-///*37*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>>      
-///*38*/    , Clr<BorderDefect<Long>, BorderKlass2<Cross>, BorderLower<Thickness>, BorderAbove<Thickness>> 
-//------------------------------------------------------------------------------
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
