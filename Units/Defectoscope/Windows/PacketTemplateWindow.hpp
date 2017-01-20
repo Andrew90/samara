@@ -37,9 +37,9 @@ public:
 	PacketTemplateWindow();
 	void operator()(TSize &);
 	void operator()(TCommand &);
-	LRESULT operator()(TCreate &);
+	unsigned operator()(TCreate &);
 	void operator()(TDestroy &);
-	LRESULT operator()(TNotify &);
+	unsigned operator()(TNotify &);
 
 	void RClick(int, wchar_t *);
 	void LClick(int, wchar_t *);
@@ -99,7 +99,7 @@ namespace
 	};														   								   
 }
 
-template<class Table, class Col>LRESULT PacketTemplateWindow<Table, Col>::operator()(TCreate &l)
+template<class Table, class Col>unsigned PacketTemplateWindow<Table, Col>::operator()(TCreate &l)
 {
 	typedef TL::MkTlst<	
 		TopMenu<MainFile>	
@@ -135,7 +135,7 @@ template<class Table, class Col>void PacketTemplateWindow<Table, Col>::operator(
 	delete this;	
 }
 
-template<class Table, class Col>LRESULT PacketTemplateWindow<Table, Col>::operator()(TNotify &l)
+template<class Table, class Col>unsigned PacketTemplateWindow<Table, Col>::operator()(TNotify &l)
 {
 	return GridNotify::OwnerNotify(l);
 }
